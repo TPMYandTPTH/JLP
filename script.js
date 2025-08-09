@@ -1,71 +1,109 @@
-// Simple interactivity: language toggle, smooth scroll, intersection animations
+/*
+  Script: creative interactions
+  - imageLinks: paste your remote image URLs here (for hero/gallery/cities)
+  - Uses TPLogo11.png from /images/
+*/
 (function(){
-  const i18n = {
-    ja: {
-      'nav.about':'会社紹介', 'nav.why':'なぜTP', 'nav.cities':'拠点紹介', 'nav.jobs':'募集', 'nav.process':'応募の流れ', 'nav.faq':'FAQ', 'nav.contact':'お問い合わせ',
-      'hero.title':'暮らすように、海外で働く。', 'hero.subtitle':'あなたの新しいキャリアの舞台に、マレーシア・タイという選択を。', 'hero.cta1':'求人を見る', 'hero.cta2':'移住サポートを見る',
-      'about.title':'TP マレーシア・タイ求人情報サイトへようこそ', 'about.p':'TP（Teleperformance）は1978年フランス・パリで創業したグローバルBPO企業です。世界100カ国以上、50万人超の従業員と共に、日本語スピーカー向けの職種をマレーシアとタイで積極採用中です。', 'about.cta':'ご応募はこちら',
-      'why.title':'Why join TP？ / なぜTPか',
-      'cities.title':'マレーシア & タイの拠点 / Cities',
-      'jobs.title':'現在の募集', 'jobs.lead':'Customer Service Representative - Japanese Speaking',
-      'process.title':'Application Process / 応募から入社まで',
-      'faq.title':'FAQ', 'team.title':'採用チーム / Meet the TA Team', 'contact.title':'Contact / お問い合わせ'
-    },
-    en: {
-      'nav.about':'About', 'nav.why':'Why TP', 'nav.cities':'Cities', 'nav.jobs':'Jobs', 'nav.process':'Process', 'nav.faq':'FAQ', 'nav.contact':'Contact',
-      'hero.title':'Live abroad like home.', 'hero.subtitle':'Choose Malaysia or Thailand as your next career stage.', 'hero.cta1':'View Jobs', 'hero.cta2':'Relocation Support',
-      'about.title':'Welcome to TP Malaysia & Thailand Careers', 'about.p':'Teleperformance (TP) is a global BPO founded in Paris, 1978. We operate in 100+ countries and employ 500k+ staff. We are actively hiring Japanese speakers for Malaysia and Thailand.', 'about.cta':'Apply Now',
-      'why.title':'Why join TP?', 'cities.title':'Malaysia & Thailand offices', 'jobs.title':'Current Openings', 'jobs.lead':'Customer Service Representative - Japanese Speaking',
-      'process.title':'Application Process', 'faq.title':'FAQ', 'team.title':'TA Team', 'contact.title':'Contact'
-    }
+  // ====== Configuration ======
+  const imageLinks = {
+    hero: 'images/hero-collage.jpg',
+    gallery: [ 'images/IMG_4192.jpeg', 'images/IMG_4193.jpeg', 'images/IMG_4271.jpeg' ],
+    cities: [
+      {title:'クアラルンプール (KL)', img:'images/kl.jpg'},
+      {title:'ペナン (Penang)', img:'images/penang.jpg'},
+      {title:'バンコク (Bangkok)', img:'images/bangkok.jpg'}
+    ]
   };
 
-  const defaultLang = 'ja';
-  let lang = localStorage.getItem('tp_lang') || defaultLang;
+  // You told me you added picture links — if you want remote links, replace the strings above with full URLs.
 
-  function applyLang(to){
-    document.documentElement.lang = (to === 'ja') ? 'ja' : 'en';
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const key = el.getAttribute('data-i18n');
-      if(i18n[to] && i18n[to][key]){
-        el.innerHTML = i18n[to][key];
-      }
-    });
-    document.getElementById('langToggle').textContent = (to==='ja') ? 'English' : '日本語';
-    localStorage.setItem('tp_lang', to);
+  // ====== Hero background image
+  const heroImg = document.getElementById('heroImage');
+  const heroBg = document.getElementById('heroBg');
+  heroImg.src = imageLinks.hero;
+  heroBg.style.backgroundImage = `url('${imageLinks.hero}')`;
+  heroBg.style.backgroundSize = 'cover';
+  heroBg.style.backgroundPosition = 'center';
+
+  // ====== Gallery injection
+  const gallery = document.getElementById('gallery');
+  imageLinks.gallery.forEach(src =>{
+    const el = document.createElement('img'); el.src = src; el.alt='office'; el.style.width='100%'; el.style.display='block'; el.style.marginBottom='10px'; el.loading='lazy';
+    gallery.appendChild(el);
+  });
+
+  // ====== Cities injection
+  const citiesGrid = document.getElementById('citiesGrid');
+  imageLinks.cities.forEach(c=>{
+    const card = document.createElement('div'); card.className='city';
+    card.innerHTML = `<img src="${c.img}" alt="${c.title}"><div class='meta'><strong>${c.title}</strong></div>`;
+    citiesGrid.appendChild(card);
+  });
+
+  // ====== Benefits carousel (from PPT content)
+  const benefits = [
+    {title:'就労ビザサポート', desc:'会社が就労ビザ申請を代行します。'},
+    {title:'渡航サポート', desc:'片道航空券＋6泊7日ホテル支給（条件あり）。空港送迎あり。'},
+    {title:'キャリア開発', desc:'トレーニングと内部昇進のチャンス。GoFluent等の学習ツールあり。'},
+    {title:'福利厚生', desc:'医療保険・休暇制度・夜勤手当など。'}
+  ];
+  const slides = document.querySelector('.slides');
+  benefits.forEach(b=>{
+    const s = document.createElement('div'); s.className='slide'; s.innerHTML = `<h4>${b.title}</h4><p>${b.desc}</p>`; slides.appendChild(s);
+  });
+  let idx = 0;
+  const slideWidth = 320; // approximate
+  document.getElementById('prev').addEventListener('click', ()=>{ idx = Math.max(0, idx-1); slides.style.transform = `translateX(${-idx * (slideWidth + 12)}px)`});
+  document.getElementById('next').addEventListener('click', ()=>{ idx = Math.min(benefits.length-1, idx+1); slides.style.transform = `translateX(${-idx * (slideWidth + 12)}px)`});
+
+  // Auto-play carousel
+  setInterval(()=>{ idx = (idx+1) % benefits.length; slides.style.transform = `translateX(${-idx * (slideWidth + 12)}px)` }, 5000);
+
+  // ====== Typewriter for hero
+  function typeWriter(node, text, speed=60, cb){
+    node.textContent = '';
+    let i=0; const t = setInterval(()=>{ node.textContent += text.charAt(i); i++; if(i>=text.length){ clearInterval(t); if(cb) cb(); } }, speed);
   }
+  const tw = document.querySelector('.typewriter');
+  // language detection
+  const userLang = navigator.language || navigator.userLanguage;
+  let lang = (userLang && userLang.startsWith('en')) ? 'en' : 'ja';
+  const heroText = (lang==='ja') ? tw.dataset.txtJp : tw.dataset.txtEn;
+  typeWriter(tw, heroText, 70);
 
-  document.getElementById('langToggle').addEventListener('click', ()=>{
-    lang = (lang === 'ja') ? 'en' : 'ja';
-    applyLang(lang);
+  // ====== Language toggle
+  const langBtn = document.getElementById('langBtn');
+  langBtn.addEventListener('click', ()=>{
+    lang = (lang==='ja') ? 'en' : 'ja';
+    // switch small bits (for full i18n you'd expand this)
+    document.documentElement.lang = (lang==='ja') ? 'ja' : 'en';
+    document.querySelectorAll('.eyebrow').forEach(e=> e.textContent = (lang==='ja')? 'TP | Malaysia & Thailand' : 'TP | Malaysia & Thailand');
+    const heroSub = document.querySelector('.hero-sub');
+    heroSub.textContent = (lang==='ja') ? '多国籍な環境と、日本語を活かせる仕事。移住サポートと就労ビザ手続きで初めての海外就職を応援します。' : 'Global, Japanese-speaking roles with relocation & visa support.';
+    // update typewriter
+    const newHero = (lang==='ja') ? tw.dataset.txtJp : tw.dataset.txtEn;
+    typeWriter(tw, newHero, 50);
+    langBtn.textContent = (lang==='ja') ? 'EN' : '日本語';
   });
 
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      const id = this.getAttribute('href');
-      if(id === '#') return;
-      const el = document.querySelector(id);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
-
-  // Intersection Observer for fade-in
+  // ====== Scroll reveal (Intersection Observer)
   const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
-    });
-  }, {threshold:0.12});
-  document.querySelectorAll('.section, .job, .city-card, .member').forEach(el=> io.observe(el));
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  },{threshold:0.12});
+  document.querySelectorAll('.section, .why-card, .city, .slide, .timeline li').forEach(el=> io.observe(el));
 
-  // Contact form demo
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    alert((lang==='ja')? 'お問い合わせありがとうございます。追ってご連絡します。 (デモ)' : 'Thanks for contacting us. We will get back to you. (Demo)');
-    this.reset();
+  // ====== Accordion FAQ
+  document.querySelectorAll('.accordion .q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const a = btn.nextElementSibling; const open = a.style.display === 'block'; document.querySelectorAll('.accordion .a').forEach(x=> x.style.display='none');
+      a.style.display = open? 'none' : 'block';
+    });
   });
 
-  // Apply saved language on load
-  applyLang(lang);
+  // ====== Contact form demo
+  document.getElementById('contactForm').addEventListener('submit', (e)=>{ e.preventDefault(); alert((lang==='ja')? 'お問い合わせを受け付けました（デモ）。追ってご連絡します。' : 'Message received (demo). We will contact you.'); e.target.reset(); });
+
+  // ====== Smooth anchor scrolling for in-page nav
+  document.querySelectorAll('a[href^="#"]').forEach(a=> a.addEventListener('click', (e)=>{ const href=a.getAttribute('href'); if(href.length>1){ e.preventDefault(); document.querySelector(href).scrollIntoView({behavior:'smooth', block:'start'}); } }));
+
 })();
