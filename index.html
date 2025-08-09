@@ -1,188 +1,770 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TP | 日本語の海外就職（マレーシア・タイ）</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="description" content="TP - 日本語スピーカー向けのマレーシア・タイ採用サイト。就労ビザ・移住サポート・キャリア成長をサポートします。">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <meta name="description" content="TP - 日本語スピーカー向けのマレーシア・タイ採用ページ。就労ビザ・移住サポートあり。">
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #111111;
+      --muted:#6b6b6b;
+      --accent: #0057B8; /* TP blue */
+      --card-shadow: 0 10px 30px rgba(15,15,15,0.06);
+      --glass: rgba(255,255,255,0.72);
+      --maxw: 1200px;
+      --radius: 12px;
+      --gap: 24px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:'Noto Sans JP','Inter',system-ui, -apple-system, 'Segoe UI', Roboto; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1.6}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+
+    /* Layout */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px}
+    header.site{
+      position:sticky;top:12px;margin:12px 0 28px;z-index:80;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+      padding:10px 18px;border-radius:16px;box-shadow:var(--card-shadow);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand img{height:46px;width:auto;display:block}
+    .brand .title{font-weight:700;font-size:15px}
+    nav.primary{display:flex;gap:10px;align-items:center}
+    nav.primary a{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px}
+    nav.primary a:hover{background:var(--glass);color:var(--text)}
+    .header-actions{display:flex;gap:10px;align-items:center}
+    .lang-btn{border:1px solid #e6e6e6;padding:8px 10px;border-radius:10px;background:#fff;cursor:pointer}
+    .apply-btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow: 0 6px 18px rgba(0,87,184,0.18)}
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns: 1fr 420px;gap:28px;align-items:center;padding:36px;border-radius:16px;box-shadow:var(--card-shadow);
+      background:linear-gradient(180deg,#fff,#fbfbff);
+      overflow:hidden;margin-bottom:30px;
+    }
+    .eyebrow{color:var(--accent);font-weight:700;font-size:12px;letter-spacing:.08em}
+    h1.hero-title{margin:12px 0;font-size:34px;line-height:1.05}
+    .typewriter{display:inline-block;border-right:2px solid var(--accent);padding-right:6px}
+    p.lead{color:var(--muted);margin:10px 0 18px;max-width:68%}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+    .stat-row{display:flex;gap:18px;margin-top:20px}
+    .stat{background:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 6px 20px rgba(12,12,12,0.03);text-align:center}
+    .stat strong{display:block;font-size:18px;color:var(--text);font-weight:700}
+    .hero-media{justify-self:end}
+    .hero-media .cover{width:420px;height:300px;border-radius:12px;object-fit:cover;box-shadow:var(--card-shadow);overflow:hidden}
+
+    /* Sections */
+    section{margin-bottom:28px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+    .h2{font-size:22px;font-weight:700;margin:0}
+    .h2-sub{color:var(--muted);font-size:13px}
+    .grid{display:grid;gap:var(--gap)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:#fff;border-radius:12px;padding:18px;box-shadow:var(--card-shadow)}
+    .why-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .why-item{padding:18px;border-radius:10px;border:1px solid #f0f0f0;min-height:140px}
+    .cities{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .city{position:relative;border-radius:12px;overflow:hidden;min-height:180px}
+    .city .overlay{position:absolute;left:14px;bottom:14px;background:linear-gradient(90deg,rgba(0,0,0,0.55),rgba(0,0,0,0.25));color:#fff;padding:10px;border-radius:8px}
+    .carousel{position:relative;display:flex;gap:12px;align-items:center}
+    .slides{display:flex;gap:12px;transition:transform .5s ease}
+    .slide{min-width:320px;padding:18px;border-radius:12px;background:#fff;border:1px solid #f3f4f6}
+    .carousel-controls{display:flex;gap:8px;align-items:center}
+    .timeline{padding:0;margin:0;list-style:none}
+    .timeline li{padding:16px 10px;border-left:4px solid transparent;margin-bottom:10px;border-radius:8px;background:linear-gradient(180deg,#fff,#fcfcff);box-shadow:var(--card-shadow)}
+
+    /* Team */
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .member{padding:12px;border-radius:10px;border:1px solid #f0f0f0;text-align:center}
+    .member img{border-radius:10px;height:160px;object-fit:cover;margin-bottom:10px;width:100%}
+    .quote{font-style:italic;color:var(--muted);padding:12px;border-left:3px solid var(--accent);background:#fafafa;border-radius:10px}
+
+    /* FAQ */
+    .accordion .q{width:100%;text-align:left;padding:12px;border-radius:10px;border:1px solid #eee;background:#fff;cursor:pointer;margin-bottom:8px}
+    .accordion .a{display:none;padding:12px;background:#fafafa;border-radius:8px;border-left:3px solid var(--accent)}
+
+    /* Contact */
+    form input, form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin:8px 0}
+    .footer{margin-top:30px;padding:14px 10px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Floating */
+    .floating-apply{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;padding:12px 16px;border-radius:999px;font-weight:700;box-shadow:0 10px 30px rgba(0,87,184,0.18);z-index:90}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr; text-align:center}
+      .hero-media{justify-self:center}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .cities{grid-template-columns:repeat(2,1fr)}
+      .why-list{grid-template-columns:repeat(1,1fr)}
+    }
+    @media (max-width:600px){
+      .team-grid{grid-template-columns:1fr}
+      nav.primary{display:none}
+      .wrap{padding:18px}
+      .brand img{height:38px}
+      .slides{overflow:hidden}
+      .slide{min-width:260px}
+    }
+
+    /* reveal animation */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .6s cubic-bezier(.2,.9,.3,1)}
+    .reveal.in-view{opacity:1;transform:none}
+  </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a href="#home" class="brand">
-        <img src="images/TPLogo11.png" alt="TP Logo" id="tplogo">
+  <div class="wrap">
+    <header class="site" role="banner" aria-label="Top">
+      <a class="brand" href="#home" id="brandLink" title="TP">
+        <img id="logoImg" src="images/TPLogo11.png" alt="TP Logo">
+        <div>
+          <div class="title" data-i18n="brand.title">Teleperformance</div>
+          <div style="font-size:12px;color:var(--muted)" data-i18n="brand.sub">Malaysia · Thailand — 日本語採用</div>
+        </div>
       </a>
-      <nav class="nav">
-        <a href="#about">会社紹介</a>
-        <a href="#why">なぜTP</a>
-        <a href="#cities">拠点</a>
-        <a href="#process">応募の流れ</a>
-        <a href="#faq">FAQ</a>
+      <nav class="primary" role="navigation" aria-label="Primary">
+        <a href="#about" data-i18n="nav.about">会社紹介</a>
+        <a href="#why" data-i18n="nav.why">なぜTP</a>
+        <a href="#cities" data-i18n="nav.cities">拠点</a>
+        <a href="#process" data-i18n="nav.process">応募の流れ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </nav>
-      <div class="controls">
-        <button id="langBtn" class="lang">EN</button>
-        <a class="apply-cta" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank">ご応募はこちら</a>
+      <div class="header-actions">
+        <button class="lang-btn" id="langToggle" aria-live="polite">EN</button>
+        <a class="apply-btn" id="applyTop" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" data-i18n="cta.apply">ご応募はこちら</a>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
     <!-- HERO -->
-    <section id="home" class="hero">
-      <div class="hero-bg" id="heroBg"></div>
-      <div class="container hero-inner">
-        <div class="hero-text">
-          <p class="eyebrow">TP | Malaysia & Thailand</p>
-          <h1 id="heroTitle">暮らすように、<span class="typewriter" data-txt-jp="海外で働く。" data-txt-en="Work abroad like home."></span></h1>
-          <p class="hero-sub">多国籍な環境と、日本語を活かせる仕事。移住サポートと就労ビザ手続きで初めての海外就職を応援します。</p>
-          <div class="hero-actions">
-            <a class="btn primary" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank">求人を見る</a>
-            <a class="btn ghost" href="#process">移住サポートを見る</a>
+    <section class="hero" id="home" aria-label="Hero">
+      <div>
+        <div class="eyebrow" data-i18n="hero.eyebrow">暮らすように、海外で働く。</div>
+        <h1 class="hero-title"><span data-i18n="hero.leading">あなたの新しいキャリアの舞台に、</span> <span class="typewriter" id="heroType" data-txt-jp="マレーシア・タイという選択。" data-txt-en="Malaysia & Thailand."></span></h1>
+        <p class="lead" data-i18n="hero.lead">多国籍な環境と、日本語を活かせる仕事。コストを抑えた快適な暮らしと、就労ビザ／移住サポートで初めての海外就職も安心して始められます。</p>
+        <div class="hero-ctas">
+          <a class="apply-btn" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" data-i18n="cta.jobs">求人を見る</a>
+          <a class="lang-btn" href="#process" data-i18n="cta.support">移住サポートを見る</a>
+        </div>
+
+        <div class="stat-row" style="margin-top:18px">
+          <div class="stat">
+            <strong data-i18n="stat.countries">100+</strong>
+            <span data-i18n="stat.countries_sub">拠点国</span>
           </div>
-          <div class="mini-stats">
-            <div><strong>100+</strong><span>拠点国</span></div>
-            <div><strong>500K</strong><span>従業員</span></div>
-            <div><strong>日本語</strong><span>ポジション多数</span></div>
+          <div class="stat">
+            <strong data-i18n="stat.people">500K+</strong>
+            <span data-i18n="stat.people_sub">従業員</span>
+          </div>
+          <div class="stat">
+            <strong data-i18n="stat.jp_roles">多</strong>
+            <span data-i18n="stat.jp_roles_sub">日本語ポジション</span>
           </div>
         </div>
-        <div class="hero-media">
-          <img id="heroImage" src="images/hero-collage.jpg" alt="KL / Penang collage">
-        </div>
+      </div>
+
+      <div class="hero-media">
+        <img id="heroCover" class="cover" src="images/hero-collage.jpg" alt="KL skyline and local life">
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <div class="container grid about-grid">
-        <div class="about-copy">
-          <h2>TPについて</h2>
-          <p>TP（Teleperformance）は1978年にフランスで設立されたグローバルBPO企業です。世界100カ国以上・50万人超の仲間と共に、日本語を活かしたキャリアをマレーシア・タイで支援します。</p>
+    <!-- ABOUT (detailed from PPT) -->
+    <section id="about" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="h2" data-i18n="about.title">TPについて</h2>
+          <div class="h2-sub" data-i18n="about.subtitle">1978年創業。世界規模で日本語キャリアを支援します。</div>
+        </div>
+      </div>
 
-          <ul class="checklist">
-            <li>就労ビザ全額サポート（申請代行）</li>
-            <li>片道航空券＋6泊7日の宿泊サポート（条件あり）</li>
-            <li>日本語対応の採用チームと現地サポート</li>
+      <div class="card" style="display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start">
+        <div>
+          <p data-i18n="about.p1">
+            TP（Teleperformance）は1978年にフランスで創業したグローバルBPO企業です。世界100カ国以上、50万人を超える従業員とともに、日本語を活かせるキャリアをマレーシア・タイで支援しています。Great Place to Work® 認定など、働きやすさに配慮した環境を提供しています。 
+          </p>
+
+          <ul style="margin:14px 0 8px;padding-left:18px;color:var(--muted)">
+            <li data-i18n="about.b1">就労ビザ（EP）申請のフルサポート（会社負担）</li>
+            <li data-i18n="about.b2">渡航サポート：片道航空券・到着後宿泊・空港送迎</li>
+            <li data-i18n="about.b3">入社前後の生活サポート（住居案内・現地オリエンテーション）</li>
           </ul>
 
-          <a class="btn primary" href="#jobs">募集を見る</a>
+          <p class="quote" data-i18n="about.cta_note">まずはカジュアル面談で不安を解消しましょう（オンライン・日本語対応）。</p>
         </div>
-        <div class="about-media">
-          <div class="card gallery" id="gallery">
-            <!-- images injected by script -->
+
+        <div>
+          <div id="gallery" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <!-- gallery images injected by JS -->
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHY JOIN -->
-    <section id="why" class="section light">
-      <div class="container">
-        <h2>なぜTP？</h2>
-        <div class="grid why-grid">
-          <article class="why-card">
-            <h3>日本語ポジション多数</h3>
-            <p>日本語を中心に始められるポジションが豊富。未経験者・新卒も歓迎。</p>
-          </article>
-          <article class="why-card">
-            <h3>移住サポート</h3>
-            <p>就労ビザ、渡航、住居の初期サポートまでトータルで支援します。</p>
-          </article>
-          <article class="why-card">
-            <h3>キャリアアップ</h3>
-            <p>評価制度と内部異動でトレーナー、リーダー、マネージャーへ昇格可能。</p>
-          </article>
-        </div>
+    <!-- WHY JOIN (detailed points from PPT) -->
+    <section id="why" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="why.title">なぜ TP で働くか</h3>
+        <div class="h2-sub" data-i18n="why.subtitle">安心と成長の両立 — 日本語を活かして海外で働く理由</div>
+      </div>
+
+      <div class="why-list">
+        <!-- JS will populate from translations for exact wording -->
       </div>
     </section>
 
-    <!-- CITIES -->
-    <section id="cities" class="section">
-      <div class="container">
-        <h2>拠点紹介</h2>
-        <div class="cities-grid" id="citiesGrid">
-          <!-- injected by script from imageLinks -->
-        </div>
+    <!-- CITIES (KL, Penang, Bangkok) -->
+    <section id="cities" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="cities.title">拠点紹介（KL・Penang・Bangkok）</h3>
+      </div>
+
+      <div class="cities">
+        <!-- injected by JS -->
       </div>
     </section>
 
-    <!-- BENEFITS CAROUSEL -->
-    <section id="benefits" class="section light">
-      <div class="container">
-        <h2>福利厚生・サポート</h2>
-        <div class="carousel" id="benefitsCarousel">
-          <div class="slides"></div>
-          <div class="controls-carousel">
-            <button id="prev">◀</button>
-            <button id="next">▶</button>
+    <!-- BENEFITS (carousel) -->
+    <section id="benefits" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="benefits.title">福利厚生・サポート（詳）</h3>
+      </div>
+
+      <div class="card">
+        <div class="carousel" aria-hidden="false">
+          <div class="slides" id="slides"></div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <div style="color:var(--muted);font-size:13px" data-i18n="benefits.note">自社トレーニング・GoFluent等の語学ツール、JUMPプログラムでキャリア支援。</div>
+          <div class="carousel-controls">
+            <button id="prev" aria-label="Prev">◀</button>
+            <button id="next" aria-label="Next">▶</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROCESS (timeline) -->
-    <section id="process" class="section">
-      <div class="container">
-        <h2>応募の流れ</h2>
-        <ol class="timeline" id="timeline">
-          <li><strong>Step 1</strong> 書類選考（履歴書・職務経歴書）</li>
-          <li><strong>Step 2</strong> オンラインテスト（日本語・英語）</li>
-          <li><strong>Step 3</strong> 一次面接（採用チーム）</li>
-          <li><strong>Step 4</strong> 二次面接（マネージャー）</li>
-          <li><strong>Step 5</strong> 内定 → ビザ手続き・渡航サポート</li>
+    <!-- COST of LIVING & LIFE -->
+    <section id="life" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="life.title">現地の暮らし（物価・ライフスタイル）</h3>
+      </div>
+      <div class="card">
+        <p data-i18n="life.p1">
+          マレーシアは生活費が比較的安く、同じ収入でもゆとりある暮らしが可能です。高層コンドミニアムはジム・プール付きで、月家賃は場所により大きく差があります（例：RM1,500～2,500）。日本食や日本語対応医療も整っています。 :contentReference[oaicite:5]{index=5}
+        </p>
+        <ul style="margin-top:10px;color:var(--muted)">
+          <li data-i18n="life.item1">週末に近隣諸国へ旅行しやすい立地</li>
+          <li data-i18n="life.item2">多国籍の食文化で外食が楽しめる</li>
+          <li data-i18n="life.item3">日本人コミュニティや日本語サービスが充実</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROCESS (detailed with steps) -->
+    <section id="process" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="process.title">応募から渡航までのプロセス</h3>
+      </div>
+      <div class="card">
+        <ol class="timeline" id="processList" style="margin:0;padding-left:12px">
+          <!-- JS will render with detailed copy from PPT -->
         </ol>
       </div>
     </section>
 
+    <!-- TEAM -->
+    <section id="team" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="team.title">採用チームを紹介</h3>
+        <div class="h2-sub" data-i18n="team.subtitle">日本語で丁寧にサポートします</div>
+      </div>
+
+      <div class="team-grid" id="teamGrid">
+        <!-- JS populates team bios -->
+      </div>
+    </section>
+
     <!-- FAQ -->
-    <section id="faq" class="section light">
-      <div class="container">
-        <h2>よくある質問</h2>
-        <div class="accordion">
-          <div class="item"><button class="q">英語が苦手でも大丈夫ですか？</button><div class="a">はい。日本語対応の採用チームと現地サポートがあるため安心です。</div></div>
-          <div class="item"><button class="q">ビザはどうなりますか？</button><div class="a">就労ビザ（Employment Pass）取得のサポートを会社が行います。家族ビザは個別対応。</div></div>
+    <section id="faq" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="faq.title">よくある質問</h3>
+      </div>
+      <div class="card">
+        <div class="accordion" id="faqList">
+          <!-- JS will create Q&A entries -->
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section">
-      <div class="container grid contact-grid">
+    <section id="contact" class="reveal">
+      <div class="section-head">
+        <h3 class="h2" data-i18n="contact.title">お問い合わせ / カジュアル面談</h3>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start">
+        <form id="contactForm" class="card" aria-label="Contact form">
+          <label for="name" data-i18n="contact.name">お名前</label>
+          <input id="name" required>
+          <label for="email" data-i18n="contact.email">メール</label>
+          <input id="email" type="email" required>
+          <label for="message" data-i18n="contact.message">メッセージ</label>
+          <textarea id="message" rows="5"></textarea>
+          <div style="display:flex;gap:10px;justify-content:flex-start;margin-top:10px">
+            <button class="apply-btn" type="submit" data-i18n="contact.send">送信</button>
+            <a class="lang-btn" href="https://forms.office.com/e/2UvpbweQww" target="_blank" data-i18n="contact.casual">カジュアル面談フォーム</a>
+          </div>
+          <div style="font-size:13px;color:var(--muted);margin-top:10px" data-i18n="contact.note">※ デモ送信 — 実運用はフォームまたはLineへ。</div>
+        </form>
+
         <div>
-          <h2>お問い合わせ / カジュアル面談</h2>
-          <p>LINEやカジュアル面談フォームでお問い合わせください。</p>
-          <p><a href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd" target="_blank">LINE公式アカウント</a></p>
-          <form id="contactForm">
-            <label>お名前</label>
-            <input type="text" id="cname" required>
-            <label>メール</label>
-            <input type="email" id="cemail" required>
-            <label>メッセージ</label>
-            <textarea id="cmsg" rows="4"></textarea>
-            <div style="margin-top:12px"><button class="btn primary" type="submit">送信</button></div>
-            <p class="hint">※ デモ送信（GitHub Pagesのみだとサーバーが必要です）</p>
-          </form>
-        </div>
-        <div>
-          <img src="images/contact-illustration.jpg" alt="Contact" style="width:100%;border-radius:8px">
+          <div class="card" style="text-align:center">
+            <h4 data-i18n="contact.line_title">LINE公式アカウント</h4>
+            <p data-i18n="contact.line_sub">最新求人や生活情報を配信中。気軽に相談してください。</p>
+            <a class="apply-btn" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd" target="_blank" data-i18n="contact.line_btn">LINEで相談する</a>
+            <div style="margin-top:12px"><img id="lineQr" src="images/line-qr.png" alt="LINE QR (if uploaded)" style="max-width:220px;margin:auto"></div>
+          </div>
         </div>
       </div>
     </section>
 
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
+    <div class="footer">
       <div>© Teleperformance — Malaysia & Thailand</div>
-      <div><a href="#">Privacy</a> · <a href="#">Terms</a></div>
+      <div style="font-size:13px;color:var(--muted);margin-top:8px">Content & materials based on internal microsite plan and recruitment brief. :contentReference[oaicite:6]{index=6} :contentReference[oaicite:7]{index=7}</div>
     </div>
-  </footer>
 
-  <a class="floating-apply-mobile" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">ご応募はこちら</a>
+    <a class="floating-apply" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" aria-label="Apply">ご応募はこちら</a>
+  </div>
 
-  <script src="script.js"></script>
+  <script>
+  /************************************************************************
+   * Single-file microsite JS
+   * - i18n translations (JP / EN) - updates all data-i18n elements + dynamic blocks
+   * - hero typewriter
+   * - gallery/cities/team/benefits/process/faq rendering from data
+   * - carousel + autoplay
+   * - reveal on scroll
+   * - logo fallback if missing
+   ************************************************************************/
+
+  (function(){
+    /* -------------------------
+       TRANSLATIONS - add/change text here
+       Keys match data-i18n attributes; arrays for repeated content
+       ------------------------- */
+    const translations = {
+      ja: {
+        'brand.title':'Teleperformance',
+        'brand.sub':'Malaysia · Thailand — 日本語採用',
+        'nav.about':'会社紹介',
+        'nav.why':'なぜTP',
+        'nav.cities':'拠点',
+        'nav.process':'応募の流れ',
+        'nav.faq':'FAQ',
+        'cta.apply':'ご応募はこちら',
+        'cta.jobs':'求人を見る',
+        'cta.support':'移住サポートを見る',
+        'hero.eyebrow':'暮らすように、海外で働く。',
+        'hero.leading':'あなたの新しいキャリアの舞台に、',
+        'hero.lead':'多国籍な環境と、日本語を活かせる仕事。コストを抑えた快適な暮らしと、就労ビザや移住サポートで初めての海外就職も安心して始められます。',
+        'stat.countries':'100+','stat.countries_sub':'拠点国',
+        'stat.people':'500K+','stat.people_sub':'従業員',
+        'stat.jp_roles':'多数','stat.jp_roles_sub':'日本語ポジション',
+        'about.title':'TPについて',
+        'about.subtitle':'1978年創業。世界規模で日本語キャリアを支援します。',
+        'about.p1':'TP（Teleperformance）は1978年にフランスで設立されたグローバルBPO企業です。世界100カ国以上、50万人超の仲間とともに、日本語を活かしたキャリアをマレーシア・タイで支援しています。Great Place to Work® 認定など、働きやすさに配慮した環境を提供しています。',
+        'about.b1':'就労ビザ（Employment Pass）申請のフルサポート（会社負担）。',
+        'about.b2':'渡航サポート：片道航空券・到着後宿泊（6泊7日）・空港送迎。',
+        'about.b3':'入社前後の生活サポート（住居案内・現地オリエンテーション）。',
+        'about.cta_note':'まずはカジュアル面談で不安を解消しましょう（オンライン・日本語対応）。',
+        'why.title':'なぜ TP で働くか',
+        'why.subtitle':'安心と成長の両立 — 日本語を活かして海外で働く理由',
+        'why.points':[
+          {title:'多国籍な学びの場',desc:'世界中の同僚と働き、英語や異文化理解を自然に伸ばせます。'},
+          {title:'日本語ポジション多数',desc:'日本語中心のポジションが豊富で、未経験者も安心して始められます。'},
+          {title:'移住＆ビザサポート',desc:'就労ビザ申請・渡航・初期宿泊・空港送迎までトータルサポート。'},
+          {title:'キャリアアップ',desc:'トレーナー、QA、チームリーダーなど昇進のチャンスが豊富です。'},
+          {title:'福利厚生',desc:'医療保険、休暇制度、夜勤手当、ジム補助などを用意。'},
+          {title:'社内研修と語学支援',desc:'GoFluentやLanguage Bootcamp等、語学学習機会が充実。'},
+          {title:'ワークライフバランス',desc:'都市と自然が近く、週末は旅行やリフレッシュがしやすい環境です。'}
+        ],
+        'cities.title':'拠点紹介（KL・Penang・Bangkok）',
+        'cities':[
+          {title:'クアラルンプール (KL)', img:'images/kl.jpg', desc:'都市の利便性と多国籍文化。日本語対応施設や日本食も充実。'},
+          {title:'ペナン (Penang)', img:'images/penang.jpg', desc:'歴史ある街並みと海に近いリゾート感。静かで生活コストも抑えめ。'},
+          {title:'バンコク (Bangkok)', img:'images/bangkok.jpg', desc:'日本人コミュニティが大きく、生活インフラが整った国際都市。'}
+        ],
+        'benefits.title':'福利厚生・サポート（詳）',
+        'benefits.list':[
+          {title:'就労ビザサポート',desc:'会社が就労ビザ申請を代行します。'},
+          {title:'渡航・宿泊サポート',desc:'片道航空券＋6泊7日の宿泊支援、空港送迎あり。'},
+          {title:'給付・手当',desc:'夜勤手当、住宅補助、時間外手当など（プロジェクトにより異なる）。'},
+          {title:'医療と保険',desc:'医療・歯科・眼科補助、団体保険など安心のケア。'},
+          {title:'キャリア支援',desc:'JUMPプログラムや社内異動で幅広いキャリアを支援。'}
+        ],
+        'benefits.note':'社内トレーニング・語学ツールでキャリアを後押しします。 :contentReference[oaicite:8]{index=8}',
+        'life.title':'現地の暮らし（物価・ライフスタイル）',
+        'life.p1':'マレーシアは生活費が比較的安く、日本より家賃や外食のコストを抑えながらゆとりある暮らしが可能です。日本食や日本語対応医療も整備されています。 :contentReference[oaicite:9]{index=9}',
+        'life.item1':'週末に近隣アジア諸国へ気軽に旅行可能',
+        'life.item2':'多彩な食文化で外食が楽しい',
+        'life.item3':'日本人コミュニティや日本語サービスが整備',
+        'process.title':'応募から渡航までのプロセス',
+        'process.steps':[
+          {step:'Step 1',title:'書類選考',desc:'履歴書・職務経歴書の提出。日本語/英語どちらでも可。'},
+          {step:'Step 2',title:'オンラインテスト',desc:'日本語・英語のスクリーニングおよび業務適性テスト（必要に応じて）。'},
+          {step:'Step 3',title:'一次面接',desc:'採用チームによるオンライン面談（日本語対応）。'},
+          {step:'Step 4',title:'二次面接',desc:'チームマネージャーとの面接（オンライン）。'},
+          {step:'Step 5',title:'内定 → ビザ申請',desc:'オファー後、就労ビザ申請、渡航準備、到着後の宿泊・オリエンテーションをサポート。 :contentReference[oaicite:10]{index=10}'}
+        ],
+        'team.title':'採用チームを紹介',
+        'team.subtitle':'日本語で丁寧にサポートします',
+        'team.list':[
+          {name:'Maya', role:'採用マネージャー', img:'images/maya.jpg', bio:'日本と韓国のバックグラウンドを持ち、10年以上の採用経験。語学と文化の橋渡しを得意とします。 :contentReference[oaicite:11]{index=11}'},
+          {name:'Joseph', role:'シニアマネージャー', img:'images/joseph.jpg', bio:'APACで14年の採用経験を持つシニアマネージャー。候補者に寄り添う採用を行います。 :contentReference[oaicite:12]{index=12}'},
+          {name:'Akito', role:'採用担当', img:'images/akito.jpg', bio:'ホスピタリティ出身。候補者サポートに強みがあります。'},
+          {name:'Maho', role:'Talent Attraction', img:'images/maho.jpg', bio:'新卒から海外就職を成功させた経験を持ち、幅広い候補者支援を実施。'},
+          {name:'Koyori', role:'採用担当', img:'images/koyori.jpg', bio:'ペナン拠点を担当。現地の生活情報に詳しいです。'}
+        ],
+        'faq.title':'よくある質問',
+        'faq.list':[
+          {q:'英語が苦手でも大丈夫ですか？', a:'はい。日本語対応の採用チームと現地サポートがいるため安心してご応募いただけます。'},
+          {q:'ビザは会社がサポートしますか？', a:'はい。就労ビザの取得は会社が申請をサポートします（本人のEP費用は会社負担）。家族のビザは別途費用が発生する場合があります。 :contentReference[oaicite:13]{index=13}'},
+          {q:'未経験でも応募できますか？', a:'未経験・新卒歓迎のポジションもあります。研修とOJTでサポートします。'}
+        ],
+        'contact.title':'お問い合わせ / カジュアル面談',
+        'contact.name':'お名前','contact.email':'メール','contact.message':'メッセージ','contact.send':'送信',
+        'contact.line_title':'LINE公式アカウント','contact.line_sub':'最新求人や現地情報を配信中。','contact.line_btn':'LINEで相談する',
+      },
+      en: {
+        'brand.title':'Teleperformance',
+        'brand.sub':'Malaysia · Thailand — JP recruitment',
+        'nav.about':'About',
+        'nav.why':'Why TP',
+        'nav.cities':'Cities',
+        'nav.process':'Process',
+        'nav.faq':'FAQ',
+        'cta.apply':'Apply Now',
+        'cta.jobs':'View Jobs',
+        'cta.support':'Relocation Support',
+        'hero.eyebrow':'Live abroad like home.',
+        'hero.leading':'Your next career stage —',
+        'hero.lead':'Work in a multicultural environment with many Japanese-speaking roles. We provide visa and relocation support so you can start overseas work with confidence.',
+        'stat.countries':'100+','stat.countries_sub':'countries',
+        'stat.people':'500K+','stat.people_sub':'employees',
+        'stat.jp_roles':'Many','stat.jp_roles_sub':'JP roles',
+        'about.title':'About TP',
+        'about.subtitle':'Established 1978 — Global BPO leader',
+        'about.p1':'Teleperformance (TP) is a global BPO founded in Paris in 1978. Operating in 100+ countries with over 500k employees, TP offers Japanese-speaking opportunities in Malaysia and Thailand and emphasizes employee experience and growth.',
+        'about.b1':'Full support for Employment Pass (work visa) application (company-sponsored).',
+        'about.b2':'Relocation support: one-way ticket, initial hotel (6 nights), and airport pickup.',
+        'about.b3':'Pre- and post-arrival support (housing guidance and local orientation).',
+        'about.cta_note':'Start with a casual chat — online and Japanese support available.',
+        'why.title':'Why work at TP?',
+        'why.subtitle':'Stability & growth — use your Japanese skills abroad',
+        'why.points':[
+          {title:'Global learning environment',desc:'Work with colleagues worldwide and develop language and intercultural skills.'},
+          {title:'Many JP roles',desc:'Plenty of Japanese-focused positions—great for beginners.'},
+          {title:'Relocation & visa support',desc:'End-to-end relocation support including visa processing.'},
+          {title:'Career progression',desc:'Opportunities to become trainer, QA, team leader, or manager.'},
+          {title:'Benefits',desc:'Healthcare, leave policies, shift allowances, and gym support.'},
+          {title:'Training & language',desc:'GoFluent and Language Bootcamp available for skill development.'},
+          {title:'Work-life balance',desc:'Urban convenience and easy weekend travel make life enjoyable.'}
+        ],
+        'cities.title':'Our locations (KL, Penang, Bangkok)',
+        'cities':[
+          {title:'Kuala Lumpur (KL)', img:'images/kl.jpg', desc:'A major international city with strong Japanese services and conveniences.'},
+          {title:'Penang', img:'images/penang.jpg', desc:'Historic island with a relaxed lifestyle and lower living costs.'},
+          {title:'Bangkok', img:'images/bangkok.jpg', desc:'Vibrant international hub with a large Japanese community.'}
+        ],
+        'benefits.title':'Benefits & Support (detailed)',
+        'benefits.list':[
+          {title:'Visa support',desc:'Company assists with Employment Pass application.'},
+          {title:'Relocation',desc:'One-way air ticket + initial hotel (conditions apply) and airport pickup.'},
+          {title:'Compensation & allowances',desc:'Shift allowances, housing support, overtime pay (project dependent).'},
+          {title:'Health & insurance',desc:'Medical and dental assistance and group insurance.'},
+          {title:'Career programs',desc:'Internal mobility and JUMP program for career growth.'}
+        ],
+        'benefits.note':'We support your career with internal training and language tools. :contentReference[oaicite:14]{index=14}',
+        'life.title':'Cost of living & Lifestyle',
+        'life.p1':'Malaysia typically offers lower living costs than Japan—housing, food and transport are often more affordable, enabling a comfortable lifestyle. Japanese food stores and JP-speaking medical services are available. :contentReference[oaicite:15]{index=15}',
+        'life.item1':'Easy short-haul travel to neighboring Asian countries',
+        'life.item2':'Rich and diverse food scene',
+        'life.item3':'Strong Japanese community and JP services',
+        'process.title':'Application & relocation process',
+        'process.steps':[
+          {step:'Step 1',title:'CV screening',desc:'Submit your resume/CV in JP or EN.'},
+          {step:'Step 2',title:'Online tests',desc:'Language and skills screening (as required).'},
+          {step:'Step 3',title:'1st interview',desc:'Recruiter interview (online, JP available).'},
+          {step:'Step 4',title:'2nd interview',desc:'Hiring manager interview.'},
+          {step:'Step 5',title:'Offer & visa',desc:'Offer, visa application, relocation support, and onboarding. :contentReference[oaicite:16]{index=16}'}
+        ],
+        'team.title':'Meet the TA Team',
+        'team.subtitle':'We support you in Japanese',
+        'team.list':[
+          {name:'Maya', role:'Hiring Manager', img:'images/maya.jpg', bio:'Bilingual JP/KR, 10+ years in APAC hiring. Passionate about candidate success. :contentReference[oaicite:17]{index=17}'},
+          {name:'Joseph', role:'Senior Manager', img:'images/joseph.jpg', bio:'14 years in APAC recruitment; focuses on candidate-centric hiring. :contentReference[oaicite:18]{index=18}'},
+          {name:'Akito', role:'Recruiter', img:'images/akito.jpg', bio:'Hospitality background with strong candidate support skills.'},
+          {name:'Maho', role:'Talent Attraction', img:'images/maho.jpg', bio:'Experience in supporting fresh grads for overseas roles.'},
+          {name:'Koyori', role:'Recruiter (Penang)', img:'images/koyori.jpg', bio:'Local Penang expert for daily life and housing guidance.'}
+        ],
+        'faq.title':'FAQ',
+        'faq.list':[
+          {q:'Not confident in English — is it okay?', a:'Yes. Recruiting and local teams provide Japanese support.'},
+          {q:'Will the company support my visa?', a:'Yes — the company manages Employment Pass application (company-sponsored). Family visa costs are usually separate. :contentReference[oaicite:19]{index=19}'},
+          {q:'Can I apply without experience?', a:'Yes — we have positions for new graduates and inexperienced applicants with training available.'}
+        ],
+        'contact.title':'Contact / Casual chat',
+        'contact.name':'Name','contact.email':'Email','contact.message':'Message','contact.send':'Send',
+        'contact.line_title':'Official LINE account','contact.line_sub':'Get job updates and local tips','contact.line_btn':'Chat on LINE'
+      }
+    };
+
+    /* --------- utility: set text for elements with data-i18n --------- */
+    function applyTranslations(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(!key) return;
+        const val = translations[lang][key];
+        if(typeof val === 'string' || typeof val === 'number'){
+          el.innerHTML = val;
+        }
+      });
+      // dynamic blocks:
+      renderWhyList(lang);
+      renderCities(lang);
+      renderBenefits(lang);
+      renderProcess(lang);
+      renderTeam(lang);
+      renderFaq(lang);
+      // update hero typewriter source
+      const heroType = document.getElementById('heroType');
+      heroType.dataset.txtJp = translations.ja['heroType'] || heroType.getAttribute('data-txt-jp') || heroType.dataset.txtJp;
+      heroType.dataset.txtEn = translations.en['heroType'] || heroType.getAttribute('data-txt-en') || heroType.dataset.txtEn;
+    }
+
+    /* --------- Render functions for repeated data --------- */
+    function renderWhyList(lang){
+      const container = document.querySelector('.why-list');
+      container.innerHTML = '';
+      const items = translations[lang]['why.points'];
+      items.forEach(it=>{
+        const div = document.createElement('div');
+        div.className = 'why-item card reveal';
+        div.innerHTML = `<h4 style="margin-top:0">${it.title}</h4><p style="color:var(--muted)">${it.desc}</p>`;
+        container.appendChild(div);
+        observeReveal(div);
+      });
+    }
+
+    function renderCities(lang){
+      const container = document.querySelector('.cities');
+      container.innerHTML = '';
+      const list = translations[lang]['cities'];
+      list.forEach(c=>{
+        const d = document.createElement('div'); d.className='city reveal';
+        d.innerHTML = `<img src="${c.img}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover"><div class="overlay"><strong>${c.title}</strong><div style="font-size:13px;margin-top:6px">${c.desc}</div></div>`;
+        container.appendChild(d);
+        observeReveal(d);
+      });
+    }
+
+    function renderBenefits(lang){
+      const slides = document.getElementById('slides');
+      slides.innerHTML = '';
+      const list = translations[lang]['benefits.list'];
+      list.forEach(b=>{
+        const s = document.createElement('div'); s.className='slide reveal';
+        s.innerHTML = `<h4 style="margin:0 0 8px">${b.title}</h4><p style="color:var(--muted);margin:0">${b.desc}</p>`;
+        slides.appendChild(s);
+        observeReveal(s);
+      });
+    }
+
+    function renderProcess(lang){
+      const list = document.getElementById('processList');
+      list.innerHTML = '';
+      translations[lang]['process.steps'].forEach(step=>{
+        const li = document.createElement('li'); li.className='reveal';
+        li.innerHTML = `<strong>${step.step} — ${step.title}</strong><div style="color:var(--muted);margin-top:6px">${step.desc}</div>`;
+        list.appendChild(li);
+        observeReveal(li);
+      });
+    }
+
+    function renderTeam(lang){
+      const grid = document.getElementById('teamGrid');
+      grid.innerHTML = '';
+      translations[lang]['team.list'].forEach(m=>{
+        const div = document.createElement('div'); div.className='member reveal card';
+        div.innerHTML = `<img src="${m.img}" alt="${m.name}" onerror="this.style.display='none'"><h4 style="margin:6px 0 2px">${m.name}</h4><div style="color:var(--muted);font-size:13px">${m.role || ''}</div><p style="font-size:13px;color:var(--muted);margin-top:8px">${m.bio}</p>`;
+        grid.appendChild(div);
+        observeReveal(div);
+      });
+    }
+
+    function renderFaq(lang){
+      const container = document.getElementById('faqList');
+      container.innerHTML = '';
+      translations[lang]['faq.list'].forEach(q=>{
+        const el = document.createElement('div');
+        el.innerHTML = `<button class="q">${q.q}</button><div class="a">${q.a}</div>`;
+        container.appendChild(el);
+      });
+      // event listeners
+      container.querySelectorAll('.q').forEach(btn=>{
+        btn.addEventListener('click', ()=> {
+          const a = btn.nextElementSibling;
+          const open = a.style.display === 'block';
+          container.querySelectorAll('.a').forEach(x=> x.style.display = 'none');
+          a.style.display = open ? 'none' : 'block';
+        });
+      });
+    }
+
+    /* -------------------------
+       Hero typewriter
+       ------------------------- */
+    function typewriter(node, text, speed=50, cb){
+      node.textContent = '';
+      let i=0;
+      const t = setInterval(()=>{
+        node.textContent += text.charAt(i);
+        i++;
+        if(i>=text.length){
+          clearInterval(t);
+          if(cb) cb();
+        }
+      }, speed);
+    }
+
+    /* -------------------------
+       Carousel (simple)
+       ------------------------- */
+    let carouselIndex = 0;
+    function initCarousel(){
+      const prev = document.getElementById('prev'), next=document.getElementById('next'), slides=document.getElementById('slides');
+      function update(){
+        const width = slides.children[0] ? slides.children[0].offsetWidth + 12 : 320;
+        slides.style.transform = `translateX(${-carouselIndex * width}px)`;
+      }
+      prev.addEventListener('click', ()=>{ carouselIndex = Math.max(0, carouselIndex-1); update(); });
+      next.addEventListener('click', ()=>{ carouselIndex = Math.min(Math.max(0, slides.children.length-1), carouselIndex+1); update(); });
+      // autoplay
+      setInterval(()=>{ carouselIndex = (carouselIndex + 1) % Math.max(1, slides.children.length); update(); }, 4500);
+      window.addEventListener('resize', update);
+    }
+
+    /* -------------------------
+       Reveal on scroll (IntersectionObserver)
+       ------------------------- */
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in-view');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.12});
+    function observeReveal(el){
+      el.classList.add('reveal');
+      io.observe(el);
+    }
+
+    /* -------------------------
+       Logo fallback: if logo fails to load, show textual title
+       ------------------------- */
+    function initLogoFallback(){
+      const logo = document.getElementById('logoImg');
+      logo.addEventListener('error', ()=>{
+        logo.style.display = 'none';
+        const brand = document.getElementById('brandLink');
+        const fallback = document.createElement('div');
+        fallback.innerHTML = '<div style=\"font-weight:800;font-size:18px\">Teleperformance</div><div style=\"font-size:12px;color:var(--muted)\">Malaysia · Thailand</div>';
+        brand.appendChild(fallback);
+      });
+    }
+
+    /* -------------------------
+       Contact form demo
+       ------------------------- */
+    function initContact(){
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        alert((currentLang==='ja') ? `ありがとうございました、${name}さん。お問い合わせを受け付けました（デモ）。` : `Thanks ${name}. Your message was received (demo).`);
+        form.reset();
+      });
+    }
+
+    /* -------------------------
+       Initial setup & language toggle
+       ------------------------- */
+    let currentLang = 'ja';
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('click', ()=>{
+      currentLang = currentLang === 'ja' ? 'en' : 'ja';
+      langToggle.textContent = currentLang === 'ja' ? 'EN' : '日本語';
+      applyTranslations(currentLang);
+      // restart hero typewriter with new text
+      const heroNode = document.getElementById('heroType');
+      const txt = currentLang === 'ja' ? heroNode.getAttribute('data-txt-jp') || heroNode.dataset.txtJp : heroNode.getAttribute('data-txt-en') || heroNode.dataset.txtEn;
+      typewriter(heroNode, txt, 40);
+    });
+
+    /* -------------------------
+       Initialization
+       ------------------------- */
+    function init(){
+      initLogoFallback();
+      applyTranslations(currentLang);
+      // hero typewriter initial
+      const heroNode = document.getElementById('heroType');
+      const initial = (navigator.language && navigator.language.startsWith('en')) ? heroNode.getAttribute('data-txt-en') || heroNode.dataset.txtEn : heroNode.getAttribute('data-txt-jp') || heroNode.dataset.txtJp;
+      typewriter(heroNode, initial, 45);
+      // populate gallery images (from PPT image names; replace with your uploaded files / remote urls)
+      const gallery = document.getElementById('gallery');
+      const galleryImgs = ['images/IMG_4192.jpeg','images/IMG_4193.jpeg','images/IMG_4271.jpeg','images/IMG_4270.jpeg'];
+      galleryImgs.forEach(src=>{
+        const img = document.createElement('img'); img.src = src; img.alt='office photo'; img.style.width='100%'; img.style.borderRadius='8px'; img.style.objectFit='cover'; img.loading='lazy';
+        gallery.appendChild(img);
+      });
+      // default hero image (can be replaced by user)
+      const heroCover = document.getElementById('heroCover');
+      heroCover.addEventListener('error', ()=>{ heroCover.src = 'data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"450\"><rect width=\"100%\" height=\"100%\" fill=\"%23efefef\"/><text x=\"50%\" y=\"50%\" dominant-baseline=\"middle\" text-anchor=\"middle\" fill=\"#888\" font-size=\"20\">Hero image not found</text></svg>'; });
+
+      // initialize carousel and contact handling
+      initCarousel();
+      initContact();
+
+      // slide reveal initial observers for static items
+      document.querySelectorAll('.reveal').forEach(el=> observeReveal(el));
+    }
+
+    // run init after DOM ready
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', init);
+    } else init();
+
+    // Smooth scrolling for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const target = a.getAttribute('href');
+        if(target && target.length>1){
+          e.preventDefault();
+          const el = document.querySelector(target);
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
+
+  })();
+  </script>
 </body>
 </html>
