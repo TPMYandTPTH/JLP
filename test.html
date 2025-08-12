@@ -1,0 +1,1893 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5" />
+  <meta name="description" content="TP Malaysia & Thailand - 日本語を活かした海外就職。安心の移住サポートで新しいキャリアを始めませんか。">
+  <title>TP | 日本語の海外就職（マレーシア・タイ）</title>
+
+  <!-- favicon -->
+  <link rel="icon" href="TPLogo11.png" type="image/png">
+
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0b0b0b;
+      --muted: #6b6b6b;
+      --accent: #0057B8;
+      --accent-2: #E63946;
+      --accent-light: #3A7FD5;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --glass: rgba(255,255,255,0.75);
+      --card-shadow: 0 14px 40px rgba(12,12,12,0.06);
+      --radius: 12px;
+      --maxw: 1200px;
+      --gap: 20px;
+      --sap: 0.06;
+      --site-language: 'ja';
+      --header-height: 70px;
+    }
+
+    /* Reset & base */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+
+    /* Mobile-first container */
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* Enhanced Mobile Header */
+    header.site {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      z-index: 1000;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      height: 60px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+    }
+
+    .header-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      height: 40px;
+      width: auto;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover img {
+      transform: scale(1.05);
+    }
+
+    .brand .title {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .brand .sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(0,87,184,0.2);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(20px);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .mobile-menu-nav a {
+      padding: 16px 20px;
+      background: #fff;
+      border-radius: 12px;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-nav a:active {
+      transform: scale(0.98);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    nav.primary {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    nav.primary a {
+      padding: 8px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    nav.primary a:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,87,184,0.2);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid #e6e6e6;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .apply-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(0,87,184,0.25);
+      transition: all 0.3s ease;
+    }
+
+    .apply-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,87,184,0.35);
+    }
+
+    /* Enhanced Hero Section */
+    .hero {
+      margin-top: var(--header-height);
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0 0 50px 50px;
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1.hero-title {
+      font-size: clamp(28px, 6vw, 48px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 20px 0;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .typewriter {
+      display: inline-block;
+      border-right: 3px solid #fff;
+      padding-right: 8px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .hero-lead {
+      font-size: clamp(14px, 2.5vw, 18px);
+      opacity: 0.95;
+      margin: 20px auto 30px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta-primary {
+      background: #fff;
+      color: var(--accent);
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .hero-cta-primary:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .hero-cta-secondary {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .hero-cta-secondary:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-3px);
+    }
+
+    /* Hero Statistics */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      display: block;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Animated Background Shapes */
+    .hero-shapes {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.3;
+      animation: float-shape 20s ease-in-out infinite;
+    }
+
+    .shape-1 {
+      width: 400px;
+      height: 400px;
+      background: rgba(255,255,255,0.1);
+      top: -200px;
+      right: -200px;
+    }
+
+    .shape-2 {
+      width: 300px;
+      height: 300px;
+      background: rgba(0,87,184,0.2);
+      bottom: -150px;
+      left: -150px;
+      animation-delay: -5s;
+    }
+
+    .shape-3 {
+      width: 250px;
+      height: 250px;
+      background: rgba(230,57,70,0.1);
+      top: 50%;
+      left: 50%;
+      animation-delay: -10s;
+    }
+
+    @keyframes float-shape {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* Enhanced Sections */
+    section {
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
+      margin: 12px 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: clamp(14px, 2vw, 18px);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Feature Cards Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #fff;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,87,184,0.2);
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-desc {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Success Stories Section */
+    .stories-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px 20px;
+    }
+
+    .story-slide {
+      text-align: center;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .story-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      border: 4px solid rgba(255,255,255,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .story-quote {
+      font-size: 18px;
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    .story-author {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .story-role {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .story-nav {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .story-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .story-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+
+    /* Life Balance Section */
+    .balance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .balance-card {
+      background: linear-gradient(135deg, #fff, #f8f9ff);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .balance-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .balance-card:hover::before {
+      opacity: 1;
+    }
+
+    .balance-emoji {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .balance-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .balance-desc {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Interactive Timeline */
+    .timeline-container {
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-light));
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding: 20px 30px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid #fff;
+      box-shadow: 0 4px 10px rgba(0,87,184,0.3);
+      z-index: 2;
+    }
+
+    .timeline-step {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* Culture Gallery */
+    .culture-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .culture-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .culture-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+
+    .culture-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .culture-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .culture-item:hover .culture-overlay {
+      opacity: 1;
+    }
+
+    .culture-text {
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* Calculator Section */
+    .calculator-container {
+      background: linear-gradient(135deg, #fff, #f0f4ff);
+      border-radius: 20px;
+      padding: 40px;
+      margin-top: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .calculator-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .calculator-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .calculator-subtitle {
+      color: var(--muted);
+    }
+
+    .calculator-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .calc-input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calc-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .calc-input {
+      padding: 12px 16px;
+      border: 2px solid #e6e6e6;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    .calc-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0,87,184,0.1);
+    }
+
+    .calc-button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,87,184,0.2);
+      width: 100%;
+    }
+
+    .calc-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0,87,184,0.3);
+    }
+
+    .calc-result {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 20px;
+      border: 2px solid var(--accent);
+      display: none;
+    }
+
+    .calc-result.show {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Interactive Map Section */
+    .map-container {
+      background: #f8f9ff;
+      border-radius: 20px;
+      padding: 40px 20px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .map-cities {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .map-city-btn {
+      padding: 12px 24px;
+      background: #fff;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .map-city-btn:hover,
+    .map-city-btn.active {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,87,184,0.25);
+    }
+
+    .city-info-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      margin-top: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .city-info-card.active {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+
+    /* FAQ Accordion Enhanced */
+    .faq-container {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item.active {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .faq-question {
+      padding: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: #f8f9ff;
+    }
+
+    .faq-icon {
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      color: var(--muted);
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 20px;
+      max-height: 500px;
+    }
+
+    /* Enhanced Footer */
+    footer {
+      background: linear-gradient(135deg, #1a202c, #2d3748);
+      color: #fff;
+      padding: 60px 0 20px;
+      position: relative;
+      margin-top: 80px;
+    }
+
+    .footer-wave {
+      position: absolute;
+      top: -60px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%231a202c' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,144C672,139,768,149,864,170.7C960,192,1056,224,1152,218.7C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: top;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 12px;
+      }
+
+      header.site {
+        height: 60px;
+      }
+
+      header.scrolled {
+        height: 60px;
+      }
+
+      .brand img {
+        height: 32px;
+      }
+
+      .brand .title {
+        font-size: 14px;
+      }
+
+      .brand .sub {
+        display: none;
+      }
+
+      nav.primary {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .header-actions .lang-btn {
+        display: none;
+      }
+
+      .apply-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      .hero {
+        min-height: 500px;
+        padding: 30px 16px;
+        margin-top: 60px;
+        border-radius: 0 0 30px 30px;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-line {
+        left: 20px;
+      }
+
+      .timeline-item {
+        flex-direction: column !important;
+        padding-left: 40px;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .timeline-content {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .balance-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .culture-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .calculator-container {
+        padding: 20px;
+      }
+
+      .map-cities {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .footer-wave {
+        top: -30px;
+        height: 30px;
+      }
+
+      section {
+        margin: 40px 0;
+      }
+    }
+
+    /* Floating Action Button */
+    .fab-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 900;
+    }
+
+    .fab {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,87,184,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 24px;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 40px rgba(0,87,184,0.4);
+    }
+
+    .fab-menu {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fab-menu.active {
+      display: flex;
+    }
+
+    .fab-option {
+      background: #fff;
+      padding: 12px 20px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .fab-option:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      z-index: 1001;
+      transition: width 0.2s ease;
+    }
+
+    /* Loading Animation */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-circle {
+      width: 60px;
+      height: 60px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Accessibility */
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-circle"></div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Header -->
+  <header class="site" id="header">
+    <div class="header-inner">
+      <a href="#home" class="brand">
+        <img src="TPLogo11.png" alt="TP Logo" onerror="this.style.display='none'">
+        <div>
+          <div class="title">TP</div>
+          <div class="sub">Malaysia · Thailand</div>
+        </div>
+      </a>
+
+      <nav class="primary">
+        <a href="#about">会社紹介</a>
+        <a href="#features">特徴</a>
+        <a href="#locations">拠点</a>
+        <a href="#success">成功事例</a>
+        <a href="#process">応募手順</a>
+        <a href="#contact">お問合せ</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lang-btn" id="langToggle">EN</button>
+        <a href="#" class="apply-btn">応募する</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-nav">
+      <a href="#about">会社紹介</a>
+      <a href="#features">特徴</a>
+      <a href="#locations">拠点</a>
+      <a href="#success">成功事例</a>
+      <a href="#process">応募手順</a>
+      <a href="#calculator">給与計算</a>
+      <a href="#balance">ライフバランス</a>
+      <a href="#culture">企業文化</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#contact">お問合せ</a>
+      <button class="lang-btn" style="width: 100%; margin-top: 20px;">English</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">🌏 アジアで輝くキャリアを</div>
+      <h1 class="hero-title">
+        あなたの新しい挑戦を<br>
+        <span class="typewriter" id="typewriter">マレーシア・タイから</span>
+      </h1>
+      <p class="hero-lead">
+        日本語スキルを活かして、グローバルな環境で働きませんか？<br>
+        充実した福利厚生と移住サポートで、安心してスタートできます。
+      </p>
+      
+      <div class="hero-ctas">
+        <a href="#" class="hero-cta-primary">今すぐ応募する</a>
+        <a href="#calculator" class="hero-cta-secondary">給与シミュレーション</a>
+      </div>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">拠点国</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">500K+</span>
+          <span class="stat-label">従業員数</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">45+</span>
+          <span class="stat-label">年の実績</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">ABOUT US</span>
+      <h2 class="section-title">TPについて</h2>
+      <p class="section-subtitle">1978年創業、世界をリードするBPO企業として、日本語人材の海外キャリアを全面サポート</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌍</div>
+        <h3 class="feature-title">グローバルネットワーク</h3>
+        <p class="feature-desc">世界100カ国以上に展開し、50万人以上の従業員が活躍。多様な文化と言語が交差する環境で成長できます。</p>
+      </div>
+      
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎌</div>
+        <h3 class="feature-title">日本語ポジション多数</h3>
+        <p class="feature-desc">カスタマーサポート、予約対応、Eコマースなど、日本語を活かせるポジションが豊富に用意されています。</p>
+      </div>
+      
+      <div class="feature-card reveal">
+        <div class="feature-icon">✈️</div>
+        <h3 class="feature-title">完全移住サポート</h3>
+        <p class="feature-desc">ビザ申請から渡航手配、現地での住居探しまで、専門チームが一貫してサポートします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories Section -->
+  <section id="success" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">SUCCESS STORIES</span>
+      <h2 class="section-title">先輩たちの成功ストーリー</h2>
+      <p class="section-subtitle">TPで新しいキャリアを築いた日本人スタッフの声</p>
+    </div>
+    
+    <div class="stories-carousel">
+      <div class="story-slide">
+        <img src="https://i.pravatar.cc/150?img=1" alt="Avatar" class="story-avatar">
+        <p class="story-quote">"未経験から始めて、今ではチームリーダーとして活躍しています。多国籍な環境で毎日が刺激的です。"</p>
+        <div class="story-author">田中 美咲</div>
+        <div class="story-role">Team Leader, Kuala Lumpur</div>
+      </div>
+      
+      <div class="story-nav">
+        <span class="story-dot active"></span>
+        <span class="story-dot"></span>
+        <span class="story-dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Life Balance Section -->
+  <section id="balance" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">WORK-LIFE BALANCE</span>
+      <h2 class="section-title">理想のワークライフバランス</h2>
+      <p class="section-subtitle">仕事もプライベートも充実させる、新しい生活スタイル</p>
+    </div>
+    
+    <div class="balance-grid">
+      <div class="balance-card reveal">
+        <div class="balance-emoji">🏖️</div>
+        <h3 class="balance-title">週末は近隣国へ</h3>
+        <p class="balance-desc">タイ、シンガポール、ベトナムなど、週末旅行が気軽に楽しめます</p>
+      </div>
+      
+      <div class="balance-card reveal">
+        <div class="balance-emoji">🍜</div>
+        <h3 class="balance-title">多彩な食文化</h3>
+        <p class="balance-desc">現地料理から日本食まで、豊富な選択肢と手頃な価格</p>
+      </div>
+      
+      <div class="balance-card reveal">
+        <div class="balance-emoji">🏢</div>
+        <h3 class="balance-title">快適な住環境</h3>
+        <p class="balance-desc">プール・ジム付きコンドミニアムで充実の生活</p>
+      </div>
+      
+      <div class="balance-card reveal">
+        <div class="balance-emoji">💰</div>
+        <h3 class="balance-title">生活費を抑えて貯金</h3>
+        <p class="balance-desc">日本より低い生活費で、しっかり貯金もできます</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Location Map -->
+  <section id="locations" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">LOCATIONS</span>
+      <h2 class="section-title">勤務地を選ぶ</h2>
+      <p class="section-subtitle">あなたに合った都市で新しい生活を始めましょう</p>
+    </div>
+    
+    <div class="map-container reveal">
+      <div class="map-cities">
+        <button class="map-city-btn active" data-city="kl">クアラルンプール</button>
+        <button class="map-city-btn" data-city="penang">ペナン</button>
+        <button class="map-city-btn" data-city="bangkok">バンコク</button>
+      </div>
+      
+      <div class="city-info-card active" id="kl-info">
+        <h3>クアラルンプール 🏙️</h3>
+        <p>マレーシアの首都。近代的な都市インフラと多文化が融合する国際都市。</p>
+        <ul style="text-align: left; max-width: 400px; margin: 20px auto;">
+          <li>平均家賃: RM 1,800-2,500/月</li>
+          <li>日本人コミュニティ: 大規模</li>
+          <li>日本食レストラン: 300店以上</li>
+          <li>公共交通: MRT/LRT完備</li>
+        </ul>
+      </div>
+      
+      <div class="city-info-card" id="penang-info">
+        <h3>ペナン 🏝️</h3>
+        <p>歴史と自然が調和する世界遺産の街。リラックスした島暮らし。</p>
+        <ul style="text-align: left; max-width: 400px; margin: 20px auto;">
+          <li>平均家賃: RM 1,200-1,800/月</li>
+          <li>ビーチアクセス: 車で15分</li>
+          <li>生活費: KLより20%安い</li>
+          <li>日本人学校: あり</li>
+        </ul>
+      </div>
+      
+      <div class="city-info-card" id="bangkok-info">
+        <h3>バンコク 🛺</h3>
+        <p>東南アジアの中心都市。便利な都市生活と豊かなタイ文化。</p>
+        <ul style="text-align: left; max-width: 400px; margin: 20px auto;">
+          <li>平均家賃: THB 15,000-25,000/月</li>
+          <li>日本人街: スクンビット</li>
+          <li>日本語対応病院: 多数</li>
+          <li>BTS/MRT: 充実</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Salary Calculator -->
+  <section id="calculator" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">CALCULATOR</span>
+      <h2 class="section-title">給与シミュレーター</h2>
+      <p class="section-subtitle">現地での実質手取り額を計算してみましょう</p>
+    </div>
+    
+    <div class="calculator-container reveal">
+      <div class="calculator-inputs">
+        <div class="calc-input-group">
+          <label class="calc-label">基本給（月額）</label>
+          <input type="number" class="calc-input" id="baseSalary" placeholder="例: 7000" value="7000">
+        </div>
+        
+        <div class="calc-input-group">
+          <label class="calc-label">通貨</label>
+          <select class="calc-input" id="currency">
+            <option value="MYR">MYR (マレーシア)</option>
+            <option value="THB">THB (タイ)</option>
+          </select>
+        </div>
+        
+        <div class="calc-input-group">
+          <label class="calc-label">住宅手当</label>
+          <input type="number" class="calc-input" id="housingAllowance" placeholder="例: 1000" value="1000">
+        </div>
+      </div>
+      
+      <button class="calc-button" onclick="calculateSalary()">計算する</button>
+      
+      <div class="calc-result" id="calcResult">
+        <h3>計算結果</h3>
+        <div id="resultContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Culture Gallery -->
+  <section id="culture" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">CULTURE</span>
+      <h2 class="section-title">企業文化</h2>
+      <p class="section-subtitle">多様性を尊重し、成長を支援する環境</p>
+    </div>
+    
+    <div class="culture-gallery">
+      <div class="culture-item reveal">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400" alt="Team">
+        <div class="culture-overlay">
+          <span class="culture-text">チームワーク重視</span>
+        </div>
+      </div>
+      
+      <div class="culture-item reveal">
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400" alt="Meeting">
+        <div class="culture-overlay">
+          <span class="culture-text">グローバル環境</span>
+        </div>
+      </div>
+      
+      <div class="culture-item reveal">
+        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400" alt="Office">
+        <div class="culture-overlay">
+          <span class="culture-text">快適なオフィス</span>
+        </div>
+      </div>
+      
+      <div class="culture-item reveal">
+        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=400" alt="Training">
+        <div class="culture-overlay">
+          <span class="culture-text">充実した研修</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Process Timeline -->
+  <section id="process" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">PROCESS</span>
+      <h2 class="section-title">応募から渡航まで</h2>
+      <p class="section-subtitle">スムーズな転職を実現する5つのステップ</p>
+    </div>
+    
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <span class="timeline-step">STEP 1</span>
+          <h3>書類選考</h3>
+          <p>履歴書・職務経歴書を提出。日本語/英語どちらでも可能です。</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <span class="timeline-step">STEP 2</span>
+          <h3>オンライン面接</h3>
+          <p>日本語での面接。リラックスして臨んでください。</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <span class="timeline-step">STEP 3</span>
+          <h3>内定・ビザ申請</h3>
+          <p>内定後、会社がビザ申請を全面サポートします。</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <span class="timeline-step">STEP 4</span>
+          <h3>渡航準備</h3>
+          <p>航空券手配、初期宿泊先の提供など、きめ細かくサポート。</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <span class="timeline-step">STEP 5</span>
+          <h3>現地オリエンテーション</h3>
+          <p>到着後の生活セットアップから仕事開始まで丁寧にご案内。</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">よくある質問</h2>
+      <p class="section-subtitle">不安や疑問にお答えします</p>
+    </div>
+    
+    <div class="faq-container">
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          英語が苦手でも大丈夫ですか？
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          はい、大丈夫です。日本語での業務が中心で、英語は基礎レベルから徐々に身につけられます。社内研修やGoFluent等の語学支援ツールも充実しています。
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          ビザの手続きは複雑ですか？
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          ご安心ください。ビザ申請は会社の専門チームが全面的にサポートします。必要書類の準備から申請まで、日本語で丁寧にご案内いたします。
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          未経験でも応募できますか？
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          はい、未経験者も歓迎です。充実した研修プログラムとOJTで、しっかりとスキルを身につけることができます。多くの先輩が未経験からキャリアをスタートしています。
+        </div>
+      </div>
+      
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          現地の医療事情は？
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          マレーシア・タイともに日本語対応可能な病院が複数あります。会社の医療保険でカバーされるため、安心して医療を受けることができます。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="wrap">
+    <div class="section-header reveal">
+      <span class="section-badge">CONTACT</span>
+      <h2 class="section-title">お問い合わせ</h2>
+      <p class="section-subtitle">まずはお気軽にご相談ください</p>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 800px; margin: 0 auto;">
+      <div class="feature-card reveal">
+        <div class="feature-icon">📧</div>
+        <h3 class="feature-title">メールで相談</h3>
+        <p class="feature-desc">recruit@tp-malaysia.com</p>
+        <a href="mailto:recruit@tp-malaysia.com" class="calc-button" style="margin-top: 20px;">メールを送る</a>
+      </div>
+      
+      <div class="feature-card reveal">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">LINEで相談</h3>
+        <p class="feature-desc">最新求人情報も配信中</p>
+        <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" class="calc-button" style="margin-top: 20px;">LINEを開く</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-wave"></div>
+    <div class="wrap" style="text-align: center; padding: 40px 20px;">
+      <h3 style="margin-bottom: 20px;">TP Malaysia & Thailand</h3>
+      <p style="opacity: 0.8; margin-bottom: 30px;">
+        © 2025 TP. All Rights Reserved.<br>
+        あなたの新しいキャリアストーリーをここから始めましょう
+      </p>
+      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+        <a href="#" style="opacity: 0.8; transition: opacity 0.3s;">プライバシーポリシー</a>
+        <a href="#" style="opacity: 0.8; transition: opacity 0.3s;">利用規約</a>
+        <a href="#" style="opacity: 0.8; transition: opacity 0.3s;">採用情報</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Action Button -->
+  <div class="fab-container">
+    <div class="fab-menu" id="fabMenu">
+      <a href="#" class="fab-option">📞 今すぐ電話</a>
+      <a href="#" class="fab-option">💬 LINEで相談</a>
+      <a href="#" class="fab-option">📧 メール問合せ</a>
+    </div>
+    <div class="fab" id="fab">💬</div>
+  </div>
+
+  <script>
+    // Page Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 500);
+    });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / scrollHeight) * 100;
+      scrollProgress.style.width = scrolled + '%';
+
+      // Header scroll effect
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      mobileMenuBtn.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        mobileMenuBtn.textContent = '☰';
+      });
+    });
+
+    // Typewriter Effect
+    const typewriterElement = document.getElementById('typewriter');
+    const texts = ['マレーシア・タイから', '新しい挑戦を', 'グローバルに成長'];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typewrite() {
+      const currentText = texts[textIndex];
+      
+      if (isDeleting) {
+        typewriterElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriterElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true;
+        setTimeout(typewrite, 2000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        setTimeout(typewrite, 500);
+      } else {
+        setTimeout(typewrite, isDeleting ? 50 : 100);
+      }
+    }
+
+    typewrite();
+
+    // Reveal on Scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Location Map Interaction
+    const cityBtns = document.querySelectorAll('.map-city-btn');
+    const cityInfoCards = document.querySelectorAll('.city-info-card');
+
+    cityBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const city = btn.dataset.city;
+        
+        cityBtns.forEach(b => b.classList.remove('active'));
+        cityInfoCards.forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(`${city}-info`).classList.add('active');
+      });
+    });
+
+    // Salary Calculator
+    function calculateSalary() {
+      const baseSalary = parseFloat(document.getElementById('baseSalary').value) || 0;
+      const currency = document.getElementById('currency').value;
+      const housingAllowance = parseFloat(document.getElementById('housingAllowance').value) || 0;
+      
+      const total = baseSalary + housingAllowance;
+      const tax = total * 0.15; // Simplified tax calculation
+      const netSalary = total - tax;
+      
+      const exchangeRate = currency === 'MYR' ? 27 : 3.3; // JPY exchange rates
+      const netSalaryJPY = netSalary * exchangeRate;
+      
+      const resultContent = document.getElementById('resultContent');
+      resultContent.innerHTML = `
+        <div style="display: grid; gap: 15px;">
+          <div style="display: flex; justify-content: space-between; padding: 10px; background: #f8f9ff; border-radius: 8px;">
+            <span>総支給額:</span>
+            <strong>${total.toLocaleString()} ${currency}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 10px; background: #f8f9ff; border-radius: 8px;">
+            <span>推定税金:</span>
+            <strong>-${tax.toLocaleString()} ${currency}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 10px; background: #e8f4ff; border-radius: 8px; font-size: 18px;">
+            <span>手取り額:</span>
+            <strong>${netSalary.toLocaleString()} ${currency}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 10px; background: #fff3cd; border-radius: 8px;">
+            <span>日本円換算:</span>
+            <strong>約 ${Math.round(netSalaryJPY).toLocaleString()} 円</strong>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('calcResult').classList.add('show');
+    }
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // FAB Menu
+    const fab = document.getElementById('fab');
+    const fabMenu = document.getElementById('fabMenu');
+    
+    fab.addEventListener('click', () => {
+      fabMenu.classList.toggle('active');
+      fab.textContent = fabMenu.classList.contains('active') ? '✕' : '💬';
+    });
+
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Language Toggle (Simplified for demo)
+    document.getElementById('langToggle').addEventListener('click', function() {
+      this.textContent = this.textContent === 'EN' ? '日本語' : 'EN';
+      // In production, this would trigger full translation
+    });
+  </script>
+</body>
+</html>
