@@ -607,3 +607,219 @@ form .hint { font-size: 12px; color: var(--muted); }
 .icon-card:hover .icon img {
   transform: scale(1.08);
 }
+/* ==========================================================================
+   ✦ Enhancement Pack (Desktop polish, JP-friendly motifs, subtle motion)
+   Append at end of styles.css
+   ========================================================================== */
+
+/* 1) Typography polish for JP/EN */
+:root {
+  --letter-tight: -0.01em;
+}
+body {
+  letter-spacing: var(--letter-tight);
+  font-feature-settings: "palt" 1, "pkna" 1; /* Optical kerning for JP */
+}
+
+/* 2) Section header micro-accent (mizuhiki underline) */
+.section-head .h2 {
+  position: relative;
+  padding-bottom: 6px;
+}
+.section-head .h2::after{
+  content:"";
+  position:absolute; left:0; bottom:0;
+  width:84px; height:3px; border-radius:3px;
+  background: currentColor;
+  opacity:.08;
+}
+.section-head .h2-sub{ letter-spacing:.02em }
+
+/* 3) Hero: delicate “asanoha” (麻の葉) pattern overlay (very subtle) */
+.hero {
+  isolation:isolate;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  opacity:.06;
+  background-image:
+    radial-gradient(circle at 1px 1px, #111 1px, transparent 1px),
+    radial-gradient(circle at 9px 9px, #111 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px;
+  mix-blend-mode: multiply;
+}
+.hero .inner{ position:relative; z-index:1 }
+
+/* 4) Cards: “quiet luxury” hover + border accent */
+.card{
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+}
+.card:hover{
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color:#e7ecf2;
+}
+
+/* 5) Shoji-style grid background helper (use as wrapper if needed) */
+.shoji{
+  background-image:
+    linear-gradient(transparent 95%, rgba(0,0,0,.03) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(0,0,0,.03) 95%);
+  background-size: 22px 22px, 22px 22px;
+}
+
+/* 6) Pill chips for tags/badges */
+.chips{ display:flex; flex-wrap:wrap; gap:8px }
+.chip{
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid var(--line); border-radius:999px;
+  padding:6px 10px; font-weight:800; font-size:12px; background:#fff;
+}
+.chip .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent) }
+
+/* 7) Photo frames: keep it elegant even with placeholders */
+.photo-frame{
+  position:relative; border-radius:12px; overflow:hidden;
+  border:1px solid var(--line); background:#fff;
+}
+.photo-frame img{ width:100%; height:100%; object-fit:cover; display:block }
+.photo-frame::after{
+  /* subtle vignette to make titles readable on top of photos */
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.06) 100%);
+}
+
+/* 8) Icon grid polish (priority & secondary) */
+.icon-grid{
+  gap:18px;
+}
+.icon-card{
+  display:grid; grid-template-rows: auto auto auto;
+  align-items:start; justify-items:center;
+  gap:10px; padding:14px;
+  border:1px solid var(--line); border-radius:12px; background:#fff;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.icon-card:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color:#e9eef4;
+}
+.icon-card .icon{
+  display:grid; place-items:center;
+  width:min(84px, 12vw); height:min(84px, 12vw);
+  max-width:88px; max-height:88px; min-width:52px; min-height:52px;
+}
+.icon-card .icon img,
+.icon-card .icon svg{
+  width:80%; height:80%; object-fit:contain;
+}
+.icon-card .title{
+  font-weight:900; text-align:center;
+  font-size:clamp(14px, 1.4vw, 16px); line-height:1.28;
+}
+.icon-card .desc{
+  color:var(--muted); text-align:center;
+  font-size:clamp(12px, 1.2vw, 14px);
+}
+
+/* Priority section slightly larger icons */
+.icon-grid.priority .icon-card .icon{
+  width:min(92px, 13vw); height:min(92px, 13vw);
+  max-width:96px; max-height:96px;
+}
+
+/* 9) Subtle animated underline for links (clean, modern) */
+a.u-underline{
+  position:relative;
+}
+a.u-underline::after{
+  content:""; position:absolute; left:0; bottom:-2px; height:2px;
+  width:0; background: currentColor; opacity:.18; transition: width .18s ease;
+}
+a.u-underline:hover::after{ width:100% }
+
+/* 10) Section dividers that don’t feel heavy */
+section + section{
+  scroll-margin-top: 90px;
+}
+section .divider{
+  height:1px; width:100%; background:var(--line); margin:14px 0;
+}
+
+/* 11) CTA bar (mobile) slight glassy effect */
+.apply-bar{
+  background: rgba(255,255,255,.98);
+  backdrop-filter: blur(6px);
+}
+
+/* 12) Minimal parallax hint for city cards (no JS) */
+.city{
+  perspective: 800px;
+}
+.city img{
+  transform: translateZ(0);
+  transition: transform .35s ease, filter .2s ease;
+}
+.city:hover img{
+  transform: scale(1.03) translateZ(0);
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* 13) Focus styles unify */
+:where(button, a, .btn):focus-visible{
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+/* 14) Decorative corner mark for certain cards (set .jp-accent on card) */
+.jp-accent{
+  position:relative;
+}
+.jp-accent::before{
+  content:""; position:absolute; right:0; top:0;
+  width: 26px; height: 26px;
+  background:
+    linear-gradient(135deg, transparent 48%, var(--accent) 48% 52%, transparent 52%);
+  opacity:.08;
+}
+
+/* 15) Placeholder treatment: show TP logo if image has no src or fails (CSS helper class) */
+.placeholder{
+  display:grid; place-items:center; background:#fff;
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
+}
+.placeholder::before{
+  content:"";
+  width:72px; height:72px; opacity:.22;
+  background: url('TPLogo11.png') center/contain no-repeat;
+}
+
+/* 16) Subtle scroll reveal variants (compatible with your .reveal) */
+.reveal.fade-up{ transform: translateY(14px); opacity:0 }
+.reveal.fade-up.in{ transform:none; opacity:1 }
+.reveal.fade-in{ opacity:0 }
+.reveal.fade-in.in{ opacity:1; transition-duration:.5s }
+
+/* 17) Desktop spacing tune to feel more “composed” */
+@media (min-width: 1025px){
+  .wrap{ padding-inline: 28px }
+  section{ margin-top: 34px }
+  .grid.cols-3{ gap: 22px }
+}
+
+/* 18) Better hero media on very wide screens */
+@media (min-width: 1360px){
+  .hero .inner{ grid-template-columns: 1.05fr 480px }
+  .hero-media img{ width:480px; height:340px }
+}
+
+/* 19) Monochrome-to-color on hover for culture photos */
+.culture img{
+  filter: saturate(0) contrast(1.05);
+  transition: filter .25s ease;
+}
+.culture:hover img{
+  filter: saturate(1) contrast(1.02);
+}
