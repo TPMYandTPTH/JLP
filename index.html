@@ -23,28 +23,28 @@
   <!-- =========================================================
        Header
   ========================================================== -->
-  <header class="site-header" role="banner">
+  <header class="site site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="index.html" aria-label="TP ホーム">
-        <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" />
+        <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" width="44" height="44" />
         <div class="brand-text">
           <div class="t" data-i18n="brand.title">TP</div>
           <div class="s" data-i18n="brand.sub">Malaysia · Thailand — 日本語採用</div>
         </div>
       </a>
 
-      <nav class="site-nav" aria-label="Primary">
+      <nav class="site-nav primary" aria-label="Primary">
         <a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人</a>
         <a href="relocation-visa.html" data-i18n="nav.relocation">移住・ビザ</a>
         <a href="why-malaysia-thailand.html" data-i18n="nav.why">マレーシア・タイの魅力</a>
         <a href="faq.html" data-i18n="nav.faq">FAQ</a>
         <a class="btn primary" target="_blank"
            href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
-           data-i18n="cta.apply">ご応募はこちら</a>
+           data-i18n="cta.apply" rel="noopener">ご応募はこちら</a>
       </nav>
 
       <div class="header-actions">
-        <button id="langToggle" class="btn ghost" aria-live="polite" data-i18n-static="EN">EN</button>
+        <button id="langToggle" class="btn ghost lang-btn" aria-live="polite" data-i18n-static="EN">EN</button>
         <button id="menuOpen" class="hamburger" aria-label="メニューを開く" aria-controls="drawer" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -54,7 +54,7 @@
 
   <!-- Drawer (mobile) -->
   <div id="scrim" class="scrim" hidden></div>
-  <aside id="drawer" class="drawer" aria-hidden="true">
+  <aside id="drawer" class="drawer" aria-hidden="true" aria-label="モバイルメニュー">
     <header class="drawer-head">
       <strong>TP</strong>
       <button id="menuClose" class="btn ghost" aria-label="メニューを閉じる">✕</button>
@@ -74,7 +74,7 @@
     <div class="drawer-foot">
       <a class="btn primary" target="_blank"
          href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
-         data-i18n="cta.apply">ご応募はこちら</a>
+         data-i18n="cta.apply" rel="noopener">ご応募はこちら</a>
     </div>
   </aside>
 
@@ -106,36 +106,31 @@
           </ul>
         </div>
         <div class="hero-media">
-          <!-- Use a culture-familiar visual (e.g., 和柄の抽象、桜、富士×ツインタワーのコラージュ風写真) -->
-          <img src="assets/hero/kl-sakura.jpg" alt="KL と桜のモチーフ" />
+          <!-- Cultural-friendly visual with fallback -->
+          <img src="assets/hero/kl-sakura.jpg"
+               alt="KL と桜のモチーフ"
+               width="880" height="640"
+               loading="eager" fetchpriority="high"
+               onerror="this.src='TPLogo11.png'; this.alt='TP ロゴプレースホルダー';" />
         </div>
       </div>
     </section>
 
     <!-- =========================================================
          Priority Icons (9)
-         - About
-         - Jobs + Salary&Benefits
-         - Relocation & Visa
-         - Interview Process
-         - Why MY & TH
-         - Casual Interview
-         - Testimonials
-         - Office & Virtual Tour
-         - Career Growth + Language
     ========================================================== -->
-    <section class="icon-grid priority">
+    <section class="icon-grid priority" aria-labelledby="priority-title">
       <div class="container">
         <div class="section-head">
-          <h2 class="h2" data-i18n="priority.title">優先メニュー</h2>
+          <h2 id="priority-title" class="h2" data-i18n="priority.title">優先メニュー</h2>
           <p class="h2-sub" data-i18n="priority.sub">よく見る項目をすぐに開けます</p>
         </div>
 
-        <div class="grid grid-3 grid-2-md grid-1-sm">
+        <!-- Add CSS-compatible grid classes without removing your originals -->
+        <div class="grid grid-3 grid-2-md grid-1-sm cols-3">
           <!-- 1 About -->
           <a class="icon-card" href="about.html">
             <span class="icon">
-              <!-- info circle -->
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm0 8.5a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zM11 11.75h2V18h-2v-6.25z"/></svg>
             </span>
             <span class="meta">
@@ -147,8 +142,7 @@
           <!-- 2 Jobs + Salary & Benefits -->
           <a class="icon-card" href="jobs-and-benefits.html">
             <span class="icon">
-              <!-- briefcase -->
-              <svg viewBox="0 0 24 24"><path d="M9 3h6a2 2 0 0 1 2 2v1h3a2 2 0 0 1 2 2v3H1V8a2 2 0 0 1 2-2h3V5a2 2 0 0 1 2-2Zm6 3V5H9v1h6ZM1 12h22v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-6Zm10 2v2h2v-2h-2Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6a2 2 0 0 1 2 2v1h3a2 2 0 0 1 2 2v3H1V8a2 2 0 0 1 2-2h3V5a2 2 0 0 1 2-2Zm6 3V5H9v1h6ZM1 12h22v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-6Zm10 2v2h2v-2h-2Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.jobs.t">求人を見る</span>
@@ -159,8 +153,7 @@
           <!-- 3 Relocation & Visa -->
           <a class="icon-card" href="relocation-visa.html">
             <span class="icon">
-              <!-- airplane -->
-              <svg viewBox="0 0 24 24"><path d="M2.5 19.5 21 12 2.5 4.5 2 9l10 3-10 3 .5 4.5Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 19.5 21 12 2.5 4.5 2 9l10 3-10 3 .5 4.5Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.relo.t">移住・ビザサポート</span>
@@ -171,8 +164,7 @@
           <!-- 4 Interview Process -->
           <a class="icon-card" href="interview-process.html">
             <span class="icon">
-              <!-- checklist -->
-              <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3Zm0 4h12v2H3V7Zm0 4h18v2H3v-2Zm0 4h12v2H3v-2Zm0 4h18v2H3v-2Z"/><path d="m17.5 9 1.8 1.8L22 8.1l1.4 1.4-3.1 3.1-3.2-3.2L17.5 9Z" opacity=".4"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h18v2H3V3Zm0 4h12v2H3V7Zm0 4h18v2H3v-2Zm0 4h12v2H3v-2Zm0 4h18v2H3v-2Z"/><path d="m17.5 9 1.8 1.8L22 8.1l1.4 1.4-3.1 3.1-3.2-3.2L17.5 9Z" opacity=".4"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.process.t">面接プロセス</span>
@@ -183,8 +175,7 @@
           <!-- 5 Why Malaysia & Thailand -->
           <a class="icon-card" href="why-malaysia-thailand.html">
             <span class="icon">
-              <!-- globe -->
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c2.8 0 5.2 1.5 6.6 3.8H5.4C6.8 5.5 9.2 4 12 4ZM4.1 10h15.8c.1.7.1 1.3 0 2H4.1a8.05 8.05 0 0 1 0-2ZM5.4 16.2h13.2A8.01 8.01 0 0 1 12 20c-2.8 0-5.2-1.5-6.6-3.8Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c2.8 0 5.2 1.5 6.6 3.8H5.4C6.8 5.5 9.2 4 12 4ZM4.1 10h15.8c.1.7.1 1.3 0 2H4.1a8.05 8.05 0 0 1 0-2ZM5.4 16.2h13.2A8.01 8.01 0 0 1 12 20c-2.8 0-5.2-1.5-6.6-3.8Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.why.t">マレーシア・タイの魅力</span>
@@ -195,8 +186,7 @@
           <!-- 6 Casual Interview -->
           <a class="icon-card" href="casual-interview.html">
             <span class="icon">
-              <!-- chat -->
-              <svg viewBox="0 0 24 24"><path d="M3 5h18v10H7l-4 4V5Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v10H7l-4 4V5Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.casual.t">カジュアル面談</span>
@@ -207,8 +197,7 @@
           <!-- 7 Testimonials -->
           <a class="icon-card" href="testimonials.html">
             <span class="icon">
-              <!-- quote -->
-              <svg viewBox="0 0 24 24"><path d="M9 5H5v6h4v8H1V9l4-4h4v0Zm14 0h-4v6h4v8h-8V9l4-4h4Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H5v6h4v8H1V9l4-4h4v0Zm14 0h-4v6h4v8h-8V9l4-4h4Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.testimonials.t">社員の声</span>
@@ -219,8 +208,7 @@
           <!-- 8 Office & Virtual Tour -->
           <a class="icon-card" href="office-environment.html">
             <span class="icon">
-              <!-- building -->
-              <svg viewBox="0 0 24 24"><path d="M3 21V3h12v6h6v12H3Zm6-2h2v-2H9v2Zm-4 0h2v-2H5v2Zm0-4h2v-2H5v2Zm4 0h2v-2H9v2Zm4 4h2v-2h-2v2Zm0-4h2v-2h-2v2Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V3h12v6h6v12H3Zm6-2h2v-2H9v2Zm-4 0h2v-2H5v2Zm0-4h2v-2H5v2Zm4 0h2v-2H9v2Zm4 4h2v-2h-2v2Zm0-4h2v-2h-2v2Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.office.t">働く環境</span>
@@ -231,8 +219,7 @@
           <!-- 9 Career Growth + Language -->
           <a class="icon-card" href="career-growth.html">
             <span class="icon">
-              <!-- upward arrow -->
-              <svg viewBox="0 0 24 24"><path d="M4 20V10l5 5 6-6 5 5v6H4Z"/><path d="M15 4h5v5h-2V7.4l-2.8 2.8-1.4-1.4L16.6 6H15V4Z" opacity=".4"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10l5 5 6-6 5 5v6H4Z"/><path d="M15 4h5v5h-2V7.4l-2.8 2.8-1.4-1.4L16.6 6H15V4Z" opacity=".4"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="prio.career.t">キャリアパス・昇進</span>
@@ -245,27 +232,20 @@
 
     <!-- =========================================================
          Secondary Icons (7)
-         - Cost of Living + Daily Life
-         - TA Team
-         - Area Around Office
-         - Blog / Articles
-         - LINE Updates
-         - Culture & Events
-         - FAQ
     ========================================================== -->
-    <section class="icon-grid secondary">
+    <section class="icon-grid secondary" aria-labelledby="secondary-title">
       <div class="container">
         <div class="section-head">
-          <h2 class="h2" data-i18n="secondary.title">サブメニュー</h2>
+          <h2 id="secondary-title" class="h2" data-i18n="secondary.title">サブメニュー</h2>
           <p class="h2-sub" data-i18n="secondary.sub">生活情報・カルチャー・サポート</p>
         </div>
 
-        <div class="grid grid-4 grid-2-md grid-1-sm">
+        <!-- Keep your classes and add CSS-friendly cols-4 -->
+        <div class="grid grid-4 grid-2-md grid-1-sm cols-4">
           <!-- 1 Cost of Living + Daily Life -->
           <a class="icon-card" href="cost-of-living.html">
             <span class="icon">
-              <!-- wallet -->
-              <svg viewBox="0 0 24 24"><path d="M2 7h18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2V7Zm2-3h14v2H4V4Zm14 8h4v4h-4v-4Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7h18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2V7Zm2-3h14v2H4V4Zm14 8h4v4h-4v-4Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.cost.t">生活コスト</span>
@@ -276,8 +256,7 @@
           <!-- 2 TA Team -->
           <a class="icon-card" href="ta-team.html">
             <span class="icon">
-              <!-- users -->
-              <svg viewBox="0 0 24 24"><path d="M7 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm10 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM2 20a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1H2v-1Zm10 0a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1h-10v-1Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm10 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM2 20a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1H2v-1Zm10 0a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1h-10v-1Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.team.t">採用チーム紹介</span>
@@ -288,8 +267,7 @@
           <!-- 3 Area Around Office -->
           <a class="icon-card" href="area-around-office.html">
             <span class="icon">
-              <!-- map pin -->
-              <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7Zm0 9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7Zm0 9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.area.t">周辺環境</span>
@@ -300,8 +278,7 @@
           <!-- 4 Blog / Articles -->
           <a class="icon-card" href="blog.html">
             <span class="icon">
-              <!-- newspaper -->
-              <svg viewBox="0 0 24 24"><path d="M3 5h16a2 2 0 0 1 2 2v11a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V5Zm2 3v10a1 1 0 0 0 2 0V8H5Zm4 0h9v2H9V8Zm0 4h9v2H9v-2Zm0 4h9v2H9v-2Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h16a2 2 0 0 1 2 2v11a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V5Zm2 3v10a1 1 0 0 0 2 0V8H5Zm4 0h9v2H9V8Zm0 4h9v2H9v-2Zm0 4h9v2H9v-2Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.blog.t">ブログ・コラム</span>
@@ -312,8 +289,7 @@
           <!-- 5 LINE Updates -->
           <a class="icon-card" href="line.html">
             <span class="icon">
-              <!-- chat bubble -->
-              <svg viewBox="0 0 24 24"><path d="M2 6a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-7l-5 4v-4H6a4 4 0 0 1-4-4V6Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-7l-5 4v-4H6a4 4 0 0 1-4-4V6Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.line.t">LINE公式アカウント</span>
@@ -324,8 +300,7 @@
           <!-- 6 Culture & Events -->
           <a class="icon-card" href="culture-events.html">
             <span class="icon">
-              <!-- sparkles -->
-              <svg viewBox="0 0 24 24"><path d="M12 2 9 8l-6 3 6 3 3 6 3-6 6-3-6-3-3-6Zm8 11 2 3-3 2 3 2-2 3-2-3-3-2 3-2 2-3ZM4 13l1 2-2 1 2 1-1 2-1-2-2-1 2-1 1-2Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 9 8l-6 3 6 3 3 6 3-6 6-3-6-3-3-6Zm8 11 2 3-3 2 3 2-2 3-2-3-3-2 3-2 2-3ZM4 13l1 2-2 1 2 1-1 2-1-2-2-1 2-1 1-2Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.culture.t">イベント・カルチャー</span>
@@ -336,8 +311,7 @@
           <!-- 7 FAQ -->
           <a class="icon-card" href="faq.html">
             <span class="icon">
-              <!-- help circle -->
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 15h-2v-2h2v2Zm2.1-7.6c-.2 1.1-1 1.7-1.8 2.2-.5.3-.8.6-.8 1.4V13h-2v-.9c0-1.3.6-2 .9-2.3.6-.5 1.4-.9 1.4-1.6 0-.7-.6-1.2-1.4-1.2-.8 0-1.4.5-1.5 1.4H7c.1-2 1.7-3.1 3.7-3.1s3.6 1.1 3.4 2.8Z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 15h-2v-2h2v2Zm2.1-7.6c-.2 1.1-1 1.7-1.8 2.2-.5.3-.8.6-.8 1.4V13h-2v-.9c0-1.3.6-2 .9-2.3.6-.5 1.4-.9 1.4-1.6 0-.7-.6-1.2-1.4-1.2-.8 0-1.4.5-1.5 1.4H7c.1-2 1.7-3.1 3.7-3.1s3.6 1.1 3.4 2.8Z"/></svg>
             </span>
             <span class="meta">
               <span class="title" data-i18n="sec.faq.t">FAQ・よくある質問</span>
@@ -350,13 +324,26 @@
 
     <!-- =========================================================
          Cultural strip (subtle, JP-friendly visuals)
+         (Decorative; safe to leave blank images — CSS can paint motifs)
     ========================================================== -->
     <section class="culture-strip" aria-hidden="true">
       <div class="container culture-inner">
-        <div class="motif sakura"></div>
-        <div class="motif seigaiha"></div>
-        <div class="motif asanoha"></div>
-        <div class="motif fuji"></div>
+        <div class="motif sakura">
+          <img src="assets/motif/sakura.png" alt="" loading="lazy"
+               onerror="this.src='TPLogo11.png';" />
+        </div>
+        <div class="motif seigaiha">
+          <img src="assets/motif/seigaiha.png" alt="" loading="lazy"
+               onerror="this.src='TPLogo11.png';" />
+        </div>
+        <div class="motif asanoha">
+          <img src="assets/motif/asanoha.png" alt="" loading="lazy"
+               onerror="this.src='TPLogo11.png';" />
+        </div>
+        <div class="motif fuji">
+          <img src="assets/motif/fuji.png" alt="" loading="lazy"
+               onerror="this.src='TPLogo11.png';" />
+        </div>
       </div>
     </section>
 
@@ -366,7 +353,7 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p class="copy">© <span id="year"></span> TP — Malaysia & Thailand</p>
-        <ul class="footer-links">
+        <ul class="footer-links" role="list">
           <li><a href="about.html" data-i18n="footer.about">会社紹介</a></li>
           <li><a href="privacy.html" data-i18n="footer.privacy">プライバシー</a></li>
           <li><a href="contact.html" data-i18n="footer.contact">お問い合わせ</a></li>
@@ -379,11 +366,11 @@
       <a class="btn ghost" href="faq.html" data-i18n="bar.faq">FAQ</a>
       <a class="btn primary" target="_blank"
          href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
-         data-i18n="cta.apply">ご応募はこちら</a>
+         data-i18n="cta.apply" rel="noopener">ご応募はこちら</a>
     </div>
 
     <!-- Back-to-top -->
-    <a id="toTop" class="btn ghost to-top" href="#main" aria-label="トップへ">▲</a>
+    <a id="toTop" class="btn ghost to-top" href="#main" aria-label="トップへ">▲ Top</a>
   </main>
 
   <noscript>
