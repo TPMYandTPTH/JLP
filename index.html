@@ -16,56 +16,16 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="TPLogo11.png" />
   <meta property="og:locale" content="ja_JP" />
-  <style>
-    /* Page-only refinements (keep light; main lives in styles.css) */
-    .hero .inner { align-items: stretch; }
-    .hero-media .hero-photo {
-      width: 100%; height: 100%; min-height: 280px; object-fit: cover;
-      border-radius: 14px; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
-    }
-    .icon-card[data-kind="photo"] .icon {
-      background: #fff;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      display: grid; place-items: center;
-    }
-    .icon-card[data-kind="photo"] .icon img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    /* make icon chips visually smaller by default on home */
-    .icon-grid .icon { aspect-ratio: 1/1; width: 72px; max-width: 72px; }
-    .icon-grid.priority .icon { width: 78px; max-width: 78px; }
-    .icon-grid.secondary .icon { width: 64px; max-width: 64px; }
-    @media (max-width: 820px){
-      .icon-grid .icon { width: 56px; max-width: 56px; }
-      .icon-grid.priority .icon { width: 62px; max-width: 62px; }
-      .icon-grid.secondary .icon { width: 52px; max-width: 52px; }
-    }
-    /* subtle card hover */
-    .icon-card:hover { transform: translateY(-2px); transition: transform .18s ease; }
-    .icon-card { border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; background: #fff; }
-    .icon-card .meta .title { font-weight: 900; }
-    .icon-card .meta .desc { color: var(--muted); font-size: 13px; }
-    .section-head .hint { color: #748091; font-size: 12px; }
-    .home-feature {
-      display: grid; gap: var(--gap);
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .home-feature .card figure { margin:0; }
-    .home-feature .card img { height: 140px; width: 100%; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
-    @media (max-width: 1024px){ .home-feature{ grid-template-columns: 1fr; } }
-  </style>
 </head>
 <body>
   <a class="visually-hidden" href="#main">メインへスキップ</a>
 
   <!-- =========================================================
-       Header  (keeps IDs/classes your app.js/styles.css expect)
+       Header (IDs aligned with app.js)
   ========================================================== -->
   <header class="site" role="banner">
     <a class="brand" href="index.html" aria-label="TP ホーム">
-      <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" id="logoImg" />
+      <img id="logoImg" src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" />
       <div class="brand-text">
         <div class="t" data-i18n="brand.title">TP</div>
         <div class="s" data-i18n="brand.sub">Malaysia · Thailand — 日本語採用</div>
@@ -74,17 +34,17 @@
 
     <nav class="primary" aria-label="Primary">
       <a href="about.html" data-i18n="nav.about">会社紹介</a>
-      <a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人</a>
+      <a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人・福利厚生</a>
       <a href="relocation-visa.html" data-i18n="nav.relocation">移住・ビザ</a>
       <a href="why-malaysia-thailand.html" data-i18n="nav.why">マレーシア・タイの魅力</a>
       <a href="faq.html" data-i18n="nav.faq">FAQ</a>
-      <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
-         data-i18n="cta.apply">ご応募はこちら</a>
     </nav>
 
     <div class="actions">
-      <button id="langBtn" class="btn lang-btn" aria-live="polite">EN</button>
+      <button id="langBtn" class="btn ghost" aria-live="polite">EN</button>
+      <a class="btn primary" target="_blank"
+         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+         data-i18n="cta.apply">ご応募はこちら</a>
       <button id="menuBtn" class="hamburger" aria-label="メニューを開く" aria-controls="drawer" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -94,11 +54,11 @@
   <!-- Drawer (mobile) -->
   <div id="scrim" class="scrim" aria-hidden="true"></div>
   <aside id="drawer" class="drawer" aria-hidden="true">
-    <header class="drawer-head">
+    <header class="drawer-head" style="padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between">
       <strong>TP</strong>
       <button id="closeDrawer" class="btn ghost" aria-label="メニューを閉じる">✕</button>
     </header>
-    <nav class="drawer-nav" aria-label="Mobile">
+    <nav class="drawer-nav" aria-label="Mobile" style="display:flex;flex-direction:column;padding:10px">
       <a href="about.html" class="d-link" data-i18n="drawer.about">会社紹介</a>
       <a href="jobs-and-benefits.html" class="d-link" data-i18n="drawer.jobs">求人・給与/福利厚生</a>
       <a href="relocation-visa.html" class="d-link" data-i18n="drawer.relocation">移住・ビザ</a>
@@ -110,36 +70,32 @@
       <a href="career-growth.html" class="d-link" data-i18n="drawer.career">キャリア・語学</a>
       <a href="faq.html" class="d-link" data-i18n="drawer.faq">FAQ</a>
     </nav>
-    <div class="drawer-foot">
+    <div class="drawer-foot" style="margin-top:auto;padding:12px;border-top:1px solid var(--line)">
       <a class="btn primary" target="_blank"
          href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
     </div>
   </aside>
 
-  <main id="main" class="wrap">
+  <main id="main">
     <!-- =========================================================
          Hero
     ========================================================== -->
-    <section class="hero">
+    <section id="home" class="hero">
       <div class="inner">
         <div class="hero-copy">
           <div class="eyebrow" data-i18n="hero.eyebrow">暮らすように、海外で働く。</div>
           <h1 class="hero-title">
             <span data-i18n="hero.leading">あなたの新しいキャリアの舞台に、</span>
-            <span id="heroType" class="typewriter"
-                  data-jp='["マレーシア・タイという選択。","グローバルなキャリア。","安心の移住サポート。"]'
-                  data-en='["Malaysia & Thailand.","Global career opportunities.","Trusted relocation support."]'></span>
+            <span class="typewriter" id="heroType"></span>
           </h1>
           <p class="lead" data-i18n="hero.lead">
             多国籍な環境と、日本語を活かせる仕事。就労ビザ／移住サポートで海外就職も安心。
           </p>
-
           <div class="hero-ctas">
             <a class="btn primary" href="jobs-and-benefits.html" data-i18n="cta.viewJobs">求人を見る</a>
             <a class="btn ghost" href="relocation-visa.html" data-i18n="cta.relocation">移住サポート</a>
           </div>
-
           <ul class="stats" aria-label="Company stats">
             <li class="stat"><strong>100+</strong><span data-i18n="stat.countries">拠点国</span></li>
             <li class="stat"><strong>500K+</strong><span data-i18n="stat.people">従業員</span></li>
@@ -147,230 +103,268 @@
           </ul>
         </div>
         <div class="hero-media">
-          <!-- Japanese-flavored, modern city vibe (Unsplash) -->
-          <img
-            id="heroCover"
-            class="hero-photo"
-            src="https://images.unsplash.com/photo-1491557345352-5929e343eb89?q=80&w=1600&auto=format&fit=crop"
-            alt="モダンな都市と和を感じる雰囲気"
-            onerror="this.src='TPLogo11.png'"/>
+          <!-- Culture-friendly, JP-compatible photo; fallback to TPLogo11 -->
+          <img id="heroCover"
+               src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1400&fit=crop&auto=format"
+               alt="KL skyline with warm tone" onerror="this.src='TPLogo11.png'">
         </div>
       </div>
     </section>
 
     <!-- =========================================================
-         Priority Icons (9) — photo chips (smaller)
+         NEW: Priority Icon Gallery (3×3 photo tiles)
+         - Picture tiles in framed boxes
+         - Title below the picture
+         - Subtle connector background
     ========================================================== -->
-    <section class="icon-grid priority">
+    <section id="priority-gallery" class="icon-gallery">
       <div class="section-head">
-        <h2 class="h2" data-i18n="priority.title">優先メニュー</h2>
-        <p class="h2-sub" data-i18n="priority.sub">よく見る項目をすぐに開けます <span class="hint">（写真は雰囲気イメージ）</span></p>
+        <h2 class="h2" data-i18n="priority.gallery.title">優先メニュー（見やすいギャラリー）</h2>
+        <p class="h2-sub" data-i18n="priority.gallery.sub">9つの主要トピックをタイルで表示</p>
       </div>
 
-      <div class="grid grid-3 grid-2-md grid-1-sm">
-        <!-- About TP -->
-        <a class="icon-card" href="about.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="About TP" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.about.t">About TP / テレパフォーマンスとは</span>
-            <span class="desc" data-i18n="prio.about.d">グローバルBPO／働く文化</span>
-          </span>
-        </a>
+      <ul class="icon-matrix">
+        <!-- 1 About -->
+        <li class="tile">
+          <a class="tile-link" href="about.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="About TP" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.about.t">About TP</div>
+              <div class="tile-sub" data-i18n="prio.about.d">テレパフォーマンスとは</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Jobs + Salary & Benefits -->
-        <a class="icon-card" href="jobs-and-benefits.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="Jobs" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.jobs.t">求人を見る</span>
-            <span class="desc" data-i18n="prio.jobs.d">給与・福利厚生の詳細</span>
-          </span>
-        </a>
+        <!-- 2 Jobs + Benefits -->
+        <li class="tile">
+          <a class="tile-link" href="jobs-and-benefits.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="Jobs & Benefits" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.jobs.t">求人を見る</div>
+              <div class="tile-sub" data-i18n="prio.jobs.d">給与・福利厚生</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Relocation & Visa -->
-        <a class="icon-card" href="relocation-visa.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1502920917128-1aa500764ce7?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="Relocation & Visa" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.relo.t">移住・ビザサポート</span>
-            <span class="desc" data-i18n="prio.relo.d">EP申請・渡航・初期宿泊</span>
-          </span>
-        </a>
+        <!-- 3 Relocation & Visa -->
+        <li class="tile">
+          <a class="tile-link" href="relocation-visa.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1502920917128-1aa500764ce7?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="Relocation & Visa" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.relo.t">移住・ビザサポート</div>
+              <div class="tile-sub" data-i18n="prio.relo.d">EP申請・渡航・初期宿泊</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Interview Process -->
-        <a class="icon-card" href="interview-process.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="Interview Process" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.process.t">面接プロセス</span>
-            <span class="desc" data-i18n="prio.process.d">オンラインでスムーズ</span>
-          </span>
-        </a>
+        <!-- 4 Interview Process -->
+        <li class="tile">
+          <a class="tile-link" href="interview-process.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="Interview Process" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.process.t">面接プロセス</div>
+              <div class="tile-sub" data-i18n="prio.process.d">オンラインで完結</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Why Malaysia & Thailand -->
-        <a class="icon-card" href="why-malaysia-thailand.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="Malaysia & Thailand" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.why.t">マレーシア・タイの魅力</span>
-            <span class="desc" data-i18n="prio.why.d">暮らし・文化・旅のハブ</span>
-          </span>
-        </a>
+        <!-- 5 Why MY & TH -->
+        <li class="tile">
+          <a class="tile-link" href="why-malaysia-thailand.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="Why Malaysia & Thailand" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.why.t">マレーシア・タイの魅力</div>
+              <div class="tile-sub" data-i18n="prio.why.d">暮らし・文化・旅のハブ</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Casual Interview -->
-        <a class="icon-card" href="casual-interview.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="Casual Interview" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.casual.t">カジュアル面談</span>
-            <span class="desc" data-i18n="prio.casual.d">まずは気軽に相談</span>
-          </span>
-        </a>
+        <!-- 6 Casual Interview -->
+        <li class="tile">
+          <a class="tile-link" href="casual-interview.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="Casual Interview" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.casual.t">カジュアル面談</div>
+              <div class="tile-sub" data-i18n="prio.casual.d">まずは気軽に相談</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Testimonials & Stories -->
-        <a class="icon-card" href="testimonials.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="社員の声" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.testimonials.t">社員の声</span>
-            <span class="desc" data-i18n="prio.testimonials.d">体験談・インタビュー</span>
-          </span>
-        </a>
+        <!-- 7 Testimonials -->
+        <li class="tile">
+          <a class="tile-link" href="testimonials.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="社員の声" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.testimonials.t">社員の声</div>
+              <div class="tile-sub" data-i18n="prio.testimonials.d">体験談・インタビュー</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Office & Virtual Tour -->
-        <a class="icon-card" href="office-environment.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="オフィス & ツアー" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-        <span class="meta">
-            <span class="title" data-i18n="prio.office.t">働く環境</span>
-            <span class="desc" data-i18n="prio.office.d">オフィス & バーチャルツアー</span>
-          </span>
-        </a>
+        <!-- 8 Office & Tour -->
+        <li class="tile">
+          <a class="tile-link" href="office-environment.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="オフィス & ツアー" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.office.t">働く環境</div>
+              <div class="tile-sub" data-i18n="prio.office.d">オフィス&バーチャルツアー</div>
+            </div>
+          </a>
+        </li>
 
-        <!-- Career Growth + Language -->
-        <a class="icon-card" href="career-growth.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="キャリア成長" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="prio.career.t">キャリアパス・昇進</span>
-            <span class="desc" data-i18n="prio.career.d">語学/研修（GoFluent等）</span>
-          </span>
-        </a>
-      </div>
+        <!-- 9 Career Growth -->
+        <li class="tile">
+          <a class="tile-link" href="career-growth.html">
+            <figure class="tile-figure">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&h=800&fit=crop&auto=format"
+                   alt="キャリア成長" loading="lazy" onerror="this.src='TPLogo11.png'">
+            </figure>
+            <div class="tile-caption">
+              <div class="tile-title" data-i18n="prio.career.t">キャリアパス・昇進</div>
+              <div class="tile-sub" data-i18n="prio.career.d">語学/研修（GoFluent等）</div>
+            </div>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <!-- =========================================================
-         Secondary Icons (7) — photo chips (smaller)
+         (LEGACY) Original Priority Icons (kept for reference)
+         NOTE: Kept to honor “don’t delete”; comment to avoid double UI.
+    ========================================================== -->
+    <!--
+    <section class="icon-grid priority">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2" data-i18n="priority.title">優先メニュー</h2>
+          <p class="h2-sub" data-i18n="priority.sub">よく見る項目をすぐに開けます</p>
+        </div>
+        <div class="grid grid-3 grid-2-md grid-1-sm">
+          ... your original 9 icon-card links (SVG icons) ...
+        </div>
+      </div>
+    </section>
+    -->
+
+    <!-- =========================================================
+         Secondary Icons (7) — unchanged
     ========================================================== -->
     <section class="icon-grid secondary">
-      <div class="section-head">
-        <h2 class="h2" data-i18n="secondary.title">サブメニュー</h2>
-        <p class="h2-sub" data-i18n="secondary.sub">生活情報・カルチャー・サポート</p>
-      </div>
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2" data-i18n="secondary.title">サブメニュー</h2>
+          <p class="h2-sub" data-i18n="secondary.sub">生活情報・カルチャー・サポート</p>
+        </div>
 
-      <div class="grid grid-4 grid-2-md grid-1-sm">
-        <!-- Cost of Living + Daily Life -->
-        <a class="icon-card" href="cost-of-living.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="生活コスト" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.cost.t">生活コスト</span>
-            <span class="desc" data-i18n="sec.cost.d">食事・交通・住まい</span>
-          </span>
-        </a>
+        <div class="grid grid-4 grid-2-md grid-1-sm">
+          <!-- 1 Cost of Living + Daily Life -->
+          <a class="icon-card" href="cost-of-living.html">
+            <span class="icon">
+              <!-- wallet -->
+              <svg viewBox="0 0 24 24"><path d="M2 7h18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2V7Zm2-3h14v2H4V4Zm14 8h4v4h-4v-4Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.cost.t">生活コスト</span>
+              <span class="desc" data-i18n="sec.cost.d">食事・交通・住まい</span>
+            </span>
+          </a>
 
-        <!-- TA Team -->
-        <a class="icon-card" href="ta-team.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="採用チーム" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.team.t">採用チーム紹介</span>
-            <span class="desc" data-i18n="sec.team.d">Meet the TA Team</span>
-          </span>
-        </a>
+          <!-- 2 TA Team -->
+          <a class="icon-card" href="ta-team.html">
+            <span class="icon">
+              <!-- users -->
+              <svg viewBox="0 0 24 24"><path d="M7 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm10 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM2 20a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1H2v-1Zm10 0a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1h-10v-1Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.team.t">採用チーム紹介</span>
+              <span class="desc" data-i18n="sec.team.d">Meet the TA Team</span>
+            </span>
+          </a>
 
-        <!-- Area Around Office -->
-        <a class="icon-card" href="area-around-office.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="周辺環境" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.area.t">周辺環境</span>
-            <span class="desc" data-i18n="sec.area.d">オフィス周りの便利情報</span>
-          </span>
-        </a>
+          <!-- 3 Area Around Office -->
+          <a class="icon-card" href="area-around-office.html">
+            <span class="icon">
+              <!-- map pin -->
+              <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7Zm0 9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.area.t">周辺環境</span>
+              <span class="desc" data-i18n="sec.area.d">オフィス周りの便利情報</span>
+            </span>
+          </a>
 
-        <!-- Blog / Articles -->
-        <a class="icon-card" href="blog.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="ブログ・コラム" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.blog.t">ブログ・コラム</span>
-            <span class="desc" data-i18n="sec.blog.d">役立つ読み物</span>
-          </span>
-        </a>
+          <!-- 4 Blog / Articles -->
+          <a class="icon-card" href="blog.html">
+            <span class="icon">
+              <!-- newspaper -->
+              <svg viewBox="0 0 24 24"><path d="M3 5h16a2 2 0 0 1 2 2v11a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V5Zm2 3v10a1 1 0 0 0 2 0V8H5Zm4 0h9v2H9V8Zm0 4h9v2H9v-2Zm0 4h9v2H9v-2Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.blog.t">ブログ・コラム</span>
+              <span class="desc" data-i18n="sec.blog.d">役立つ読み物</span>
+            </span>
+          </a>
 
-        <!-- LINE Updates -->
-        <a class="icon-card" href="line.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="LINE公式" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.line.t">LINE公式アカウント</span>
-            <span class="desc" data-i18n="sec.line.d">最新情報を受け取る</span>
-          </span>
-        </a>
+          <!-- 5 LINE Updates -->
+          <a class="icon-card" href="line.html">
+            <span class="icon">
+              <!-- chat bubble -->
+              <svg viewBox="0 0 24 24"><path d="M2 6a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-7l-5 4v-4H6a4 4 0 0 1-4-4V6Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.line.t">LINE公式アカウント</span>
+              <span class="desc" data-i18n="sec.line.d">最新情報を受け取る</span>
+            </span>
+          </a>
 
-        <!-- Culture & Events -->
-        <a class="icon-card" href="culture-events.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1520975682039-a6c67e65a3a1?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="カルチャー & イベント" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.culture.t">イベント・カルチャー</span>
-            <span class="desc" data-i18n="sec.culture.d">社内コミュニティ</span>
-          </span>
-        </a>
+          <!-- 6 Culture & Events -->
+          <a class="icon-card" href="culture-events.html">
+            <span class="icon">
+              <!-- sparkles -->
+              <svg viewBox="0 0 24 24"><path d="M12 2 9 8l-6 3 6 3 3 6 3-6 6-3-6-3-3-6Zm8 11 2 3-3 2 3 2-2 3-2-3-3-2 3-2 2-3ZM4 13l1 2-2 1 2 1-1 2-1-2-2-1 2-1 1-2Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.culture.t">イベント・カルチャー</span>
+              <span class="desc" data-i18n="sec.culture.d">社内コミュニティ</span>
+            </span>
+          </a>
 
-        <!-- FAQ -->
-        <a class="icon-card" href="faq.html" data-kind="photo" data-size="sm">
-          <span class="icon">
-            <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=300&h=300&fit=crop&auto=format"
-                 alt="FAQ" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </span>
-          <span class="meta">
-            <span class="title" data-i18n="sec.faq.t">FAQ・よくある質問</span>
-            <span class="desc" data-i18n="sec.faq.d">応募・生活・ビザ</span>
-          </span>
-        </a>
+          <!-- 7 FAQ -->
+          <a class="icon-card" href="faq.html">
+            <span class="icon">
+              <!-- help circle -->
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 15h-2v-2h2v2Zm2.1-7.6c-.2 1.1-1 1.7-1.8 2.2-.5.3-.8.6-.8 1.4V13h-2v-.9c0-1.3.6-2 .9-2.3.6-.5 1.4-.9 1.4-1.6 0-.7-.6-1.2-1.4-1.2-.8 0-1.4.5-1.5 1.4H7c.1-2 1.7-3.1 3.7-3.1s3.6 1.1 3.4 2.8Z"/></svg>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.faq.t">FAQ・よくある質問</span>
+              <span class="desc" data-i18n="sec.faq.d">応募・生活・ビザ</span>
+            </span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -378,7 +372,7 @@
          Cultural strip (subtle, JP-friendly visuals)
     ========================================================== -->
     <section class="culture-strip" aria-hidden="true">
-      <div class="culture-inner">
+      <div class="container culture-inner">
         <div class="motif sakura"></div>
         <div class="motif seigaiha"></div>
         <div class="motif asanoha"></div>
@@ -387,43 +381,28 @@
     </section>
 
     <!-- =========================================================
-         Optional: small feature row (keeps landing fresh)
+         NEW: Ask ChatGPT — language-aware prompt + copy
+         (requires translations.js + app.js additions)
     ========================================================== -->
-    <section aria-label="Highlights">
+    <section id="ask-chatgpt" class="card" style="margin-top:28px">
       <div class="section-head">
-        <h2 class="h2">ハイライト</h2>
-        <p class="h2-sub">いま注目のトピック</p>
+        <h2 class="h2" data-i18n="chatgpt.title">Ask ChatGPT（TPについて質問）</h2>
+        <p class="h2-sub" data-i18n="chatgpt.sub">下のプロンプトをコピーして、ChatGPTに貼り付けてください。</p>
       </div>
-      <div class="home-feature">
-        <article class="card reveal">
-          <figure>
-            <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=900&h=400&fit=crop&auto=format"
-                 alt="KL の街並みと生活" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </figure>
-          <h3 class="u-mt12">KL・ペナンの暮らしやすさ</h3>
-          <p class="subtle u-mt8">プール・ジム付きコンド、充実のモール、豊かな食文化。</p>
-          <div class="u-mt12"><a class="btn ghost" href="why-malaysia-thailand.html">詳しく見る</a></div>
-        </article>
 
-        <article class="card reveal">
-          <figure>
-            <img src="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?q=80&w=900&h=400&fit=crop&auto=format"
-                 alt="キャリア成長" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </figure>
-          <h3 class="u-mt12">キャリアアップの実例</h3>
-          <p class="subtle u-mt8">QA/トレーナー/チームリードへの昇進ストーリー。</p>
-          <div class="u-mt12"><a class="btn ghost" href="career-growth.html">キャリアを見る</a></div>
-        </article>
-
-        <article class="card reveal">
-          <figure>
-            <img src="https://images.unsplash.com/photo-1588195539589-9096fd8b0b48?q=80&w=900&h=400&fit=crop&auto=format"
-                 alt="ビザ手配" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-          </figure>
-          <h3 class="u-mt12">EP 申請は会社負担</h3>
-          <p class="subtle u-mt8">渡航・初期宿泊・空港送迎まで安心サポート。</p>
-          <div class="u-mt12"><a class="btn ghost" href="relocation-visa.html">サポート内容</a></div>
-        </article>
+      <div class="chatgpt-box">
+        <textarea id="chatgptPrompt" class="chatgpt-text" rows="8" readonly>
+<!-- translations.js will inject the correct language prompt here. -->
+        </textarea>
+        <div class="chatgpt-actions">
+          <button id="copyPromptBtn" class="btn primary" data-i18n="chatgpt.copy">プロンプトをコピー</button>
+          <a class="btn ghost" href="https://chat.openai.com/" target="_blank" rel="noopener" data-i18n="chatgpt.open">
+            ChatGPT を開く
+          </a>
+        </div>
+        <p class="subtle u-mt8" data-i18n="chatgpt.note">
+          ※ WebView が使えない場合の代替。言語を切り替えるとプロンプトも切り替わります。
+        </p>
       </div>
     </section>
 
@@ -431,7 +410,7 @@
          Footer
     ========================================================== -->
     <footer class="site-footer">
-      <div class="footer-inner">
+      <div class="container footer-inner">
         <p class="copy">© <span id="year"></span> TP — Malaysia & Thailand</p>
         <ul class="footer-links">
           <li><a href="about.html" data-i18n="footer.about">会社紹介</a></li>
@@ -441,8 +420,8 @@
       </div>
     </footer>
 
-    <!-- Mobile sticky bar -->
-    <div class="apply-bar" id="applyBar" role="region" aria-label="応募バー">
+    <!-- Floating apply (mobile) -->
+    <div id="applyBar" class="apply-bar" role="region" aria-label="応募バー">
       <a class="btn ghost" href="faq.html" data-i18n="bar.faq">FAQ</a>
       <a class="btn primary" target="_blank"
          href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
@@ -454,7 +433,9 @@
   </main>
 
   <noscript>
-    <div class="noscript">JavaScript を有効にすると表示や言語切替がより快適になります。</div>
+    <div class="noscript">
+      JavaScript を有効にすると表示や言語切替がより快適になります。
+    </div>
   </noscript>
 
   <!-- i18n + App scripts (keep logic simple/clean/creative) -->
