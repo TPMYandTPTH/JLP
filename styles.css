@@ -1085,3 +1085,168 @@ section .divider{
   .icon-grid-4 .icon-card,
   .icon-grid-4 .icon-card .thumb img { transition: none !important; }
 }
+/* ============================================================
+   Enhanced footer (subtle TP watermark)
+   ============================================================ */
+.site-footer {
+  position: relative;
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, #fff, var(--surface));
+  color: var(--ink-2);
+  overflow: hidden; /* for watermark */
+}
+
+/* Watermark: big TP logo in the background, low visibility */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  right: -80px;           /* tuck into the corner */
+  top: -40px;
+  width: min(38vw, 520px);
+  height: min(38vw, 520px);
+  background: url("TPLogo11.png") center/contain no-repeat;
+  opacity: 0.06;          /* VERY subtle */
+  filter: blur(1px);
+  pointer-events: none;
+  transform: rotate(-6deg);
+}
+
+/* Inner grid */
+.footer-inner {
+  position: relative;
+  z-index: 1; /* above watermark */
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 24px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px var(--pad);
+}
+
+/* Brand block */
+.f-brand .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.f-brand .brand-logo {
+  height: 44px;
+  width: auto;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.f-brand .brand-text .t { font-weight: 900; letter-spacing: .02em; }
+.f-brand .brand-text .s { font-size: 12px; color: var(--muted); }
+
+.f-blurb { color: #4B5563; margin: 10px 0 12px; }
+.f-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Links */
+.f-title {
+  margin: 4px 0 8px;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: .02em;
+  color: #0a2540;
+}
+.f-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.f-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+.f-list a:hover {
+  background: #F6FAFF;
+  text-decoration: none;
+}
+
+/* Contact column */
+.f-meta { color: #4B5563; margin: 4px 0 12px; }
+.f-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+
+.f-social { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; }
+.social-btn {
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.social-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); background: #F6FAFF; }
+.social-btn svg { width: 20px; height: 20px; fill: #0b0b0b; opacity: .78; }
+
+.f-address { margin-top: 10px; color: #6b7280; font-style: normal; }
+
+/* Bottom mini-bar */
+.footer-bar {
+  margin-top: 10px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+.footer-bar-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 10px var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.footer-bar .legal { list-style: none; margin: 0; padding: 0; display: flex; gap: 14px; }
+.footer-bar .legal a { color: #4B5563; }
+.footer-bar .legal a:hover { color: #0a2540; }
+
+/* Divider (TP logo center) if you use it above the footer too */
+.tp-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 18px var(--pad) 8px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.tp-divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.tp-divider-logo {
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.tp-divider-logo img {
+  width: 26px; height: 26px; object-fit: contain;
+  opacity: .9;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+  .site-footer::before {
+    right: -40px;
+    top: -30px;
+    width: min(58vw, 420px);
+    height: min(58vw, 420px);
+    opacity: 0.07; /* a hair stronger on mobile still readable */
+  }
+  .footer-bar-inner { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
