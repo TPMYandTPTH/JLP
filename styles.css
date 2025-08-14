@@ -832,3 +832,133 @@ section .divider{
   .icon-grid.priority .icon { width: 58px; max-width: 58px; }
   .icon-grid.secondary .icon { width: 48px; max-width: 48px; }
 }
+/* ===========================================================
+   Icon Gallery (3×3) with connector background
+   - Photo tiles with framed boxes, titles below images
+   - Subtle SVG connectors behind the grid
+=========================================================== */
+
+.icon-gallery {
+  position: relative;
+  margin-top: 28px;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* Connector backdrop (subtle) */
+.icon-gallery::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 1200px at 120% -10%, rgba(0,87,184,0.06), transparent 60%),
+    radial-gradient(900px 900px at -10% 120%, rgba(230,57,70,0.05), transparent 60%);
+  pointer-events: none;
+}
+
+/* dotted lines overlay */
+.icon-gallery::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  background-image: linear-gradient(to right, rgba(15,23,42,0.06) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(15,23,42,0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(closest-side, rgba(0,0,0,0.6), transparent 80%);
+  pointer-events: none;
+}
+
+/* 3×3 matrix */
+.icon-matrix {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px){
+  .icon-matrix { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 680px){
+  .icon-matrix { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 460px){
+  .icon-matrix { grid-template-columns: 1fr 1fr; }
+}
+
+/* tile */
+.tile {
+  display: block;
+}
+.tile-link {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.tile-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #e7edf7;
+}
+
+/* framed image */
+.tile-figure {
+  margin: 0;
+  aspect-ratio: 1/1;
+  display: block;
+  background: #fff;
+}
+.tile-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* caption under image */
+.tile-caption {
+  padding: 10px 12px 12px;
+  text-align: center;
+}
+.tile-title {
+  font-weight: 900;
+  font-size: clamp(14px, 2.2vw, 16px);
+}
+.tile-sub {
+  color: var(--muted);
+  font-size: clamp(12px, 1.9vw, 14px);
+  margin-top: 2px;
+}
+
+/* ===========================================================
+   Ask ChatGPT box
+=========================================================== */
+.chatgpt-box {
+  display: grid;
+  gap: 12px;
+}
+.chatgpt-text {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  background: #fcfdff;
+  color: var(--ink-2);
+  resize: vertical;
+}
+.chatgpt-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
