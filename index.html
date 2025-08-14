@@ -420,19 +420,82 @@
       </div>
     </section>
 
-    <!-- =========================================================
-         Footer
-    ========================================================== -->
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p class="copy">© <span id="year"></span> TP — Malaysia & Thailand</p>
-        <ul class="footer-links">
-          <li><a href="about.html" data-i18n="footer.about">会社紹介</a></li>
-          <li><a href="privacy.html" data-i18n="footer.privacy">プライバシー</a></li>
-          <li><a href="contact.html" data-i18n="footer.contact">お問い合わせ</a></li>
-        </ul>
+<!-- =========================================================
+     Footer (enhanced, with subtle TP watermark)
+========================================================== -->
+<footer class="site-footer" id="footer">
+  <div class="container footer-inner">
+    <!-- Column 1: brand + short blurb -->
+    <div class="f-col f-brand">
+      <a class="brand" href="index.html" aria-label="TP ホーム">
+        <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" />
+        <div class="brand-text">
+          <div class="t">TP</div>
+          <div class="s">Malaysia · Thailand — 日本語採用</div>
+        </div>
+      </a>
+      <p class="f-blurb">
+        テレパフォーマンスは、世界100+カ国・50万人以上が活躍するグローバルBPO。
+        日本語スピーカーの海外キャリアを、就労ビザと移住サポートで伴走します。
+      </p>
+      <div class="f-badges">
+        <span class="badge">🏆 Great Place to Work®</span>
+        <span class="badge">🌐 Diversity & Inclusion</span>
       </div>
-    </footer>
+    </div>
+
+    <!-- Column 2: quick links -->
+    <nav class="f-col f-links" aria-label="フッターリンク">
+      <h4 class="f-title">クイックリンク</h4>
+      <ul class="f-list">
+        <li><a href="about.html">会社紹介</a></li>
+        <li><a href="jobs-and-benefits.html">求人・給与/福利厚生</a></li>
+        <li><a href="relocation-visa.html">移住・ビザ</a></li>
+        <li><a href="interview-process.html">面接プロセス</a></li>
+        <li><a href="why-malaysia-thailand.html">マレーシア・タイの魅力</a></li>
+        <li><a href="career-growth.html">キャリア・語学</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <!-- Column 3: contact + socials -->
+    <div class="f-col f-contact">
+      <h4 class="f-title">お問い合わせ</h4>
+      <p class="f-meta">
+        ご質問やカジュアル面談のご希望は、フォームまたはLINEからどうぞ。
+      </p>
+      <div class="f-actions">
+        <a class="btn primary" href="contact.html">問い合わせフォーム</a>
+        <a class="btn ghost" target="_blank"
+           href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINEで相談</a>
+      </div>
+      <ul class="f-social" aria-label="SNS">
+        <li><a class="social-btn" href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 8h2v13H3V8Zm6 0h2v2h.1c.3-.6 1.2-1.2 2.5-1.2 2.7 0 3.4 1.6 3.4 3.7V21h-2v-6.2c0-1.5 0-3.3-2-3.3s-2.3 1.6-2.3 3.2V21H9V8Z"/></svg>
+        </a></li>
+        <li><a class="social-btn" href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a4 4 0 0 0-2.8-2.8C18.4 4 12 4 12 4s-6.4 0-8.2.7A4 4 0 0 0 1 7.5 41 41 0 0 0 1 12a41 41 0 0 0 1 4.5A4 4 0 0 0 4.8 19C6.6 19.7 12 19.7 12 19.7s6.4 0 8.2-.7A4 4 0 0 0 23 16.5 41 41 0 0 0 24 12a41 41 0 0 0-1-4.5ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+        </a></li>
+      </ul>
+      <address class="f-address">
+        © <span id="year"></span> TP — Malaysia &amp; Thailand
+      </address>
+    </div>
+  </div>
+
+  <!-- bottom mini-bar -->
+  <div class="footer-bar">
+    <div class="container footer-bar-inner">
+      <small class="copyright">© <span id="year2"></span> Teleperformance</small>
+      <ul class="legal">
+        <li><a href="privacy.html">プライバシー</a></li>
+        <li><a href="terms.html">利用規約</a></li>
+        <li><a href="sitemap.html">サイトマップ</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
 
     <!-- Floating apply (mobile) -->
     <div id="applyBar" class="apply-bar" role="region" aria-label="応募バー">
