@@ -1,8 +1,8 @@
 /* ============================================================================
    TP Candidate Microsite — app.js
-   Requires: translations.js to provide window.I18N and window.CONTENT
+   Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
    Purpose : Bind UI, render dynamic content, and keep things snappy on mobile
-   Updated : 2025-08-13
+   Updated : 2025-08-14
 ============================================================================ */
 
 /* ----------------------------------------------------------
@@ -25,30 +25,28 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function imageFallback(img, fallbackSvgText = 'Image not found') {
+function imageFallback(img, fallbackAlt = 'image') {
+  if (!img) return;
   img.addEventListener('error', () => {
-    img.src =
-      `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-        `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
-           <rect width="100%" height="100%" fill="#efefef"/>
-           <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                 fill="#888" font-family="Arial" font-size="20">${fallbackSvgText}</text>
-         </svg>`
-      )}`;
+    // Last-resort placeholder (keeps layout pleasant)
+    img.src = 'TPLogo11.png';
+    img.alt = fallbackAlt || img.alt || 'TP';
+    img.style.objectFit = 'contain';
+    img.style.background = '#f6f8fb';
   }, { once: true });
 }
 
 /* ----------------------------------------------------------
    1) Language & i18n plumbing
 -----------------------------------------------------------*/
-const I18N = window.I18N || { ja: {}, en: {} };
+const I18N    = window.I18N    || { ja: {}, en: {} };
 const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{} };
 
 const LANG_STORAGE_KEY = 'tp_lang';
 function getInitialLang() {
   const saved = localStorage.getItem(LANG_STORAGE_KEY);
   if (saved === 'ja' || saved === 'en') return saved;
-  // Default JP; auto EN if browser language clearly English
+  // JP-first default; auto EN only if browser is clearly English
   if (navigator.language && navigator.language.toLowerCase().startsWith('en')) return 'en';
   return 'ja';
 }
@@ -72,48 +70,53 @@ function applyI18nStaticText() {
     const val = t(key);
     if (typeof val === 'string' || typeof val === 'number') el.innerHTML = val;
   });
+  // Some elements may use data-i18n-static to keep text-only (no HTML)
+  $$('[data-i18n-static]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-static');
+    const val = t(key);
+    if (typeof val === 'string' || typeof val === 'number') el.textContent = val;
+  });
 }
 
 /* ----------------------------------------------------------
    2) Typewriter (hero)
 -----------------------------------------------------------*/
 function typewriter(node, texts, speed = 58, pause = 1200) {
-  if (!node || !texts || !texts.length) return;
+  if (!node || !texts || !texts.length) return () => {};
+  if (prefersReducedMotion()) {
+    node.textContent = texts[0] || '';
+    return () => {};
+  }
   let idx = 0;
   let isDeleting = false;
   let char = 0;
-  let raf;
+  let timer;
 
   function tick() {
-    const full = texts[idx];
+    const full = texts[idx] || '';
     if (!isDeleting) {
       char++;
       node.textContent = full.slice(0, char);
       if (char >= full.length) {
         isDeleting = true;
-        raf = setTimeout(tick, pause);
+        timer = setTimeout(tick, pause);
         return;
       }
-      raf = setTimeout(tick, speed);
+      timer = setTimeout(tick, speed);
     } else {
       char--;
       node.textContent = full.slice(0, char);
       if (char <= 0) {
         isDeleting = false;
         idx = (idx + 1) % texts.length;
-        raf = setTimeout(tick, speed * 3);
+        timer = setTimeout(tick, speed * 3);
         return;
       }
-      raf = setTimeout(tick, Math.max(35, speed - 20));
+      timer = setTimeout(tick, Math.max(35, speed - 20));
     }
   }
-
-  if (prefersReducedMotion()) {
-    node.textContent = texts[0];
-    return () => {};
-  }
   tick();
-  return () => clearTimeout(raf);
+  return () => clearTimeout(timer);
 }
 
 /* ----------------------------------------------------------
@@ -149,7 +152,8 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
   function update() {
     const first = track.children[0];
     if (!first) return;
-    const slideW = first.getBoundingClientRect().width + 12; // gap
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 12);
+    const slideW = first.getBoundingClientRect().width + (Number.isFinite(gap) ? gap : 12);
     track.style.transform = `translateX(${-index * slideW}px)`;
   }
 
@@ -168,14 +172,14 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
     const count = track.children.length;
     index = (index + 1) % Math.max(1, count);
     update();
-  }, 4800);
+  }, 5200);
   on(track, 'mouseenter', () => clearInterval(timer));
   on(track, 'mouseleave', () => {
     timer = setInterval(() => {
       const count = track.children.length;
       index = (index + 1) % Math.max(1, count);
       update();
-    }, 4800);
+    }, 5200);
   });
 
   // initial
@@ -184,7 +188,7 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
 }
 
 /* ----------------------------------------------------------
-   5) Dynamic renders (from CONTENT)
+   5) Dynamic renders (Why / Cities / Benefits / Process / Offices / Team / Voices / FAQ / Gallery)
 -----------------------------------------------------------*/
 function renderWhyLists() {
   const lists = [
@@ -215,7 +219,7 @@ function renderCities() {
     d.innerHTML = `
       <img src="${c.img}" alt="${c.title}">
       <div class="overlay"><strong>${c.title}</strong><div style="font-size:13px;margin-top:6px">${c.desc}</div></div>`;
-    imageFallback(d.querySelector('img'));
+    imageFallback(d.querySelector('img'), c.title);
     root.appendChild(d);
     observeReveal(d);
   });
@@ -259,7 +263,7 @@ function renderOffices() {
       <ul class="subtle" style="padding-left:18px;margin:8px 0 0">${(o.points||[])
         .map((p) => `<li>${p}</li>`)
         .join('')}</ul>`;
-    imageFallback(card.querySelector('img'));
+    imageFallback(card.querySelector('img'), o.title);
     root.appendChild(card);
     observeReveal(card);
   });
@@ -277,7 +281,7 @@ function renderTeam() {
       <h4 style="margin:6px 0 2px">${m.name}</h4>
       <div class="subtle" style="font-size:13px">${m.role || ''}</div>
       <p class="subtle" style="font-size:13px;margin-top:8px">${m.bio || ''}</p>`;
-    imageFallback(card.querySelector('img'));
+    imageFallback(card.querySelector('img'), m.name);
     root.appendChild(card);
     observeReveal(card);
   });
@@ -322,22 +326,158 @@ function renderGallery() {
   const root = $('#gallery');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].galleryImgs || []).forEach((src) => {
+  (CONTENT[currentLang].galleryImgs || []).forEach((src, i) => {
     const img = document.createElement('img');
     img.src = src;
-    img.alt = 'gallery';
+    img.alt = `gallery-${i+1}`;
     img.loading = 'lazy';
     img.style.borderRadius = '10px';
     img.style.border = '1px solid var(--line)';
-    imageFallback(img);
+    imageFallback(img, 'gallery');
     root.appendChild(img);
   });
 }
 
 /* ----------------------------------------------------------
-   6) Language toggle + full refresh of dynamic sections
+   6) Priority / Secondary galleries (3×3 tiles with background connector)
+   - Uses your existing <a class="icon-card">…</a> in HTML and
+     upgrades each card into a photo tile with caption-under-image.
+-----------------------------------------------------------*/
+const PHOTO_SOURCES = {
+  // culturally-friendly placeholder photos (Unsplash, no external JS needed)
+  about: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop',
+  jobs: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
+  relocation: 'https://images.unsplash.com/photo-1502920917128-1aa500764ce7?q=80&w=1200&auto=format&fit=crop',
+  process: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1200&auto=format&fit=crop',
+  why: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop',
+  casual: 'https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=1200&auto=format&fit=crop',
+  testimonials: 'https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200&auto=format&fit=crop',
+  office: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
+  career: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop',
+  cost: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?q=80&w=1200&auto=format&fit=crop',
+  team: 'https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200&auto=format&fit=crop',
+  area: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop',
+  blog: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop',
+  line: 'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop',
+  culture: 'https://images.unsplash.com/photo-1561484930-998b6a7b22a8?q=80&w=1200&auto=format&fit=crop',
+  faq: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1200&auto=format&fit=crop'
+};
+
+function decorateIconCard(a, key) {
+  // Expect structure: <a.icon-card><span.icon>…</span><span.meta><span.title>…</span><span.desc>…</span></span></a>
+  // We’ll inject a <div class="photo"> before meta, and keep SVG for accessibility.
+  const title = $('.title', a)?.textContent?.trim() || a.getAttribute('aria-label') || '';
+  const photoURL = PHOTO_SOURCES[key] || PHOTO_SOURCES.about;
+  let photo = $('.photo', a);
+  if (!photo) {
+    photo = document.createElement('div');
+    photo.className = 'photo';
+    photo.innerHTML = `<img class="photo-img" alt="">`;
+    a.insertBefore(photo, $('.meta', a));
+  }
+  const img = $('.photo-img', a);
+  if (img) {
+    img.src = photoURL;
+    img.alt = title || key;
+    imageFallback(img, title || key);
+  }
+  // Normalize icon size (SVG stays small and centered above photo on hover)
+  a.classList.add('is-photo-card');
+}
+
+function renderPriorityGallery() {
+  const root = $('section.icon-grid.priority');
+  if (!root) return;
+  const items = $$('.icon-card', root);
+  // Add subtle connector background
+  injectConnectorBackground(root);
+  // Map each card to a key to pick a photo
+  const keyMap = [
+    'about','jobs','relocation','process','why','casual','testimonials','office','career'
+  ];
+  items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'about'));
+  // enforce 3×3 layout via CSS utility classes (kept semantic)
+  root.classList.add('priority-3x3');
+  items.forEach((el) => observeReveal(el));
+}
+
+function renderSecondaryGallery() {
+  const root = $('section.icon-grid.secondary');
+  if (!root) return;
+  const items = $$('.icon-card', root);
+  injectConnectorBackground(root, { density: 10, variant: 'dots' });
+  const keyMap = ['cost','team','area','blog','line','culture','faq'];
+  items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
+  root.classList.add('secondary-grid');
+  items.forEach((el) => observeReveal(el));
+}
+
+/* ----------------------------------------------------------
+   7) Background connector SVG (subtle, modern)
+-----------------------------------------------------------*/
+function injectConnectorBackground(sectionEl, opts = {}) {
+  if (!sectionEl) return;
+  const { density = 12, variant = 'grid' } = opts;
+  // If already present, skip
+  if ($('.bg-connectors', sectionEl)) return;
+
+  const svg = document.createElement('div');
+  svg.className = 'bg-connectors';
+  svg.setAttribute('aria-hidden', 'true');
+
+  // Create lightweight SVG pattern
+  const w = sectionEl.clientWidth || 1200;
+  const h = 320;
+  const stroke = 'rgba(2, 32, 71, 0.06)';
+  let svgInner = '';
+
+  if (variant === 'dots') {
+    // Dotted connector
+    const rows = 4, cols = density;
+    const cellW = w / cols;
+    const cellH = h / rows;
+    svgInner += `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg">`;
+    for (let r=0;r<rows;r++){
+      for (let c=0;c<cols;c++){
+        const x = c*cellW + cellW/2;
+        const y = r*cellH + cellH/2;
+        svgInner += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="1.8" fill="${stroke}"/>`;
+      }
+    }
+    svgInner += `</svg>`;
+  } else {
+    // Thin grid/lines
+    const cols = density;
+    const cellW = w / cols;
+    svgInner += `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;
+    for (let i=0;i<=cols;i++){
+      const x = (i*cellW).toFixed(2);
+      svgInner += `<line x1="${x}" y1="0" x2="${x}" y2="${h}" stroke="${stroke}" stroke-width="1"/>`;
+    }
+    svgInner += `<line x1="0" y1="${h/2}" x2="${w}" y2="${h/2}" stroke="${stroke}" stroke-width="1"/>`;
+    svgInner += `</svg>`;
+  }
+
+  svg.innerHTML = svgInner;
+  sectionEl.prepend(svg);
+
+  // Update on resize
+  let raf;
+  on(window, 'resize', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const old = $('.bg-connectors', sectionEl);
+      if (old) old.remove();
+      injectConnectorBackground(sectionEl, opts);
+    });
+  });
+}
+
+/* ----------------------------------------------------------
+   8) Language toggle + full refresh of dynamic sections
 -----------------------------------------------------------*/
 function renderAllDynamic() {
+  // These only exist on the long single-page template.
   renderWhyLists();
   renderCities();
   renderBenefits();
@@ -347,6 +487,13 @@ function renderAllDynamic() {
   renderVoices();
   renderFaq();
   renderGallery();
+
+  // Icon galleries (3×3 + secondary)
+  renderPriorityGallery();
+  renderSecondaryGallery();
+
+  // Year in footer
+  const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
 }
 
 function setLang(lang) {
@@ -360,58 +507,69 @@ function setLang(lang) {
   const heroNode = $('#heroType');
   const heroTexts = I18N[currentLang].heroTexts || [];
   typewriter(heroNode, heroTexts);
+
+  // Update Ask ChatGPT prompt
+  const ta = $('#chatgptPrompt');
+  if (ta && typeof window.getChatGPTPrompt === 'function') {
+    ta.value = window.getChatGPTPrompt(currentLang);
+  }
+
+  // Update lang toggle button label
+  const langBtn = $('#langToggle');
+  if (langBtn) langBtn.textContent = currentLang === 'ja' ? 'EN' : '日本語';
 }
 
 /* ----------------------------------------------------------
-   7) Header actions: language + drawer + smooth anchors
+   9) Header actions: language + drawer + smooth anchors
 -----------------------------------------------------------*/
 function initHeader() {
-  const langBtn = $('#langBtn');
+  // Language
+  const langBtn = $('#langToggle');
   if (langBtn) {
     langBtn.textContent = currentLang === 'ja' ? 'EN' : '日本語';
     on(langBtn, 'click', () => {
       const next = currentLang === 'ja' ? 'en' : 'ja';
       setLang(next);
-      langBtn.textContent = next === 'ja' ? 'EN' : '日本語';
     });
   }
 
   // Drawer (mobile)
-  const menuBtn = $('#menuBtn');
-  const drawer = $('#drawer');
-  const scrim  = $('#scrim');
-  const close  = $('#closeDrawer');
+  const menuOpen  = $('#menuOpen');
+  const menuClose = $('#menuClose');
+  const drawer    = $('#drawer');
+  const scrim     = $('#scrim');
 
   function openDrawer() {
     drawer?.classList.add('open');
-    scrim?.classList.add('show');
     drawer?.setAttribute('aria-hidden', 'false');
-    scrim?.setAttribute('aria-hidden', 'false');
+    if (scrim) { scrim.hidden = false; scrim.classList.add('show'); }
     document.body.style.overflow = 'hidden';
+    menuOpen?.setAttribute('aria-expanded', 'true');
   }
   function closeDrawer() {
     drawer?.classList.remove('open');
-    scrim?.classList.remove('show');
     drawer?.setAttribute('aria-hidden', 'true');
-    scrim?.setAttribute('aria-hidden', 'true');
+    if (scrim) { scrim.classList.remove('show'); setTimeout(() => scrim.hidden = true, 250); }
     document.body.style.overflow = '';
+    menuOpen?.setAttribute('aria-expanded', 'false');
   }
 
-  on(menuBtn, 'click', openDrawer);
-  on(close, 'click', closeDrawer);
+  on(menuOpen, 'click', openDrawer);
+  on(menuClose, 'click', closeDrawer);
   on(scrim, 'click', closeDrawer);
-  $$('#drawer .d-link').forEach((a) =>
+
+  $$('.drawer .d-link').forEach((a) =>
     on(a, 'click', () => {
       closeDrawer();
-      // smooth scroll with header offset
-      const id = a.getAttribute('href');
-      if (id && id.startsWith('#')) {
-        setTimeout(() => smoothScrollTo(id, 76), 10);
+      // If anchor (in-page) existed, smooth-scroll; but you use separate pages, so default nav is fine.
+      const href = a.getAttribute('href') || '';
+      if (href.startsWith('#')) {
+        setTimeout(() => smoothScrollTo(href, 76), 10);
       }
     })
   );
 
-  // Smooth scroll for in-page anchors (desktop nav)
+  // Smooth scroll for any in-page anchors in header/footer
   $$('a[href^="#"]').forEach((a) => {
     on(a, 'click', (e) => {
       const id = a.getAttribute('href');
@@ -425,44 +583,37 @@ function initHeader() {
 }
 
 /* ----------------------------------------------------------
-   8) Sticky mobile apply bar + back-to-top
+   10) Sticky mobile apply bar + back-to-top
 -----------------------------------------------------------*/
 function initStickyBars() {
-  const applyBar = $('#applyBar');
+  const applyBar = $('.apply-bar');
   const toTop = $('#toTop');
-  let lastScroll = 0;
 
   function onScroll() {
     const y = window.scrollY;
-    // show apply bar on small screens after hero
     if (applyBar) {
-      if (y > 360) {
-        applyBar.style.transform = 'translateY(0)';
-      } else {
-        applyBar.style.transform = 'translateY(100%)';
-      }
+      // show after hero area
+      applyBar.style.transform = y > 360 ? 'translateY(0)' : 'translateY(100%)';
     }
     if (toTop) {
       if (y > 560) toTop.classList.add('show');
       else toTop.classList.remove('show');
     }
-    lastScroll = y;
   }
 
   on(window, 'scroll', onScroll, { passive: true });
   onScroll();
 
-  // back to top
   if (toTop) {
     on(toTop, 'click', (e) => {
       e.preventDefault();
-      smoothScrollTo('#home', 0);
+      smoothScrollTo('body', 0);
     });
   }
 }
 
 /* ----------------------------------------------------------
-   9) Contact form (demo)
+   11) Contact form (demo-safe)
 -----------------------------------------------------------*/
 function initContactForm() {
   const form = $('#contactForm');
@@ -478,7 +629,76 @@ function initContactForm() {
 }
 
 /* ----------------------------------------------------------
-   10) Boot sequence
+   12) Ask ChatGPT section: copy & open actions
+-----------------------------------------------------------*/
+function initChatGPTSection() {
+  const ta = $('#chatgptPrompt');
+  const btnCopy = $('#copyPromptBtn');
+  const btnOpen = $('#openChatGPTBtn');
+  if (ta && typeof window.getChatGPTPrompt === 'function') {
+    ta.value = window.getChatGPTPrompt(currentLang);
+  }
+  if (btnCopy && ta) {
+    on(btnCopy, 'click', async () => {
+      try {
+        await navigator.clipboard.writeText(ta.value);
+        const original = btnCopy.textContent;
+        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : 'Copied!';
+        setTimeout(() => (btnCopy.textContent = original), 1400);
+      } catch (e) {
+        ta.select();
+        document.execCommand('copy');
+      }
+    });
+  }
+  if (btnOpen) {
+    on(btnOpen, 'click', () => {
+      // Don’t rely on URL strings in HTML; centralize here
+      window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer');
+    });
+  }
+}
+
+/* ----------------------------------------------------------
+   13) Misc boot helpers
+-----------------------------------------------------------*/
+function initHeroMediaFallbacks() {
+  imageFallback($('#heroCover'), 'Hero');
+  imageFallback($('#logoImg'), 'TP');
+  $$('.photo-img').forEach((img) => imageFallback(img, 'tile'));
+}
+
+function initCultureStripAnimations() {
+  // lightweight parallax on large screens (no library)
+  const strip = $('.culture-strip');
+  if (!strip || prefersReducedMotion()) return;
+
+  const motifs = $$('.culture-strip .motif', strip);
+  function onScroll() {
+    const rect = strip.getBoundingClientRect();
+    if (rect.top > window.innerHeight || rect.bottom < 0) return;
+    const progress = 1 - Math.abs(rect.top) / (window.innerHeight + rect.height);
+    motifs.forEach((m, i) => {
+      const factor = (i + 1) * 4; // increasing subtle offset
+      m.style.transform = `translateY(${(1 - progress) * factor}px)`;
+    });
+  }
+  on(window, 'scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+function normalizeIconSizes() {
+  // Make sure icons (SVGs) above photos are tidy
+  $$('.icon-card .icon svg, .icon-card .icon img').forEach((node) => {
+    node.setAttribute('width', '48');
+    node.setAttribute('height', '48');
+    node.style.width = '';
+    node.style.height = '';
+  });
+}
+
+/* ----------------------------------------------------------
+   14) Boot sequence
 -----------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
   // 1) Apply language + static strings
@@ -489,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAllDynamic();
 
   // 3) Hero typewriter
-  const heroNode = $('#heroType');
+  const heroNode  = $('#heroType');
   const heroTexts = I18N[currentLang].heroTexts || [];
   typewriter(heroNode, heroTexts);
 
@@ -499,19 +719,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5) Observe all revealables that exist initially
   $$('.reveal').forEach(observeReveal);
 
-  // 6) Header, sticky, contact
+  // 6) Header, sticky, contact, chatgpt
   initHeader();
   initStickyBars();
   initContactForm();
+  initChatGPTSection();
 
-  // 7) Images fallback
-  imageFallback($('#heroCover'), 'Hero');
-  imageFallback($('#logoImg'), 'TP');
-
-  // 8) Minimal “cultural” microinteractions:
-  //    subtle hover wobble for city cards on pointer devices
-  $$('#citiesCards .city').forEach((c) => {
-    on(c, 'pointerenter', () => (c.style.transform = 'translateY(-2px)'));
-    on(c, 'pointerleave', () => (c.style.transform = 'translateY(0)'));
-  });
+  // 7) Fallbacks & visuals
+  initHeroMediaFallbacks();
+  initCultureStripAnimations();
+  normalizeIconSizes();
 });
