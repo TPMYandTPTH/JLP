@@ -493,7 +493,13 @@ function renderAllDynamic() {
   renderSecondaryGallery();
 
   // Year in footer
-  const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
+const y = String(new Date().getFullYear());
+const yNode = document.getElementById('year');
+if (yNode) yNode.textContent = y;
+
+const yNode2 = document.getElementById('year2');
+if (yNode2) yNode2.textContent = y;
+
 }
 
 function setLang(lang) {
