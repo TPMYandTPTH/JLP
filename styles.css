@@ -823,3 +823,12 @@ section .divider{
 .culture:hover img{
   filter: saturate(1) contrast(1.02);
 }
+/* Home icon overrides */
+.icon-grid .icon { width: 60px; max-width: 60px; }
+.icon-grid.priority .icon { width: 66px; max-width: 66px; }
+.icon-grid.secondary .icon { width: 56px; max-width: 56px; }
+@media (max-width: 820px){
+  .icon-grid .icon { width: 52px; max-width: 52px; }
+  .icon-grid.priority .icon { width: 58px; max-width: 58px; }
+  .icon-grid.secondary .icon { width: 48px; max-width: 48px; }
+}
