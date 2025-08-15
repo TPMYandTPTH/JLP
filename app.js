@@ -626,11 +626,12 @@ function initHeader() {
 }
 
 /* ----------------------------------------------------------
-   10) Sticky mobile apply bar + back-to-top
+   10) Sticky mobile apply bar + floating actions (back-to-top + apply now)
 -----------------------------------------------------------*/
 function initStickyBars() {
   const applyBar = $('.apply-bar');
   const toTop = $('#toTop');
+  const floatingApply = $('#floatingApply');
 
   function onScroll() {
     const y = window.scrollY;
@@ -641,6 +642,10 @@ function initStickyBars() {
     if (toTop) {
       if (y > 560) toTop.classList.add('show');
       else toTop.classList.remove('show');
+    }
+    if (floatingApply) {
+      if (y > 560) floatingApply.classList.add('show');
+      else floatingApply.classList.remove('show');
     }
   }
 
