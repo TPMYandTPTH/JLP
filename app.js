@@ -1,8 +1,8 @@
 /* ============================================================================
    TP Candidate Microsite — app.js
    Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
-   Purpose : Bind UI, render dynamic content, and keep things snappy on mobile
-   Updated : 2025-08-14
+   Purpose : Bind UI, render dynamic content, and URL-based language switching
+   Updated : 2025-08-15 - Added URL-based language routing (/en, /jp, /kr)
 ============================================================================ */
 
 /* ----------------------------------------------------------
@@ -37,23 +37,46 @@ function imageFallback(img, fallbackAlt = 'image') {
 }
 
 /* ----------------------------------------------------------
-   1) Language & i18n plumbing
+   1) Language & i18n plumbing with URL routing
 -----------------------------------------------------------*/
-const I18N    = window.I18N    || { ja: {}, en: {} };
-const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{} };
+const I18N    = window.I18N    || { ja: {}, en: {}, kr: {} };
+const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{}, kr:{} };
 
-const LANG_STORAGE_KEY = 'tp_lang';
-function getInitialLang() {
-  const saved = localStorage.getItem(LANG_STORAGE_KEY);
-  if (saved === 'ja' || saved === 'en') return saved;
-  // JP-first default; auto EN only if browser is clearly English
-  if (navigator.language && navigator.language.toLowerCase().startsWith('en')) return 'en';
+// URL-based language detection and routing
+function getLanguageFromURL() {
+  const path = window.location.pathname;
+  if (path.startsWith('/en') || path === '/en') return 'en';
+  if (path.startsWith('/kr') || path === '/kr') return 'kr';
+  if (path.startsWith('/jp') || path === '/jp') return 'ja';
+  // Default fallback
   return 'ja';
 }
-let currentLang = getInitialLang();
+
+function setLanguageURL(lang) {
+  const currentPath = window.location.pathname;
+  const currentSearch = window.location.search;
+  const currentHash = window.location.hash;
+  
+  // Remove existing language prefix
+  let cleanPath = currentPath.replace(/^\/(en|jp|kr)/, '') || '/';
+  
+  // Add new language prefix
+  let newPath;
+  if (lang === 'ja') {
+    newPath = cleanPath === '/' ? '/jp' : `/jp${cleanPath}`;
+  } else {
+    newPath = cleanPath === '/' ? `/${lang}` : `/${lang}${cleanPath}`;
+  }
+  
+  // Update URL without page reload
+  window.history.pushState(null, '', newPath + currentSearch + currentHash);
+}
+
+let currentLang = getLanguageFromURL();
 
 function applyLangToHtmlRoot() {
-  document.documentElement.setAttribute('lang', currentLang === 'ja' ? 'ja' : 'en');
+  const htmlLang = currentLang === 'kr' ? 'ko' : currentLang === 'en' ? 'en' : 'ja';
+  document.documentElement.setAttribute('lang', htmlLang);
   document.documentElement.setAttribute('data-lang', currentLang);
 }
 
@@ -365,7 +388,7 @@ const PHOTO_SOURCES = {
 
 function decorateIconCard(a, key) {
   // Expect structure: <a.icon-card><span.icon>…</span><span.meta><span.title>…</span><span.desc>…</span></span></a>
-  // We’ll inject a <div class="photo"> before meta, and keep SVG for accessibility.
+  // We'll inject a <div class="photo"> before meta, and keep SVG for accessibility.
   const title = $('.title', a)?.textContent?.trim() || a.getAttribute('aria-label') || '';
   const photoURL = PHOTO_SOURCES[key] || PHOTO_SOURCES.about;
   let photo = $('.photo', a);
@@ -406,7 +429,7 @@ function renderSecondaryGallery() {
   if (!root) return;
   const items = $$('.icon-card', root);
   injectConnectorBackground(root, { density: 10, variant: 'dots' });
-  const keyMap = ['cost','team','area','blog','line','culture','faq'];
+  const keyMap = ['cost','team','area','blog','line','culture','faq','contact'];
   items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
   root.classList.add('secondary-grid');
   items.forEach((el) => observeReveal(el));
@@ -428,7 +451,7 @@ function injectConnectorBackground(sectionEl, opts = {}) {
   // Create lightweight SVG pattern
   const w = sectionEl.clientWidth || 1200;
   const h = 320;
-  const stroke = 'rgba(2, 32, 71, 0.06)';
+  const stroke = 'rgba(255, 0, 130, 0.08)'; // Updated to TP Pink
   let svgInner = '';
 
   if (variant === 'dots') {
@@ -493,18 +516,21 @@ function renderAllDynamic() {
   renderSecondaryGallery();
 
   // Year in footer
-const y = String(new Date().getFullYear());
-const yNode = document.getElementById('year');
-if (yNode) yNode.textContent = y;
+  const y = String(new Date().getFullYear());
+  const yNode = document.getElementById('year');
+  if (yNode) yNode.textContent = y;
 
-const yNode2 = document.getElementById('year2');
-if (yNode2) yNode2.textContent = y;
-
+  const yNode2 = document.getElementById('year2');
+  if (yNode2) yNode2.textContent = y;
 }
 
 function setLang(lang) {
-  currentLang = lang === 'en' ? 'en' : 'ja';
-  localStorage.setItem(LANG_STORAGE_KEY, currentLang);
+  const validLangs = ['ja', 'en', 'kr'];
+  currentLang = validLangs.includes(lang) ? lang : 'ja';
+  
+  // Update URL
+  setLanguageURL(currentLang);
+  
   applyLangToHtmlRoot();
   applyI18nStaticText();
   renderAllDynamic();
@@ -521,27 +547,38 @@ function setLang(lang) {
   }
 
   // Update lang toggle button label
-  const langBtn = $('#langToggle');
-  if (langBtn) langBtn.textContent = currentLang === 'ja' ? 'EN' : '日本語';
+  const langBtn = $('#langBtn');
+  if (langBtn) {
+    if (currentLang === 'ja') langBtn.textContent = 'EN';
+    else if (currentLang === 'en') langBtn.textContent = '한국어';
+    else if (currentLang === 'kr') langBtn.textContent = '日本語';
+  }
 }
 
 /* ----------------------------------------------------------
    9) Header actions: language + drawer + smooth anchors
 -----------------------------------------------------------*/
 function initHeader() {
-  // Language
-  const langBtn = $('#langToggle');
+  // Language cycling: ja -> en -> kr -> ja
+  const langBtn = $('#langBtn');
   if (langBtn) {
-    langBtn.textContent = currentLang === 'ja' ? 'EN' : '日本語';
+    // Set initial button text
+    if (currentLang === 'ja') langBtn.textContent = 'EN';
+    else if (currentLang === 'en') langBtn.textContent = '한국어';
+    else if (currentLang === 'kr') langBtn.textContent = '日本語';
+    
     on(langBtn, 'click', () => {
-      const next = currentLang === 'ja' ? 'en' : 'ja';
-      setLang(next);
+      let nextLang;
+      if (currentLang === 'ja') nextLang = 'en';
+      else if (currentLang === 'en') nextLang = 'kr';
+      else nextLang = 'ja';
+      setLang(nextLang);
     });
   }
 
   // Drawer (mobile)
-  const menuOpen  = $('#menuOpen');
-  const menuClose = $('#menuClose');
+  const menuOpen  = $('#menuOpen') || $('#menuBtn');
+  const menuClose = $('#menuClose') || $('#closeDrawer');
   const drawer    = $('#drawer');
   const scrim     = $('#scrim');
 
@@ -628,7 +665,7 @@ function initContactForm() {
     e.preventDefault();
     const name = $('#name')?.value?.trim() || '';
     const fn = I18N[currentLang].contactThanks || I18N.ja.contactThanks || (() => 'ありがとうございました。');
-    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : 'Candidate')) : fn;
+    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : currentLang === 'kr' ? '지원자' : 'Candidate')) : fn;
     alert(msg);
     form.reset();
   });
@@ -649,7 +686,7 @@ function initChatGPTSection() {
       try {
         await navigator.clipboard.writeText(ta.value);
         const original = btnCopy.textContent;
-        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : 'Copied!';
+        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : currentLang === 'kr' ? '복사했습니다!' : 'Copied!';
         setTimeout(() => (btnCopy.textContent = original), 1400);
       } catch (e) {
         ta.select();
@@ -659,7 +696,7 @@ function initChatGPTSection() {
   }
   if (btnOpen) {
     on(btnOpen, 'click', () => {
-      // Don’t rely on URL strings in HTML; centralize here
+      // Don't rely on URL strings in HTML; centralize here
       window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer');
     });
   }
@@ -704,7 +741,41 @@ function normalizeIconSizes() {
 }
 
 /* ----------------------------------------------------------
-   14) Boot sequence
+   14) Handle browser back/forward navigation
+-----------------------------------------------------------*/
+function initPopStateHandler() {
+  window.addEventListener('popstate', () => {
+    const newLang = getLanguageFromURL();
+    if (newLang !== currentLang) {
+      currentLang = newLang;
+      applyLangToHtmlRoot();
+      applyI18nStaticText();
+      renderAllDynamic();
+      
+      // Update hero typewriter text
+      const heroNode = $('#heroType');
+      const heroTexts = I18N[currentLang].heroTexts || [];
+      typewriter(heroNode, heroTexts);
+
+      // Update Ask ChatGPT prompt
+      const ta = $('#chatgptPrompt');
+      if (ta && typeof window.getChatGPTPrompt === 'function') {
+        ta.value = window.getChatGPTPrompt(currentLang);
+      }
+
+      // Update lang toggle button label
+      const langBtn = $('#langBtn');
+      if (langBtn) {
+        if (currentLang === 'ja') langBtn.textContent = 'EN';
+        else if (currentLang === 'en') langBtn.textContent = '한국어';
+        else if (currentLang === 'kr') langBtn.textContent = '日本語';
+      }
+    }
+  });
+}
+
+/* ----------------------------------------------------------
+   15) Boot sequence
 -----------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
   // 1) Apply language + static strings
@@ -735,4 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroMediaFallbacks();
   initCultureStripAnimations();
   normalizeIconSizes();
+
+  // 8) Handle browser navigation
+  initPopStateHandler();
 });
