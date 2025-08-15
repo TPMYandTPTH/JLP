@@ -5,11 +5,11 @@
      - window.CONTENT (page data rendered by app.js)
      - window.getChatGPTPrompt(lang) (Ask ChatGPT prompt per language)
    Also: on DOMContentLoaded, injects the ChatGPT prompt into #chatgptPrompt
-   Updated: 2025-08-14
+   Updated: 2025-08-15 - Added Korean language support
 ============================================================================ */
 
 /* ----------------------------------------------------------
-   0) I18N DICTIONARIES (JP primary, EN optional toggle)
+   0) I18N DICTIONARIES (JP primary, EN/KR optional toggle)
 -----------------------------------------------------------*/
 (function () {
   const I18N = {
@@ -99,6 +99,8 @@
       'sec.culture.d': '社内コミュニティ',
       'sec.faq.t': 'FAQ・よくある質問',
       'sec.faq.d': '応募・生活・ビザ',
+      'sec.contact.t': 'お問い合わせ',
+      'sec.contact.d': 'ご質問・面談予約',
 
       // Culture strip (decor only; no strings)
 
@@ -205,6 +207,8 @@
       'sec.culture.d': 'Communities at TP',
       'sec.faq.t': 'FAQ',
       'sec.faq.d': 'Application, living, visas',
+      'sec.contact.t': 'Contact',
+      'sec.contact.d': 'Questions & consultation',
 
       // Ask ChatGPT
       'chatgpt.title': 'Ask ChatGPT (About TP)',
@@ -222,6 +226,112 @@
 
       // Misc / Contact
       contactThanks: (name) => `Thanks, ${name}! We received your message.`
+    },
+
+    kr: {
+      // Brand & Nav
+      'brand.title': 'TP',
+      'brand.sub': 'Malaysia · Thailand — 일본어 채용',
+      'nav.about': '회사 소개',
+      'nav.jobs': '채용 정보 & 복리후생',
+      'nav.relocation': '이주 & 비자',
+      'nav.why': '말레이시아·태국의 매력',
+      'nav.faq': 'FAQ',
+      'cta.apply': '지원하기',
+      'cta.viewJobs': '채용 정보 보기',
+      'cta.relocation': '이주 지원',
+
+      // Drawer
+      'drawer.about': '회사 소개',
+      'drawer.jobs': '채용 정보 & 복리후생',
+      'drawer.relocation': '이주 & 비자',
+      'drawer.process': '면접 과정',
+      'drawer.why': '말레이시아·태국의 매력',
+      'drawer.casual': '캐주얼 면담',
+      'drawer.testimonials': '직원 후기',
+      'drawer.office': '근무 환경',
+      'drawer.career': '커리어 & 언어',
+      'drawer.faq': 'FAQ',
+
+      // Hero
+      'hero.eyebrow': '해외에서 일하며 살아가기.',
+      'hero.leading': '당신의 새로운 커리어 무대:',
+      'hero.lead':
+        '다국적 환경과 일본어를 활용할 수 있는 업무. 비자 및 이주 지원으로 해외 취업도 안심.',
+      heroTexts: [
+        '말레이시아·태국이라는 선택.',
+        '글로벌 커리어 기회.',
+        '믿을 수 있는 이주 지원.'
+      ],
+
+      // Stats
+      'stat.countries': '거점 국가',
+      'stat.people': '직원 수',
+      'stat.jp_roles': '일본어 포지션',
+      'stat.jp_roles_n': '다수',
+
+      // Priority headings
+      'priority.title': '우선 메뉴',
+      'priority.sub': '자주 보는 항목으로 바로 이동',
+      'priority.gallery.title': '우선 메뉴 (비주얼 갤러리)',
+      'priority.gallery.sub': '9개 주요 토픽을 사진 타일로 표시',
+
+      // Priority icon captions
+      'prio.about.t': 'TP 소개',
+      'prio.about.d': '텔레퍼포먼스란',
+      'prio.jobs.t': '채용 정보 보기',
+      'prio.jobs.d': '급여 & 복리후생',
+      'prio.relo.t': '이주 & 비자 지원',
+      'prio.relo.d': 'EP 신청, 항공편, 초기 숙박',
+      'prio.process.t': '면접 과정',
+      'prio.process.d': '온라인으로 완료',
+      'prio.why.t': '말레이시아·태국의 매력',
+      'prio.why.d': '라이프스타일, 문화, 여행 허브',
+      'prio.casual.t': '캐주얼 면담',
+      'prio.casual.d': '먼저 편하게 상담',
+      'prio.testimonials.t': '직원 후기',
+      'prio.testimonials.d': '체험담 & 인터뷰',
+      'prio.office.t': '근무 환경',
+      'prio.office.d': '오피스 & 가상 투어',
+      'prio.career.t': '커리어 성장',
+      'prio.career.d': '언어 교육 (GoFluent 등)',
+
+      // Secondary
+      'secondary.title': '더 살펴보기',
+      'secondary.sub': '생활 정보, 문화, 업데이트',
+      'sec.cost.t': '생활비',
+      'sec.cost.d': '식비, 교통비, 주거비',
+      'sec.team.t': '채용팀 소개',
+      'sec.team.d': 'Meet the TA Team',
+      'sec.area.t': '주변 환경',
+      'sec.area.d': '오피스 주변 편의시설',
+      'sec.blog.t': '블로그 & 칼럼',
+      'sec.blog.d': '유용한 글들',
+      'sec.line.t': 'LINE 공식 계정',
+      'sec.line.d': '최신 정보 받기',
+      'sec.culture.t': '이벤트 & 문화',
+      'sec.culture.d': '사내 커뮤니티',
+      'sec.faq.t': 'FAQ',
+      'sec.faq.d': '지원, 생활, 비자',
+      'sec.contact.t': '문의하기',
+      'sec.contact.d': '질문 & 면담 예약',
+
+      // Ask ChatGPT
+      'chatgpt.title': 'ChatGPT에게 질문 (TP에 대해)',
+      'chatgpt.sub': '아래 프롬프트를 복사해서 ChatGPT에 붙여넣으세요.',
+      'chatgpt.copy': '프롬프트 복사',
+      'chatgpt.open': 'ChatGPT 열기',
+      'chatgpt.note':
+        'WebView를 사용할 수 없는 경우 대안. 언어를 바꾸면 프롬프트도 바뀝니다.',
+
+      // Footer
+      'footer.about': '회사 소개',
+      'footer.privacy': '개인정보처리방침',
+      'footer.contact': '문의하기',
+      'bar.faq': 'FAQ',
+
+      // Misc / Contact
+      contactThanks: (name) => `${name}님, 감사합니다! 메시지를 받았습니다.`
     }
   };
 
@@ -231,7 +341,7 @@
   const CONTENT = {
     links: {
       apply:
-        'https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE',
+        'https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE',
       casual: 'https://forms.office.com/e/2UvpbweQww'
     },
 
@@ -273,7 +383,7 @@
           img:
             'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
           desc:
-            '“東南アジアの東京”。日系施設が超充実、BTS/MRTで移動快適。'
+            '"東南アジアの東京"。日系施設が超充実、BTS/MRTで移動快適。'
         }
       ],
 
@@ -417,7 +527,7 @@
           title: 'Bangkok',
           img:
             'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
-          desc: '“Tokyo of SEA” — extensive JP amenities and modern transit.'
+          desc: '"Tokyo of SEA" — extensive JP amenities and modern transit.'
         }
       ],
       benefits: [
@@ -466,13 +576,13 @@
           name: 'Maho',
           role: 'TA | Japan Market',
           img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
-          bio: 'We’ll support you end-to-end in JP.'
+          bio: 'We'll support you end-to-end in JP.'
         },
         {
           name: 'Kenta',
           role: 'Recruiter',
           img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
-          bio: 'Let’s find your best-fit project.'
+          bio: 'Let's find your best-fit project.'
         },
         {
           name: 'Aya',
@@ -488,7 +598,7 @@
         }
       ],
       voices: [
-        { quote: 'Feeling “it’s okay to be different” freed me at work.', who: 'TA Team — Maho' },
+        { quote: 'Feeling "it's okay to be different" freed me at work.', who: 'TA Team — Maho' },
         { quote: 'Weekend overseas trips are real here thanks to hub airports.', who: 'KL Member' },
         { quote: 'My English grew naturally through daily collaboration.', who: 'Penang Member' }
       ],
@@ -504,6 +614,138 @@
         {
           q: 'How do I find housing?',
           a: 'We share local agents and give practical tips in orientation.'
+        }
+      ],
+      galleryImgs: [
+        'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=800&auto=format&fit=crop'
+      ]
+    },
+
+    // Korean content
+    kr: {
+      why1: [
+        { t: '🌍 글로벌 팀에서 레벨업', d: '영어와 다문화 이해가 일상에서 단련되는 국제 팀.' },
+        { t: '🗣️ 일본어 포지션이 풍부', d: '영어에 불안이 있어도 일본어 중심으로 안심 시작.' },
+        { t: '👥 일본인 지원의 안심감', d: '생활과 업무 모두 일본어로 상담 가능한 체제.' }
+      ],
+      why2: [
+        { t: '💼 실력에 따라 조기 승진도', d: '트레이너/QA/리더/매니저로 다채로운 커리어.' },
+        { t: '✈️ 비자·도항·숙박 지원', d: 'EP 신청 대행, 편도 항공권, 초기 호텔, 공항 송영.' },
+        { t: '🌈 다양성이 베이스인 문화', d: '국적·성별·나이를 넘어 플랫하게 일할 수 있음.' }
+      ],
+      cities: [
+        {
+          id: 'kl',
+          title: '쿠알라룸푸르 (KL)',
+          img:
+            'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop',
+          desc:
+            '도시의 편리함 × 다문화 공존. 일본 음식·병원·학교·교통망도 충실해서 안심.'
+        },
+        {
+          id: 'penang',
+          title: '페낭 (Penang)',
+          img:
+            'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop',
+          desc:
+            '자연과 역사가 살아 숨쉬는 섬 라이프. 바다가 보이는 고층 콘도, 안정된 치안.'
+        },
+        {
+          id: 'bkk',
+          title: '방콕 (Bangkok)',
+          img:
+            'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
+          desc:
+            '"동남아시아의 도쿄". 일계 시설이 초충실, BTS/MRT로 이동 쾌적.'
+        }
+      ],
+      benefits: [
+        { t: '취업 비자 지원', d: 'EP 신청을 회사가 대행 (회사 부담).' },
+        { t: '도항·숙박 지원', d: '편도 항공권, 6박7일 호텔, 공항 송영.' },
+        { t: '급여·수당', d: '야근/주택/시간외 수당 (프로젝트에 따라).' },
+        { t: '의료와 보험', d: '의료·치과·안과 보조, 단체 보험.' },
+        { t: '커리어 지원', d: '사내 이동/JUMP 프로그램.' },
+        { t: '어학', d: 'GoFluent나 Language Bootcamp.' }
+      ],
+      processSteps: [
+        { k: '① 서류 선고', v: '이력서·직력 (일본어/영어)' },
+        { k: '② 온라인 테스트', v: '어학·업무 적성 (필요에 따라)' },
+        { k: '③ 1차 면접', v: '채용팀과 온라인' },
+        { k: '④ 2차 면접', v: '배치팀의 면접' },
+        { k: '⑤ 오퍼 → 비자', v: '조건 확인, EP 신청, 도항·초기 숙박' }
+      ],
+      offices: [
+        {
+          title: 'G Tower (KL)',
+          img:
+            'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop',
+          points: ['Ampang Park역 직결 (MRT/LRT)', 'KLCC/Intermark가 도보권', 'Grade A 오피스']
+        },
+        {
+          title: 'Penang — Livingston',
+          img:
+            'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
+          points: ['조용한 환경', '주변에 음식점·약국', '통근 액세스 양호']
+        },
+        {
+          title: 'Penang — One Precinct',
+          img:
+            'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop',
+          points: ['Bayan Baru의 모던 빌딩', '공항에서 약 15분', 'Queensbay Mall 근처']
+        },
+        {
+          title: 'Penang — GBS@Mahsuri',
+          img:
+            'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop',
+          points: ['주 GBS 허브 중심', 'IT/BPO 기업 집적', '생활 인프라 도보권']
+        }
+      ],
+      team: [
+        {
+          name: 'Maho',
+          role: 'TA | Japan Market',
+          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
+          bio: '처음 해외 취업도 일본어로 동반합니다.'
+        },
+        {
+          name: 'Kenta',
+          role: 'Recruiter',
+          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
+          bio: '커리어 상담, 편하게 문의하세요.'
+        },
+        {
+          name: 'Aya',
+          role: 'Coordinator',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: '도항 수속이나 현지 생활도 팔로우합니다.'
+        },
+        {
+          name: 'Leo',
+          role: 'Sourcer',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: '희망하는 프로젝트를 함께 찾겠습니다.'
+        }
+      ],
+      voices: [
+        { quote: '"달라도 괜찮다"는 가치관이 마음을 자유롭게 해주었습니다.', who: '채용팀 Maho' },
+        { quote: '주말에 해외여행이 현실적. 허브 공항의 강점을 느낍니다.', who: '직원 A씨 (KL)' },
+        { quote: '영어는 자연히 늘어납니다. 매일이 프티 유학 같아요.', who: '직원 B씨 (Penang)' }
+      ],
+      faq: [
+        {
+          q: '영어에 자신이 없어도 지원할 수 있나요?',
+          a: '네, 일본어 중심의 포지션이 다수 있습니다. 입사 후에 영어력을 늘리는 지원도 있습니다.'
+        },
+        {
+          q: '취업 비자 수속은 어렵나요?',
+          a: '회사가 신청을 대행합니다. 필요 서류도 일본어로 안내합니다.'
+        },
+        {
+          q: '주거는 어떻게 찾으면 좋나요?',
+          a: '현지 에이전트 소개, 오리엔테이션에서의 어드바이스 등을 제공합니다.'
         }
       ],
       galleryImgs: [
@@ -545,7 +787,7 @@
 
 [Must include]
 - We are a Great Place to Work® winner for 6 years in a row (note: wording may vary by site/year; keep a positive, confidence-building tone).
-- Many JP-speaking roles, so it’s easy for Japanese speakers to start—even if English is still growing.
+- Many JP-speaking roles, so it's easy for Japanese speakers to start—even if English is still growing.
 - Relocation support such as Employment Pass visa guidance, one-way flight, landing hotel, and airport pickup.
 
 [Living examples]
@@ -557,7 +799,26 @@
 - Upbeat, friendly, and realistic—avoid absolute guarantees.
 - Use a short intro, clear bullets, and a brief closing CTA to apply or book a casual chat.
 
-Start with a concise summary → bullet points → a friendly CTA.`
+Start with a concise summary → bullet points → a friendly CTA.`,
+
+    kr: `당신은 취업 어드바이저입니다. 텔레퍼포먼스 말레이시아/태국 (TP Malaysia / TP Thailand)에 대해 지원자가 안심하고 지원을 검토할 수 있도록 아래 조건으로 긍정적으로 소개해 주세요.
+
+【필수 메시지】
+- 저희는 Great Place to Work®를 6년 연속 수상했습니다 (주: 거점이나 연도에 따라 수상명·표기가 다를 수 있지만, 지원자의 불안을 완화하는 적극적인 톤으로 설명).
+- 일본어 스피커 대상 포지션이 다수 있어, 영어에 자신이 없어도 시작하기 쉽다는 점.
+- 취업 비자(Employment Pass) 신청 지원, 편도 항공권, 초기 호텔, 공항 송영 등의 이주 지원이 있다는 점.
+
+【생활면 (예시)】
+- 말레이시아: 영어가 통하기 쉽고, 다문화로 음식이 풍부하며, 주거는 풀·짐 부착 콘도가 일반적, 생활 비용이 일본보다 억제하기 쉬움.
+- 태국(방콕): 일본인 커뮤니티가 충실하고, BTS/MRT로 이동이 쾌적하며, 일본 음식이나 일계 의료도 많아 안심.
+- 동남아시아 허브 공항에서 주말 여행도 하기 쉬움.
+
+【톤과 형식】
+- 전향적이고 친근하며, 동시에 현실적. 과장이나 보장의 단정은 피함.
+- 항목별 나열 + 짧은 단락으로 읽기 쉽게.
+- 마지막에 "지원"이나 "캐주얼 면담"으로의 자연스러운 유도(CTA)를 첨부.
+
+서두는 간결한 개요→항목별 나열→마무리 CTA 순으로.`
   };
 
   /* ----------------------------------------------------------
@@ -568,7 +829,7 @@ Start with a concise summary → bullet points → a friendly CTA.`
 
   // Helper: get prompt by language code ('ja' default)
   window.getChatGPTPrompt = function getChatGPTPrompt(lang) {
-    return CHATGPT_PROMPTS[lang === 'en' ? 'en' : 'ja'];
+    return CHATGPT_PROMPTS[lang === 'en' ? 'en' : lang === 'kr' ? 'kr' : 'ja'];
   };
 
   /* ----------------------------------------------------------
@@ -578,7 +839,7 @@ Start with a concise summary → bullet points → a friendly CTA.`
   document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
     const langAttr = root.getAttribute('data-lang') || root.getAttribute('lang') || 'ja';
-    const current = langAttr === 'en' ? 'en' : 'ja';
+    const current = langAttr === 'en' ? 'en' : langAttr === 'kr' ? 'kr' : 'ja';
     const ta = document.getElementById('chatgptPrompt');
     if (ta) {
       ta.value = window.getChatGPTPrompt(current);
@@ -591,7 +852,7 @@ Start with a concise summary → bullet points → a friendly CTA.`
         try {
           await navigator.clipboard.writeText(ta.value);
           const original = copyBtn.textContent;
-          copyBtn.textContent = current === 'ja' ? 'コピーしました！' : 'Copied!';
+          copyBtn.textContent = current === 'ja' ? 'コピーしました！' : current === 'kr' ? '복사했습니다!' : 'Copied!';
           setTimeout(() => (copyBtn.textContent = original), 1400);
         } catch (e) {
           // Fallback
