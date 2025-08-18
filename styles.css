@@ -1,17 +1,19 @@
 /* ==========================================================================
-   TP Candidate Microsite — styles.css
-   Theme: Minimal black & white, solid accent colors
-   Language: JP-first; typography optimized for Noto Sans JP
-   Updated: 2025-08-13
+   TP Candidate Microsite — styles.css (Updated)
+   Theme: TP Pink/Purple with white, solid accent colors
+   Language: JP-first; typography optimized for Noto Sans JP / Calibri Light
+   Updated: 2025-08-18 - TP Colors, Korean support, Secondary icons full-width
    --------------------------------------------------------------------------
    NOTE:
-   - Matches structure from index.html you shared.
-   - Mobile layout is carefully tuned (<= 1024px, 820px, 480px).
-   - Animations respect prefers-reduced-motion.
+   - Changed blue to TP Pink (#ff0082) with Purple fallback (#780096)
+   - Font priority: Noto Sans JP, Calibri Light, then fallbacks
+   - Secondary icons now full-width, 4×N desktop, 3×N mobile
+   - Enhanced background visibility
+   - Apply Now button added next to back-to-top
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   0) Design Tokens
+   0) Design Tokens (Updated for TP Colors)
 -------------------------------------------------------------------------- */
 :root {
   /* Palette */
@@ -22,8 +24,9 @@
   --surface: #fbfdff;
   --line: #EEF1F4;
 
-  /* Solid accents (no gradients except overlays) */
-  --accent: #0057B8;   /* TP blue */
+  /* TP Brand Colors */
+  --accent: #ff0082;   /* TP Pink - primary */
+  --accent-alt: #780096; /* TP Purple - fallback/secondary */
   --accent-2: #E63946; /* Solid red for highlights/badges */
 
   /* Shadows & Radii */
@@ -42,12 +45,12 @@
   --gap: 20px;
   --navH: 64px;
 
-  /* Focus ring */
-  --focus: 0 0 0 3px rgba(0,87,184,0.25);
+  /* Focus ring - updated for TP Pink */
+  --focus: 0 0 0 3px rgba(255,0,130,0.25);
 }
 
 /* --------------------------------------------------------------------------
-   1) Base
+   1) Base (Updated Font Stack)
 -------------------------------------------------------------------------- */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
@@ -56,7 +59,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--bg);
-  font-family: "Noto Sans JP","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-family: "Noto Sans JP", "Calibri Light", "Calibri", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -70,9 +73,10 @@ a { color: inherit; text-decoration: none; }
   clip: rect(1px,1px,1px,1px); white-space: nowrap;
 }
 
-/* Language visibility helpers (translation.js toggles data-lang on :root) */
-:root[data-lang="ja"] .i18n-en { display: none !important; }
-:root[data-lang="en"] .i18n-ja { display: none !important; }
+/* Language visibility helpers */
+:root[data-lang="ja"] .i18n-en, :root[data-lang="ja"] .i18n-ko { display: none !important; }
+:root[data-lang="en"] .i18n-ja, :root[data-lang="en"] .i18n-ko { display: none !important; }
+:root[data-lang="ko"] .i18n-ja, :root[data-lang="ko"] .i18n-en { display: none !important; }
 
 .flag { font-size: 12px; opacity: .8; }
 .subtle { color: #6b7280; }
@@ -104,12 +108,12 @@ nav.primary a {
   font-weight: 700;
   font-size: 14px;
 }
-nav.primary a:hover { background: #F6FAFF; color: #0a2540; }
+nav.primary a:hover { background: #FCF0F8; color: #6d1a4b; } /* Pink tinted hover */
 nav.primary a:focus { outline: none; box-shadow: var(--focus); }
 
 .actions { display: flex; gap: 10px; align-items: center; }
 
-/* Buttons */
+/* Buttons (Updated for TP Pink) */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 10px 14px;
@@ -127,7 +131,10 @@ nav.primary a:focus { outline: none; box-shadow: var(--focus); }
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(0,87,184,0.18);
+  box-shadow: 0 8px 24px rgba(255,0,130,0.18);
+}
+.btn.primary:hover {
+  background: #e6007a; /* Slightly darker pink on hover */
 }
 .btn.ghost { background: #fff; }
 .lang-btn { min-width: 72px; }
@@ -158,7 +165,7 @@ nav.primary a:focus { outline: none; box-shadow: var(--focus); }
 }
 .drawer nav { display: flex; flex-direction: column; padding: 10px; }
 .drawer nav a { padding: 12px; border-radius: 10px; color: #263238; font-weight: 800; }
-.drawer nav a:hover { background: #F6FAFF; }
+.drawer nav a:hover { background: #FCF0F8; } /* Pink tinted hover */
 .drawer .foot { margin-top: auto; padding: 12px; border-top: 1px solid var(--line); }
 .scrim {
   position: fixed; inset: 0;
@@ -258,7 +265,7 @@ section { margin-top: 28px; }
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 10px; border-radius: var(--radius-full);
-  background: #F2F6FF; color: #0a2540; font-weight: 800;
+  background: #FDF2F8; color: #be185d; font-weight: 800; /* Pink tinted badge */
   border: 1px solid var(--line); font-size: 12px;
 }
 
@@ -279,7 +286,7 @@ section { margin-top: 28px; }
   padding: 8px 10px;
   border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer;
 }
-.c-ctrl button:hover { background: #F6FAFF; }
+.c-ctrl button:hover { background: #FCF0F8; } /* Pink tinted hover */
 .c-ctrl button:focus { outline: none; box-shadow: var(--focus); }
 
 /* --------------------------------------------------------------------------
@@ -302,7 +309,7 @@ section { margin-top: 28px; }
   border-radius: 12px; border: 1px solid var(--line);
   background: #fff; cursor: pointer; font-weight: 800;
 }
-.faq .q:hover { background: #F6FAFF; }
+.faq .q:hover { background: #FCF0F8; } /* Pink tinted hover */
 .faq .q:focus { outline: none; box-shadow: var(--focus); }
 .faq .a {
   display: none; padding: 12px; border-left: 3px solid var(--accent);
@@ -336,8 +343,8 @@ section { margin-top: 28px; }
 -------------------------------------------------------------------------- */
 table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 6px 0 0; }
 th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
-th { background: #F7FAFF; text-align: left; font-weight: 800; }
-tbody tr:hover { background: #fafcff; }
+th { background: #FDF2F8; text-align: left; font-weight: 800; } /* Pink tinted header */
+tbody tr:hover { background: #fefcfd; }
 
 /* --------------------------------------------------------------------------
    10) Forms / Contact
@@ -355,7 +362,7 @@ form input:focus, form textarea:focus, form select:focus {
 form .hint { font-size: 12px; color: var(--muted); }
 
 /* --------------------------------------------------------------------------
-   11) Footer & Floating CTAs
+   11) Footer & Floating CTAs (Updated Apply Now Button)
 -------------------------------------------------------------------------- */
 .footer {
   margin: 32px 0 10px; text-align: center; color: #6b7280; font-size: 14px;
@@ -370,12 +377,54 @@ form .hint { font-size: 12px; color: var(--muted); }
 }
 .apply-bar .btn { flex: 1; }
 
-/* Back-to-top */
-.to-top {
+/* Back-to-top & Apply Now buttons (side by side) */
+.floating-buttons {
   position: fixed; right: 16px; bottom: 92px;
-  opacity: 0; pointer-events: none; transition: .25s; z-index: 120;
+  display: flex; flex-direction: column; gap: 10px;
+  z-index: 120;
 }
-.to-top.show { opacity: 1; pointer-events: auto; }
+
+.to-top, .apply-now-floating {
+  opacity: 0; pointer-events: none; 
+  transition: opacity .25s ease, transform .25s ease;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.to-top.show, .apply-now-floating.show { 
+  opacity: 1; 
+  pointer-events: auto; 
+}
+
+.to-top {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.apply-now-floating {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(255,0,130,0.18);
+}
+
+.apply-now-floating:hover {
+  background: #e6007a;
+  transform: translateY(-1px);
+}
+
+.to-top:hover {
+  background: #FCF0F8;
+  transform: translateY(-1px);
+}
 
 /* --------------------------------------------------------------------------
    12) Reveal on scroll
@@ -384,460 +433,10 @@ form .hint { font-size: 12px; color: var(--muted); }
 .reveal.in { opacity: 1; transform: none; }
 
 /* --------------------------------------------------------------------------
-   13) Media Queries (Mobile refinements)
+   13) Icon Gallery & Secondary Grid (Full Width, Enhanced)
 -------------------------------------------------------------------------- */
-@media (max-width: 1200px) {
-  .wrap { padding: 20px; }
-}
 
-@media (max-width: 1024px) {
-  .hero .inner { grid-template-columns: 1fr 380px; }
-  .hero-media img { width: 380px; height: 280px; }
-  .cols-3 { grid-template-columns: repeat(2, 1fr); }
-  .cols-4 { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 900px) {
-  .h2 { font-size: 22px; }
-  header.site { padding: 10px 12px; }
-}
-
-@media (max-width: 820px) {
-  nav.primary { display: none; }
-  .hamburger { display: flex; }
-  .hero .inner { grid-template-columns: 1fr; }
-  .hero-media { order: -1; }
-  .hero-media img { width: 100%; height: 220px; }
-  h1.hero-title { font-size: 28px; }
-  .stats { justify-content: center; }
-  .cols-2 { grid-template-columns: 1fr; }
-  .cols-3 { grid-template-columns: 1fr; }
-  .cols-4 { grid-template-columns: 2fr 2fr; }
-  .slides .slide { min-width: 260px; }
-  .wrap { padding: 16px; }
-  .btn { padding: 10px 12px; }
-  .card { padding: 14px; }
-  .apply-bar { display: flex; }
-  .to-top { bottom: 88px; }
-}
-
-@media (max-width: 600px) {
-  .brand img { height: 38px; }
-  .hero .inner { padding: 18px; }
-  .stat { min-width: 88px; }
-  .city .overlay { max-width: 88%; }
-  .footer { font-size: 12px; }
-  .badge { font-size: 11px; padding: 6px 8px; }
-}
-
-@media (max-width: 480px) {
-  .brand img { height: 36px; }
-  .h2 { font-size: 20px; }
-  .hero .inner { padding: 16px; }
-  .hero-ctas .btn { width: 100%; }
-  .slides .slide { min-width: 240px; }
-}
-
-/* --------------------------------------------------------------------------
-   14) Reduced Motion
--------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal { transition: none !important; }
-  .slides { transition: none !important; }
-  .btn, .city { transition: none !important; }
-}
-
-/* --------------------------------------------------------------------------
-   15) Micro-interactions (subtle, minimalistic)
--------------------------------------------------------------------------- */
-.city:hover img { filter: contrast(1.02) saturate(1.02); }
-.btn.primary:hover { filter: brightness(1.02); }
-.btn.ghost:hover { background: #f7fafc; }
-
-/* --------------------------------------------------------------------------
-   16) Utility classes (optional, used sparingly)
--------------------------------------------------------------------------- */
-.u-center { display: grid; place-items: center; }
-.u-right { margin-left: auto; }
-.u-m0 { margin: 0 !important; }
-.u-mt0 { margin-top: 0 !important; }
-.u-mt8 { margin-top: 8px !important; }
-.u-mt12 { margin-top: 12px !important; }
-.u-mt16 { margin-top: 16px !important; }
-.u-mt24 { margin-top: 24px !important; }
-.u-mb0 { margin-bottom: 0 !important; }
-.u-p0 { padding: 0 !important; }
-
-/* --------------------------------------------------------------------------
-   17) Print basics (for exporting PDFs of sections if needed)
--------------------------------------------------------------------------- */
-@media print {
-  header.site, .apply-bar, .to-top, .scrim, .drawer { display: none !important; }
-  .wrap { max-width: 100%; padding: 0; }
-  .card { break-inside: avoid; box-shadow: none; }
-  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 12px; color: #4b5563; }
-}
-/* ICON NORMALIZATION – paste near the end of styles.css */
-
-/* A wrapper class you add to each icon item (priority/secondary). */
-.icon-wrap {
-  display: grid;
-  place-items: center;
-  gap: 10px;
-  text-align: center;
-  padding: 14px;
-}
-
-/* Size the graphic itself (PNG/SVG/IMG). Use clamp so it scales but stays sane. */
-.icon-wrap .icon,
-.icon-wrap svg,
-.icon-wrap img.icon {
-  width: clamp(48px, 6vw, 88px);  /* desktop ~88px, mobile ~48-64px */
-  height: clamp(48px, 6vw, 88px);
-  object-fit: contain;
-  flex: 0 0 auto;
-}
-
-/* Priority vs Secondary tweaks (optional) */
-.icon-wrap.is-priority .icon,
-.icon-wrap.is-priority svg,
-.icon-wrap.is-priority img.icon {
-  width: clamp(56px, 7vw, 96px);
-  height: clamp(56px, 7vw, 96px);
-}
-
-.icon-wrap.is-secondary .icon,
-.icon-wrap.is-secondary svg,
-.icon-wrap.is-secondary img.icon {
-  width: clamp(42px, 5vw, 72px);
-  height: clamp(42px, 5vw, 72px);
-}
-
-/* Keep caption sizes tidy under icons */
-.icon-wrap .icon-title {
-  font-weight: 800;
-  font-size: clamp(13px, 1.4vw, 16px);
-  line-height: 1.3;
-}
-.icon-wrap .icon-subtitle {
-  color: var(--muted);
-  font-size: clamp(11px, 1.2vw, 14px);
-}
-
-/* Ensure generic img rule doesn’t blow up icons in wide cells */
-.icon-grid img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* If the icon is used as background on a square chip */
-.icon-chip {
-  width: clamp(48px, 6vw, 88px);
-  aspect-ratio: 1;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 14px;             /* optional: rounded chip */
-  border: 1px solid var(--line);   /* optional: subtle frame */
-}
-
-/* Grid that holds the 9 + 7 icons */
-.icon-grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-@media (min-width: 768px) {
-  .icon-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-@media (min-width: 1024px) {
-  .icon-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-}
-/* ==========================================================================
-   ICON SIZE FIXES
-   ========================================================================== */
-.icon-grid .icon-card .icon {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1/1; /* Enforce square container */
-}
-
-.icon-grid .icon svg,
-.icon-grid .icon img {
-  width: clamp(42px, 8.5cqw, 64px); /* Container query units */
-  height: clamp(42px, 8.5cqw, 64px);
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
-
-/* Priority icons (slightly larger) */
-.icon-grid.priority .icon svg,
-.icon-grid.priority .icon img {
-  width: clamp(48px, 9cqw, 72px);
-  height: clamp(48px, 9cqw, 72px);
-}
-
-/* Text scaling */
-.icon-card .title {
-  font-size: clamp(0.85rem, 2.5cqw, 1rem); /* Responsive text */
-  line-height: 1.3;
-}
-.icon-card .desc {
-  font-size: clamp(0.7rem, 2cqw, 0.85rem);
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .icon-grid .icon svg,
-  .icon-grid .icon img {
-    width: clamp(42px, 12cqw, 54px);
-    height: clamp(42px, 12cqw, 54px);
-  }
-  
-  .icon-grid.priority .icon svg,
-  .icon-grid.priority .icon img {
-    width: clamp(46px, 13cqw, 58px);
-    height: clamp(46px, 13cqw, 58px);
-  }
-}
-
-/* Hover effect */
-.icon-card:hover .icon svg,
-.icon-card:hover .icon img {
-  transform: scale(1.08);
-}
-/* ==========================================================================
-   ✦ Enhancement Pack (Desktop polish, JP-friendly motifs, subtle motion)
-   Append at end of styles.css
-   ========================================================================== */
-
-/* 1) Typography polish for JP/EN */
-:root {
-  --letter-tight: -0.01em;
-}
-body {
-  letter-spacing: var(--letter-tight);
-  font-feature-settings: "palt" 1, "pkna" 1; /* Optical kerning for JP */
-}
-
-/* 2) Section header micro-accent (mizuhiki underline) */
-.section-head .h2 {
-  position: relative;
-  padding-bottom: 6px;
-}
-.section-head .h2::after{
-  content:"";
-  position:absolute; left:0; bottom:0;
-  width:84px; height:3px; border-radius:3px;
-  background: currentColor;
-  opacity:.08;
-}
-.section-head .h2-sub{ letter-spacing:.02em }
-
-/* 3) Hero: delicate “asanoha” (麻の葉) pattern overlay (very subtle) */
-.hero {
-  isolation:isolate;
-}
-.hero::after{
-  content:"";
-  position:absolute; inset:0; z-index:0; pointer-events:none;
-  opacity:.06;
-  background-image:
-    radial-gradient(circle at 1px 1px, #111 1px, transparent 1px),
-    radial-gradient(circle at 9px 9px, #111 1px, transparent 1px);
-  background-size: 20px 20px, 20px 20px;
-  mix-blend-mode: multiply;
-}
-.hero .inner{ position:relative; z-index:1 }
-
-/* 4) Cards: “quiet luxury” hover + border accent */
-.card{
-  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
-}
-.card:hover{
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-  border-color:#e7ecf2;
-}
-
-/* 5) Shoji-style grid background helper (use as wrapper if needed) */
-.shoji{
-  background-image:
-    linear-gradient(transparent 95%, rgba(0,0,0,.03) 95%),
-    linear-gradient(90deg, transparent 95%, rgba(0,0,0,.03) 95%);
-  background-size: 22px 22px, 22px 22px;
-}
-
-/* 6) Pill chips for tags/badges */
-.chips{ display:flex; flex-wrap:wrap; gap:8px }
-.chip{
-  display:inline-flex; align-items:center; gap:8px;
-  border:1px solid var(--line); border-radius:999px;
-  padding:6px 10px; font-weight:800; font-size:12px; background:#fff;
-}
-.chip .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent) }
-
-/* 7) Photo frames: keep it elegant even with placeholders */
-.photo-frame{
-  position:relative; border-radius:12px; overflow:hidden;
-  border:1px solid var(--line); background:#fff;
-}
-.photo-frame img{ width:100%; height:100%; object-fit:cover; display:block }
-.photo-frame::after{
-  /* subtle vignette to make titles readable on top of photos */
-  content:""; position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.06) 100%);
-}
-
-/* 8) Icon grid polish (priority & secondary) */
-.icon-grid{
-  gap:18px;
-}
-.icon-card{
-  display:grid; grid-template-rows: auto auto auto;
-  align-items:start; justify-items:center;
-  gap:10px; padding:14px;
-  border:1px solid var(--line); border-radius:12px; background:#fff;
-  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
-}
-.icon-card:hover{
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-sm);
-  border-color:#e9eef4;
-}
-.icon-card .icon{
-  display:grid; place-items:center;
-  width:min(84px, 12vw); height:min(84px, 12vw);
-  max-width:88px; max-height:88px; min-width:52px; min-height:52px;
-}
-.icon-card .icon img,
-.icon-card .icon svg{
-  width:80%; height:80%; object-fit:contain;
-}
-.icon-card .title{
-  font-weight:900; text-align:center;
-  font-size:clamp(14px, 1.4vw, 16px); line-height:1.28;
-}
-.icon-card .desc{
-  color:var(--muted); text-align:center;
-  font-size:clamp(12px, 1.2vw, 14px);
-}
-
-/* Priority section slightly larger icons */
-.icon-grid.priority .icon-card .icon{
-  width:min(92px, 13vw); height:min(92px, 13vw);
-  max-width:96px; max-height:96px;
-}
-
-/* 9) Subtle animated underline for links (clean, modern) */
-a.u-underline{
-  position:relative;
-}
-a.u-underline::after{
-  content:""; position:absolute; left:0; bottom:-2px; height:2px;
-  width:0; background: currentColor; opacity:.18; transition: width .18s ease;
-}
-a.u-underline:hover::after{ width:100% }
-
-/* 10) Section dividers that don’t feel heavy */
-section + section{
-  scroll-margin-top: 90px;
-}
-section .divider{
-  height:1px; width:100%; background:var(--line); margin:14px 0;
-}
-
-/* 11) CTA bar (mobile) slight glassy effect */
-.apply-bar{
-  background: rgba(255,255,255,.98);
-  backdrop-filter: blur(6px);
-}
-
-/* 12) Minimal parallax hint for city cards (no JS) */
-.city{
-  perspective: 800px;
-}
-.city img{
-  transform: translateZ(0);
-  transition: transform .35s ease, filter .2s ease;
-}
-.city:hover img{
-  transform: scale(1.03) translateZ(0);
-  filter: saturate(1.05) contrast(1.02);
-}
-
-/* 13) Focus styles unify */
-:where(button, a, .btn):focus-visible{
-  outline: none;
-  box-shadow: var(--focus);
-}
-
-/* 14) Decorative corner mark for certain cards (set .jp-accent on card) */
-.jp-accent{
-  position:relative;
-}
-.jp-accent::before{
-  content:""; position:absolute; right:0; top:0;
-  width: 26px; height: 26px;
-  background:
-    linear-gradient(135deg, transparent 48%, var(--accent) 48% 52%, transparent 52%);
-  opacity:.08;
-}
-
-/* 15) Placeholder treatment: show TP logo if image has no src or fails (CSS helper class) */
-.placeholder{
-  display:grid; place-items:center; background:#fff;
-  border:1px solid var(--line); border-radius:12px; overflow:hidden;
-}
-.placeholder::before{
-  content:"";
-  width:72px; height:72px; opacity:.22;
-  background: url('TPLogo11.png') center/contain no-repeat;
-}
-
-/* 16) Subtle scroll reveal variants (compatible with your .reveal) */
-.reveal.fade-up{ transform: translateY(14px); opacity:0 }
-.reveal.fade-up.in{ transform:none; opacity:1 }
-.reveal.fade-in{ opacity:0 }
-.reveal.fade-in.in{ opacity:1; transition-duration:.5s }
-
-/* 17) Desktop spacing tune to feel more “composed” */
-@media (min-width: 1025px){
-  .wrap{ padding-inline: 28px }
-  section{ margin-top: 34px }
-  .grid.cols-3{ gap: 22px }
-}
-
-/* 18) Better hero media on very wide screens */
-@media (min-width: 1360px){
-  .hero .inner{ grid-template-columns: 1.05fr 480px }
-  .hero-media img{ width:480px; height:340px }
-}
-
-/* 19) Monochrome-to-color on hover for culture photos */
-.culture img{
-  filter: saturate(0) contrast(1.05);
-  transition: filter .25s ease;
-}
-.culture:hover img{
-  filter: saturate(1) contrast(1.02);
-}
-/* Home icon overrides */
-.icon-grid .icon { width: 60px; max-width: 60px; }
-.icon-grid.priority .icon { width: 66px; max-width: 66px; }
-.icon-grid.secondary .icon { width: 56px; max-width: 56px; }
-@media (max-width: 820px){
-  .icon-grid .icon { width: 52px; max-width: 52px; }
-  .icon-grid.priority .icon { width: 58px; max-width: 58px; }
-  .icon-grid.secondary .icon { width: 48px; max-width: 48px; }
-}
-/* ===========================================================
-   Icon Gallery (3×3) with connector background
-   - Photo tiles with framed boxes, titles below images
-   - Subtle SVG connectors behind the grid
-=========================================================== */
-
+/* Priority Icon Gallery (3×3) */
 .icon-gallery {
   position: relative;
   margin-top: 28px;
@@ -849,30 +448,27 @@ section .divider{
   overflow: hidden;
 }
 
-/* Connector backdrop (subtle) */
 .icon-gallery::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(1200px 1200px at 120% -10%, rgba(0,87,184,0.06), transparent 60%),
-    radial-gradient(900px 900px at -10% 120%, rgba(230,57,70,0.05), transparent 60%);
+    radial-gradient(1200px 1200px at 120% -10%, rgba(255,0,130,0.08), transparent 60%),
+    radial-gradient(900px 900px at -10% 120%, rgba(120,0,150,0.06), transparent 60%);
   pointer-events: none;
 }
 
-/* dotted lines overlay */
 .icon-gallery::after {
   content: "";
   position: absolute;
   inset: 12px;
-  background-image: linear-gradient(to right, rgba(15,23,42,0.06) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(15,23,42,0.06) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(15,23,42,0.12) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(15,23,42,0.12) 1px, transparent 1px);
   background-size: 44px 44px;
-  mask-image: radial-gradient(closest-side, rgba(0,0,0,0.6), transparent 80%);
+  mask-image: radial-gradient(closest-side, rgba(0,0,0,0.7), transparent 80%);
   pointer-events: none;
 }
 
-/* 3×3 matrix */
 .icon-matrix {
   list-style: none;
   margin: 0;
@@ -881,17 +477,7 @@ section .divider{
   gap: 18px;
   grid-template-columns: repeat(3, 1fr);
 }
-@media (max-width: 900px){
-  .icon-matrix { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 680px){
-  .icon-matrix { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 460px){
-  .icon-matrix { grid-template-columns: 1fr 1fr; }
-}
 
-/* tile */
 .tile {
   display: block;
 }
@@ -907,10 +493,9 @@ section .divider{
 .tile-link:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-color: #e7edf7;
+  border-color: #f3e8ff; /* Purple tinted border on hover */
 }
 
-/* framed image */
 .tile-figure {
   margin: 0;
   aspect-ratio: 1/1;
@@ -923,7 +508,6 @@ section .divider{
   object-fit: cover;
 }
 
-/* caption under image */
 .tile-caption {
   padding: 10px 12px 12px;
   text-align: center;
@@ -938,9 +522,118 @@ section .divider{
   margin-top: 2px;
 }
 
-/* ===========================================================
-   Ask ChatGPT box
-=========================================================== */
+/* Secondary Icons Grid - FULL WIDTH and 4×N Layout */
+.icon-grid.secondary {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: 32px;
+  padding: 24px 16px;
+  background: linear-gradient(180deg, #fefefe, #fafbfc);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.icon-grid.secondary .container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.icon-grid.secondary .section-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.icon-grid-4 .icons-4x4 {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.icon-grid-4 .icons-4x4.lattice::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255,0,130, 0.08) 1px, transparent 1px)
+    0 0 / 24px 24px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.08) 30%, transparent 85%);
+  pointer-events: none;
+}
+
+.icon-grid-4 .icon-card {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 18px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.icon-grid-4 .icon-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: #f3e8ff; /* Purple tinted border */
+}
+.icon-grid-4 .icon-card:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.icon-grid-4 .icon-card .thumb {
+  width: clamp(80px, 12vw, 108px);
+  height: clamp(80px, 12vw, 108px);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fefeff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.icon-grid-4 .icon-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform .2s ease, filter .2s ease;
+}
+.icon-grid-4 .icon-card:hover .thumb img {
+  transform: scale(1.05);
+  filter: contrast(1.02) saturate(1.04);
+}
+
+.icon-grid-4 .icon-card .meta .title {
+  display: block;
+  font-weight: 800;
+  font-size: clamp(14px, 1.8vw, 16.5px);
+  line-height: 1.32;
+  margin-top: 6px;
+  color: var(--ink-2);
+}
+.icon-grid-4 .icon-card .meta .desc {
+  display: block;
+  color: var(--muted);
+  font-size: clamp(12px, 1.4vw, 14px);
+}
+
+/* --------------------------------------------------------------------------
+   14) Ask ChatGPT Box
+-------------------------------------------------------------------------- */
 .chatgpt-box {
   display: grid;
   gap: 12px;
@@ -962,161 +655,36 @@ section .divider{
   gap: 10px;
   flex-wrap: wrap;
 }
-/* ============================================================
-   Secondary grid: 4×N variant (same card style as priority)
-   ============================================================ */
-.icon-grid-4 .icons-4x4 {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  padding: 14px;
-  border-radius: 16px;
-  background: #fff;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden; /* for background lattice */
-}
 
-/* Lattice connector background (subtle dotted lines) */
-.icon-grid-4 .icons-4x4.lattice::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.06) 1px, transparent 1px)
-    0 0 / 22px 22px;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,.12), rgba(0,0,0,.06) 30%, transparent 85%);
-  pointer-events: none;
-}
-
-/* Card keeps same structure, but prefer image "thumb" over SVG icon */
-.icon-grid-4 .icon-card {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  gap: 10px;
-  padding: 16px 12px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-.icon-grid-4 .icon-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-.icon-grid-4 .icon-card:focus-visible {
-  outline: none;
-  box-shadow: var(--focus);
-}
-
-/* Primary visual (picture in a box) */
-.icon-grid-4 .icon-card .thumb {
-  width: clamp(72px, 10vw, 96px);
-  height: clamp(72px, 10vw, 96px);
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #fafbff;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-.icon-grid-4 .icon-card .thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.02);
-  transition: transform .2s ease, filter .2s ease;
-}
-.icon-grid-4 .icon-card:hover .thumb img {
-  transform: scale(1.05);
-  filter: contrast(1.02) saturate(1.04);
-}
-
-/* If legacy <span class="icon"> (SVG) is still used, normalize it */
-.icon-grid-4 .icon-card .icon {
-  display: grid;
-  place-items: center;
-  width: clamp(60px, 8.5vw, 84px);
-  height: clamp(60px, 8.5vw, 84px);
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #fafbff;
-}
-.icon-grid-4 .icon-card .icon svg,
-.icon-grid-4 .icon-card .icon img {
-  width: 56%;
-  height: 56%;
-}
-
-/* Typography under the visual */
-.icon-grid-4 .icon-card .meta .title {
-  display: block;
-  font-weight: 800;
-  font-size: clamp(13px, 1.6vw, 15.5px);
-  line-height: 1.32;
-  margin-top: 4px;
-  color: var(--ink-2);
-}
-.icon-grid-4 .icon-card .meta .desc {
-  display: block;
-  color: var(--muted);
-  font-size: clamp(11.5px, 1.2vw, 13px);
-}
-
-/* Responsive tuning for 4×N → 3×3 on small screens */
-@media (max-width: 640px) {
-  .icon-grid-4 .icons-4x4 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .icon-grid-4 .icon-card { padding: 14px 10px; }
-  .icon-grid-4 .icon-card .thumb { width: 76px; height: 76px; }
-}
-@media (max-width: 420px) {
-  .icon-grid-4 .icons-4x4 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .icon-grid-4 .icon-card .thumb { width: 70px; height: 70px; }
-}
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .icon-grid-4 .icon-card,
-  .icon-grid-4 .icon-card .thumb img { transition: none !important; }
-}
-/* ============================================================
-   Enhanced footer (subtle TP watermark)
-   ============================================================ */
+/* --------------------------------------------------------------------------
+   15) Enhanced Footer with TP Watermark
+-------------------------------------------------------------------------- */
 .site-footer {
   position: relative;
   margin-top: 28px;
   border-top: 1px solid var(--line);
-  background:
-    linear-gradient(180deg, #fff, var(--surface));
+  background: linear-gradient(180deg, #fff, var(--surface));
   color: var(--ink-2);
-  overflow: hidden; /* for watermark */
+  overflow: hidden;
 }
 
-/* Watermark: big TP logo in the background, low visibility */
 .site-footer::before {
   content: "";
   position: absolute;
-  right: -80px;           /* tuck into the corner */
+  right: -80px;
   top: -40px;
   width: min(38vw, 520px);
   height: min(38vw, 520px);
   background: url("TPLogo11.png") center/contain no-repeat;
-  opacity: 0.06;          /* VERY subtle */
+  opacity: 0.08; /* More visible */
   filter: blur(1px);
   pointer-events: none;
   transform: rotate(-6deg);
 }
 
-/* Inner grid */
 .footer-inner {
   position: relative;
-  z-index: 1; /* above watermark */
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
   gap: 24px;
@@ -1125,7 +693,6 @@ section .divider{
   padding: 28px var(--pad);
 }
 
-/* Brand block */
 .f-brand .brand {
   display: inline-flex;
   align-items: center;
@@ -1145,7 +712,6 @@ section .divider{
 .f-blurb { color: #4B5563; margin: 10px 0 12px; }
 .f-badges { display: flex; flex-wrap: wrap; gap: 8px; }
 
-/* Links */
 .f-title {
   margin: 4px 0 8px;
   font-weight: 900;
@@ -1162,11 +728,10 @@ section .divider{
   border-radius: 10px;
 }
 .f-list a:hover {
-  background: #F6FAFF;
+  background: #FCF0F8; /* Pink tinted hover */
   text-decoration: none;
 }
 
-/* Contact column */
 .f-meta { color: #4B5563; margin: 4px 0 12px; }
 .f-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
 
@@ -1180,12 +745,15 @@ section .divider{
   box-shadow: var(--shadow-sm);
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
 }
-.social-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); background: #F6FAFF; }
+.social-btn:hover { 
+  transform: translateY(-1px); 
+  box-shadow: var(--shadow-md); 
+  background: #FCF0F8; /* Pink tinted hover */
+}
 .social-btn svg { width: 20px; height: 20px; fill: #0b0b0b; opacity: .78; }
 
 .f-address { margin-top: 10px; color: #6b7280; font-style: normal; }
 
-/* Bottom mini-bar */
 .footer-bar {
   margin-top: 10px;
   border-top: 1px solid var(--line);
@@ -1198,55 +766,3 @@ section .divider{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-}
-.footer-bar .legal { list-style: none; margin: 0; padding: 0; display: flex; gap: 14px; }
-.footer-bar .legal a { color: #4B5563; }
-.footer-bar .legal a:hover { color: #0a2540; }
-
-/* Divider (TP logo center) if you use it above the footer too */
-.tp-divider {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 10px;
-  padding: 18px var(--pad) 8px;
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-.tp-divider-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--line), transparent);
-}
-.tp-divider-logo {
-  display: grid; place-items: center;
-  width: 40px; height: 40px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-}
-.tp-divider-logo img {
-  width: 26px; height: 26px; object-fit: contain;
-  opacity: .9;
-}
-
-/* Responsive */
-@media (max-width: 960px) {
-  .footer-inner {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 700px) {
-  .footer-inner {
-    grid-template-columns: 1fr;
-  }
-  .site-footer::before {
-    right: -40px;
-    top: -30px;
-    width: min(58vw, 420px);
-    height: min(58vw, 420px);
-    opacity: 0.07; /* a hair stronger on mobile still readable */
-  }
-  .footer-bar-inner { flex-direction: column; align-items: flex-start; gap: 6px; }
-}
