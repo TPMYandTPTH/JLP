@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <!-- Global styles -->
   <link rel="stylesheet" href="styles.css" />
-  <meta name="theme-color" content="#0057B8" />
+  <meta name="theme-color" content="#ff0082" />
   <meta property="og:title" content="TP | 日本語スピーカー採用（マレーシア・タイ）" />
   <meta property="og:description" content="日本語を活かして海外で働く。就労ビザ・移住サポート、充実の福利厚生、キャリア成長。" />
   <meta property="og:type" content="website" />
@@ -43,7 +43,7 @@
     <div class="actions">
       <button id="langBtn" class="btn ghost" aria-live="polite">EN</button>
       <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
       <button id="menuBtn" class="hamburger" aria-label="メニューを開く" aria-controls="drawer" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -72,7 +72,7 @@
     </nav>
     <div class="drawer-foot" style="margin-top:auto;padding:12px;border-top:1px solid var(--line)">
       <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
     </div>
   </aside>
@@ -252,135 +252,118 @@
       </ul>
     </section>
 
+    <!-- TP divider between sections -->
+    <div class="tp-divider" aria-hidden="true">
+      <span class="tp-divider-line"></span>
+      <span class="tp-divider-logo">
+        <img src="TPLogo11.png" alt="TP" />
+      </span>
+      <span class="tp-divider-line"></span>
+    </div>
+
     <!-- =========================================================
-         (LEGACY) Original Priority Icons (kept for reference)
-         NOTE: Kept to honor “don’t delete”; comment to avoid double UI.
+         Secondary Icons (full-bleed, 8 items → smaller than Priority)
+         Desktop: 4×N   /   Mobile: 3×N
     ========================================================== -->
-    <!--
-    <section class="icon-grid priority">
+    <section class="icon-grid secondary fullbleed" id="secondary-grid">
       <div class="container">
         <div class="section-head">
-          <h2 class="h2" data-i18n="priority.title">優先メニュー</h2>
-          <p class="h2-sub" data-i18n="priority.sub">よく見る項目をすぐに開けます</p>
+          <h2 class="h2" data-i18n="secondary.title">サブメニュー</h2>
+          <p class="h2-sub" data-i18n="secondary.sub">生活情報・カルチャー・サポート</p>
         </div>
-        <div class="grid grid-3 grid-2-md grid-1-sm">
-          ... your original 9 icon-card links (SVG icons) ...
+
+        <!-- Lattice wrapper; same card style as Priority -->
+        <div class="icons-4x4 lattice icon-grid-4">
+          <!-- 1 Cost of Living + Daily Life -->
+          <a class="icon-card" href="cost-of-living.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1542367597-8849eb950fd8?q=80&w=800&auto=format&fit=crop" alt="Cost of Living" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.cost.t">生活コスト</span>
+              <span class="desc" data-i18n="sec.cost.d">食事・交通・住まい</span>
+            </span>
+          </a>
+
+          <!-- 2 TA Team -->
+          <a class="icon-card" href="ta-team.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" alt="TA Team" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.team.t">採用チーム紹介</span>
+              <span class="desc" data-i18n="sec.team.d">Meet the TA Team</span>
+            </span>
+          </a>
+
+          <!-- 3 Area Around Office -->
+          <a class="icon-card" href="area-around-office.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" alt="Area Around Office" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.area.t">周辺環境</span>
+              <span class="desc" data-i18n="sec.area.d">オフィス周りの便利情報</span>
+            </span>
+          </a>
+
+          <!-- 4 Blog / Articles -->
+          <a class="icon-card" href="blog.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1494173853739-c21f58b16055?q=80&w=800&auto=format&fit=crop" alt="Blog" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.blog.t">ブログ・コラム</span>
+              <span class="desc" data-i18n="sec.blog.d">役立つ読み物</span>
+            </span>
+          </a>
+
+          <!-- 5 LINE Updates -->
+          <a class="icon-card" href="line.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?q=80&w=800&auto=format&fit=crop" alt="LINE" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.line.t">LINE公式アカウント</span>
+              <span class="desc" data-i18n="sec.line.d">最新情報を受け取る</span>
+            </span>
+          </a>
+
+          <!-- 6 Culture & Events -->
+          <a class="icon-card" href="culture-events.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop" alt="Culture & Events" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.culture.t">イベント・カルチャー</span>
+              <span class="desc" data-i18n="sec.culture.d">社内コミュニティ</span>
+            </span>
+          </a>
+
+          <!-- 7 FAQ -->
+          <a class="icon-card" href="faq.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=800&auto=format&fit=crop" alt="FAQ" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.faq.t">FAQ・よくある質問</span>
+              <span class="desc" data-i18n="sec.faq.d">応募・生活・ビザ</span>
+            </span>
+          </a>
+
+          <!-- 8 Contact (or Daily Life, etc.) -->
+          <a class="icon-card" href="contact.html">
+            <span class="thumb">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Contact" loading="lazy" onerror="this.src='TPLogo11.png'"/>
+            </span>
+            <span class="meta">
+              <span class="title" data-i18n="sec.contact.t">お問い合わせ</span>
+              <span class="desc" data-i18n="sec.contact.d">ご質問・面談予約</span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
-    -->
-<!-- TP divider between sections -->
-<div class="tp-divider" aria-hidden="true">
-  <span class="tp-divider-line"></span>
-  <span class="tp-divider-logo">
-    <img src="TPLogo11.png" alt="TP" />
-  </span>
-  <span class="tp-divider-line"></span>
-</div>
-
-<!-- =========================================================
-     Secondary Icons (full-bleed, 8 items → smaller than Priority)
-     Desktop: 4×N   /   Mobile: 3×N
-========================================================== -->
-<section class="icon-grid secondary fullbleed" id="secondary-grid">
-  <div class="container">
-    <div class="section-head">
-      <h2 class="h2" data-i18n="secondary.title">サブメニュー</h2>
-      <p class="h2-sub" data-i18n="secondary.sub">生活情報・カルチャー・サポート</p>
-    </div>
-
-    <!-- Lattice wrapper; same card style as Priority -->
-    <div class="icons-4x4 lattice icon-grid-4">
-      <!-- 1 Cost of Living + Daily Life -->
-      <a class="icon-card" href="cost-of-living.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1542367597-8849eb950fd8?q=80&w=800&auto=format&fit=crop" alt="Cost of Living" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.cost.t">生活コスト</span>
-          <span class="desc" data-i18n="sec.cost.d">食事・交通・住まい</span>
-        </span>
-      </a>
-
-      <!-- 2 TA Team -->
-      <a class="icon-card" href="ta-team.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop" alt="TA Team" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.team.t">採用チーム紹介</span>
-          <span class="desc" data-i18n="sec.team.d">Meet the TA Team</span>
-        </span>
-      </a>
-
-      <!-- 3 Area Around Office -->
-      <a class="icon-card" href="area-around-office.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" alt="Area Around Office" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.area.t">周辺環境</span>
-          <span class="desc" data-i18n="sec.area.d">オフィス周りの便利情報</span>
-        </span>
-      </a>
-
-      <!-- 4 Blog / Articles -->
-      <a class="icon-card" href="blog.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1494173853739-c21f58b16055?q=80&w=800&auto=format&fit=crop" alt="Blog" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.blog.t">ブログ・コラム</span>
-          <span class="desc" data-i18n="sec.blog.d">役立つ読み物</span>
-        </span>
-      </a>
-
-      <!-- 5 LINE Updates -->
-      <a class="icon-card" href="line.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?q=80&w=800&auto=format&fit=crop" alt="LINE" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.line.t">LINE公式アカウント</span>
-          <span class="desc" data-i18n="sec.line.d">最新情報を受け取る</span>
-        </span>
-      </a>
-
-      <!-- 6 Culture & Events -->
-      <a class="icon-card" href="culture-events.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop" alt="Culture & Events" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.culture.t">イベント・カルチャー</span>
-          <span class="desc" data-i18n="sec.culture.d">社内コミュニティ</span>
-        </span>
-      </a>
-
-      <!-- 7 FAQ -->
-      <a class="icon-card" href="faq.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=800&auto=format&fit=crop" alt="FAQ" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.faq.t">FAQ・よくある質問</span>
-          <span class="desc" data-i18n="sec.faq.d">応募・生活・ビザ</span>
-        </span>
-      </a>
-
-      <!-- 8 Contact (or Daily Life, etc.) -->
-      <a class="icon-card" href="contact.html">
-        <span class="thumb">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Contact" loading="lazy" onerror="this.src='TPLogo11.png'"/>
-        </span>
-        <span class="meta">
-          <span class="title" data-i18n="sec.contact.t">お問い合わせ</span>
-          <span class="desc" data-i18n="sec.contact.d">ご質問・面談予約</span>
-        </span>
-      </a>
-    </div>
-  </div>
-</section>
 
     <!-- =========================================================
          Cultural strip (subtle, JP-friendly visuals)
@@ -420,93 +403,97 @@
       </div>
     </section>
 
-<!-- =========================================================
-     Footer (enhanced, with subtle TP watermark)
-========================================================== -->
-<footer class="site-footer" id="footer">
-  <div class="container footer-inner">
-    <!-- Column 1: brand + short blurb -->
-    <div class="f-col f-brand">
-      <a class="brand" href="index.html" aria-label="TP ホーム">
-        <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" />
-        <div class="brand-text">
-          <div class="t">TP</div>
-          <div class="s">Malaysia · Thailand — 日本語採用</div>
+    <!-- =========================================================
+         Footer (enhanced, with subtle TP watermark)
+    ========================================================== -->
+    <footer class="site-footer" id="footer">
+      <div class="container footer-inner">
+        <!-- Column 1: brand + short blurb -->
+        <div class="f-col f-brand">
+          <a class="brand" href="index.html" aria-label="TP ホーム">
+            <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" />
+            <div class="brand-text">
+              <div class="t">TP</div>
+              <div class="s">Malaysia · Thailand — 日本語採用</div>
+            </div>
+          </a>
+          <p class="f-blurb">
+            テレパフォーマンスは、世界100+カ国・50万人以上が活躍するグローバルBPO。
+            日本語スピーカーの海外キャリアを、就労ビザと移住サポートで伴走します。
+          </p>
+          <div class="f-badges">
+            <span class="badge">🏆 Great Place to Work®</span>
+            <span class="badge">🌐 Diversity & Inclusion</span>
+          </div>
         </div>
-      </a>
-      <p class="f-blurb">
-        テレパフォーマンスは、世界100+カ国・50万人以上が活躍するグローバルBPO。
-        日本語スピーカーの海外キャリアを、就労ビザと移住サポートで伴走します。
-      </p>
-      <div class="f-badges">
-        <span class="badge">🏆 Great Place to Work®</span>
-        <span class="badge">🌐 Diversity & Inclusion</span>
+
+        <!-- Column 2: quick links -->
+        <nav class="f-col f-links" aria-label="フッターリンク">
+          <h4 class="f-title">クイックリンク</h4>
+          <ul class="f-list">
+            <li><a href="about.html">会社紹介</a></li>
+            <li><a href="jobs-and-benefits.html">求人・給与/福利厚生</a></li>
+            <li><a href="relocation-visa.html">移住・ビザ</a></li>
+            <li><a href="interview-process.html">面接プロセス</a></li>
+            <li><a href="why-malaysia-thailand.html">マレーシア・タイの魅力</a></li>
+            <li><a href="career-growth.html">キャリア・語学</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <!-- Column 3: contact + socials -->
+        <div class="f-col f-contact">
+          <h4 class="f-title">お問い合わせ</h4>
+          <p class="f-meta">
+            ご質問やカジュアル面談のご希望は、フォームまたはLINEからどうぞ。
+          </p>
+          <div class="f-actions">
+            <a class="btn primary" href="contact.html">問い合わせフォーム</a>
+            <a class="btn ghost" target="_blank"
+               href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINEで相談</a>
+          </div>
+          <ul class="f-social" aria-label="SNS">
+            <li><a class="social-btn" href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 8h2v13H3V8Zm6 0h2v2h.1c.3-.6 1.2-1.2 2.5-1.2 2.7 0 3.4 1.6 3.4 3.7V21h-2v-6.2c0-1.5 0-3.3-2-3.3s-2.3 1.6-2.3 3.2V21H9V8Z"/></svg>
+            </a></li>
+            <li><a class="social-btn" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a4 4 0 0 0-2.8-2.8C18.4 4 12 4 12 4s-6.4 0-8.2.7A4 4 0 0 0 1 7.5 41 41 0 0 0 1 12a41 41 0 0 0 1 4.5A4 4 0 0 0 4.8 19C6.6 19.7 12 19.7 12 19.7s6.4 0 8.2-.7A4 4 0 0 0 23 16.5 41 41 0 0 0 24 12a41 41 0 0 0-1-4.5ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+            </a></li>
+          </ul>
+          <address class="f-address">
+            © <span id="year"></span> TP — Malaysia &amp; Thailand
+          </address>
+        </div>
       </div>
-    </div>
 
-    <!-- Column 2: quick links -->
-    <nav class="f-col f-links" aria-label="フッターリンク">
-      <h4 class="f-title">クイックリンク</h4>
-      <ul class="f-list">
-        <li><a href="about.html">会社紹介</a></li>
-        <li><a href="jobs-and-benefits.html">求人・給与/福利厚生</a></li>
-        <li><a href="relocation-visa.html">移住・ビザ</a></li>
-        <li><a href="interview-process.html">面接プロセス</a></li>
-        <li><a href="why-malaysia-thailand.html">マレーシア・タイの魅力</a></li>
-        <li><a href="career-growth.html">キャリア・語学</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-      </ul>
-    </nav>
-
-    <!-- Column 3: contact + socials -->
-    <div class="f-col f-contact">
-      <h4 class="f-title">お問い合わせ</h4>
-      <p class="f-meta">
-        ご質問やカジュアル面談のご希望は、フォームまたはLINEからどうぞ。
-      </p>
-      <div class="f-actions">
-        <a class="btn primary" href="contact.html">問い合わせフォーム</a>
-        <a class="btn ghost" target="_blank"
-           href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINEで相談</a>
+      <!-- bottom mini-bar -->
+      <div class="footer-bar">
+        <div class="container footer-bar-inner">
+          <small class="copyright">© <span id="year2"></span> Teleperformance</small>
+          <ul class="legal">
+            <li><a href="privacy.html">プライバシー</a></li>
+            <li><a href="terms.html">利用規約</a></li>
+            <li><a href="sitemap.html">サイトマップ</a></li>
+          </ul>
+        </div>
       </div>
-      <ul class="f-social" aria-label="SNS">
-        <li><a class="social-btn" href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 8h2v13H3V8Zm6 0h2v2h.1c.3-.6 1.2-1.2 2.5-1.2 2.7 0 3.4 1.6 3.4 3.7V21h-2v-6.2c0-1.5 0-3.3-2-3.3s-2.3 1.6-2.3 3.2V21H9V8Z"/></svg>
-        </a></li>
-        <li><a class="social-btn" href="#" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a4 4 0 0 0-2.8-2.8C18.4 4 12 4 12 4s-6.4 0-8.2.7A4 4 0 0 0 1 7.5 41 41 0 0 0 1 12a41 41 0 0 0 1 4.5A4 4 0 0 0 4.8 19C6.6 19.7 12 19.7 12 19.7s6.4 0 8.2-.7A4 4 0 0 0 23 16.5 41 41 0 0 0 24 12a41 41 0 0 0-1-4.5ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
-        </a></li>
-      </ul>
-      <address class="f-address">
-        © <span id="year"></span> TP — Malaysia &amp; Thailand
-      </address>
-    </div>
-  </div>
-
-  <!-- bottom mini-bar -->
-  <div class="footer-bar">
-    <div class="container footer-bar-inner">
-      <small class="copyright">© <span id="year2"></span> Teleperformance</small>
-      <ul class="legal">
-        <li><a href="privacy.html">プライバシー</a></li>
-        <li><a href="terms.html">利用規約</a></li>
-        <li><a href="sitemap.html">サイトマップ</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
-
+    </footer>
 
     <!-- Floating apply (mobile) -->
     <div id="applyBar" class="apply-bar" role="region" aria-label="応募バー">
       <a class="btn ghost" href="faq.html" data-i18n="bar.faq">FAQ</a>
       <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
     </div>
 
-    <!-- Back-to-top -->
-    <a id="toTop" class="btn ghost to-top" href="#main" aria-label="トップへ">▲</a>
+    <!-- Floating buttons (back-to-top + apply now) -->
+    <div class="floating-buttons">
+      <a id="applyNow" class="apply-now-floating" target="_blank"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+         data-i18n="cta.apply">Apply Now</a>
+      <a id="toTop" class="to-top" href="#main" aria-label="トップへ">▲ Top</a>
+    </div>
   </main>
 
   <noscript>
