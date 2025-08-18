@@ -1,8 +1,8 @@
 /* ============================================================================
-   TP Candidate Microsite — app.js
+   TP Candidate Microsite — app.js (Updated)
    Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
-   Purpose : Bind UI, render dynamic content, and URL-based language switching
-   Updated : 2025-08-15 - Added URL-based language routing (/en, /jp, /kr)
+   Purpose : Bind UI, render dynamic content, URL-based language switching
+   Updated : 2025-08-18 - Added Korean support and URL-based language switching
 ============================================================================ */
 
 /* ----------------------------------------------------------
@@ -28,7 +28,6 @@ function prefersReducedMotion() {
 function imageFallback(img, fallbackAlt = 'image') {
   if (!img) return;
   img.addEventListener('error', () => {
-    // Last-resort placeholder (keeps layout pleasant)
     img.src = 'TPLogo11.png';
     img.alt = fallbackAlt || img.alt || 'TP';
     img.style.objectFit = 'contain';
@@ -37,46 +36,41 @@ function imageFallback(img, fallbackAlt = 'image') {
 }
 
 /* ----------------------------------------------------------
-   1) Language & i18n plumbing with URL routing
+   1) Language & i18n plumbing (URL-based)
 -----------------------------------------------------------*/
-const I18N    = window.I18N    || { ja: {}, en: {}, kr: {} };
-const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{}, kr:{} };
+const I18N    = window.I18N    || { ja: {}, en: {}, ko: {} };
+const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{}, ko:{} };
 
-// URL-based language detection and routing
-function getLanguageFromURL() {
+// Get language from URL path
+function getLangFromURL() {
   const path = window.location.pathname;
-  if (path.startsWith('/en') || path === '/en') return 'en';
-  if (path.startsWith('/kr') || path === '/kr') return 'kr';
-  if (path.startsWith('/jp') || path === '/jp') return 'ja';
-  // Default fallback
-  return 'ja';
+  if (path.includes('/en')) return 'en';
+  if (path.includes('/ko')) return 'ko';
+  return 'ja'; // default
 }
 
-function setLanguageURL(lang) {
+// Set language and update URL
+function setLangURL(lang) {
   const currentPath = window.location.pathname;
-  const currentSearch = window.location.search;
-  const currentHash = window.location.hash;
+  const search = window.location.search;
   
-  // Remove existing language prefix
-  let cleanPath = currentPath.replace(/^\/(en|jp|kr)/, '') || '/';
+  // Remove existing language prefixes
+  let cleanPath = currentPath.replace(/\/(en|ja|ko)/, '');
+  if (cleanPath === '') cleanPath = '/';
   
-  // Add new language prefix
-  let newPath;
-  if (lang === 'ja') {
-    newPath = cleanPath === '/' ? '/jp' : `/jp${cleanPath}`;
-  } else {
-    newPath = cleanPath === '/' ? `/${lang}` : `/${lang}${cleanPath}`;
-  }
+  // Add new language prefix (except for Japanese which is default)
+  let newPath = cleanPath;
+  if (lang === 'en') newPath = '/en' + cleanPath;
+  if (lang === 'ko') newPath = '/ko' + cleanPath;
   
   // Update URL without page reload
-  window.history.pushState(null, '', newPath + currentSearch + currentHash);
+  window.history.pushState({ lang }, '', newPath + search);
 }
 
-let currentLang = getLanguageFromURL();
+let currentLang = getLangFromURL();
 
 function applyLangToHtmlRoot() {
-  const htmlLang = currentLang === 'kr' ? 'ko' : currentLang === 'en' ? 'en' : 'ja';
-  document.documentElement.setAttribute('lang', htmlLang);
+  document.documentElement.setAttribute('lang', currentLang);
   document.documentElement.setAttribute('data-lang', currentLang);
 }
 
@@ -93,7 +87,6 @@ function applyI18nStaticText() {
     const val = t(key);
     if (typeof val === 'string' || typeof val === 'number') el.innerHTML = val;
   });
-  // Some elements may use data-i18n-static to keep text-only (no HTML)
   $$('[data-i18n-static]').forEach((el) => {
     const key = el.getAttribute('data-i18n-static');
     const val = t(key);
@@ -190,7 +183,6 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
   on(prev, 'click', () => go(-1));
   on(next, 'click', () => go(1));
 
-  // gentle autoplay
   let timer = setInterval(() => {
     const count = track.children.length;
     index = (index + 1) % Math.max(1, count);
@@ -205,7 +197,6 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
     }, 5200);
   });
 
-  // initial
   requestAnimationFrame(update);
   return { destroy: () => { clearInterval(timer); } };
 }
@@ -334,7 +325,6 @@ function renderFaq() {
       <div class="a">${q.a}</div>`;
     root.appendChild(wrap);
   });
-  // Wiring accordion behavior
   $$('#faqList .q').forEach((btn) => {
     on(btn, 'click', () => {
       const a = btn.nextElementSibling;
@@ -362,12 +352,9 @@ function renderGallery() {
 }
 
 /* ----------------------------------------------------------
-   6) Priority / Secondary galleries (3×3 tiles with background connector)
-   - Uses your existing <a class="icon-card">…</a> in HTML and
-     upgrades each card into a photo tile with caption-under-image.
+   6) Priority / Secondary galleries 
 -----------------------------------------------------------*/
 const PHOTO_SOURCES = {
-  // culturally-friendly placeholder photos (Unsplash, no external JS needed)
   about: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop',
   jobs: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
   relocation: 'https://images.unsplash.com/photo-1502920917128-1aa500764ce7?q=80&w=1200&auto=format&fit=crop',
@@ -387,8 +374,6 @@ const PHOTO_SOURCES = {
 };
 
 function decorateIconCard(a, key) {
-  // Expect structure: <a.icon-card><span.icon>…</span><span.meta><span.title>…</span><span.desc>…</span></span></a>
-  // We'll inject a <div class="photo"> before meta, and keep SVG for accessibility.
   const title = $('.title', a)?.textContent?.trim() || a.getAttribute('aria-label') || '';
   const photoURL = PHOTO_SOURCES[key] || PHOTO_SOURCES.about;
   let photo = $('.photo', a);
@@ -404,7 +389,6 @@ function decorateIconCard(a, key) {
     img.alt = title || key;
     imageFallback(img, title || key);
   }
-  // Normalize icon size (SVG stays small and centered above photo on hover)
   a.classList.add('is-photo-card');
 }
 
@@ -412,14 +396,11 @@ function renderPriorityGallery() {
   const root = $('section.icon-grid.priority');
   if (!root) return;
   const items = $$('.icon-card', root);
-  // Add subtle connector background
   injectConnectorBackground(root);
-  // Map each card to a key to pick a photo
   const keyMap = [
     'about','jobs','relocation','process','why','casual','testimonials','office','career'
   ];
   items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'about'));
-  // enforce 3×3 layout via CSS utility classes (kept semantic)
   root.classList.add('priority-3x3');
   items.forEach((el) => observeReveal(el));
 }
@@ -429,33 +410,30 @@ function renderSecondaryGallery() {
   if (!root) return;
   const items = $$('.icon-card', root);
   injectConnectorBackground(root, { density: 10, variant: 'dots' });
-  const keyMap = ['cost','team','area','blog','line','culture','faq','contact'];
+  const keyMap = ['cost','team','area','blog','line','culture','faq'];
   items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
   root.classList.add('secondary-grid');
   items.forEach((el) => observeReveal(el));
 }
 
 /* ----------------------------------------------------------
-   7) Background connector SVG (subtle, modern)
+   7) Background connector SVG
 -----------------------------------------------------------*/
 function injectConnectorBackground(sectionEl, opts = {}) {
   if (!sectionEl) return;
   const { density = 12, variant = 'grid' } = opts;
-  // If already present, skip
   if ($('.bg-connectors', sectionEl)) return;
 
   const svg = document.createElement('div');
   svg.className = 'bg-connectors';
   svg.setAttribute('aria-hidden', 'true');
 
-  // Create lightweight SVG pattern
   const w = sectionEl.clientWidth || 1200;
   const h = 320;
-  const stroke = 'rgba(255, 0, 130, 0.08)'; // Updated to TP Pink
+  const stroke = 'rgba(2, 32, 71, 0.12)'; // Made more visible
   let svgInner = '';
 
   if (variant === 'dots') {
-    // Dotted connector
     const rows = 4, cols = density;
     const cellW = w / cols;
     const cellH = h / rows;
@@ -464,12 +442,11 @@ function injectConnectorBackground(sectionEl, opts = {}) {
       for (let c=0;c<cols;c++){
         const x = c*cellW + cellW/2;
         const y = r*cellH + cellH/2;
-        svgInner += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="1.8" fill="${stroke}"/>`;
+        svgInner += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="2.2" fill="${stroke}"/>`;
       }
     }
     svgInner += `</svg>`;
   } else {
-    // Thin grid/lines
     const cols = density;
     const cellW = w / cols;
     svgInner += `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;
@@ -484,7 +461,6 @@ function injectConnectorBackground(sectionEl, opts = {}) {
   svg.innerHTML = svgInner;
   sectionEl.prepend(svg);
 
-  // Update on resize
   let raf;
   on(window, 'resize', () => {
     cancelAnimationFrame(raf);
@@ -500,7 +476,6 @@ function injectConnectorBackground(sectionEl, opts = {}) {
    8) Language toggle + full refresh of dynamic sections
 -----------------------------------------------------------*/
 function renderAllDynamic() {
-  // These only exist on the long single-page template.
   renderWhyLists();
   renderCities();
   renderBenefits();
@@ -510,48 +485,41 @@ function renderAllDynamic() {
   renderVoices();
   renderFaq();
   renderGallery();
-
-  // Icon galleries (3×3 + secondary)
   renderPriorityGallery();
   renderSecondaryGallery();
 
-  // Year in footer
   const y = String(new Date().getFullYear());
   const yNode = document.getElementById('year');
   if (yNode) yNode.textContent = y;
-
   const yNode2 = document.getElementById('year2');
   if (yNode2) yNode2.textContent = y;
 }
 
 function setLang(lang) {
-  const validLangs = ['ja', 'en', 'kr'];
-  currentLang = validLangs.includes(lang) ? lang : 'ja';
+  const validLangs = ['ja', 'en', 'ko'];
+  if (!validLangs.includes(lang)) lang = 'ja';
   
-  // Update URL
-  setLanguageURL(currentLang);
-  
+  currentLang = lang;
+  setLangURL(lang);
   applyLangToHtmlRoot();
   applyI18nStaticText();
   renderAllDynamic();
 
-  // Update hero typewriter text
   const heroNode = $('#heroType');
   const heroTexts = I18N[currentLang].heroTexts || [];
   typewriter(heroNode, heroTexts);
 
-  // Update Ask ChatGPT prompt
   const ta = $('#chatgptPrompt');
   if (ta && typeof window.getChatGPTPrompt === 'function') {
     ta.value = window.getChatGPTPrompt(currentLang);
   }
 
-  // Update lang toggle button label
+  // Update language button text
   const langBtn = $('#langBtn');
   if (langBtn) {
     if (currentLang === 'ja') langBtn.textContent = 'EN';
     else if (currentLang === 'en') langBtn.textContent = '한국어';
-    else if (currentLang === 'kr') langBtn.textContent = '日本語';
+    else if (currentLang === 'ko') langBtn.textContent = '日本語';
   }
 }
 
@@ -559,26 +527,25 @@ function setLang(lang) {
    9) Header actions: language + drawer + smooth anchors
 -----------------------------------------------------------*/
 function initHeader() {
-  // Language cycling: ja -> en -> kr -> ja
+  // Language cycling: ja -> en -> ko -> ja
   const langBtn = $('#langBtn');
   if (langBtn) {
-    // Set initial button text
     if (currentLang === 'ja') langBtn.textContent = 'EN';
     else if (currentLang === 'en') langBtn.textContent = '한국어';
-    else if (currentLang === 'kr') langBtn.textContent = '日本語';
+    else if (currentLang === 'ko') langBtn.textContent = '日本語';
     
     on(langBtn, 'click', () => {
       let nextLang;
       if (currentLang === 'ja') nextLang = 'en';
-      else if (currentLang === 'en') nextLang = 'kr';
+      else if (currentLang === 'en') nextLang = 'ko';
       else nextLang = 'ja';
       setLang(nextLang);
     });
   }
 
   // Drawer (mobile)
-  const menuOpen  = $('#menuOpen') || $('#menuBtn');
-  const menuClose = $('#menuClose') || $('#closeDrawer');
+  const menuOpen  = $('#menuBtn');
+  const menuClose = $('#closeDrawer');
   const drawer    = $('#drawer');
   const scrim     = $('#scrim');
 
@@ -604,7 +571,6 @@ function initHeader() {
   $$('.drawer .d-link').forEach((a) =>
     on(a, 'click', () => {
       closeDrawer();
-      // If anchor (in-page) existed, smooth-scroll; but you use separate pages, so default nav is fine.
       const href = a.getAttribute('href') || '';
       if (href.startsWith('#')) {
         setTimeout(() => smoothScrollTo(href, 76), 10);
@@ -612,7 +578,6 @@ function initHeader() {
     })
   );
 
-  // Smooth scroll for any in-page anchors in header/footer
   $$('a[href^="#"]').forEach((a) => {
     on(a, 'click', (e) => {
       const id = a.getAttribute('href');
@@ -631,21 +596,20 @@ function initHeader() {
 function initStickyBars() {
   const applyBar = $('.apply-bar');
   const toTop = $('#toTop');
-  const applyNowFloat = $('.apply-now-float');
+  const applyNow = $('#applyNow'); // New Apply Now button
 
   function onScroll() {
     const y = window.scrollY;
     if (applyBar) {
-      // show after hero area
       applyBar.style.transform = y > 360 ? 'translateY(0)' : 'translateY(100%)';
     }
     if (toTop) {
       if (y > 560) toTop.classList.add('show');
       else toTop.classList.remove('show');
     }
-    if (applyNowFloat) {
-      if (y > 560) applyNowFloat.classList.add('show');
-      else applyNowFloat.classList.remove('show');
+    if (applyNow) {
+      if (y > 560) applyNow.classList.add('show');
+      else applyNow.classList.remove('show');
     }
   }
 
@@ -670,7 +634,7 @@ function initContactForm() {
     e.preventDefault();
     const name = $('#name')?.value?.trim() || '';
     const fn = I18N[currentLang].contactThanks || I18N.ja.contactThanks || (() => 'ありがとうございました。');
-    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : currentLang === 'kr' ? '지원자' : 'Candidate')) : fn;
+    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : currentLang === 'ko' ? '지원자' : 'Candidate')) : fn;
     alert(msg);
     form.reset();
   });
@@ -691,7 +655,8 @@ function initChatGPTSection() {
       try {
         await navigator.clipboard.writeText(ta.value);
         const original = btnCopy.textContent;
-        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : currentLang === 'kr' ? '복사했습니다!' : 'Copied!';
+        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : 
+                              currentLang === 'ko' ? '복사했습니다!' : 'Copied!';
         setTimeout(() => (btnCopy.textContent = original), 1400);
       } catch (e) {
         ta.select();
@@ -701,7 +666,6 @@ function initChatGPTSection() {
   }
   if (btnOpen) {
     on(btnOpen, 'click', () => {
-      // Don't rely on URL strings in HTML; centralize here
       window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer');
     });
   }
@@ -717,7 +681,6 @@ function initHeroMediaFallbacks() {
 }
 
 function initCultureStripAnimations() {
-  // lightweight parallax on large screens (no library)
   const strip = $('.culture-strip');
   if (!strip || prefersReducedMotion()) return;
 
@@ -727,7 +690,7 @@ function initCultureStripAnimations() {
     if (rect.top > window.innerHeight || rect.bottom < 0) return;
     const progress = 1 - Math.abs(rect.top) / (window.innerHeight + rect.height);
     motifs.forEach((m, i) => {
-      const factor = (i + 1) * 4; // increasing subtle offset
+      const factor = (i + 1) * 4;
       m.style.transform = `translateY(${(1 - progress) * factor}px)`;
     });
   }
@@ -736,7 +699,6 @@ function initCultureStripAnimations() {
 }
 
 function normalizeIconSizes() {
-  // Make sure icons (SVGs) above photos are tidy
   $$('.icon-card .icon svg, .icon-card .icon img').forEach((node) => {
     node.setAttribute('width', '48');
     node.setAttribute('height', '48');
@@ -746,34 +708,23 @@ function normalizeIconSizes() {
 }
 
 /* ----------------------------------------------------------
-   14) Handle browser back/forward navigation
+   14) Handle browser navigation
 -----------------------------------------------------------*/
-function initPopStateHandler() {
-  window.addEventListener('popstate', () => {
-    const newLang = getLanguageFromURL();
+function initBrowserNavigation() {
+  window.addEventListener('popstate', (e) => {
+    const newLang = getLangFromURL();
     if (newLang !== currentLang) {
       currentLang = newLang;
       applyLangToHtmlRoot();
       applyI18nStaticText();
       renderAllDynamic();
       
-      // Update hero typewriter text
-      const heroNode = $('#heroType');
-      const heroTexts = I18N[currentLang].heroTexts || [];
-      typewriter(heroNode, heroTexts);
-
-      // Update Ask ChatGPT prompt
-      const ta = $('#chatgptPrompt');
-      if (ta && typeof window.getChatGPTPrompt === 'function') {
-        ta.value = window.getChatGPTPrompt(currentLang);
-      }
-
-      // Update lang toggle button label
+      // Update language button
       const langBtn = $('#langBtn');
       if (langBtn) {
         if (currentLang === 'ja') langBtn.textContent = 'EN';
         else if (currentLang === 'en') langBtn.textContent = '한국어';
-        else if (currentLang === 'kr') langBtn.textContent = '日本語';
+        else if (currentLang === 'ko') langBtn.textContent = '日本語';
       }
     }
   });
@@ -811,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroMediaFallbacks();
   initCultureStripAnimations();
   normalizeIconSizes();
-
-  // 8) Handle browser navigation
-  initPopStateHandler();
+  
+  // 8) Browser navigation
+  initBrowserNavigation();
 });
