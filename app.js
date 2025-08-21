@@ -736,3 +736,292 @@ document.addEventListener('DOMContentLoaded', () => {
   initCultureStripAnimations();
   normalizeIconSizes();
 });
+
+/* ========================================================================
+   TP_EXT: Non-destructive augmentation for URL language + KO + accents +
+           secondary-grid full-bleed hint + float Apply next to ToTop
+   Paste-in block (appended; does not remove original logic)
+   Updated: 2025-08-21
+======================================================================== */
+(function () {
+  // ====== Config from your request ======
+  const APPLY_URL = 'https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE';
+  const TP_PINK   = '#ff0082';
+  const TP_PURPLE = '#780096';
+
+  // URL language maps
+  const SUPPORTED = ['ja','en','ko'];
+  const URL2INTL  = { en:'en', jp:'ja', ko:'ko' };
+  const INTL2URL  = { en:'en', ja:'jp', ko:'ko' };
+
+  // Ensure accent color (you can switch to purple by toggling the commented line)
+  function forceAccent() {
+    try {
+      const r = document.documentElement;
+      const cur = getComputedStyle(r).getPropertyValue('--accent').trim();
+      if (!cur || cur === '#0057B8') r.style.setProperty('--accent', TP_PINK);
+      // r.style.setProperty('--accent', TP_PURPLE); // fallback option if pink is hard to read
+      // Improve contrast on surfaces a bit
+      if (!getComputedStyle(r).getPropertyValue('--surface').trim()) {
+        r.style.setProperty('--surface', '#fbf7fc');
+      }
+      // Prefer Noto Sans JP then Calibri Light as asked
+      document.body && (document.body.style.fontFamily = `"Noto Sans JP","Calibri Light","Inter",system-ui,sans-serif`);
+    } catch {}
+  }
+
+  // Parse /en or /jp or /ko from URL; fallback to ?lang=; else keep current
+  function parseLangFromUrl() {
+    try {
+      const m = location.pathname.match(/^\/(en|jp|ko)(?:\/|$)/i);
+      if (m) return URL2INTL[m[1].toLowerCase()] || 'ja';
+      const q = new URLSearchParams(location.search).get('lang');
+      if (q && URL2INTL[q]) return URL2INTL[q];
+    } catch {}
+    const root = document.documentElement;
+    const attr = (root.getAttribute('data-lang') || root.getAttribute('lang') || 'ja').toLowerCase();
+    return SUPPORTED.includes(attr) ? attr : (typeof currentLang === 'string' ? currentLang : 'ja');
+  }
+
+  function pushLangToUrl(lang) {
+    const seg = INTL2URL[lang] || 'jp';
+    const path = location.pathname;
+    let newPath;
+    if (/^\/(en|jp|ko)(?:\/|$)/i.test(path)) {
+      newPath = path.replace(/^\/(en|jp|ko)(?=\/|$)/i, `/${seg}`);
+    } else {
+      newPath = `/${seg}${path.startsWith('/') ? '' : '/'}${path}`;
+    }
+    try {
+      history.replaceState({}, '', newPath + location.search + location.hash);
+    } catch {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', seg);
+      history.replaceState({}, '', u.toString());
+    }
+  }
+
+  // Keep internal links prefixed with the active lang segment
+  function rewriteInternalLinks(lang) {
+    const seg = INTL2URL[lang] || 'jp';
+    $$('a[href]').forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || /^https?:\/\//i.test(href)) return;
+
+      if (href.startsWith('/')) {
+        if (!/^\/(en|jp|ko)(?:\/|$)/i.test(href)) {
+          a.setAttribute('href', `/${seg}${href}`);
+        }
+      } else {
+        // convert relative to lang-prefixed root-relative, preserving folder
+        const basePath = location.pathname.replace(/^\/(en|jp|ko)(?=\/|$)/i, '');
+        const dir = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+        a.setAttribute('href', `/${seg}${dir}${href}`);
+      }
+    });
+  }
+
+  // Gentle i18n (only touches elements that asked for it)
+  function renderI18NAlias(lang) {
+    if (!window.I18N) return;
+    const dict = window.I18N[lang] || window.I18N.ja || {};
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (!key) return;
+      const v = dict[key];
+      if (v == null) return;
+      el.textContent = (typeof v === 'function') ? v('') : v;
+    });
+  }
+
+  // Rebind language button to cycle JA → EN → KO → JA and keep URL in sync
+  function rebindLangButton() {
+    const btn = document.getElementById('langBtn');
+    if (!btn) return;
+    // wipe previous listeners by cloning
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+
+    // set label to the "next" language
+    const cur = parseLangFromUrl();
+    clone.textContent = cur === 'ja' ? 'EN' : cur === 'en' ? '한국어' : '日本語';
+
+    clone.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const curLang = parseLangFromUrl();
+      const next = curLang === 'ja' ? 'en' : curLang === 'en' ? 'ko' : 'ja';
+      setLanguageExt(next, { updateUrl: true });
+    });
+  }
+
+  function updateChatGPTPrompt(lang) {
+    const ta = document.getElementById('chatgptPrompt');
+    if (ta && window.getChatGPTPrompt) ta.value = window.getChatGPTPrompt(lang);
+  }
+
+  function initTypewriterSafe(lang) {
+    const node = document.getElementById('heroType');
+    if (!node) return;
+    let texts = (window.I18N && window.I18N[lang] && window.I18N[lang].heroTexts) || [];
+    if (!texts || !texts.length) {
+      const alt = node.getAttribute(`data-${lang}`) || '';
+      if (alt) texts = [alt];
+    }
+    if (texts && texts.length) typewriter(node, texts);
+  }
+
+  function ensureYear() {
+    const y = String(new Date().getFullYear());
+    const yNode = document.getElementById('year');
+    const yNode2= document.getElementById('year2');
+    if (yNode)  yNode.textContent  = y;
+    if (yNode2) yNode2.textContent = y;
+  }
+
+  // Create Apply Now next to #toTop (non-destructive)
+  function ensureApplyNextToTop(lang) {
+    const toTop = document.getElementById('toTop');
+    const label = lang === 'ja' ? 'ご応募はこちら' : lang === 'ko' ? '지원하기' : 'Apply Now';
+    let apply = document.getElementById('applyFloatBtn');
+
+    if (!apply) {
+      apply = document.createElement('a');
+      apply.id = 'applyFloatBtn';
+      apply.className = 'btn primary';
+      apply.href = APPLY_URL;
+      apply.target = '_blank';
+      apply.rel = 'noopener';
+      apply.style.position = 'fixed';
+      apply.style.right = '64px';
+      apply.style.bottom = '24px';
+      apply.style.zIndex = '999';
+      apply.style.transition = 'opacity .2s ease, transform .2s ease';
+      apply.style.opacity = '0';
+      apply.style.transform = 'translateY(8px)';
+      document.body.appendChild(apply);
+    }
+    apply.textContent = label;
+
+    function toggle(show) {
+      apply.style.opacity = show ? '1' : '0';
+      apply.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+      apply.tabIndex = show ? 0 : -1;
+    }
+
+    function onScroll() {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      // match the threshold used by initStickyBars (560)
+      toggle(y > 560);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    // If #toTop exists and is fixed at bottom-right, keep apply horizontally adjacent
+    if (toTop) {
+      // no DOM reparenting to avoid breaking your styles
+      // we just ensure spacing via apply.style.right above (64px)
+    }
+  }
+
+  // Add helper classes to secondary grid for your CSS to make it full-bleed & 4-up/3-up
+  function tuneSecondaryGrid() {
+    const sec = document.querySelector('section.icon-grid.secondary');
+    if (!sec) return;
+    sec.classList.add('fullbleed', 'secondary-full', 'bg-strong'); // CSS will make it full width & more visible
+    // you can also mark desired columns; your styles.css step will define these:
+    sec.classList.add('cols-4-desktop', 'cols-3-phone');
+  }
+
+  // Reveal alias (.in-view) so either CSS naming works
+  function aliasReveal() {
+    try {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } catch {}
+  }
+
+  // Master language setter that cooperates with original setLang for JA/EN and adds KO path
+  function setLanguageExt(lang, opts = {}) {
+    const { updateUrl = true } = opts;
+    const safe = SUPPORTED.includes(lang) ? lang : 'ja';
+    if (updateUrl) pushLangToUrl(safe);
+
+    // Keep root attributes accurate for all three languages
+    document.documentElement.setAttribute('lang', safe);
+    document.documentElement.setAttribute('data-lang', safe);
+
+    // Rewrite internal links to keep the segment consistent
+    rewriteInternalLinks(safe);
+
+    if (safe === 'ja' || safe === 'en') {
+      // Use your original pipeline
+      setLang(safe);
+    } else {
+      // === KO path: mirror what setLang() does, but with currentLang='ko' ===
+      try {
+        currentLang = 'ko';
+        localStorage.setItem(LANG_STORAGE_KEY, currentLang);
+      } catch {}
+      // Re-render
+      applyI18nStaticText();
+      renderAllDynamic();
+      initTypewriterSafe('ko');
+      updateChatGPTPrompt('ko');
+      // Update lang button (shows next language)
+      const langBtn = document.getElementById('langBtn');
+      if (langBtn) langBtn.textContent = '日本語';
+    }
+
+    // Footer year (idempotent)
+    ensureYear();
+
+    // Float apply label refresh
+    const apply = document.getElementById('applyFloatBtn');
+    if (apply) apply.textContent = safe === 'ja' ? 'ご応募はこちら' : safe === 'ko' ? '지원하기' : 'Apply Now';
+  }
+
+  function initExt() {
+    forceAccent();
+
+    // Make secondary icons section ready for your CSS tweaks
+    tuneSecondaryGrid();
+
+    // Reveal alias
+    aliasReveal();
+
+    // Sync language from URL on first load, override the local default if needed
+    const langFromUrl = parseLangFromUrl();
+    setLanguageExt(langFromUrl, { updateUrl: true });
+
+    // Replace the old two-state toggle with a 3-state cycle
+    rebindLangButton();
+
+    // Ensure Apply button next to ToTop
+    ensureApplyNextToTop(langFromUrl);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initExt, { once: true });
+  } else {
+    // Run after original DOMContentLoaded fires its handlers
+    setTimeout(initExt, 0);
+  }
+
+  // Keep language consistent when user uses browser back/forward
+  window.addEventListener('popstate', () => {
+    const lang = parseLangFromUrl();
+    setLanguageExt(lang, { updateUrl: false });
+  });
+
+  // Expose small API for manual switches if needed elsewhere
+  window.TP_EXT = { setLanguage: setLanguageExt };
+})();
