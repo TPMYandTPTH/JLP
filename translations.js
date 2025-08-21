@@ -5,6 +5,11 @@
      - window.CONTENT (page data rendered by app.js)
      - window.getChatGPTPrompt(lang) (Ask ChatGPT prompt per language)
    Updated: 2025-08-18 - Added Korean language support
+
+   Aug 21 patch:
+   - Added URL language detection so pages under /en, /ja (/jp), or /ko
+     set document.lang / data-lang early, ensuring the Ask ChatGPT textarea
+     loads the correct prompt before app.js initializes.
 ============================================================================ */
 
 (function () {
@@ -527,13 +532,13 @@
           name: 'Maho',
           role: 'TA | Japan Market',
           img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
-          bio: 'We'll support you end-to-end in JP.'
+          bio: 'We\'ll support you end-to-end in JP.'
         },
         {
           name: 'Kenta',
           role: 'Recruiter',
           img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
-          bio: 'Let's find your best-fit project.'
+          bio: 'Let\'s find your best-fit project.'
         },
         {
           name: 'Aya',
@@ -549,7 +554,7 @@
         }
       ],
       voices: [
-        { quote: 'Feeling "it's okay to be different" freed me at work.', who: 'TA Team — Maho' },
+        { quote: 'Feeling "it\'s okay to be different" freed me at work.', who: 'TA Team — Maho' },
         { quote: 'Weekend overseas trips are real here thanks to hub airports.', who: 'KL Member' },
         { quote: 'My English grew naturally through daily collaboration.', who: 'Penang Member' }
       ],
@@ -770,13 +775,35 @@ Start with a concise summary → bullet points → a friendly CTA.`,
     return CHATGPT_PROMPTS[lang] || CHATGPT_PROMPTS['ja'];
   };
 
+  // (NEW) Helper: detect language from URL path segments (e.g., /en, /ja or /jp, /ko)
+  // Exposed in case other scripts want to reuse it.
+  window.resolveLangFromURL = function resolveLangFromURL() {
+    try {
+      const p = (location.pathname || '').toLowerCase();
+      if (p.includes('/en')) return 'en';
+      if (p.includes('/ko')) return 'ko';
+      if (p.includes('/jp') || p.includes('/ja')) return 'ja';
+    } catch (e) {}
+    return null;
+  };
+
   /* ----------------------------------------------------------
      Initialize Ask ChatGPT textarea on load
   -----------------------------------------------------------*/
   document.addEventListener('DOMContentLoaded', () => {
     const root = document.documentElement;
+
+    // (NEW) Ensure lang is set from URL early (before app.js boot),
+    // so the ChatGPT prompt shows correct language immediately.
+    const urlLang = window.resolveLangFromURL();
+    if (urlLang && (!root.getAttribute('data-lang') || !root.getAttribute('lang'))) {
+      root.setAttribute('data-lang', urlLang);
+      root.setAttribute('lang', urlLang === 'ja' ? 'ja' : urlLang);
+    }
+
     const langAttr = root.getAttribute('data-lang') || root.getAttribute('lang') || 'ja';
     const current = ['ja', 'en', 'ko'].includes(langAttr) ? langAttr : 'ja';
+
     const ta = document.getElementById('chatgptPrompt');
     if (ta) {
       ta.value = window.getChatGPTPrompt(current);
