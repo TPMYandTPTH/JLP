@@ -3,15 +3,60 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>移住・ビザサポート | TP 日本語スピーカー採用</title>
-  <meta name="description" content="マレーシア・タイで働くための就労ビザ（EP）と移住サポート。必要書類、申請フロー、eVISA、到着後のサポート、住宅・生活情報までまとめました。" />
+  <title>移住・ビザ | TP 日本語スピーカー採用</title>
+  <meta name="description" content="就労ビザ（Employment Pass）申請、渡航・初期宿泊・空港送迎などの移住サポートを詳しくご案内。書類チェックリスト、スケジュール目安、生活立ち上げのポイントも。" />
   <link rel="icon" href="TPLogo11.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <meta name="theme-color" content="#0057B8" />
-  <meta property="og:title" content="移住・ビザサポート | TP 日本語スピーカー採用" />
-  <meta property="og:description" content="就労ビザ申請・eVISA・渡航手配・到着後宿泊・住居案内など、海外就職をフルサポート。" />
+  <!-- Page-safe overrides (non-destructive) -->
+  <style>
+    :root{
+      --accent:#ff0082;     /* TP Pink */
+      --accent-2:#780096;   /* TP Purple fallback where contrast needed */
+      --surface:#fff7fb;    /* soft pinky surface to make background a bit more visible */
+    }
+    body{ font-family:"Noto Sans JP","Calibri Light","Inter",system-ui,sans-serif; }
+
+    /* Apply Now FAB next to back-to-top arrow */
+    .apply-fab{
+      position:fixed; right:72px; bottom:18px; z-index:120;
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      border-radius:999px; border:1px solid var(--line); text-decoration:none; font-weight:800;
+      box-shadow:var(--shadow-sm);
+    }
+    @media (max-width:580px){
+      .apply-fab{ right:64px; bottom:14px; padding:8px 12px; }
+    }
+
+    /* Page helpers */
+    .pill{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; font-weight:800; font-size:12px; }
+    .badge.note { background:#fff0f7; }
+    .hint { font-size:13px; color:#6b7280; }
+    .visa-step{ counter-reset:item; }
+    .visa-step li{ counter-increment:item; }
+    .visa-step li strong:before{ content: counter(item) ". "; color:var(--accent); font-weight:900; }
+
+    .icon-64{
+      width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--line); background:var(--surface); font-size:28px;
+    }
+    .kv { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .kv .k{ min-width:160px; font-weight:800; }
+    .kv .v{ color:#374151; }
+    .pay-table th{ background:#fff0f7; }
+
+    /* Make background elements a bit more visible without distracting */
+    section .bg-soft{
+      background:linear-gradient(180deg, #fff, var(--surface));
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:18px;
+    }
+  </style>
+  <meta name="theme-color" content="#ff0082" />
+  <meta property="og:title" content="移住・ビザ | TP 日本語スピーカー採用" />
+  <meta property="og:description" content="EP申請・渡航・初期宿泊・空港送迎・到着後の生活立ち上げまでサポート。" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="TPLogo11.png" />
   <meta property="og:locale" content="ja_JP" />
@@ -20,12 +65,12 @@
   <a class="visually-hidden" href="#main">メインへスキップ</a>
 
   <!-- =========================================================
-       Header (shared)
+       Header (shared, IDs/classes match app.js)
   ========================================================== -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="index.html" aria-label="TP ホーム">
-        <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" />
+        <img src="TPLogo11.png" alt="TP ロゴ" class="brand-logo" id="logoImg" />
         <div class="brand-text">
           <div class="t" data-i18n="brand.title">TP</div>
           <div class="s" data-i18n="brand.sub">Malaysia · Thailand — 日本語採用</div>
@@ -33,18 +78,18 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
-        <a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人</a>
+        <a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人・福利厚生</a>
         <a href="relocation-visa.html" aria-current="page" data-i18n="nav.relocation">移住・ビザ</a>
         <a href="why-malaysia-thailand.html" data-i18n="nav.why">マレーシア・タイの魅力</a>
         <a href="faq.html" data-i18n="nav.faq">FAQ</a>
-        <a class="btn primary" target="_blank"
-           href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+        <a class="btn primary" target="_blank" rel="noopener"
+           href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
            data-i18n="cta.apply">ご応募はこちら</a>
       </nav>
 
       <div class="header-actions">
         <button id="langBtn" class="btn ghost" aria-live="polite">EN</button>
-        <button id="menuOpen" class="hamburger" aria-label="メニューを開く" aria-controls="drawer" aria-expanded="false">
+        <button id="menuBtn" class="hamburger" aria-label="メニューを開く" aria-controls="drawer" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -56,10 +101,10 @@
   <aside id="drawer" class="drawer" aria-hidden="true">
     <header class="drawer-head">
       <strong>TP</strong>
-      <button id="menuClose" class="btn ghost" aria-label="メニューを閉じる">✕</button>
+      <button id="closeDrawer" class="btn ghost" aria-label="メニューを閉じる">✕</button>
     </header>
     <nav class="drawer-nav" aria-label="Mobile">
-      <a href="about.html" class="d-link" data-i18n="drawer.about">会社紹介</a>
+      <a href="about-tp.html" class="d-link" data-i18n="drawer.about">会社紹介</a>
       <a href="jobs-and-benefits.html" class="d-link" data-i18n="drawer.jobs">求人・給与/福利厚生</a>
       <a href="relocation-visa.html" class="d-link" aria-current="page" data-i18n="drawer.relocation">移住・ビザ</a>
       <a href="interview-process.html" class="d-link" data-i18n="drawer.process">面接プロセス</a>
@@ -71,357 +116,319 @@
       <a href="faq.html" class="d-link" data-i18n="drawer.faq">FAQ</a>
     </nav>
     <div class="drawer-foot">
-      <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+      <a class="btn primary" target="_blank" rel="noopener"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
     </div>
   </aside>
 
   <main id="main">
     <!-- =========================================================
-         Page Hero
+         Hero
     ========================================================== -->
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <div class="eyebrow" data-i18n="relo.hero.eyebrow">Relocation & Visa</div>
-          <h1 class="hero-title" data-i18n="relo.hero.title">移住・ビザサポート</h1>
-          <p class="lead" data-i18n="relo.hero.lead">
-            初めての海外就職でも安心。就労ビザ申請から渡航、到着後の生活立ち上げまで、TPが丁寧に伴走します。
+          <div class="eyebrow" data-i18n-static="nav.relocation">Relocation & Visa</div>
+          <h1 class="hero-title" data-i18n="nav.relocation">移住・ビザ</h1>
+          <p class="lead">
+            Employment Pass（就労ビザ）申請や渡航・到着後のサポートは会社が伴走します。
+            初めての海外就職でもわかりやすく、安心してスタートできる体制です。
           </p>
           <div class="hero-ctas">
-            <a class="btn primary" href="#ep-flow" data-i18n="relo.hero.cta1">就労ビザの流れを見る</a>
-            <a class="btn ghost" href="#arrival-week" data-i18n="relo.hero.cta2">到着後サポート</a>
+            <a class="btn primary" href="#visa">ビザ申請</a>
+            <a class="btn ghost" href="#relocation">渡航・初期宿泊</a>
           </div>
-          <ul class="stats" aria-label="Visa quick facts">
-            <li class="stat"><strong>EP</strong><span data-i18n="relo.stat.ep">就労ビザ（Employment Pass）</span></li>
-            <li class="stat"><strong>6+1</strong><span data-i18n="relo.stat.hotel">到着後宿泊 6泊7日</span></li>
-            <li class="stat"><strong>✈︎</strong><span data-i18n="relo.stat.ticket">片道航空券 & 空港送迎</span></li>
+          <ul class="stats" aria-label="Quick facts">
+            <li class="stat"><strong>EP</strong><span>就労ビザ</span></li>
+            <li class="stat"><strong>Flight</strong><span>片道航空券</span></li>
+            <li class="stat"><strong>Hotel</strong><span>初期宿泊</span></li>
           </ul>
         </div>
         <div class="hero-media">
-          <img src="assets/hero/relocation-hero.jpg" alt="移住サポートのイメージ" id="heroCover" />
+          <img src="assets/hero/relocation.jpg" alt="移住・ビザサポート" id="heroCover" />
         </div>
       </div>
     </section>
 
     <!-- =========================================================
-         EP Flow (就労ビザの流れ)
+         Overview / What we support
     ========================================================== -->
-    <section id="ep-flow">
+    <section id="overview">
       <div class="container">
-        <div class="section-head">
-          <h2 class="h2" data-i18n="relo.ep.title">就労ビザ（EP）申請の流れ</h2>
-          <p class="h2-sub" data-i18n="relo.ep.sub">オンライン完結・日本語案内あり</p>
-        </div>
-
-        <div class="card reveal">
-          <ol class="timeline">
-            <li>
-              <strong data-i18n="relo.ep.s1.t">STEP① 内定（オファー）</strong>
-              <div class="subtle u-mt8" data-i18n="relo.ep.s1.d">雇用条件の合意後、ビザ申請の準備がスタートします。</div>
-            </li>
-            <li>
-              <strong data-i18n="relo.ep.s2.t">STEP② 必要書類の提出</strong>
-              <div class="subtle u-mt8" data-i18n="relo.ep.s2.d">パスポート、英文卒業証明、証明写真、履歴書などを提出。</div>
-            </li>
-            <li>
-              <strong data-i18n="relo.ep.s3.t">STEP③ 会社が申請を代行</strong>
-              <div class="subtle u-mt8" data-i18n="relo.ep.s3.d">申請〜承認まで担当が伴走。進捗は随時ご案内します。</div>
-            </li>
-            <li>
-              <strong data-i18n="relo.ep.s4.t">STEP④ 承認 → 渡航・入社</strong>
-              <div class="subtle u-mt8" data-i18n="relo.ep.s4.d">片道航空券、空港送迎、到着後宿泊を手配。現地でEP発給へ。</div>
-            </li>
-          </ol>
-          <p class="quote u-mt12" data-i18n="relo.ep.note">※ プロジェクトや国によって手順・必要書類が異なる場合があります。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         Document Checklist
-    ========================================================== -->
-    <section id="checklist">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2" data-i18n="relo.docs.title">必要書類チェックリスト</h2>
-          <p class="h2-sub" data-i18n="relo.docs.sub">データでの提出を基本に、原本は現地で提示いただきます</p>
-        </div>
-
-        <div class="grid cols-2 cols-1-sm">
-          <article class="card reveal">
-            <h3 class="u-mt0" data-i18n="relo.docs.must.title">必須</h3>
-            <ul style="padding-left:18px">
-              <li data-i18n="relo.docs.must.p1">パスポート（有効期限 12ヶ月以上推奨）</li>
-              <li data-i18n="relo.docs.must.p2">証明写真（規定サイズ）</li>
-              <li data-i18n="relo.docs.must.p3">卒業証明・成績証明（英文）</li>
-              <li data-i18n="relo.docs.must.p4">履歴書 / 職務経歴（英語・日本語）</li>
-              <li data-i18n="relo.docs.must.p5">無犯罪証明 / 健康診断（国・プロジェクトにより）</li>
-            </ul>
-            <div class="badge u-mt12" data-i18n="relo.docs.must.note">※ 国・役職で変わるため、最新の指示に従ってください。</div>
-          </article>
-
-          <article class="card reveal">
-            <h3 class="u-mt0" data-i18n="relo.docs.opt.title">あると便利</h3>
-            <ul style="padding-left:18px">
-              <li data-i18n="relo.docs.opt.p1">パスポート用の顔写真データ（JPG）</li>
-              <li data-i18n="relo.docs.opt.p2">学歴や資格のスキャン（英訳つき）</li>
-              <li data-i18n="relo.docs.opt.p3">直近給与の証明（あれば）</li>
-              <li data-i18n="relo.docs.opt.p4">家族帯同の場合：戸籍謄本・結婚/出生証明（英訳）</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         eVISA (補助情報)
-    ========================================================== -->
-    <section id="evisa">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2" data-i18n="relo.evisa.title">eVISA（電子ビザ）について</h2>
-          <p class="h2-sub" data-i18n="relo.evisa.sub">短期入国やEP発給待機で必要になる場合があります</p>
-        </div>
-
-        <div class="grid cols-2 cols-1-sm">
-          <article class="card reveal">
-            <h3 class="u-mt0" data-i18n="relo.evisa.how.title">申請の流れ</h3>
-            <ol style="padding-left:18px">
-              <li data-i18n="relo.evisa.how.1">オンライン申請（フォーム入力・書類アップロード）</li>
-              <li data-i18n="relo.evisa.how.2">数日〜1週間ほどで承認（通常3〜5営業日目安）</li>
-              <li data-i18n="relo.evisa.how.3">PDF受領後、印刷して入国時に提示</li>
-            </ol>
-            <p class="subtle u-mt12" data-i18n="relo.evisa.note">※ 国やタイミングで要件が変わるため、必ず最新の案内に従ってください。</p>
-            <div class="u-mt12" style="display:flex;gap:10px;flex-wrap:wrap">
-              <a class="btn ghost" target="_blank" href="https://malaysiavisa.imi.gov.my" data-i18n="relo.evisa.link.my">マレーシア公式eVISA</a>
-              <a class="btn ghost" target="_blank" href="https://www.thaievisa.go.th/" data-i18n="relo.evisa.link.th">タイ公式eVISA</a>
+        <div class="grid cols-3 cols-2-md cols-1-sm">
+          <article class="card reveal" style="display:flex;gap:14px;align-items:center">
+            <div class="icon-64">🎫</div>
+            <div>
+              <h3 class="u-mt0">就労ビザ（EP）</h3>
+              <p class="subtle u-mt4">申請手続きを会社が代行。必要書類を日本語でご案内します。</p>
             </div>
           </article>
-
-          <article class="card reveal">
-            <h3 class="u-mt0" data-i18n="relo.evisa.faq.title">eVISA よくある質問</h3>
-            <button class="q" type="button" data-i18n="relo.evisa.q1">観光ビザで入国して、そのまま就労できますか？</button>
-            <div class="a" style="display:none" data-i18n="relo.evisa.a1">いいえ。必ず就労ビザ（EP）が必要です。手順は会社がサポートします。</div>
-            <button class="q u-mt12" type="button" data-i18n="relo.evisa.q2">eVISAは必ず必要ですか？</button>
-            <div class="a" style="display:none" data-i18n="relo.evisa.a2">状況により異なります。採用担当から必要性をご案内します。</div>
+          <article class="card reveal" style="display:flex;gap:14px;align-items:center">
+            <div class="icon-64">✈️</div>
+            <div>
+              <h3 class="u-mt0">渡航・初期宿泊</h3>
+              <p class="subtle u-mt4">片道航空券手配、到着後ホテル（6泊7日 目安）を提供。</p>
+            </div>
           </article>
+          <article class="card reveal" style="display:flex;gap:14px;align-items:center">
+            <div class="icon-64">🚐</div>
+            <div>
+              <h3 class="u-mt0">空港送迎</h3>
+              <p class="subtle u-mt4">空港からホテル/オフィスまでの送迎を手配します。</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="bg-soft reveal u-mt16">
+          <div class="kv">
+            <div class="k">言語サポート</div><div class="v">日本語/英語 いずれでも対応</div>
+          </div>
+          <div class="kv u-mt8">
+            <div class="k">対象拠点</div><div class="v">KL / Penang / Bangkok（プロジェクトにより）</div>
+          </div>
+          <div class="kv u-mt8">
+            <div class="k">主な支援内容</div><div class="v">EP申請、航空券、初期ホテル、空港送迎、オリエンテーション</div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- =========================================================
-         Company Relocation Support (what we cover)
+         Visa (EP) — Steps & Documents
     ========================================================== -->
-    <section id="support-package">
+    <section id="visa">
       <div class="container">
         <div class="section-head">
-          <h2 class="h2" data-i18n="relo.pkg.title">会社による移住サポート内容</h2>
-          <p class="h2-sub" data-i18n="relo.pkg.sub">費用負担・スケジュール・連絡窓口</p>
-        </div>
-
-        <div class="grid cols-3 cols-2-md cols-1-sm">
-          <article class="card reveal">
-            <img src="assets/relo/ticket.jpg" alt="航空券" style="height:160px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <h3 class="u-mt12" data-i18n="relo.pkg.t1">渡航関連</h3>
-            <ul class="subtle" style="padding-left:18px">
-              <li data-i18n="relo.pkg.t1b1">片道航空券の手配（会社負担）</li>
-              <li data-i18n="relo.pkg.t1b2">空港送迎（到着日）</li>
-              <li data-i18n="relo.pkg.t1b3">到着後宿泊 6泊7日（マレーシア）</li>
-            </ul>
-          </article>
-
-          <article class="card reveal">
-            <img src="assets/relo/hotel.jpg" alt="到着後の宿泊" style="height:160px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <h3 class="u-mt12" data-i18n="relo.pkg.t2">生活立ち上げ</h3>
-            <ul class="subtle" style="padding-left:18px">
-              <li data-i18n="relo.pkg.t2b1">住居探しのアドバイス・内見同行（状況により）</li>
-              <li data-i18n="relo.pkg.t2b2">銀行口座・SIM・交通IC などの案内</li>
-              <li data-i18n="relo.pkg.t2b3">現地オリエンテーション（生活ルール・安全・医療）</li>
-            </ul>
-          </article>
-
-          <article class="card reveal">
-            <img src="assets/relo/visa.jpg" alt="ビザ手続き" style="height:160px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <h3 class="u-mt12" data-i18n="relo.pkg.t3">ビザ手続き</h3>
-            <ul class="subtle" style="padding-left:18px">
-              <li data-i18n="relo.pkg.t3b1">就労ビザ（EP）申請のフルサポート</li>
-              <li data-i18n="relo.pkg.t3b2">家族帯同ビザ（要件あり）の案内</li>
-              <li data-i18n="relo.pkg.t3b3">必要書類のチェック・翻訳の案内</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="u-mt16 u-center">
-          <a class="btn ghost" href="faq.html" data-i18n="relo.pkg.cta">移住サポートのFAQへ</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         First Week After Arrival (モデルプラン)
-    ========================================================== -->
-    <section id="arrival-week">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2" data-i18n="relo.week.title">到着後 1 週間のモデルプラン</h2>
-          <p class="h2-sub" data-i18n="relo.week.sub">現地到着〜入社・研修スタートまでの目安</p>
+          <h2 class="h2">就労ビザ（Employment Pass）</h2>
+          <p class="h2-sub">会社が申請を代行。必要書類は日本語で丁寧にご案内します</p>
         </div>
 
         <div class="grid cols-2 cols-1-sm">
           <article class="card reveal">
-            <h3 class="u-mt0" data-i18n="relo.week.day1.t">Day 1：到着</h3>
-            <ul style="padding-left:18px">
-              <li data-i18n="relo.week.day1.b1">空港送迎 → ホテルチェックイン</li>
-              <li data-i18n="relo.week.day1.b2">簡単な街案内／両替・SIM購入</li>
-            </ul>
-
-            <h3 data-i18n="relo.week.day2.t">Day 2：オリエンテーション</h3>
-            <ul style="padding-left:18px">
-              <li data-i18n="relo.week.day2.b1">生活ルール・安全・公共交通・医療の案内</li>
-              <li data-i18n="relo.week.day2.b2">必要に応じて内見の調整</li>
-            </ul>
-
-            <h3 data-i18n="relo.week.day3.t">Day 3–4：住居探し・手続き</h3>
-            <ul style="padding-left:18px">
-              <li data-i18n="relo.week.day3.b1">物件内見／仮申込・契約準備</li>
-              <li data-i18n="relo.week.day3.b2">口座開設、交通IC、その他必要手続き</li>
-            </ul>
-
-            <h3 data-i18n="relo.week.day5.t">Day 5–7：引越し準備〜入社</h3>
-            <ul style="padding-left:18px">
-              <li data-i18n="relo.week.day5.b1">入社手続き・研修開始</li>
-              <li data-i18n="relo.week.day5.b2">生活用品の購入・新居へ移動</li>
-            </ul>
+            <h3 class="u-mt0">申請ステップ（目安）</h3>
+            <ol class="visa-step subtle" style="padding-left:18px">
+              <li><strong>オファー合意</strong> — 条件確定後、EP申請の準備を開始。</li>
+              <li><strong>書類提出</strong> — パスポート、学歴/職歴証明、顔写真など。</li>
+              <li><strong>申請・審査</strong> — 当社が窓口となり進捗をご連絡。</li>
+              <li><strong>Approval/IPA</strong> — 渡航時の持参書類を案内。</li>
+              <li><strong>入国・手続き</strong> — 健康診断/指紋登録等（国・拠点規定）。</li>
+              <li><strong>カード受領</strong> — EPカード発行後、就業継続の手続き完了。</li>
+            </ol>
+            <div class="badge note u-mt12">💡 期間は国・時期・書類状況により変動します。</div>
           </article>
 
           <article class="card reveal">
-            <img src="assets/relo/week.jpg" alt="到着後1週間" style="height:260px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <p class="u-mt12 subtle" data-i18n="relo.week.note">※ スケジュールは到着曜日や各種手配状況により前後します。</p>
-            <div class="badge u-mt12" data-i18n="relo.week.tip">💡 早期に賃貸契約を進めると生活立ち上げがスムーズです。</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         Housing (KL / Penang / Bangkok) with quick facts
-    ========================================================== -->
-    <section id="housing">
-      <div class="container">
-        <div class="section-head">
-          <h2 class="h2" data-i18n="relo.house.title">住まいの目安（KL / Penang / Bangkok）</h2>
-          <p class="h2-sub" data-i18n="relo.house.sub">プール・ジム付き高層コンドが一般的。家具家電付きで即入居可</p>
-        </div>
-
-        <div class="grid cols-3 cols-2-md cols-1-sm">
-          <article class="card reveal">
-            <img src="assets/cities/kl-condo.jpg" alt="KLのコンドミニアム" style="height:140px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <h3 class="u-mt12" data-i18n="relo.house.kl.t">KL（クアラルンプール）</h3>
-            <ul class="subtle" style="padding-left:18px">
-              <li data-i18n="relo.house.kl.b1">1LDK：RM1,800〜2,800</li>
-              <li data-i18n="relo.house.kl.b2">光熱費：RM150〜250</li>
-              <li data-i18n="relo.house.kl.b3">SIM/ネット：RM80〜150</li>
-            </ul>
-          </article>
-
-          <article class="card reveal">
-            <img src="assets/cities/penang-condo.jpg" alt="ペナンのコンドミニアム" style="height:140px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <h3 class="u-mt12" data-i18n="relo.house.pg.t">Penang（ペナン）</h3>
-            <ul class="subtle" style="padding-left:18px">
-              <li data-i18n="relo.house.pg.b1">1LDK：RM1,500〜2,300</li>
-              <li data-i18n="relo.house.pg.b2">光熱費：RM130〜220</li>
-              <li data-i18n="relo.house.pg.b3">SIM/ネット：RM80〜150</li>
-            </ul>
-          </article>
-
-          <article class="card reveal">
-            <img src="assets/cities/bkk-condo.jpg" alt="バンコクのコンドミニアム" style="height:140px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <h3 class="u-mt12" data-i18n="relo.house.bkk.t">Bangkok（バンコク）</h3>
-            <ul class="subtle" style="padding-left:18px">
-              <li data-i18n="relo.house.bkk.b1">1BR：THB 12,000〜25,000</li>
-              <li data-i18n="relo.house.bkk.b2">光熱費：THB 1,500〜2,500</li>
-              <li data-i18n="relo.house.bkk.b3">ネット：THB 500〜900</li>
-            </ul>
+            <h3 class="u-mt0">必要書類（例）</h3>
+            <table aria-label="必要書類" class="pay-table">
+              <thead><tr><th>項目</th><th>備考</th></tr></thead>
+              <tbody>
+                <tr><td>パスポート</td><td>有効残存期間を要確認</td></tr>
+                <tr><td>顔写真</td><td>規格サイズ・背景色に注意</td></tr>
+                <tr><td>学歴証明</td><td>学位証/成績証等（英文推奨）</td></tr>
+                <tr><td>職歴証明</td><td>在籍/退職証明等（英文推奨）</td></tr>
+                <tr><td>履歴書</td><td>日本語/英語のいずれか（案件により）</td></tr>
+              </tbody>
+            </table>
+            <div class="badge u-mt12">💡 国の法令・拠点規定により差異あり。個別にご案内します。</div>
           </article>
         </div>
 
         <div class="card reveal u-mt16">
-          <div class="grid cols-2 cols-1-sm">
-            <div>
-              <h3 class="u-mt0" data-i18n="relo.house.points.t">住宅の主な特徴</h3>
-              <ul style="padding-left:18px">
-                <li data-i18n="relo.house.points.b1">24h セキュリティ・ゲート付き</li>
-                <li data-i18n="relo.house.points.b2">プール・ジム・ラウンジ・BBQ等の共用設備</li>
-                <li data-i18n="relo.house.points.b3">家具・家電付き（フルファーニッシュ）</li>
-                <li data-i18n="relo.house.points.b4">駐車場・Grab活用で移動も便利</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="u-mt0" data-i18n="relo.house.advice.t">物件探しのコツ</h3>
-              <ul style="padding-left:18px">
-                <li data-i18n="relo.house.advice.b1">通勤時間・駅/モールの近さを重視</li>
-                <li data-i18n="relo.house.advice.b2">日当たり・騒音・水圧・電波を内見でチェック</li>
-                <li data-i18n="relo.house.advice.b3">家具の状態・管理会社のレスポンスも重要</li>
-              </ul>
-            </div>
-          </div>
+          <p class="hint">※ 家族帯同や配偶者ビザ等が必要な場合は、条件・手続きが異なるため個別にご相談ください。</p>
         </div>
       </div>
     </section>
 
     <!-- =========================================================
-         Airport Transfer (How it works)
+         Relocation — Flight / Hotel / Pickup
     ========================================================== -->
-    <section id="airport-transfer">
+    <section id="relocation">
       <div class="container">
         <div class="section-head">
-          <h2 class="h2" data-i18n="relo.air.title">空港送迎（到着日）</h2>
-          <p class="h2-sub" data-i18n="relo.air.sub">ドライバーが到着ゲートで合流し、ホテルまでお送りします</p>
+          <h2 class="h2">渡航・初期宿泊・空港送迎</h2>
+          <p class="h2-sub">上陸から仕事・生活の立ち上げまで、スムーズに伴走</p>
+        </div>
+
+        <div class="grid cols-3 cols-2-md cols-1-sm">
+          <article class="card reveal">
+            <h3 class="u-mt0">片道航空券</h3>
+            <p class="subtle">入社手続きに合わせ、渡航日程をご相談のうえ手配します。</p>
+            <ul class="subtle" style="padding-left:18px">
+              <li>出発空港・到着空港は個別に調整</li>
+              <li>フライト詳細は事前にご案内</li>
+              <li>超過手荷物などは規定に準拠</li>
+            </ul>
+            <div class="badge u-mt12">💡 変更手数料等は規定に準じます</div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="u-mt0">初期ホテル（目安：6泊7日）</h3>
+            <p class="subtle">到着直後の住まい探しや各種手続きの期間にご利用ください。</p>
+            <ul class="subtle" style="padding-left:18px">
+              <li>安全・アクセスを考慮したエリア</li>
+              <li>延泊や家族同伴は事前相談（条件あり）</li>
+              <li>チェックイン/アウトは案内に従って実施</li>
+            </ul>
+            <div class="badge u-mt12">💡 宿泊日数は拠点規定・条件による</div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="u-mt0">空港送迎</h3>
+            <p class="subtle">空港からホテルまたはオフィスへ、到着時間に合わせて手配。</p>
+            <ul class="subtle" style="padding-left:18px">
+              <li>到着出口でドライバーと合流</li>
+              <li>フライト遅延時も調整</li>
+              <li>緊急連絡先を事前共有</li>
+            </ul>
+            <div class="badge u-mt12">💡 複数名同着時は相乗りの可能性あり</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         After Arrival — Orientation & Setup
+    ========================================================== -->
+    <section id="after-arrival">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2">到着後のサポート</h2>
+          <p class="h2-sub">オリエンテーションで生活・就業の立ち上げをサポート</p>
         </div>
 
         <div class="grid cols-2 cols-1-sm">
           <article class="card reveal">
-            <h3 class="u-mt0" data-i18n="relo.air.how.t">流れ</h3>
-            <ol style="padding-left:18px">
-              <li data-i18n="relo.air.how.1">フライト情報の共有（採用担当へ）</li>
-              <li data-i18n="relo.air.how.2">到着ゲートでドライバーと合流（名前ボード掲示）</li>
-              <li data-i18n="relo.air.how.3">ホテルへ移動（チェックイン補助）</li>
-            </ol>
-            <p class="subtle u-mt12" data-i18n="relo.air.note">※ 遅延・欠航時は案内された緊急連絡先へご連絡ください。</p>
+            <h3 class="u-mt0">オリエンテーション</h3>
+            <ul class="subtle" style="padding-left:18px">
+              <li>会社/拠点のルール・連絡体制のご案内</li>
+              <li>安全・医療・緊急時のガイダンス</li>
+              <li>生活情報（エリア・交通・買い物・病院）</li>
+            </ul>
+            <div class="badge u-mt12">💡 日本語での案内も可能</div>
           </article>
 
           <article class="card reveal">
-            <img src="assets/relo/airport.jpg" alt="空港送迎" style="height:220px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line)" />
-            <div class="badge u-mt12" data-i18n="relo.air.tip">💡 SIMは空港での購入が便利です（eSIM対応も可）。</div>
+            <h3 class="u-mt0">生活立ち上げ</h3>
+            <ul class="subtle" style="padding-left:18px">
+              <li>SIM/通信・銀行口座の開設アドバイス</li>
+              <li>住居探しの基本（相場・エリア）</li>
+              <li>通勤・交通カード・配車アプリ</li>
+            </ul>
+            <div class="badge u-mt12">💡 詳細はオリエンテーションで個別に案内</div>
+          </article>
+        </div>
+
+        <div class="card reveal u-mt16">
+          <h3 class="u-mt0">住まい（コンドミニアム）の目安</h3>
+          <table aria-label="housing" class="pay-table">
+            <thead><tr><th>エリア</th><th>1LDK 家賃</th><th>特徴</th></tr></thead>
+            <tbody>
+              <tr><td>KL（中心部）</td><td>RM 2,200–2,800</td><td>プール・ジム標準、駅近は割高</td></tr>
+              <tr><td>Penang（島内）</td><td>RM 1,700–2,300</td><td>海ビュー物件あり、落ち着いた環境</td></tr>
+              <tr><td>Bangkok（BTS沿線）</td><td>THB 18,000–28,000</td><td>駅徒歩圏は便利、物件豊富</td></tr>
+            </tbody>
+          </table>
+          <p class="hint u-mt8">※ 家賃相場は時期・物件・立地により変動します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Timeline & Checklist
+    ========================================================== -->
+    <section id="timeline">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2">スケジュール感とチェックリスト</h2>
+          <p class="h2-sub">合意〜渡航〜就業開始までの流れと、準備物の整理</p>
+        </div>
+
+        <div class="grid cols-2 cols-1-sm">
+          <article class="card reveal">
+            <h3 class="u-mt0">スケジュール（例）</h3>
+            <ol class="visa-step subtle" style="padding-left:18px">
+              <li><strong>週1</strong>：オファー合意、EP書類一覧の共有</li>
+              <li><strong>週2–3</strong>：書類提出、会社側で申請</li>
+              <li><strong>週4–6</strong>：審査・承認（目安）</li>
+              <li><strong>週7</strong>：渡航・到着、オリエンテーション</li>
+              <li><strong>週8</strong>：研修開始・業務スタート</li>
+            </ol>
+            <div class="badge note u-mt12">💡 国・案件・時期により前後します</div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="u-mt0">渡航前チェックリスト</h3>
+            <ul style="padding-left:18px">
+              <li>パスポート残存／ビザ関連書類</li>
+              <li>各種原本・コピー（学歴/職歴/写真）</li>
+              <li>クレジットカード・現地通貨の準備</li>
+              <li>常備薬・必要な医療情報</li>
+              <li>日本のSIMローミング設定 or 現地SIM準備</li>
+              <li>到着時連絡手段（空港Wi-Fi/ポケットWi-Fi）</li>
+            </ul>
+            <div class="badge u-mt12">💡 勤務開始日の逆算で余裕をもった計画を</div>
           </article>
         </div>
       </div>
     </section>
 
     <!-- =========================================================
-         Compact FAQ (toggle)
+         Family / Dependents
     ========================================================== -->
-    <section id="relo-faq">
+    <section id="family">
       <div class="container">
         <div class="section-head">
-          <h2 class="h2" data-i18n="relo.faq.title">移住・ビザに関する FAQ</h2>
-          <p class="h2-sub" data-i18n="relo.faq.sub">詳細はFAQページに随時追記しています</p>
+          <h2 class="h2">家族帯同について</h2>
+          <p class="h2-sub">配偶者・お子さまの帯同可否や手続きは、国と時期の規定に準じます</p>
         </div>
 
-        <div class="card faq reveal">
-          <button class="q" type="button" data-i18n="relo.faq.q1">家族帯同はできますか？</button>
-          <div class="a" style="display:none" data-i18n="relo.faq.a1">条件を満たせばDependent Passが申請できます。必要書類や費用は事前にご案内します。</div>
+        <div class="grid cols-2 cols-1-sm">
+          <article class="card reveal">
+            <h3 class="u-mt0">帯同の可否</h3>
+            <p class="subtle">案件・役割・国の規定により条件が異なるため、面談時にご相談ください。</p>
+            <ul class="subtle" style="padding-left:18px">
+              <li>帯同ビザの種類・要件</li>
+              <li>学校・医療などの生活情報</li>
+              <li>住居エリアの選び方</li>
+            </ul>
+          </article>
 
-          <button class="q u-mt12" type="button" data-i18n="relo.faq.q2">いつ住まいを決めれば良いですか？</button>
-          <div class="a" style="display:none" data-i18n="relo.faq.a2">到着後の内見〜仮契約がスムーズです。人気物件は回転が早いので、早めの検討がおすすめです。</div>
+          <article class="card reveal">
+            <h3 class="u-mt0">サポートの範囲</h3>
+            <p class="subtle">基本はご本人の就労に関するサポートですが、情報提供・紹介は可能です。</p>
+            <ul class="subtle" style="padding-left:18px">
+              <li>現地日本人コミュニティの情報</li>
+              <li>日本語対応の医療機関案内</li>
+              <li>不動産エージェント紹介</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-          <button class="q u-mt12" type="button" data-i18n="relo.faq.q3">現地の医療は安心ですか？</button>
-          <div class="a" style="display:none" data-i18n="relo.faq.a3">日本語対応の病院・クリニックがあり、保険・補助制度も利用できます。</div>
+    <!-- =========================================================
+         Mini FAQ
+    ========================================================== -->
+    <section id="mini-faq">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2">よくある質問</h2>
+          <p class="h2-sub">詳細はFAQページでも随時更新しています</p>
+        </div>
+
+        <div class="card faq reveal" id="faqList">
+          <button class="q" type="button">英語が苦手ですが大丈夫ですか？</button>
+          <div class="a" style="display:none">はい、日本語中心のポジションが多数あります。手続きの案内も日本語でサポートします。</div>
+
+          <button class="q u-mt12" type="button">就労ビザは会社が手続きをしてくれますか？</button>
+          <div class="a" style="display:none">はい、会社が申請を代行します。必要書類は日本語でご案内します。</div>
+
+          <button class="q u-mt12" type="button">住居探しはどうすれば良いですか？</button>
+          <div class="a" style="display:none">現地エージェントの紹介、相場やエリアのアドバイスをオリエンテーションで実施します。</div>
 
           <div class="u-mt12">
-            <a class="btn ghost" href="faq.html" data-i18n="relo.faq.cta">FAQページへ</a>
+            <a class="btn ghost" href="faq.html">FAQページへ</a>
           </div>
         </div>
       </div>
@@ -434,12 +441,13 @@
       <div class="container">
         <div class="card reveal" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
           <div>
-            <h3 class="u-mt0" data-i18n="relo.cta.title">移住について個別に相談できます</h3>
-            <p class="subtle u-mt8" data-i18n="relo.cta.sub">ビザ・住居・生活コスト・学校など、気になることを日本語で</p>
+            <h3 class="u-mt0">移住の不安や疑問を、日本語でご相談ください</h3>
+            <p class="subtle u-mt8">申請スケジュール、家賃相場、生活エリア、学校・医療など</p>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <a class="btn primary" href="casual-interview.html" data-i18n="relo.cta.casual">カジュアル面談</a>
-            <a class="btn ghost" href="jobs-and-benefits.html" data-i18n="relo.cta.jobs">募集中の求人を見る</a>
+            <a class="btn primary" href="casual-interview.html">カジュアル面談</a>
+            <a class="btn ghost" target="_blank" rel="noopener"
+               href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募ページを開く</a>
           </div>
         </div>
       </div>
@@ -452,7 +460,7 @@
       <div class="container footer-inner">
         <p class="copy">© <span id="year"></span> TP — Malaysia & Thailand</p>
         <ul class="footer-links">
-          <li><a href="about.html" data-i18n="footer.about">会社紹介</a></li>
+          <li><a href="about-tp.html" data-i18n="footer.about">会社紹介</a></li>
           <li><a href="privacy.html" data-i18n="footer.privacy">プライバシー</a></li>
           <li><a href="contact.html" data-i18n="footer.contact">お問い合わせ</a></li>
         </ul>
@@ -462,13 +470,17 @@
     <!-- Floating apply (mobile) -->
     <div class="apply-bar" id="applyBar" role="region" aria-label="応募バー">
       <a class="btn ghost" href="faq.html" data-i18n="bar.faq">FAQ</a>
-      <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+      <a class="btn primary" target="_blank" rel="noopener"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
     </div>
 
     <!-- Back-to-top -->
     <a id="toTop" class="btn ghost to-top" href="#main" aria-label="トップへ">▲</a>
+    <!-- Apply Now next to the arrow -->
+    <a class="apply-fab btn primary" target="_blank" rel="noopener"
+       href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+       data-i18n="cta.apply">Apply Now</a>
   </main>
 
   <noscript>
