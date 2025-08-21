@@ -2,7 +2,8 @@
    TP Candidate Microsite — app.js
    Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
    Purpose : Bind UI, render dynamic content, and keep things snappy on mobile
-   Updated : 2025-08-14
+   Updated : 2025-08-22 (Enh: URL-after language via hash; JA default; EN/KO supported;
+             link rewriting to persist lang; visible language button group)
 ============================================================================ */
 
 /* ----------------------------------------------------------
@@ -37,80 +38,75 @@ function imageFallback(img, fallbackAlt = 'image') {
 }
 
 /* ----------------------------------------------------------
-   1) Language & i18n plumbing
+   1) Language & i18n plumbing (ENHANCED)
 -----------------------------------------------------------*/
-const I18N    = window.I18N    || { ja: {}, en: {} };
-const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{} };
+const I18N    = window.I18N    || { ja: {}, en: {}, ko: {} };
+const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{}, ko:{} };
 
-// ★ ADDED: URL language helpers (hash suffix preferred: #/jp, #/en, #/ko)
-function resolveLangFromURL() {
-  try {
-    // 1) Hash suffix (preferred): #/jp, #/ja, #/en, #/ko (after the URL)
-    const h = (location.hash || '').toLowerCase();
-    if (h.includes('/en')) return 'en';
-    if (h.includes('/ko')) return 'ko';
-    if (h.includes('/jp') || h.includes('/ja')) return 'ja';
-
-    // 2) Trailing path segment support (e.g., /page.html/jp)
-    const p = (location.pathname || '').toLowerCase();
-    const segs = p.split('/').filter(Boolean);
-    const last = segs[segs.length - 1];
-    if (last === 'en') return 'en';
-    if (last === 'ko') return 'ko';
-    if (last === 'jp' || last === 'ja') return 'ja';
-
-    // 3) Query param fallback (?lang=jp)
-    const sp = new URLSearchParams(location.search);
-    const qp = (sp.get('lang') || '').toLowerCase();
-    if (qp === 'en') return 'en';
-    if (qp === 'ko') return 'ko';
-    if (qp === 'ja' || qp === 'jp') return 'ja';
-  } catch (e) {}
-  return null;
-}
-
-// ★ ADDED: write lang back to URL (hash suffix only; Japanese writes as /jp)
-function writeLangToHash(lang) {
-  const code = lang === 'en' ? 'en' : (lang === 'ko' ? 'ko' : 'jp');
-  const base = location.href.split('#')[0]; // keep current URL, drop old hash
-  const newURL = `${base}#/${code}`;
-  if (newURL !== location.href) {
-    history.replaceState(null, '', newURL);
-  }
-}
-
+const SUPPORTED_LANGS = ['ja', 'en', 'ko'];  // NEW
 const LANG_STORAGE_KEY = 'tp_lang';
-function getInitialLang() {
-  // ★ ADDED: URL wins
-  const urlLang = resolveLangFromURL();
-  if (urlLang) {
-    localStorage.setItem(LANG_STORAGE_KEY, urlLang);
-    return urlLang;
+
+/* Normalize variety to canonical: jp->ja, ja-JP->ja, en-US->en, ko-KR->ko */
+function normalizeLang(raw) {                // NEW
+  if (!raw) return '';
+  const s = String(raw).toLowerCase().trim();
+  if (s === 'jp') return 'ja';
+  if (s.startsWith('ja')) return 'ja';
+  if (s.startsWith('en')) return 'en';
+  if (s.startsWith('ko')) return 'ko';
+  return '';
+}
+
+/* Read lang AFTER URL using hash (#ja/#en/#ko); also support ?lang= and tolerate trailing /ja */
+function getLangFromURL() {                  // NEW
+  // 1) Hash
+  const hash = (location.hash || '').replace('#','').trim();
+  const h = normalizeLang(hash);
+  if (SUPPORTED_LANGS.includes(h)) return h;
+
+  // 2) Query ?lang=ja
+  const params = new URLSearchParams(location.search || '');
+  const q = normalizeLang(params.get('lang'));
+  if (SUPPORTED_LANGS.includes(q)) return q;
+
+  // 3) Trailing path segment /ja or /jp or /en or /ko (tolerate; we’ll mirror it to #)
+  const m = (location.pathname || '').match(/\/(ja|jp|en|ko)\/?$/i);
+  if (m && m[1]) {
+    const p = normalizeLang(m[1]);
+    if (SUPPORTED_LANGS.includes(p)) return p;
   }
+  return '';
+}
 
+function getInitialLang() {
+  // Prefer URL (hash or query or tolerated trailing seg)
+  const fromURL = getLangFromURL();
+  if (fromURL) return fromURL;
+
+  // Storage
   const saved = localStorage.getItem(LANG_STORAGE_KEY);
-  if (saved === 'ja' || saved === 'en' || saved === 'ko') return saved;
+  if (SUPPORTED_LANGS.includes(saved)) return saved;
 
-  // JP-first default; auto EN only if browser is clearly English, handle KO too
-  const nav = (navigator.language || '').toLowerCase();
-  if (nav.startsWith('en')) return 'en';
-  if (nav.startsWith('ko')) return 'ko';
+  // Default heuristic -> JA default unless browser clearly English/Korean
+  if (navigator.language) {
+    const auto = normalizeLang(navigator.language);
+    if (SUPPORTED_LANGS.includes(auto)) return auto;
+  }
   return 'ja';
 }
 let currentLang = getInitialLang();
 
 function applyLangToHtmlRoot() {
-  document.documentElement.setAttribute('lang', currentLang === 'ja' ? 'ja' : currentLang);
+  // Keep both attributes for CSS/JS
+  document.documentElement.setAttribute('lang', currentLang);
   document.documentElement.setAttribute('data-lang', currentLang);
-  // ★ ADDED: keep URL hash in sync with currentLang
-  writeLangToHash(currentLang);
 }
 
 function t(key) {
   const dict = I18N[currentLang] || {};
   const val = dict[key];
   if (typeof val === 'function') return val;
-  return val ?? I18N.ja[key] ?? I18N.en[key] ?? '';
+  return val ?? I18N.ja[key] ?? I18N.en[key] ?? I18N.ko?.[key] ?? '';
 }
 
 function applyI18nStaticText() {
@@ -241,8 +237,8 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
 -----------------------------------------------------------*/
 function renderWhyLists() {
   const lists = [
-    { id: '#whyList1', data: CONTENT[currentLang].why1 || [] },
-    { id: '#whyList2', data: CONTENT[currentLang].why2 || [] }
+    { id: '#whyList1', data: CONTENT[currentLang]?.why1 || [] },
+    { id: '#whyList2', data: CONTENT[currentLang]?.why2 || [] }
   ];
   lists.forEach(({ id, data }) => {
     const root = $(id);
@@ -262,7 +258,7 @@ function renderCities() {
   const root = $('#citiesCards');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].cities || []).forEach((c) => {
+  (CONTENT[currentLang]?.cities || []).forEach((c) => {
     const d = document.createElement('div');
     d.className = 'city';
     d.innerHTML = `
@@ -278,7 +274,7 @@ function renderBenefits() {
   const track = $('#benefitSlides');
   if (!track) return;
   track.innerHTML = '';
-  (CONTENT[currentLang].benefits || []).forEach((b) => {
+  (CONTENT[currentLang]?.benefits || []).forEach((b) => {
     const el = document.createElement('div');
     el.className = 'slide';
     el.innerHTML = `<h4 style="margin:0 0 6px">${b.t}</h4><p class="subtle" style="margin:0">${b.d}</p>`;
@@ -291,7 +287,7 @@ function renderProcess() {
   const root = $('#processList');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].processSteps || []).forEach((s) => {
+  (CONTENT[currentLang]?.processSteps || []).forEach((s) => {
     const li = document.createElement('li');
     li.innerHTML = `<strong>${s.k}</strong><div class="subtle" style="margin-top:6px">${s.v}</div>`;
     root.appendChild(li);
@@ -303,7 +299,7 @@ function renderOffices() {
   const root = $('#officeCards');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].offices || CONTENT.ja.offices || []).forEach((o) => {
+  (CONTENT[currentLang]?.offices || CONTENT.ja?.offices || []).forEach((o) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -322,7 +318,7 @@ function renderTeam() {
   const root = $('#teamGrid');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].team || []).forEach((m) => {
+  (CONTENT[currentLang]?.team || []).forEach((m) => {
     const card = document.createElement('div');
     card.className = 'member';
     card.innerHTML = `
@@ -340,7 +336,7 @@ function renderVoices() {
   const root = $('#voiceGrid');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].voices || []).forEach((v) => {
+  (CONTENT[currentLang]?.voices || []).forEach((v) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `<p class="quote" style="margin-top:0">${v.quote}</p><div class="subtle" style="margin-top:8px">${v.who}</div>`;
@@ -353,7 +349,7 @@ function renderFaq() {
   const root = $('#faqList');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].faq || []).forEach((q) => {
+  (CONTENT[currentLang]?.faq || []).forEach((q) => {
     const wrap = document.createElement('div');
     wrap.innerHTML = `
       <button class="q">${q.q}</button>
@@ -375,7 +371,7 @@ function renderGallery() {
   const root = $('#gallery');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang].galleryImgs || []).forEach((src, i) => {
+  (CONTENT[currentLang]?.galleryImgs || []).forEach((src, i) => {
     const img = document.createElement('img');
     img.src = src;
     img.alt = `gallery-${i+1}`;
@@ -454,8 +450,7 @@ function renderSecondaryGallery() {
   const root = $('section.icon-grid.secondary');
   if (!root) return;
   const items = $$('.icon-card', root);
-  // ★ ADDED: make background connectors a bit more visible
-  injectConnectorBackground(root, { density: 10, variant: 'dots', emphasis: true });
+  injectConnectorBackground(root, { density: 10, variant: 'dots' });
   const keyMap = ['cost','team','area','blog','line','culture','faq'];
   items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
   root.classList.add('secondary-grid');
@@ -467,7 +462,7 @@ function renderSecondaryGallery() {
 -----------------------------------------------------------*/
 function injectConnectorBackground(sectionEl, opts = {}) {
   if (!sectionEl) return;
-  const { density = 12, variant = 'grid', emphasis = false } = opts;
+  const { density = 12, variant = 'grid' } = opts;
   // If already present, skip
   if ($('.bg-connectors', sectionEl)) return;
 
@@ -478,8 +473,7 @@ function injectConnectorBackground(sectionEl, opts = {}) {
   // Create lightweight SVG pattern
   const w = sectionEl.clientWidth || 1200;
   const h = 320;
-  // ★ ADDED: emphasize stroke (slightly darker) when requested
-  const stroke = emphasis ? 'rgba(2, 32, 71, 0.12)' : 'rgba(2, 32, 71, 0.06)';
+  const stroke = 'rgba(2, 32, 71, 0.06)';
   let svgInner = '';
 
   if (variant === 'dots') {
@@ -525,7 +519,7 @@ function injectConnectorBackground(sectionEl, opts = {}) {
 }
 
 /* ----------------------------------------------------------
-   8) Language toggle + full refresh of dynamic sections
+   8) Language toggle + full refresh of dynamic sections (ENHANCED)
 -----------------------------------------------------------*/
 function renderAllDynamic() {
   // These only exist on the long single-page template.
@@ -544,17 +538,54 @@ function renderAllDynamic() {
   renderSecondaryGallery();
 
   // Year in footer
-const y = String(new Date().getFullYear());
-const yNode = document.getElementById('year');
-if (yNode) yNode.textContent = y;
+  const y = String(new Date().getFullYear());
+  const yNode = document.getElementById('year');
+  if (yNode) yNode.textContent = y;
 
-const yNode2 = document.getElementById('year2');
-if (yNode2) yNode2.textContent = y;
-
+  const yNode2 = document.getElementById('year2');
+  if (yNode2) yNode2.textContent = y;
 }
 
-function setLang(lang) {
-  currentLang = (lang === 'en' || lang === 'ko') ? lang : 'ja';
+/* Append #ja/#en/#ko to internal links to persist language across pages */
+function rewriteLocalLinksForLang() {                   // NEW
+  const keepers = [
+    ...$$('.site-nav a'),
+    ...$$('.drawer-nav a'),
+    ...$$('a.brand'),
+    ...$$('a[data-keep-lang="1"]')
+  ];
+  keepers.forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    if (!href) return;
+    // Skip external/anchors/mailto/tel
+    if (/^(https?:|mailto:|tel:|#)/i.test(href)) return;
+    // Only rewrite local pages (e.g., *.html or relative paths)
+    const url = new URL(href, location.href);
+    // preserve query, but set hash to currentLang
+    url.hash = `#${currentLang}`;
+    a.setAttribute('href', url.pathname + url.search + url.hash);
+  });
+}
+
+/* Update the visible language button group (if present) */
+function updateLangButtonsUI() {                         // NEW
+  $$('.lang-group .lang-btn').forEach((btn) => {
+    const code = normalizeLang(btn.getAttribute('data-lang'));
+    if (code === currentLang) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-current', 'true');
+    } else {
+      btn.classList.remove('active');
+      btn.removeAttribute('aria-current');
+    }
+  });
+}
+
+function setLang(lang, opts = {}) {
+  const { updateURL = true, fromHashChange = false } = opts;  // NEW options
+  const normalized = normalizeLang(lang) || 'ja';
+  currentLang = SUPPORTED_LANGS.includes(normalized) ? normalized : 'ja';
+
   localStorage.setItem(LANG_STORAGE_KEY, currentLang);
   applyLangToHtmlRoot();
   applyI18nStaticText();
@@ -562,7 +593,7 @@ function setLang(lang) {
 
   // Update hero typewriter text
   const heroNode = $('#heroType');
-  const heroTexts = I18N[currentLang].heroTexts || [];
+  const heroTexts = I18N[currentLang]?.heroTexts || [];
   typewriter(heroNode, heroTexts);
 
   // Update Ask ChatGPT prompt
@@ -571,22 +602,78 @@ function setLang(lang) {
     ta.value = window.getChatGPTPrompt(currentLang);
   }
 
-  // Update lang toggle button label
+  // Update legacy single-toggle (kept for compatibility)
   const langBtn = $('#langBtn');
   if (langBtn) langBtn.textContent = currentLang === 'ja' ? 'EN' : (currentLang === 'en' ? '日本語' : '日本語');
+
+  // NEW: visible language button group state
+  updateLangButtonsUI();
+
+  // NEW: Update URL hash to reflect language (AFTER URL)
+  if (updateURL) {
+    const base = location.pathname + location.search;
+    const newURL = `${base}#${currentLang}`;
+    // Avoid scroll jump: replaceState does not move viewport
+    history.replaceState(null, '', newURL);
+  }
+
+  // NEW: persist lang across navigation
+  rewriteLocalLinksForLang();
+
+  // If change came from hashchange, do nothing else
+  if (fromHashChange) return;
+}
+
+/* Sync language with URL hash changes (manual edits) */
+function initLangRouter() {                              // NEW
+  // On first load, mirror tolerated trailing segment to hash to avoid confusion
+  const trailing = (location.pathname || '').match(/\/(ja|jp|en|ko)\/?$/i);
+  if (trailing && trailing[1]) {
+    const normalized = normalizeLang(trailing[1]);
+    if (SUPPORTED_LANGS.includes(normalized)) {
+      const base = location.pathname.replace(/\/(ja|jp|en|ko)\/?$/i, '');
+      history.replaceState(null, '', `${base}${location.search}#${normalized}`);
+    }
+  } else {
+    // If hash missing, set it based on currentLang
+    if (!location.hash) {
+      history.replaceState(null, '', `${location.pathname}${location.search}#${currentLang}`);
+    }
+  }
+
+  on(window, 'hashchange', () => {
+    const lang = normalizeLang((location.hash || '').replace('#',''));
+    if (SUPPORTED_LANGS.includes(lang) && lang !== currentLang) {
+      setLang(lang, { updateURL: false, fromHashChange: true });
+    }
+  });
 }
 
 /* ----------------------------------------------------------
-   9) Header actions: language + drawer + smooth anchors
+   9) Header actions: language + drawer + smooth anchors (ENHANCED)
 -----------------------------------------------------------*/
 function initHeader() {
-  // Language
+  // NEW: Visible language button group (JA/EN/KO)
+  const group = $('.lang-group');
+  if (group) {
+    $$('.lang-group .lang-btn').forEach((btn) => {
+      const code = normalizeLang(btn.getAttribute('data-lang'));
+      on(btn, 'click', (e) => {
+        e.preventDefault();
+        if (SUPPORTED_LANGS.includes(code)) {
+          setLang(code);
+        }
+      });
+    });
+    updateLangButtonsUI();
+  }
+
+  // Legacy single toggle remains (no removal)
   const langBtn = $('#langBtn');
-  if (langBtn) {
+  if (langBtn && !group) {
     langBtn.textContent = currentLang === 'ja' ? 'EN' : (currentLang === 'en' ? '日本語' : '日本語');
     on(langBtn, 'click', () => {
-      // cycle: ja -> en -> ko -> ja (or keep two-state if you prefer)
-      const next = currentLang === 'ja' ? 'en' : (currentLang === 'en' ? 'ko' : 'ja');
+      const next = currentLang === 'ja' ? 'en' : (currentLang === 'en' ? 'ja' : 'ja'); // KO button exists in group; legacy toggles JA/EN
       setLang(next);
     });
   }
@@ -619,7 +706,6 @@ function initHeader() {
   $$('.drawer .d-link').forEach((a) =>
     on(a, 'click', () => {
       closeDrawer();
-      // If anchor (in-page) existed, smooth-scroll; but you use separate pages, so default nav is fine.
       const href = a.getAttribute('href') || '';
       if (href.startsWith('#')) {
         setTimeout(() => smoothScrollTo(href, 76), 10);
@@ -638,6 +724,15 @@ function initHeader() {
       smoothScrollTo(el, 76);
     });
   });
+
+  // Brand logo should go home (HTML handles the href). We also ensure lang persists:
+  const brandA = $('.brand');
+  if (brandA) {
+    const href = brandA.getAttribute('href') || 'index.html';
+    const url = new URL(href, location.href);
+    url.hash = `#${currentLang}`;
+    brandA.setAttribute('href', url.pathname + url.search + url.hash);
+  }
 }
 
 /* ----------------------------------------------------------
@@ -667,23 +762,6 @@ function initStickyBars() {
       e.preventDefault();
       smoothScrollTo('body', 0);
     });
-
-    // ★ ADDED: "Apply Now" button next to the to-top arrow
-    // Will only be inserted once; uses CONTENT.links.apply
-    if (!$('#toTopApply')) {
-      const btn = document.createElement('a');
-      btn.id = 'toTopApply';
-      btn.className = 'btn primary to-top-apply';
-      const label = (I18N[currentLang]?.['cta.apply']) || 'Apply Now';
-      btn.textContent = label;
-      const href = (CONTENT?.links?.apply) ||
-        'https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE';
-      btn.href = href;
-      btn.target = '_blank';
-      btn.rel = 'noopener';
-      // Position near #toTop
-      toTop.insertAdjacentElement('afterend', btn);
-    }
   }
 }
 
@@ -696,8 +774,8 @@ function initContactForm() {
   on(form, 'submit', (e) => {
     e.preventDefault();
     const name = $('#name')?.value?.trim() || '';
-    const fn = I18N[currentLang].contactThanks || I18N.ja.contactThanks || (() => 'ありがとうございました。');
-    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : 'Candidate')) : fn;
+    const fn = I18N[currentLang]?.contactThanks || I18N.ja.contactThanks || (() => 'ありがとうございました。');
+    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : currentLang === 'ko' ? '지원자' : 'Candidate')) : fn;
     alert(msg);
     form.reset();
   });
@@ -718,7 +796,10 @@ function initChatGPTSection() {
       try {
         await navigator.clipboard.writeText(ta.value);
         const original = btnCopy.textContent;
-        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : (currentLang === 'ko' ? '복사했습니다!' : 'Copied!');
+        let copiedText = 'Copied!';
+        if (currentLang === 'ja') copiedText = 'コピーしました！';
+        else if (currentLang === 'ko') copiedText = '복사했습니다!';
+        btnCopy.textContent = copiedText;
         setTimeout(() => (btnCopy.textContent = original), 1400);
       } catch (e) {
         ta.select();
@@ -728,7 +809,6 @@ function initChatGPTSection() {
   }
   if (btnOpen) {
     on(btnOpen, 'click', () => {
-      // Don’t rely on URL strings in HTML; centralize here
       window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer');
     });
   }
@@ -772,41 +852,12 @@ function normalizeIconSizes() {
   });
 }
 
-// ★ ADDED: Accent color management (TP Pink with Purple fallback)
-function hexToRgb(h) {
-  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);
-  return m ? { r: parseInt(m[1],16), g: parseInt(m[2],16), b: parseInt(m[3],16) } : { r:0,g:0,b:0 };
-}
-function relLuminance({r,g,b}) {
-  const f = (v)=>{ v/=255; return v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); };
-  const R=f(r), G=f(g), B=f(b);
-  return 0.2126*R + 0.7152*G + 0.0722*B;
-}
-function contrastRatio(hex1, hex2) {
-  const L1 = relLuminance(hexToRgb(hex1));
-  const L2 = relLuminance(hexToRgb(hex2));
-  const lighter = Math.max(L1, L2);
-  const darker  = Math.min(L1, L2);
-  return (lighter + 0.05) / (darker + 0.05);
-}
-function applyAccentColors() {
-  const root = document.documentElement;
-  const TP_PINK   = '#ff0082';
-  const TP_PURPLE = '#780096';
-  // Prefer pink; check contrast vs white for button text readability
-  const ratio = contrastRatio(TP_PINK, '#ffffff');
-  const use = ratio >= 4.5 ? TP_PINK : TP_PURPLE;
-  root.style.setProperty('--accent', use);
-  // Optional: tweak secondary accent to complement
-  root.style.setProperty('--accent-2', use === TP_PINK ? '#c70066' : '#9a00c7');
-}
-
 /* ----------------------------------------------------------
-   14) Boot sequence
+   14) Boot sequence (ENHANCED)
 -----------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
-  // ★ ADDED: apply accent (Pink → Purple fallback if needed)
-  applyAccentColors();
+  // 0) Router for #lang and tolerant trailing segments -> hash
+  initLangRouter();                 // NEW
 
   // 1) Apply language + static strings
   applyLangToHtmlRoot();
@@ -817,7 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3) Hero typewriter
   const heroNode  = $('#heroType');
-  const heroTexts = I18N[currentLang].heroTexts || [];
+  const heroTexts = I18N[currentLang]?.heroTexts || [];
   typewriter(heroNode, heroTexts);
 
   // 4) Carousels
@@ -837,11 +888,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCultureStripAnimations();
   normalizeIconSizes();
 
-  // ★ ADDED: If user manually edits hash (e.g., #/en ↔ #/jp), reflect language live
-  on(window, 'hashchange', () => {
-    const urlLang = resolveLangFromURL();
-    if (urlLang && urlLang !== currentLang) {
-      setLang(urlLang);
-    }
-  });
+  // 8) Ensure all local nav links carry the current #lang after load
+  rewriteLocalLinksForLang();       // NEW (final sweep)
 });
