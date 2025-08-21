@@ -42,19 +42,68 @@ function imageFallback(img, fallbackAlt = 'image') {
 const I18N    = window.I18N    || { ja: {}, en: {} };
 const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{} };
 
+// ★ ADDED: URL language helpers (hash suffix preferred: #/jp, #/en, #/ko)
+function resolveLangFromURL() {
+  try {
+    // 1) Hash suffix (preferred): #/jp, #/ja, #/en, #/ko (after the URL)
+    const h = (location.hash || '').toLowerCase();
+    if (h.includes('/en')) return 'en';
+    if (h.includes('/ko')) return 'ko';
+    if (h.includes('/jp') || h.includes('/ja')) return 'ja';
+
+    // 2) Trailing path segment support (e.g., /page.html/jp)
+    const p = (location.pathname || '').toLowerCase();
+    const segs = p.split('/').filter(Boolean);
+    const last = segs[segs.length - 1];
+    if (last === 'en') return 'en';
+    if (last === 'ko') return 'ko';
+    if (last === 'jp' || last === 'ja') return 'ja';
+
+    // 3) Query param fallback (?lang=jp)
+    const sp = new URLSearchParams(location.search);
+    const qp = (sp.get('lang') || '').toLowerCase();
+    if (qp === 'en') return 'en';
+    if (qp === 'ko') return 'ko';
+    if (qp === 'ja' || qp === 'jp') return 'ja';
+  } catch (e) {}
+  return null;
+}
+
+// ★ ADDED: write lang back to URL (hash suffix only; Japanese writes as /jp)
+function writeLangToHash(lang) {
+  const code = lang === 'en' ? 'en' : (lang === 'ko' ? 'ko' : 'jp');
+  const base = location.href.split('#')[0]; // keep current URL, drop old hash
+  const newURL = `${base}#/${code}`;
+  if (newURL !== location.href) {
+    history.replaceState(null, '', newURL);
+  }
+}
+
 const LANG_STORAGE_KEY = 'tp_lang';
 function getInitialLang() {
+  // ★ ADDED: URL wins
+  const urlLang = resolveLangFromURL();
+  if (urlLang) {
+    localStorage.setItem(LANG_STORAGE_KEY, urlLang);
+    return urlLang;
+  }
+
   const saved = localStorage.getItem(LANG_STORAGE_KEY);
-  if (saved === 'ja' || saved === 'en') return saved;
-  // JP-first default; auto EN only if browser is clearly English
-  if (navigator.language && navigator.language.toLowerCase().startsWith('en')) return 'en';
+  if (saved === 'ja' || saved === 'en' || saved === 'ko') return saved;
+
+  // JP-first default; auto EN only if browser is clearly English, handle KO too
+  const nav = (navigator.language || '').toLowerCase();
+  if (nav.startsWith('en')) return 'en';
+  if (nav.startsWith('ko')) return 'ko';
   return 'ja';
 }
 let currentLang = getInitialLang();
 
 function applyLangToHtmlRoot() {
-  document.documentElement.setAttribute('lang', currentLang === 'ja' ? 'ja' : 'en');
+  document.documentElement.setAttribute('lang', currentLang === 'ja' ? 'ja' : currentLang);
   document.documentElement.setAttribute('data-lang', currentLang);
+  // ★ ADDED: keep URL hash in sync with currentLang
+  writeLangToHash(currentLang);
 }
 
 function t(key) {
@@ -405,7 +454,8 @@ function renderSecondaryGallery() {
   const root = $('section.icon-grid.secondary');
   if (!root) return;
   const items = $$('.icon-card', root);
-  injectConnectorBackground(root, { density: 10, variant: 'dots' });
+  // ★ ADDED: make background connectors a bit more visible
+  injectConnectorBackground(root, { density: 10, variant: 'dots', emphasis: true });
   const keyMap = ['cost','team','area','blog','line','culture','faq'];
   items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
   root.classList.add('secondary-grid');
@@ -417,7 +467,7 @@ function renderSecondaryGallery() {
 -----------------------------------------------------------*/
 function injectConnectorBackground(sectionEl, opts = {}) {
   if (!sectionEl) return;
-  const { density = 12, variant = 'grid' } = opts;
+  const { density = 12, variant = 'grid', emphasis = false } = opts;
   // If already present, skip
   if ($('.bg-connectors', sectionEl)) return;
 
@@ -428,7 +478,8 @@ function injectConnectorBackground(sectionEl, opts = {}) {
   // Create lightweight SVG pattern
   const w = sectionEl.clientWidth || 1200;
   const h = 320;
-  const stroke = 'rgba(2, 32, 71, 0.06)';
+  // ★ ADDED: emphasize stroke (slightly darker) when requested
+  const stroke = emphasis ? 'rgba(2, 32, 71, 0.12)' : 'rgba(2, 32, 71, 0.06)';
   let svgInner = '';
 
   if (variant === 'dots') {
@@ -503,7 +554,7 @@ if (yNode2) yNode2.textContent = y;
 }
 
 function setLang(lang) {
-  currentLang = lang === 'en' ? 'en' : 'ja';
+  currentLang = (lang === 'en' || lang === 'ko') ? lang : 'ja';
   localStorage.setItem(LANG_STORAGE_KEY, currentLang);
   applyLangToHtmlRoot();
   applyI18nStaticText();
@@ -522,7 +573,7 @@ function setLang(lang) {
 
   // Update lang toggle button label
   const langBtn = $('#langBtn');
-  if (langBtn) langBtn.textContent = currentLang === 'ja' ? 'EN' : '日本語';
+  if (langBtn) langBtn.textContent = currentLang === 'ja' ? 'EN' : (currentLang === 'en' ? '日本語' : '日本語');
 }
 
 /* ----------------------------------------------------------
@@ -532,9 +583,10 @@ function initHeader() {
   // Language
   const langBtn = $('#langBtn');
   if (langBtn) {
-    langBtn.textContent = currentLang === 'ja' ? 'EN' : '日本語';
+    langBtn.textContent = currentLang === 'ja' ? 'EN' : (currentLang === 'en' ? '日本語' : '日本語');
     on(langBtn, 'click', () => {
-      const next = currentLang === 'ja' ? 'en' : 'ja';
+      // cycle: ja -> en -> ko -> ja (or keep two-state if you prefer)
+      const next = currentLang === 'ja' ? 'en' : (currentLang === 'en' ? 'ko' : 'ja');
       setLang(next);
     });
   }
@@ -615,6 +667,23 @@ function initStickyBars() {
       e.preventDefault();
       smoothScrollTo('body', 0);
     });
+
+    // ★ ADDED: "Apply Now" button next to the to-top arrow
+    // Will only be inserted once; uses CONTENT.links.apply
+    if (!$('#toTopApply')) {
+      const btn = document.createElement('a');
+      btn.id = 'toTopApply';
+      btn.className = 'btn primary to-top-apply';
+      const label = (I18N[currentLang]?.['cta.apply']) || 'Apply Now';
+      btn.textContent = label;
+      const href = (CONTENT?.links?.apply) ||
+        'https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE';
+      btn.href = href;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      // Position near #toTop
+      toTop.insertAdjacentElement('afterend', btn);
+    }
   }
 }
 
@@ -649,7 +718,7 @@ function initChatGPTSection() {
       try {
         await navigator.clipboard.writeText(ta.value);
         const original = btnCopy.textContent;
-        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : 'Copied!';
+        btnCopy.textContent = currentLang === 'ja' ? 'コピーしました！' : (currentLang === 'ko' ? '복사했습니다!' : 'Copied!');
         setTimeout(() => (btnCopy.textContent = original), 1400);
       } catch (e) {
         ta.select();
@@ -703,10 +772,42 @@ function normalizeIconSizes() {
   });
 }
 
+// ★ ADDED: Accent color management (TP Pink with Purple fallback)
+function hexToRgb(h) {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h);
+  return m ? { r: parseInt(m[1],16), g: parseInt(m[2],16), b: parseInt(m[3],16) } : { r:0,g:0,b:0 };
+}
+function relLuminance({r,g,b}) {
+  const f = (v)=>{ v/=255; return v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); };
+  const R=f(r), G=f(g), B=f(b);
+  return 0.2126*R + 0.7152*G + 0.0722*B;
+}
+function contrastRatio(hex1, hex2) {
+  const L1 = relLuminance(hexToRgb(hex1));
+  const L2 = relLuminance(hexToRgb(hex2));
+  const lighter = Math.max(L1, L2);
+  const darker  = Math.min(L1, L2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+function applyAccentColors() {
+  const root = document.documentElement;
+  const TP_PINK   = '#ff0082';
+  const TP_PURPLE = '#780096';
+  // Prefer pink; check contrast vs white for button text readability
+  const ratio = contrastRatio(TP_PINK, '#ffffff');
+  const use = ratio >= 4.5 ? TP_PINK : TP_PURPLE;
+  root.style.setProperty('--accent', use);
+  // Optional: tweak secondary accent to complement
+  root.style.setProperty('--accent-2', use === TP_PINK ? '#c70066' : '#9a00c7');
+}
+
 /* ----------------------------------------------------------
    14) Boot sequence
 -----------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
+  // ★ ADDED: apply accent (Pink → Purple fallback if needed)
+  applyAccentColors();
+
   // 1) Apply language + static strings
   applyLangToHtmlRoot();
   applyI18nStaticText();
@@ -735,293 +836,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroMediaFallbacks();
   initCultureStripAnimations();
   normalizeIconSizes();
-});
 
-/* ========================================================================
-   TP_EXT: Non-destructive augmentation for URL language + KO + accents +
-           secondary-grid full-bleed hint + float Apply next to ToTop
-   Paste-in block (appended; does not remove original logic)
-   Updated: 2025-08-21
-======================================================================== */
-(function () {
-  // ====== Config from your request ======
-  const APPLY_URL = 'https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE';
-  const TP_PINK   = '#ff0082';
-  const TP_PURPLE = '#780096';
-
-  // URL language maps
-  const SUPPORTED = ['ja','en','ko'];
-  const URL2INTL  = { en:'en', jp:'ja', ko:'ko' };
-  const INTL2URL  = { en:'en', ja:'jp', ko:'ko' };
-
-  // Ensure accent color (you can switch to purple by toggling the commented line)
-  function forceAccent() {
-    try {
-      const r = document.documentElement;
-      const cur = getComputedStyle(r).getPropertyValue('--accent').trim();
-      if (!cur || cur === '#0057B8') r.style.setProperty('--accent', TP_PINK);
-      // r.style.setProperty('--accent', TP_PURPLE); // fallback option if pink is hard to read
-      // Improve contrast on surfaces a bit
-      if (!getComputedStyle(r).getPropertyValue('--surface').trim()) {
-        r.style.setProperty('--surface', '#fbf7fc');
-      }
-      // Prefer Noto Sans JP then Calibri Light as asked
-      document.body && (document.body.style.fontFamily = `"Noto Sans JP","Calibri Light","Inter",system-ui,sans-serif`);
-    } catch {}
-  }
-
-  // Parse /en or /jp or /ko from URL; fallback to ?lang=; else keep current
-  function parseLangFromUrl() {
-    try {
-      const m = location.pathname.match(/^\/(en|jp|ko)(?:\/|$)/i);
-      if (m) return URL2INTL[m[1].toLowerCase()] || 'ja';
-      const q = new URLSearchParams(location.search).get('lang');
-      if (q && URL2INTL[q]) return URL2INTL[q];
-    } catch {}
-    const root = document.documentElement;
-    const attr = (root.getAttribute('data-lang') || root.getAttribute('lang') || 'ja').toLowerCase();
-    return SUPPORTED.includes(attr) ? attr : (typeof currentLang === 'string' ? currentLang : 'ja');
-  }
-
-  function pushLangToUrl(lang) {
-    const seg = INTL2URL[lang] || 'jp';
-    const path = location.pathname;
-    let newPath;
-    if (/^\/(en|jp|ko)(?:\/|$)/i.test(path)) {
-      newPath = path.replace(/^\/(en|jp|ko)(?=\/|$)/i, `/${seg}`);
-    } else {
-      newPath = `/${seg}${path.startsWith('/') ? '' : '/'}${path}`;
+  // ★ ADDED: If user manually edits hash (e.g., #/en ↔ #/jp), reflect language live
+  on(window, 'hashchange', () => {
+    const urlLang = resolveLangFromURL();
+    if (urlLang && urlLang !== currentLang) {
+      setLang(urlLang);
     }
-    try {
-      history.replaceState({}, '', newPath + location.search + location.hash);
-    } catch {
-      const u = new URL(location.href);
-      u.searchParams.set('lang', seg);
-      history.replaceState({}, '', u.toString());
-    }
-  }
-
-  // Keep internal links prefixed with the active lang segment
-  function rewriteInternalLinks(lang) {
-    const seg = INTL2URL[lang] || 'jp';
-    $$('a[href]').forEach((a) => {
-      const href = a.getAttribute('href') || '';
-      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || /^https?:\/\//i.test(href)) return;
-
-      if (href.startsWith('/')) {
-        if (!/^\/(en|jp|ko)(?:\/|$)/i.test(href)) {
-          a.setAttribute('href', `/${seg}${href}`);
-        }
-      } else {
-        // convert relative to lang-prefixed root-relative, preserving folder
-        const basePath = location.pathname.replace(/^\/(en|jp|ko)(?=\/|$)/i, '');
-        const dir = basePath.substring(0, basePath.lastIndexOf('/') + 1);
-        a.setAttribute('href', `/${seg}${dir}${href}`);
-      }
-    });
-  }
-
-  // Gentle i18n (only touches elements that asked for it)
-  function renderI18NAlias(lang) {
-    if (!window.I18N) return;
-    const dict = window.I18N[lang] || window.I18N.ja || {};
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (!key) return;
-      const v = dict[key];
-      if (v == null) return;
-      el.textContent = (typeof v === 'function') ? v('') : v;
-    });
-  }
-
-  // Rebind language button to cycle JA → EN → KO → JA and keep URL in sync
-  function rebindLangButton() {
-    const btn = document.getElementById('langBtn');
-    if (!btn) return;
-    // wipe previous listeners by cloning
-    const clone = btn.cloneNode(true);
-    btn.parentNode.replaceChild(clone, btn);
-
-    // set label to the "next" language
-    const cur = parseLangFromUrl();
-    clone.textContent = cur === 'ja' ? 'EN' : cur === 'en' ? '한국어' : '日本語';
-
-    clone.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      const curLang = parseLangFromUrl();
-      const next = curLang === 'ja' ? 'en' : curLang === 'en' ? 'ko' : 'ja';
-      setLanguageExt(next, { updateUrl: true });
-    });
-  }
-
-  function updateChatGPTPrompt(lang) {
-    const ta = document.getElementById('chatgptPrompt');
-    if (ta && window.getChatGPTPrompt) ta.value = window.getChatGPTPrompt(lang);
-  }
-
-  function initTypewriterSafe(lang) {
-    const node = document.getElementById('heroType');
-    if (!node) return;
-    let texts = (window.I18N && window.I18N[lang] && window.I18N[lang].heroTexts) || [];
-    if (!texts || !texts.length) {
-      const alt = node.getAttribute(`data-${lang}`) || '';
-      if (alt) texts = [alt];
-    }
-    if (texts && texts.length) typewriter(node, texts);
-  }
-
-  function ensureYear() {
-    const y = String(new Date().getFullYear());
-    const yNode = document.getElementById('year');
-    const yNode2= document.getElementById('year2');
-    if (yNode)  yNode.textContent  = y;
-    if (yNode2) yNode2.textContent = y;
-  }
-
-  // Create Apply Now next to #toTop (non-destructive)
-  function ensureApplyNextToTop(lang) {
-    const toTop = document.getElementById('toTop');
-    const label = lang === 'ja' ? 'ご応募はこちら' : lang === 'ko' ? '지원하기' : 'Apply Now';
-    let apply = document.getElementById('applyFloatBtn');
-
-    if (!apply) {
-      apply = document.createElement('a');
-      apply.id = 'applyFloatBtn';
-      apply.className = 'btn primary';
-      apply.href = APPLY_URL;
-      apply.target = '_blank';
-      apply.rel = 'noopener';
-      apply.style.position = 'fixed';
-      apply.style.right = '64px';
-      apply.style.bottom = '24px';
-      apply.style.zIndex = '999';
-      apply.style.transition = 'opacity .2s ease, transform .2s ease';
-      apply.style.opacity = '0';
-      apply.style.transform = 'translateY(8px)';
-      document.body.appendChild(apply);
-    }
-    apply.textContent = label;
-
-    function toggle(show) {
-      apply.style.opacity = show ? '1' : '0';
-      apply.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
-      apply.tabIndex = show ? 0 : -1;
-    }
-
-    function onScroll() {
-      const y = window.scrollY || document.documentElement.scrollTop;
-      // match the threshold used by initStickyBars (560)
-      toggle(y > 560);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    onScroll();
-
-    // If #toTop exists and is fixed at bottom-right, keep apply horizontally adjacent
-    if (toTop) {
-      // no DOM reparenting to avoid breaking your styles
-      // we just ensure spacing via apply.style.right above (64px)
-    }
-  }
-
-  // Add helper classes to secondary grid for your CSS to make it full-bleed & 4-up/3-up
-  function tuneSecondaryGrid() {
-    const sec = document.querySelector('section.icon-grid.secondary');
-    if (!sec) return;
-    sec.classList.add('fullbleed', 'secondary-full', 'bg-strong'); // CSS will make it full width & more visible
-    // you can also mark desired columns; your styles.css step will define these:
-    sec.classList.add('cols-4-desktop', 'cols-3-phone');
-  }
-
-  // Reveal alias (.in-view) so either CSS naming works
-  function aliasReveal() {
-    try {
-      const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in-view');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    } catch {}
-  }
-
-  // Master language setter that cooperates with original setLang for JA/EN and adds KO path
-  function setLanguageExt(lang, opts = {}) {
-    const { updateUrl = true } = opts;
-    const safe = SUPPORTED.includes(lang) ? lang : 'ja';
-    if (updateUrl) pushLangToUrl(safe);
-
-    // Keep root attributes accurate for all three languages
-    document.documentElement.setAttribute('lang', safe);
-    document.documentElement.setAttribute('data-lang', safe);
-
-    // Rewrite internal links to keep the segment consistent
-    rewriteInternalLinks(safe);
-
-    if (safe === 'ja' || safe === 'en') {
-      // Use your original pipeline
-      setLang(safe);
-    } else {
-      // === KO path: mirror what setLang() does, but with currentLang='ko' ===
-      try {
-        currentLang = 'ko';
-        localStorage.setItem(LANG_STORAGE_KEY, currentLang);
-      } catch {}
-      // Re-render
-      applyI18nStaticText();
-      renderAllDynamic();
-      initTypewriterSafe('ko');
-      updateChatGPTPrompt('ko');
-      // Update lang button (shows next language)
-      const langBtn = document.getElementById('langBtn');
-      if (langBtn) langBtn.textContent = '日本語';
-    }
-
-    // Footer year (idempotent)
-    ensureYear();
-
-    // Float apply label refresh
-    const apply = document.getElementById('applyFloatBtn');
-    if (apply) apply.textContent = safe === 'ja' ? 'ご応募はこちら' : safe === 'ko' ? '지원하기' : 'Apply Now';
-  }
-
-  function initExt() {
-    forceAccent();
-
-    // Make secondary icons section ready for your CSS tweaks
-    tuneSecondaryGrid();
-
-    // Reveal alias
-    aliasReveal();
-
-    // Sync language from URL on first load, override the local default if needed
-    const langFromUrl = parseLangFromUrl();
-    setLanguageExt(langFromUrl, { updateUrl: true });
-
-    // Replace the old two-state toggle with a 3-state cycle
-    rebindLangButton();
-
-    // Ensure Apply button next to ToTop
-    ensureApplyNextToTop(langFromUrl);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initExt, { once: true });
-  } else {
-    // Run after original DOMContentLoaded fires its handlers
-    setTimeout(initExt, 0);
-  }
-
-  // Keep language consistent when user uses browser back/forward
-  window.addEventListener('popstate', () => {
-    const lang = parseLangFromUrl();
-    setLanguageExt(lang, { updateUrl: false });
   });
-
-  // Expose small API for manual switches if needed elsewhere
-  window.TP_EXT = { setLanguage: setLanguageExt };
-})();
+});
