@@ -9,7 +9,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <meta name="theme-color" content="#0057B8" />
+  <!-- Accent / font overrides (non-destructive) -->
+  <style>
+    :root{
+      --accent:#ff0082;      /* TP Pink */
+      --accent-2:#780096;    /* TP Purple fallback for contrast spots */
+      --surface:#fff7fb;     /* subtle pink surface wash */
+    }
+    body{ font-family:"Noto Sans JP","Calibri Light","Inter",system-ui,sans-serif; }
+    /* Floating Apply button next to top arrow (keeps your original #toTop) */
+    .apply-fab{
+      position:fixed; right:72px; bottom:18px; z-index:120;
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+      border-radius:999px; border:1px solid var(--line); text-decoration:none; font-weight:800;
+      box-shadow:var(--shadow-sm);
+    }
+    @media (max-width:580px){
+      .apply-fab{ right:64px; bottom:14px; padding:8px 12px; }
+    }
+  </style>
+  <meta name="theme-color" content="#ff0082" />
   <meta property="og:title" content="面接プロセス | TP 日本語スピーカー採用" />
   <meta property="og:description" content="オンライン完結の選考ステップ、合格のコツ、チェックリスト、FAQ をまとめました。" />
   <meta property="og:type" content="website" />
@@ -37,8 +56,8 @@
         <a href="relocation-visa.html" data-i18n="nav.relocation">移住・ビザ</a>
         <a href="why-malaysia-thailand.html" data-i18n="nav.why">マレーシア・タイの魅力</a>
         <a href="faq.html" data-i18n="nav.faq">FAQ</a>
-        <a class="btn primary" target="_blank"
-           href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+        <a class="btn primary" target="_blank" rel="noopener"
+           href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
            data-i18n="cta.apply">ご応募はこちら</a>
       </nav>
 
@@ -71,8 +90,8 @@
       <a href="faq.html" class="d-link" data-i18n="drawer.faq">FAQ</a>
     </nav>
     <div class="drawer-foot">
-      <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+      <a class="btn primary" target="_blank" rel="noopener"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
          data-i18n="cta.apply">ご応募はこちら</a>
     </div>
   </aside>
@@ -379,12 +398,16 @@
     <!-- Floating apply (mobile) -->
     <div class="apply-bar" id="applyBar" role="region" aria-label="応募バー">
       <a class="btn ghost" href="faq.html">FAQ</a>
-      <a class="btn primary" target="_blank"
-         href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">ご応募はこちら</a>
+      <a class="btn primary" target="_blank" rel="noopener"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">ご応募はこちら</a>
     </div>
 
-    <!-- Back-to-top -->
+    <!-- Back-to-top (keep your original) -->
     <a id="toTop" class="btn ghost to-top" href="#main" aria-label="トップへ">▲</a>
+    <!-- Apply Now next to the arrow (added, keeps original arrow untouched) -->
+    <a class="apply-fab btn primary" target="_blank" rel="noopener"
+       href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+       data-i18n="cta.apply">Apply Now</a>
   </main>
 
   <noscript>
