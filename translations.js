@@ -1,13 +1,50 @@
 /* ============================================================================
-   TP Candidate Microsite — translations.js (Updated)
+   TP Candidate Microsite — translations.js (FULL / FIXED)
    Provides:
-     - window.I18N   (static UI strings & language-aware helpers)
-     - window.CONTENT (page data rendered by app.js)
+     - window.I18N        (static UI strings & language-aware helpers)
+     - window.CONTENT     (page data rendered by app.js)
      - window.getChatGPTPrompt(lang) (Ask ChatGPT prompt per language)
-   Updated: 2025-08-18 - Added Korean language support
+     - window.normalizeLang(code)    (maps 'jp' -> 'ja', etc.)
+   Notes:
+     * Japanese is the default language.
+     * Supports URL/attr aliases: 'jp' is treated as 'ja'.
+     * DOM init is defensive (runs only if target nodes exist).
+   Updated: 2025-08-22
 ============================================================================ */
 
 (function () {
+  /* ----------------------------------------------------------
+     0) Language aliases / helpers
+  -----------------------------------------------------------*/
+  const LANG_ALIASES = {
+    jp: 'ja',
+    ja: 'ja',
+    en: 'en',
+    ko: 'ko',
+    // be permissive
+    'ja-JP': 'ja',
+    'en-US': 'en',
+    'en-GB': 'en',
+    'ko-KR': 'ko'
+  };
+
+  function normalizeLang(input) {
+    if (!input || typeof input !== 'string') return 'ja';
+    const key = input.toLowerCase().replace('_', '-').trim();
+    return LANG_ALIASES[key] || (key.startsWith('ja') ? 'ja'
+                         : key.startsWith('en') ? 'en'
+                         : key.startsWith('ko') ? 'ko'
+                         : 'ja');
+  }
+
+  // Expose for app.js or other scripts that want to normalize '/jp'
+  window.normalizeLang = normalizeLang;
+
+  /* ----------------------------------------------------------
+     1) I18N: UI strings (JA / EN / KO)
+     - Keys are stable for app.js: brand.*, nav.*, drawer.*, hero.*, etc.
+     - contactThanks(...) kept as functions where used by app.js
+  -----------------------------------------------------------*/
   const I18N = {
     ja: {
       // Brand & Nav
@@ -258,7 +295,7 @@
       'stat.jp_roles': '일본어 포지션',
       'stat.jp_roles_n': '다수',
 
-      // Priority headings
+      // Priority
       'priority.title': '우선 메뉴',
       'priority.sub': '자주 보는 항목을 바로 열 수 있습니다',
       'priority.gallery.title': '우선 메뉴 (보기 쉬운 갤러리)',
@@ -323,7 +360,7 @@
   };
 
   /* ----------------------------------------------------------
-     Content Data (rendered by app.js)
+     2) Content data consumed by app.js
   -----------------------------------------------------------*/
   const CONTENT = {
     links: {
@@ -331,7 +368,7 @@
       casual: 'https://forms.office.com/e/2UvpbweQww'
     },
 
-    // Japanese content
+    /* ---------------------- Japanese content ---------------------- */
     ja: {
       why1: [
         { t: '🌍 グローバルな環境でレベルアップ', d: '英語・異文化理解が日常で鍛えられる国際チーム。' },
@@ -401,30 +438,10 @@
         }
       ],
       team: [
-        {
-          name: 'Maho',
-          role: 'TA | Japan Market',
-          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
-          bio: '初めての海外就職も、日本語で伴走します。'
-        },
-        {
-          name: 'Kenta',
-          role: 'Recruiter',
-          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
-          bio: 'キャリア相談、お気軽にどうぞ。'
-        },
-        {
-          name: 'Aya',
-          role: 'Coordinator',
-          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-          bio: '渡航手続きや現地生活もフォローします。'
-        },
-        {
-          name: 'Leo',
-          role: 'Sourcer',
-          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-          bio: 'ご希望のプロジェクトを一緒に探します。'
-        }
+        { name: 'Maho',  role: 'TA | Japan Market', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop', bio: '初めての海外就職も、日本語で伴走します。' },
+        { name: 'Kenta', role: 'Recruiter',        img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop', bio: 'キャリア相談、お気軽にどうぞ。' },
+        { name: 'Aya',   role: 'Coordinator',      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: '渡航手続きや現地生活もフォローします。' },
+        { name: 'Leo',   role: 'Sourcer',          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: 'ご希望のプロジェクトを一緒に探します。' }
       ],
       voices: [
         { quote: '「違っていい」という価値観が、心を自由にしてくれました。', who: '採用チーム Maho' },
@@ -432,18 +449,9 @@
         { quote: '英語は自然と伸びます。毎日がプチ留学みたい。', who: '社員 Bさん（Penang）' }
       ],
       faq: [
-        {
-          q: '英語に自信がなくても応募できますか？',
-          a: 'はい、日本語中心のポジションが多数あります。入社後に英語力を伸ばす支援もあります。'
-        },
-        {
-          q: '就労ビザの手続きは難しいですか？',
-          a: '会社が申請を代行します。必要書類も日本語でご案内します。'
-        },
-        {
-          q: '住居はどうやって探せば良いですか？',
-          a: '現地エージェントの紹介、オリエンテーションでのアドバイスなどを提供します。'
-        }
+        { q: '英語に自信がなくても応募できますか？', a: 'はい、日本語中心のポジションが多数あります。入社後に英語力を伸ばす支援もあります。' },
+        { q: '就労ビザの手続きは難しいですか？', a: '会社が申請を代行します。必要書類も日本語でご案内します。' },
+        { q: '住居はどうやって探せば良いですか？', a: '現地エージェントの紹介、オリエンテーションでのアドバイスなどを提供します。' }
       ],
       galleryImgs: [
         'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
@@ -453,7 +461,7 @@
       ]
     },
 
-    // English content
+    /* ---------------------- English content ---------------------- */
     en: {
       why1: [
         { t: '🌍 Level up in a global team', d: 'Daily practice in English & cross-culture collaboration.' },
@@ -466,24 +474,9 @@
         { t: '🌈 Inclusive culture', d: 'Flat, diverse, collaborative.' }
       ],
       cities: [
-        {
-          id: 'kl',
-          title: 'Kuala Lumpur (KL)',
-          img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop',
-          desc: 'Big-city convenience & multicultural life. JP food, hospitals, schools, and transit.'
-        },
-        {
-          id: 'penang',
-          title: 'Penang',
-          img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop',
-          desc: 'Island lifestyle with history, sea views, and calmer pace.'
-        },
-        {
-          id: 'bkk',
-          title: 'Bangkok',
-          img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
-          desc: '"Tokyo of SEA" — extensive JP amenities and modern transit.'
-        }
+        { id: 'kl', title: 'Kuala Lumpur (KL)', img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop', desc: 'Big-city convenience & multicultural life. JP food, hospitals, schools, and transit.' },
+        { id: 'penang', title: 'Penang', img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop', desc: 'Island lifestyle with history, sea views, and calmer pace.' },
+        { id: 'bkk', title: 'Bangkok', img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop', desc: '"Tokyo of SEA" — extensive JP amenities and modern transit.' }
       ],
       benefits: [
         { t: 'Visa Support', d: 'Company handles EP application.' },
@@ -501,52 +494,16 @@
         { k: '5) Offer → Visa', v: 'Confirm, EP, flight & landing' }
       ],
       offices: [
-        {
-          title: 'G Tower (KL)',
-          img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop',
-          points: ['Ampang Park (MRT/LRT)', 'KLCC/Intermark walkable', 'Grade A office']
-        },
-        {
-          title: 'Penang — Livingston',
-          img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
-          points: ['Calm area', 'Food/pharmacy nearby', 'Easy commute']
-        },
-        {
-          title: 'Penang — One Precinct',
-          img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop',
-          points: ['Modern building', '15 min from airport', 'Near Queensbay Mall']
-        },
-        {
-          title: 'Penang — GBS@Mahsuri',
-          img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop',
-          points: ['GBS hub', 'IT/BPO cluster', 'Walkable amenities']
-        }
+        { title: 'G Tower (KL)', img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop', points: ['Ampang Park (MRT/LRT)', 'KLCC/Intermark walkable', 'Grade A office'] },
+        { title: 'Penang — Livingston', img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop', points: ['Calm area', 'Food/pharmacy nearby', 'Easy commute'] },
+        { title: 'Penang — One Precinct', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop', points: ['Modern building', '15 min from airport', 'Near Queensbay Mall'] },
+        { title: 'Penang — GBS@Mahsuri', img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop', points: ['GBS hub', 'IT/BPO cluster', 'Walkable amenities'] }
       ],
       team: [
-        {
-          name: 'Maho',
-          role: 'TA | Japan Market',
-          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
-          bio: 'We'll support you end-to-end in JP.'
-        },
-        {
-          name: 'Kenta',
-          role: 'Recruiter',
-          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
-          bio: 'Let's find your best-fit project.'
-        },
-        {
-          name: 'Aya',
-          role: 'Coordinator',
-          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-          bio: 'Relocation & daily life guidance.'
-        },
-        {
-          name: 'Leo',
-          role: 'Sourcer',
-          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-          bio: 'Exploring roles across accounts.'
-        }
+        { name: 'Maho',  role: 'TA | Japan Market', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop', bio: 'We\'ll support you end-to-end in JP.' },
+        { name: 'Kenta', role: 'Recruiter',        img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop', bio: 'Let\'s find your best-fit project.' },
+        { name: 'Aya',   role: 'Coordinator',      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: 'Relocation & daily life guidance.' },
+        { name: 'Leo',   role: 'Sourcer',          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: 'Exploring roles across accounts.' }
       ],
       voices: [
         { quote: 'Feeling "it\'s okay to be different" freed me at work.', who: 'TA Team — Maho' },
@@ -554,18 +511,9 @@
         { quote: 'My English grew naturally through daily collaboration.', who: 'Penang Member' }
       ],
       faq: [
-        {
-          q: 'Can I apply if my English is basic?',
-          a: 'Yes — many JP-first roles. We also support growth after you join.'
-        },
-        {
-          q: 'Is the work visa process hard?',
-          a: 'The company handles EP application and guides you in English/Japanese.'
-        },
-        {
-          q: 'How do I find housing?',
-          a: 'We share local agents and give practical tips in orientation.'
-        }
+        { q: 'Can I apply if my English is basic?', a: 'Yes — many JP-first roles. We also support growth after you join.' },
+        { q: 'Is the work visa process hard?', a: 'The company handles EP application and guides you in English/Japanese.' },
+        { q: 'How do I find housing?', a: 'We share local agents and give practical tips in orientation.' }
       ],
       galleryImgs: [
         'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
@@ -575,7 +523,7 @@
       ]
     },
 
-    // Korean content
+    /* ---------------------- Korean content ---------------------- */
     ko: {
       why1: [
         { t: '🌍 글로벌 환경에서 레벨업', d: '영어・이문화 이해가 일상에서 단련되는 국제 팀.' },
@@ -588,24 +536,9 @@
         { t: '🌈 다양성이 베이스인 문화', d: '국적・성별・연령을 넘어 플랫하게 일할 수 있다.' }
       ],
       cities: [
-        {
-          id: 'kl',
-          title: '쿠알라룸푸르（KL）',
-          img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop',
-          desc: '도시의 편리함 × 다문화 공존. 일본 음식・병원・학교・교통망도 충실해서 안심.'
-        },
-        {
-          id: 'penang',
-          title: '페낭（Penang）',
-          img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop',
-          desc: '자연과 역사가 살아 숨쉬는 섬 라이프. 바다가 보이는 고층 콘도, 안정된 치안.'
-        },
-        {
-          id: 'bkk',
-          title: '방콕（Bangkok）',
-          img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
-          desc: '"동남아시아의 도쿄". 일계 시설이 초충실, BTS/MRT로 이동 쾌적.'
-        }
+        { id: 'kl', title: '쿠알라룸푸르（KL）', img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop', desc: '도시의 편리함 × 다문화 공존. 일본 음식・병원・학교・교통망도 충실해서 안심.' },
+        { id: 'penang', title: '페낭（Penang）', img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop', desc: '자연과 역사가 살아 숨쉬는 섬 라이프. 바다가 보이는 고층 콘도, 안정된 치안.' },
+        { id: 'bkk', title: '방콕（Bangkok）', img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop', desc: '"동남아시아의 도쿄". 일계 시설이 초충실, BTS/MRT로 이동 쾌적.' }
       ],
       benefits: [
         { t: '취업 비자 지원', d: 'EP 신청을 회사가 대행（회사 부담）.' },
@@ -623,52 +556,16 @@
         { k: '⑤ 오퍼 → 비자', v: '조건 확인, EP 신청, 항공・초기 숙박' }
       ],
       offices: [
-        {
-          title: 'G Tower（KL）',
-          img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop',
-          points: ['Ampang Park역 직결（MRT/LRT）', 'KLCC/Intermark가 도보권', 'Grade A 오피스']
-        },
-        {
-          title: 'Penang — Livingston',
-          img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
-          points: ['조용한 환경', '주변에 음식점・약국', '통근 액세스 양호']
-        },
-        {
-          title: 'Penang — One Precinct',
-          img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop',
-          points: ['Bayan Baru의 모던 빌딩', '공항에서 약 15분', 'Queensbay Mall 근처']
-        },
-        {
-          title: 'Penang — GBS@Mahsuri',
-          img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop',
-          points: ['주의 GBS 허브 중심', 'IT/BPO 기업이 집적', '생활 인프라가 도보권']
-        }
+        { title: 'G Tower（KL）', img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop', points: ['Ampang Park역 직결（MRT/LRT）', 'KLCC/Intermark가 도보권', 'Grade A 오피스'] },
+        { title: 'Penang — Livingston', img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop', points: ['조용한 환경', '주변에 음식점・약국', '통근 액세스 양호'] },
+        { title: 'Penang — One Precinct', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop', points: ['Bayan Baru의 모던 빌딩', '공항에서 약 15분', 'Queensbay Mall 근처'] },
+        { title: 'Penang — GBS@Mahsuri', img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop', points: ['주의 GBS 허브 중심', 'IT/BPO 기업이 집적', '생활 인프라가 도보권'] }
       ],
       team: [
-        {
-          name: 'Maho',
-          role: 'TA | Japan Market',
-          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
-          bio: '처음의 해외 취업도, 일본어로 동행합니다.'
-        },
-        {
-          name: 'Kenta',
-          role: 'Recruiter',
-          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
-          bio: '커리어 상담, 편하게 연락주세요.'
-        },
-        {
-          name: 'Aya',
-          role: 'Coordinator',
-          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-          bio: '항공 수속이나 현지 생활도 팔로우합니다.'
-        },
-        {
-          name: 'Leo',
-          role: 'Sourcer',
-          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
-          bio: '희망하는 프로젝트를 함께 찾습니다.'
-        }
+        { name: 'Maho',  role: 'TA | Japan Market', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop', bio: '처음의 해외 취업도, 일본어로 동행합니다.' },
+        { name: 'Kenta', role: 'Recruiter',        img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop', bio: '커리어 상담, 편하게 연락주세요.' },
+        { name: 'Aya',   role: 'Coordinator',      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: '항공 수속이나 현지 생활도 팔로우합니다.' },
+        { name: 'Leo',   role: 'Sourcer',          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: '희망하는 프로젝트를 함께 찾습니다.' }
       ],
       voices: [
         { quote: '「달라도 괜찮다」는 가치관이, 마음을 자유롭게 해주었습니다.', who: '채용팀 Maho' },
@@ -676,18 +573,9 @@
         { quote: '영어는 자연스럽게 늘어납니다. 매일이 프티 유학 같아요.', who: '직원 B씨（Penang）' }
       ],
       faq: [
-        {
-          q: '영어에 자신이 없어도 지원할 수 있습니까?',
-          a: '네, 일본어 중심의 포지션이 다수 있습니다. 입사 후에 영어력을 늘리는 지원도 있습니다.'
-        },
-        {
-          q: '취업 비자 수속은 어렵습니까?',
-          a: '회사가 신청을 대행합니다. 필요 서류도 일본어로 안내합니다.'
-        },
-        {
-          q: '주거는 어떻게 찾으면 좋습니까?',
-          a: '현지 에이전트 소개, 오리엔테이션에서의 어드바이스 등을 제공합니다.'
-        }
+        { q: '영어에 자신이 없어도 지원할 수 있습니까?', a: '네, 일본어 중심의 포지션이 다수 있습니다. 입사 후에 영어력을 늘리는 지원도 있습니다.' },
+        { q: '취업 비자 수속은 어렵습니까?', a: '회사가 신청을 대행합니다. 필요 서류도 일본어로 안내합니다.' },
+        { q: '주거는 어떻게 찾으면 좋습니까?', a: '현지 에이전트 소개, 오리엔테이션에서의 어드바이스 등을 제공합니다.' }
       ],
       galleryImgs: [
         'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
@@ -699,7 +587,7 @@
   };
 
   /* ----------------------------------------------------------
-     ChatGPT Prompts
+     3) ChatGPT prompts (JA / EN / KO)
   -----------------------------------------------------------*/
   const CHATGPT_PROMPTS = {
     ja: `あなたは就職アドバイザーです。テレパフォーマンス（Teleperformance）マレーシア／タイ（TP Malaysia / TP Thailand）について、候補者が安心して応募を検討できるよう、以下の条件でポジティブに紹介してください。
@@ -760,43 +648,59 @@ Start with a concise summary → bullet points → a friendly CTA.`,
   };
 
   /* ----------------------------------------------------------
-     Exports
+     4) Exports
   -----------------------------------------------------------*/
   window.I18N = I18N;
   window.CONTENT = CONTENT;
-
-  // Helper: get prompt by language code ('ja' default)
   window.getChatGPTPrompt = function getChatGPTPrompt(lang) {
-    return CHATGPT_PROMPTS[lang] || CHATGPT_PROMPTS['ja'];
+    const code = normalizeLang(lang);
+    return CHATGPT_PROMPTS[code] || CHATGPT_PROMPTS.ja;
   };
 
   /* ----------------------------------------------------------
-     Initialize Ask ChatGPT textarea on load
+     5) DOM initialization for Ask ChatGPT + copy UX
+        - Detect lang from: data-lang → lang → URL path (/en, /jp, /ko)
+        - Japanese default
   -----------------------------------------------------------*/
   document.addEventListener('DOMContentLoaded', () => {
+    // 1) Determine current language
     const root = document.documentElement;
-    const langAttr = root.getAttribute('data-lang') || root.getAttribute('lang') || 'ja';
-    const current = ['ja', 'en', 'ko'].includes(langAttr) ? langAttr : 'ja';
+    const attrDataLang = root.getAttribute('data-lang');
+    const attrLang = root.getAttribute('lang');
+
+    // Path-based hint (supports '/jp', '/ja', '/en', '/ko' anywhere after the domain)
+    const path = (location.pathname || '').toLowerCase();
+    const pathLang =
+      path.split('/').map(s => s.trim()).filter(Boolean).find(seg => ['jp','ja','en','ko'].includes(seg)) || '';
+
+    const resolved = normalizeLang(attrDataLang || attrLang || pathLang || (navigator.language || ''));
+
+    // 2) Initialize Ask ChatGPT textarea if present
     const ta = document.getElementById('chatgptPrompt');
     if (ta) {
-      ta.value = window.getChatGPTPrompt(current);
+      ta.value = window.getChatGPTPrompt(resolved);
     }
 
-    // Copy button UX
+    // 3) Copy button UX
     const copyBtn = document.getElementById('copyPromptBtn');
     if (copyBtn && ta) {
       copyBtn.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(ta.value);
           const original = copyBtn.textContent;
-          const copiedText = current === 'ja' ? 'コピーしました！' : 
-                            current === 'ko' ? '복사했습니다!' : 'Copied!';
+          const copiedText =
+            resolved === 'ja' ? 'コピーしました！' :
+            resolved === 'ko' ? '복사했습니다!' : 'Copied!';
           copyBtn.textContent = copiedText;
           setTimeout(() => (copyBtn.textContent = original), 1400);
         } catch (e) {
-          // Fallback
-          ta.select();
-          document.execCommand('copy');
+          // Fallback (some browsers / http)
+          try {
+            ta.select();
+            document.execCommand('copy');
+          } catch (_ignored) {
+            // last resort: no-op
+          }
         }
       });
     }
