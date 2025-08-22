@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja" data-lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>マレーシア・タイの魅力 | TP 日本語スピーカー採用</title>
+  <meta name="description" content="“観光地”ではなく“暮らす場所”として選ばれる国。英語が通じる安心感、多文化の共存、ちょうど良い生活コスト。海外就職の第一歩に最適です。" />
+  <meta name="theme-color" content="#ff0082" />
+  <link rel="icon" href="TPLogo11.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* Base styles from your CSS */
-    :root {
+    /* =========================================================
+       Base design tokens — updated to TP Pink with Purple fallback
+       ========================================================= */
+    :root{
       --bg: #ffffff;
       --ink: #0b0b0b;
       --muted: #6b6b6b;
       --ink-2: #1f2937;
       --surface: #fbfdff;
       --line: #EEF1F4;
-      --accent: #0057B8;
-      --accent-2: #E63946;
-      --shadow-xl: 0 18px 60px rgba(16, 24, 40, 0.10);
-      --shadow-lg: 0 14px 40px rgba(16, 24, 40, 0.08);
-      --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
-      --shadow-sm: 0 6px 20px rgba(16, 24, 40, 0.06);
+      --accent: #ff0082;   /* TP Pink */
+      --accent-2: #780096; /* TP Purple (fallback/secondary) */
       --radius: 14px;
       --radius-lg: 18px;
       --radius-full: 999px;
@@ -26,55 +29,64 @@
       --pad: 24px;
       --gap: 20px;
       --navH: 64px;
-      --focus: 0 0 0 3px rgba(0,87,184,0.25);
+      --focus: 0 0 0 3px rgba(255,0,130,0.25);
+      --shadow-xl: 0 22px 80px rgba(16,24,40,0.20);
+      --shadow-lg: 0 18px 56px rgba(16,24,40,0.16);
+      --shadow-md: 0 10px 30px rgba(16,24,40,0.14);
+      --shadow-sm: 0 6px 20px rgba(16,24,40,0.10);
     }
-    
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
-    body {
-      font-family: "Noto Sans JP", "Inter", system-ui, sans-serif;
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; margin: 0; }
+    body{
+      font-family: "Noto Sans JP", "Calibri Light", Calibri, "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans", "Noto Sans CJK JP", sans-serif;
       color: var(--ink);
       background: var(--bg);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    
-    .wrap {
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    .subtle{ color: #4B5563; }
+
+    .wrap{
       max-width: var(--maxw);
       margin: 0 auto;
       padding: var(--pad);
     }
-    
-    /* Header styles */
+
+    /* =========================================================
+       Header (brand + full language buttons + nav + primary CTA)
+       ========================================================= */
     header.site {
       position: sticky; top: 12px; z-index: 120;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(8px);
       border: 1px solid var(--line);
       border-radius: 16px;
       box-shadow: var(--shadow-sm);
       padding: 10px 14px;
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin: 10px var(--pad);
     }
-    
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand img { height: 44px; width: auto; border-radius: 8px; }
     .brand .t { font-weight: 900; letter-spacing: .02em; }
     .brand .s { font-size: 12px; color: var(--muted); }
-    
+
     nav.primary { display: flex; gap: 10px; align-items: center; }
-    nav.primary a {
+    nav.primary a{
       padding: 8px 10px;
       border-radius: 10px;
-      color: #263238;
-      font-weight: 700;
-      font-size: 14px;
+      font-weight: 700; font-size: 14px; color: #263238;
     }
-    nav.primary a:hover { background: #F6FAFF; color: #0a2540; }
-    nav.primary a:focus { outline: none; box-shadow: var(--focus); }
-    
-    .btn {
+    nav.primary a:hover{ background: #FFF0F8; color: #111; }
+    nav.primary a:focus{ outline: none; box-shadow: var(--focus); }
+
+    .btn{
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       padding: 10px 14px;
       border-radius: 12px;
@@ -84,295 +96,261 @@
       font-weight: 800;
       transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
     }
-    .btn:hover { box-shadow: var(--shadow-sm); }
-    .btn:active { transform: translateY(1px); }
-    .btn:focus { outline: none; box-shadow: var(--focus); }
-    .btn.primary {
+    .btn:hover{ box-shadow: var(--shadow-sm); }
+    .btn:active{ transform: translateY(1px); }
+    .btn:focus{ outline: none; box-shadow: var(--focus); }
+    .btn.primary{
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
-      box-shadow: 0 8px 24px rgba(0,87,184,0.18);
+      box-shadow: 0 10px 26px rgba(255,0,130,0.26);
     }
-    
-    /* Hero section */
-    .hero {
-      position: relative;
-      margin-top: 16px;
+    .btn.ghost{
+      background: #fff; border-color: var(--line); color: #0a2540;
+    }
+
+    /* Language group (JA default, show all) */
+    .lang-group{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    }
+    .lang-btn{
+      padding:8px 10px; border-radius: 10px; border:1px solid var(--line);
+      background:#fff; font-weight:800; font-size:13px; cursor:pointer;
+    }
+    .lang-btn.active{
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      box-shadow: 0 6px 18px rgba(255,0,130,0.22);
+    }
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+    .hero{
+      position: relative; margin: 16px var(--pad);
       border-radius: 18px; overflow: hidden;
       border: 1px solid var(--line);
       box-shadow: var(--shadow-lg);
+      background: linear-gradient(180deg,#fff 0%, #fffafc 100%);
     }
-    .hero .inner {
+    .hero .inner{
       display: grid; grid-template-columns: 1fr 440px; gap: 20px; align-items: center;
       padding: 28px;
-      background: linear-gradient(180deg,#fff,var(--surface));
     }
-    .eyebrow {
-      color: var(--accent);
-      font-size: 12px; letter-spacing: .08em; font-weight: 800; text-transform: uppercase;
-    }
-    h1.hero-title { font-size: 36px; line-height: 1.12; margin: 10px 0; }
-    .typewriter {
-      display: inline-block; border-right: 2px solid var(--accent);
-      padding-right: 6px; min-height: 1.2em;
-    }
-    .lead { color: #4B5563; max-width: 64ch; }
-    .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-    
-    .stats { display: flex; gap: 14px; margin-top: 14px; }
-    .stat {
-      background: #fff; border: 1px solid var(--line);
-      border-radius: 12px; padding: 10px 14px;
-      text-align: center; min-width: 96px;
-    }
-    .stat strong { display: block; font-size: 18px; color: var(--ink-2); }
-    .stat span { font-size: 12px; color: var(--muted); }
-    
-    .hero-media img {
-      width: 440px; height: 320px; object-fit: cover;
-      border-radius: 14px; border: 1px solid var(--line);
+    .eyebrow{ color: var(--accent); font-size: 12px; letter-spacing:.08em; font-weight:800; text-transform: uppercase; }
+    h1.hero-title{ font-size: 36px; line-height:1.12; margin:10px 0; }
+    .typewriter{ display:inline-block; border-right:2px solid var(--accent); padding-right:6px; min-height:1.2em; }
+    .lead{ color:#4B5563; max-width:64ch; }
+    .hero-ctas{ display:flex; gap:10px; flex-wrap: wrap; margin-top:14px; }
+
+    .stats{ display:flex; gap:14px; margin-top:14px; }
+    .stat{ background:#fff; border:1px solid var(--line); border-radius: 12px; padding:10px 14px; text-align:center; min-width:96px; box-shadow: var(--shadow-sm); }
+    .stat strong{ display:block; font-size:18px; color: var(--ink-2); }
+    .stat span{ font-size:12px; color: var(--muted); }
+
+    .hero-media img{
+      width:440px; height:320px; object-fit:cover;
+      border-radius:14px; border:1px solid var(--line);
       box-shadow: var(--shadow-sm);
     }
-    
-    /* Section styles */
-    section { margin-top: 28px; }
-    .section-head {
-      display: flex; align-items: end; justify-content: space-between;
-      gap: 12px; margin-bottom: 14px;
+
+    /* =========================================================
+       Sections / cards / grids
+       ========================================================= */
+    section{ margin-top:28px; }
+    .section-head{ display:flex; align-items:end; justify-content:space-between; gap:12px; margin: 0 var(--pad) 14px; }
+    .h2{ font-size:24px; margin:0 0 4px; font-weight:900; }
+    .h2-sub{ font-size:13px; color: var(--muted); }
+
+    .card{
+      background:#fff; border:1px solid var(--line);
+      border-radius:14px; box-shadow: var(--shadow-md); padding:18px;
     }
-    .h2 { font-size: 24px; margin: 0 0 4px; font-weight: 900; }
-    .h2-sub { font-size: 13px; color: var(--muted); }
-    
-    .card {
-      background: #fff; border: 1px solid var(--line);
-      border-radius: 14px; box-shadow: var(--shadow-sm); padding: 18px;
-    }
-    
-    .grid { display: grid; gap: var(--gap); }
-    .cols-2 { grid-template-columns: 1fr 1fr; }
-    .cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .cols-4 { grid-template-columns: repeat(4, 1fr); }
-    
+
+    .grid{ display:grid; gap: var(--gap); }
+    .cols-2{ grid-template-columns: 1fr 1fr; }
+    .cols-3{ grid-template-columns: repeat(3,1fr); }
+    .cols-4{ grid-template-columns: repeat(4,1fr); }
+
     /* City cards */
-    .city {
-      position: relative; min-height: 220px; border-radius: 14px; overflow: hidden;
-      border: 1px solid var(--line); box-shadow: var(--shadow-sm);
-      transform: translateZ(0);
+    .city{
+      position: relative; min-height: 220px; border-radius:14px; overflow:hidden;
+      border:1px solid var(--line); box-shadow: var(--shadow-md); transform: translateZ(0);
     }
-    .city img { width: 100%; height: 100%; object-fit: cover; }
-    .city .overlay {
-      position: absolute; left: 12px; bottom: 12px;
-      background: linear-gradient(90deg,rgba(0,0,0,0.62),rgba(0,0,0,0.28));
-      padding: 10px 12px; border-radius: 10px; color: #fff; max-width: 80%;
+    .city img{ width:100%; height:100%; object-fit: cover; }
+    .city .overlay{
+      position:absolute; left:12px; bottom:12px; background:
+        linear-gradient(90deg, rgba(0,0,0,0.62), rgba(0,0,0,0.28));
+      padding:10px 12px; border-radius:10px; color:#fff; max-width:80%;
     }
-    .city:hover { transform: translateY(-2px); transition: transform .18s ease; }
-    
+    .city:hover{ transform: translateY(-2px); transition: transform .18s ease; }
+
     /* Badges */
-    .badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 10px; border-radius: var(--radius-full);
-      background: #F2F6FF; color: #0a2540; font-weight: 800;
-      border: 1px solid var(--line); font-size: 12px;
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px; border-radius: var(--radius-full);
+      background: #FFF0F8; color:#0a2540; font-weight:800; border:1px solid var(--line);
+      font-size:12px;
     }
-    
-    /* Comparison table */
-    table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 6px 0 0; }
-    th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
-    th { background: #F7FAFF; text-align: left; font-weight: 800; }
-    tbody tr:hover { background: #fafcff; }
-    
-    /* Lifestyle icons */
-    .lifestyle-icons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 20px;
-    }
-    
-    .lifestyle-icon {
-      text-align: center;
-      padding: 12px;
-    }
-    
-    .lifestyle-icon img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-    
-    /* Footer */
-    .site-footer {
-      margin-top: 40px;
-      border-top: 1px solid var(--line);
-      padding: 20px 0;
-      text-align: center;
-      color: #6b7280;
-      font-size: 14px;
-    }
-    
-    /* Mobile responsive */
-    @media (max-width: 1024px) {
-      .hero .inner { grid-template-columns: 1fr; }
-      .hero-media img { width: 100%; height: 220px; }
-      .cols-3 { grid-template-columns: repeat(2, 1fr); }
-      .lifestyle-icons { grid-template-columns: repeat(2, 1fr); }
-    }
-    
-    @media (max-width: 768px) {
-      .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
-      .lifestyle-icons { grid-template-columns: repeat(2, 1fr); }
-      .section-head { flex-direction: column; align-items: flex-start; }
-    }
-    
-    @media (max-width: 480px) {
-      .stats { flex-wrap: wrap; }
-      .stat { min-width: 88px; }
-      .lifestyle-icons { grid-template-columns: 1fr; }
-    }
-    
-    /* Animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: all 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-    
-    .reveal.in {
-      opacity: 1;
-      transform: none;
-    }
-    
-    /* Custom styles for this page */
-    .highlight-box {
-      background: linear-gradient(120deg, rgba(0,87,184,0.08), rgba(230,57,70,0.05));
+
+    /* Comparison bars */
+    .highlight-box{
+      background: linear-gradient(120deg, rgba(255,0,130,0.08), rgba(120,0,150,0.06));
       border-left: 4px solid var(--accent);
-      padding: 16px;
-      border-radius: 0 12px 12px 0;
-      margin: 16px 0;
+      padding:16px; border-radius: 0 12px 12px 0; margin: 16px var(--pad);
+      box-shadow: var(--shadow-sm);
     }
-    
-    .comparison-chart {
-      display: flex;
-      gap: 20px;
-      margin-top: 20px;
+    .comparison-chart{ display:flex; gap:20px; margin-top:20px; }
+    .chart-item{ flex:1; text-align:center; padding:16px; border-radius:12px; background: var(--surface); border:1px solid var(--line); box-shadow: var(--shadow-sm); }
+    .chart-bar{ height:200px; width:40px; margin:0 auto; background:#ffe3f1; border-radius:8px; position:relative; overflow:hidden; }
+    .chart-fill{ position:absolute; bottom:0; left:0; right:0; background: var(--accent); border-radius:8px 8px 0 0; transition: height 1s ease; }
+    .chart-label{ margin-top:10px; font-weight:700; }
+
+    .city-comparison{ display:flex; gap:20px; margin-top:20px; }
+    .city-feature{ flex:1; padding:16px; border-radius:12px; background: var(--surface); border:1px solid var(--line); box-shadow: var(--shadow-sm); }
+
+    .quote{
+      font-style: italic; padding:16px; border-left: 3px solid var(--accent);
+      background:#FAFAFC; border-radius:8px; margin:20px 0;
     }
-    
-    .chart-item {
-      flex: 1;
-      text-align: center;
-      padding: 16px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--line);
+
+    .testimonial{ display:flex; align-items:center; gap:16px; margin:20px 0; }
+    .testimonial img{ width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid var(--accent); }
+
+    .cta-section{
+      background: linear-gradient(120deg, #fff5fb, #fef7ff);
+      border-radius: 16px; padding: 32px; text-align: center; margin: 40px var(--pad);
+      border: 1px solid var(--line); box-shadow: var(--shadow-md);
     }
-    
-    .chart-bar {
-      height: 200px;
-      width: 40px;
-      margin: 0 auto;
-      background: #e0e7ff;
-      border-radius: 8px;
+
+    /* =========================================================
+       Lifestyle icons — FULL WIDTH strip (4 desktop / 3 phone)
+       ========================================================= */
+    .lifestyle-strip{
       position: relative;
-      overflow: hidden;
+      margin: 24px 0;
+      /* full-bleed */
+      width: 100vw; margin-left: calc(50% - 50vw);
+      padding: 14px 0 6px;
+      background: linear-gradient(90deg, rgba(255,0,130,0.05), rgba(255,0,130,0.02) 50%, rgba(120,0,150,0.05));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
     }
-    
-    .chart-fill {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--accent);
-      border-radius: 8px 8px 0 0;
-      transition: height 1s ease;
+    .lifestyle-wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad) 20px; }
+    .lifestyle-icons{
+      display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; margin-top:20px;
     }
-    
-    .chart-label {
-      margin-top: 10px;
-      font-weight: 700;
+    .lifestyle-icon{ text-align:center; padding:16px; background:#fff; border:1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-sm); }
+    .lifestyle-icon img{ width:64px; height:64px; object-fit:contain; margin-bottom:10px; }
+
+    /* =========================================================
+       Footer — TP watermark (restored)
+       ========================================================= */
+    .site-footer{
+      margin-top: 44px; position: relative; color:#fff;
+      background:
+        radial-gradient(60% 80% at 10% 0%, rgba(255,0,130,0.18), transparent 70%),
+        radial-gradient(60% 80% at 90% 10%, rgba(120,0,150,0.20), transparent 70%),
+        linear-gradient(180deg, #0c0c10, #121217);
     }
-    
-    .city-comparison {
-      display: flex;
-      gap: 20px;
-      margin-top: 20px;
+    .site-footer .wrap{ position:relative; z-index:2; }
+    .site-footer .watermark{
+      position:absolute; inset: 0; z-index:1; pointer-events:none; opacity: 0.18;
+      display:grid; place-items:center;
+      mask-image: linear-gradient(to top, transparent, black 20%, black 80%, transparent);
     }
-    
-    .city-feature {
-      flex: 1;
-      padding: 16px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--line);
+    .site-footer .watermark svg{
+      width:min(72vw, 980px); height:auto; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.35));
     }
-    
-    .quote {
-      font-style: italic;
-      padding: 16px;
-      border-left: 3px solid var(--accent);
-      background: #FAFAFC;
-      border-radius: 8px;
-      margin: 20px 0;
+    .footer-flex{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      padding: 26px 0 32px;
     }
-    
-    .testimonial {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 20px 0;
+    .footer-flex .copy{ margin:0; font-weight:700; letter-spacing:.01em; }
+    .footer-links{ display:flex; gap:14px; flex-wrap:wrap; }
+    .footer-links a{ color: #f7f7f9; opacity: 0.9; font-weight:700; }
+    .footer-links a:hover{ opacity: 1; text-decoration: underline; }
+
+    /* =========================================================
+       Reveal animation
+       ========================================================= */
+    .reveal{ opacity:0; transform: translateY(16px); transition: all .6s cubic-bezier(.2,.9,.3,1); }
+    .reveal.in{ opacity:1; transform:none; }
+
+    /* =========================================================
+       Responsive
+       ========================================================= */
+    @media (max-width: 1140px){
+      .hero .inner{ grid-template-columns: 1fr; }
+      .hero-media img{ width:100%; height: 240px; }
     }
-    
-    .testimonial img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--accent);
+    @media (max-width: 1024px){
+      .cols-3{ grid-template-columns: repeat(2,1fr); }
     }
-    
-    .cta-section {
-      background: linear-gradient(120deg, #f0f7ff, #e6f7ff);
-      border-radius: 16px;
-      padding: 32px;
-      text-align: center;
-      margin: 40px 0;
-      border: 1px solid var(--line);
+    @media (max-width: 820px){
+      header.site{ margin:10px 14px; }
+      .section-head{ margin: 0 14px 14px; }
+      .hero{ margin: 16px 14px; }
+      .cta-section{ margin: 40px 14px; }
+    }
+    @media (max-width: 768px){
+      .cols-2, .cols-3, .cols-4{ grid-template-columns: 1fr; }
+      .section-head{ flex-direction: column; align-items:flex-start; }
+      .lifestyle-icons{ grid-template-columns: repeat(3, 1fr); } /* phone = 3 icons */
+    }
+    @media (max-width: 480px){
+      .stats{ flex-wrap: wrap; }
+      .stat{ min-width: 88px; }
+      .brand .s{ display:none; }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site">
-    <div class="brand">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='40' viewBox='0 0 100 40'%3E%3Crect width='100' height='40' fill='%230057B8' rx='8'/%3E%3Ctext x='50' y='25' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3ETP%3C/text%3E%3C/svg%3E" alt="TP Logo">
+  <a class="visually-hidden" href="#main">メインへスキップ</a>
+
+  <!-- =========================================================
+       Header
+       ========================================================= -->
+  <header class="site" role="banner">
+    <a class="brand" href="index.html" id="brandHome" aria-label="TP ホーム">
+      <img src="TPLogo11.png" alt="TP ロゴ" />
       <div class="brand-text">
         <div class="t">TP</div>
         <div class="s">Malaysia · Thailand — 日本語採用</div>
       </div>
-    </div>
-    
-    <nav class="primary">
-      <a href="#">ホーム</a>
-      <a href="#">求人</a>
-      <a href="#" class="active">マレーシア・タイの魅力</a>
-      <a href="#">移住・ビザ</a>
-      <a href="#">FAQ</a>
+    </a>
+
+    <nav class="primary" aria-label="Primary">
+      <a href="index.html">ホーム</a>
+      <a href="jobs-and-benefits.html">求人</a>
+      <a href="why-malaysia-thailand.html" aria-current="page">マレーシア・タイの魅力</a>
+      <a href="relocation-visa.html">移住・ビザ</a>
+      <a href="faq.html">FAQ</a>
     </nav>
-    
-    <div class="actions">
-      <button class="btn ghost" id="langBtn">EN</button>
-      <button class="btn primary">ご応募はこちら</button>
+
+    <div class="actions" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="lang-group" id="langGroup" aria-label="Language">
+        <button class="lang-btn" data-lang="ja" aria-current="true">日本語</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ko">한국어</button>
+      </div>
+      <a class="btn primary" target="_blank"
+         href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">
+         ご応募はこちら</a>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- Hero Section -->
+  <!-- =========================================================
+       Main
+       ========================================================= -->
+  <main id="main">
+    <!-- Hero -->
     <section class="hero">
       <div class="inner">
         <div class="hero-copy">
-          <div class="eyebrow">Why Malaysia & Thailand</div>
-          <h1 class="hero-title">マレーシア・タイの魅力</h1>
-          <p class="lead">
+          <div class="eyebrow" id="eyebrow">Why Malaysia &amp; Thailand</div>
+          <h1 class="hero-title" id="heroTitle">マレーシア・タイの魅力</h1>
+          <p class="lead" id="heroLead">
             “観光地”ではなく“暮らす場所”として選ばれる国。英語が通じる安心感、
             多文化の共存、ちょうど良い生活コスト。海外就職の第一歩に最適です。
           </p>
@@ -387,7 +365,7 @@
           </ul>
         </div>
         <div class="hero-media">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='320' viewBox='0 0 440 320'%3E%3Crect width='440' height='320' fill='%23e0e7ff'/%3E%3Crect x='0' y='240' width='440' height='80' fill='%230057B8'/%3E%3Ccircle cx='100' cy='100' r='40' fill='%23ff9e80'/%3E%3Ccircle cx='300' cy='120' r='30' fill='%23ff9e80'/%3E%3Crect x='180' y='180' width='80' height='140' fill='%23a5b4fc'/%3E%3Crect x='220' y='140' width='40' height='40' fill='%23a5b4fc'/%3E%3C/svg%3E" alt="KL・バンコクの街並み" id="heroCover" />
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='320' viewBox='0 0 440 320'%3E%3Crect width='440' height='320' fill='%23ffe3f1'/%3E%3Crect x='0' y='240' width='440' height='80' fill='%23ff0082'/%3E%3Ccircle cx='100' cy='100' r='40' fill='%23ffbbd9'/%3E%3Ccircle cx='300' cy='120' r='30' fill='%23ffbbd9'/%3E%3Crect x='180' y='180' width='80' height='140' fill='%23f5ccff'/%3E%3Crect x='220' y='140' width='40' height='40' fill='%23f5ccff'/%3E%3C/svg%3E" alt="KL・バンコクの街並み" id="heroCover" />
         </div>
       </div>
     </section>
@@ -399,173 +377,170 @@
         <p class="h2-sub">KL・Penang・Bangkok — それぞれの良さを活かせます</p>
       </div>
 
-      <div class="grid cols-3" id="cityCardsStatic">
-        <!-- KL -->
-        <article class="city reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e0e7ff'/%3E%3Crect x='50' y='100' width='300' height='200' fill='%23a5b4fc'/%3E%3Crect x='100' y='50' width='80' height='150' fill='%23a5b4fc'/%3E%3Crect x='220' y='30' width='60' height='170' fill='%23a5b4fc'/%3E%3Crect x='0' y='250' width='400' height='50' fill='%230057B8'/%3E%3C/svg%3E" alt="クアラルンプール" />
-          <div class="overlay">
-            <strong>クアラルンプール（KL）</strong>
-            <div style="font-size:13px;margin-top:6px">
-              都市の利便性 × 多文化共存 × 日本語サポート。日本食・病院・学校が充実。
+      <div class="wrap">
+        <div class="grid cols-3" id="cityCardsStatic">
+          <!-- KL -->
+          <article class="city reveal">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23ffe3f1'/%3E%3Crect x='50' y='100' width='300' height='200' fill='%23f5ccff'/%3E%3Crect x='100' y='50' width='80' height='150' fill='%23f5ccff'/%3E%3Crect x='220' y='30' width='60' height='170' fill='%23f5ccff'/%3E%3Crect x='0' y='250' width='400' height='50' fill='%23ff0082'/%3E%3C/svg%3E" alt="クアラルンプール" />
+            <div class="overlay">
+              <strong>クアラルンプール（KL）</strong>
+              <div style="font-size:13px;margin-top:6px">
+                都市の利便性 × 多文化共存 × 日本語サポート。日本食・病院・学校が充実。
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <!-- Penang -->
-        <article class="city reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23bbf7d0'/%3E%3Crect x='0' y='200' width='400' height='100' fill='%2387ceeb'/%3E%3Ccircle cx='200' cy='100' r='50' fill='%23fef08a'/%3E%3Crect x='100' y='150' width='60' height='100' fill='%23a5b4fc'/%3E%3Crect x='240' y='130' width='50' height='120' fill='%23a5b4fc'/%3E%3C/svg%3E" alt="ペナン" />
-          <div class="overlay">
-            <strong>ペナン（Penang）</strong>
-            <div style="font-size:13px;margin-top:6px">
-              自然 × 歴史 × 落ち着いた島ライフ。海に近い物件や眺めの良いコンド多数。
+          <!-- Penang -->
+          <article class="city reveal">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d8ffe6'/%3E%3Crect x='0' y='200' width='400' height='100' fill='%23ffe3f1'/%3E%3Ccircle cx='200' cy='100' r='50' fill='%23ffbbd9'/%3E%3Crect x='100' y='150' width='60' height='100' fill='%23f5ccff'/%3E%3Crect x='240' y='130' width='50' height='120' fill='%23f5ccff'/%3E%3C/svg%3E" alt="ペナン" />
+            <div class="overlay">
+              <strong>ペナン（Penang）</strong>
+              <div style="font-size:13px;margin-top:6px">
+                自然 × 歴史 × 落ち着いた島ライフ。海に近い物件や眺めの良いコンド多数。
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
 
-        <!-- Bangkok -->
-        <article class="city reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23fecaca'/%3E%3Crect x='50' y='50' width='300' height='250' fill='%23a5b4fc'/%3E%3Crect x='80' y='30' width='80' height='220' fill='%23a5b4fc'/%3E%3Crect x='220' y='20' width='70' height='230' fill='%23a5b4fc'/%3E%3Crect x='0' y='250' width='400' height='50' fill='%23dc2626'/%3E%3C/svg%3E" alt="バンコク" />
-          <div class="overlay">
-            <strong>バンコク（Bangkok）</strong>
-            <div style="font-size:13px;margin-top:6px">
-              “東南アジアの東京”。日本人コミュニティと日系施設が超充実、交通網も快適。
+          <!-- Bangkok -->
+          <article class="city reveal">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23ffd8d8'/%3E%3Crect x='50' y='50' width='300' height='250' fill='%23f5ccff'/%3E%3Crect x='80' y='30' width='80' height='220' fill='%23f5ccff'/%3E%3Crect x='220' y='20' width='70' height='230' fill='%23f5ccff'/%3E%3Crect x='0' y='250' width='400' height='50' fill='%23780096'/%3E%3C/svg%3E" alt="バンコク" />
+            <div class="overlay">
+              <strong>バンコク（Bangkok）</strong>
+              <div style="font-size:13px;margin-top:6px">
+                “東南アジアの東京”。日本人コミュニティと日系施設が超充実、交通網も快適。
+              </div>
             </div>
-          </div>
-        </article>
-      </div>
-
-      <div class="grid cols-3 u-mt16">
-        <div class="card reveal">
-          <h3 class="u-mt0">KLの魅力</h3>
-          <ul class="subtle" style="padding-left:18px">
-            <li>英語が広く通じる／日本語対応病院・クリニック</li>
-            <li>高層コンド：プール・ジム標準、家賃は東京より抑えめ</li>
-            <li>MRT/LRT/モノレール＋Grabで通勤ラク</li>
-          </ul>
+          </article>
         </div>
-        <div class="card reveal">
-          <h3 class="u-mt0">Penangの魅力</h3>
-          <ul class="subtle" style="padding-left:18px">
-            <li>世界遺産ジョージタウンの歴史ある街並み</li>
-            <li>ビーチ＆カフェでゆったり、治安も良好</li>
-            <li>海の見えるコンドでも手の届く家賃感</li>
-          </ul>
-        </div>
-        <div class="card reveal">
-          <h3 class="u-mt0">Bangkokの魅力</h3>
-          <ul class="subtle" style="padding-left:18px">
-            <li>BTS/MRTで移動スマート、日本語だけでも暮らしやすい</li>
-            <li>日系スーパー・レストラン・学校が密集</li>
-            <li>活気ある都市と豊かな文化体験</li>
-          </ul>
+
+        <div class="grid cols-3 u-mt16">
+          <div class="card reveal">
+            <h3 class="u-mt0">KLの魅力</h3>
+            <ul class="subtle" style="padding-left:18px">
+              <li>英語が広く通じる／日本語対応病院・クリニック</li>
+              <li>高層コンド：プール・ジム標準、家賃は東京より抑えめ</li>
+              <li>MRT/LRT/モノレール＋Grabで通勤ラク</li>
+            </ul>
+          </div>
+          <div class="card reveal">
+            <h3 class="u-mt0">Penangの魅力</h3>
+            <ul class="subtle" style="padding-left:18px">
+              <li>世界遺産ジョージタウンの歴史ある街並み</li>
+              <li>ビーチ＆カフェでゆったり、治安も良好</li>
+              <li>海の見えるコンドでも手の届く家賃感</li>
+            </ul>
+          </div>
+          <div class="card reveal">
+            <h3 class="u-mt0">Bangkokの魅力</h3>
+            <ul class="subtle" style="padding-left:18px">
+              <li>BTS/MRTで移動スマート、日本語だけでも暮らしやすい</li>
+              <li>日系スーパー・レストラン・学校が密集</li>
+              <li>活気ある都市と豊かな文化体験</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Lifestyle Section -->
-    <section id="lifestyle">
-      <div class="section-head">
-        <h2 class="h2">暮らしの基本</h2>
-        <p class="h2-sub">住まい・食・交通・余暇の“ちょうど良い”を体感</p>
-      </div>
+    <!-- Lifestyle (FULL WIDTH icons) -->
+    <section id="lifestyle" class="lifestyle-strip">
+      <div class="lifestyle-wrap">
+        <div class="section-head" style="margin:0 0 14px">
+          <h2 class="h2">暮らしの基本</h2>
+          <p class="h2-sub">住まい・食・交通・余暇の“ちょうど良い”を体感</p>
+        </div>
 
-      <div class="highlight-box reveal">
-        <h3>生活コスト比較</h3>
-        <div class="comparison-chart">
-          <div class="chart-item">
-            <div class="chart-bar">
-              <div class="chart-fill" style="height: 70%;"></div>
+        <div class="highlight-box reveal" style="margin-left:0;margin-right:0">
+          <h3>生活コスト比較</h3>
+          <div class="comparison-chart">
+            <div class="chart-item">
+              <div class="chart-bar"><div class="chart-fill" style="height: 70%;"></div></div>
+              <div class="chart-label">東京</div>
             </div>
-            <div class="chart-label">東京</div>
-          </div>
-          <div class="chart-item">
-            <div class="chart-bar">
-              <div class="chart-fill" style="height: 45%;"></div>
+            <div class="chart-item">
+              <div class="chart-bar"><div class="chart-fill" style="height: 45%;"></div></div>
+              <div class="chart-label">クアラルンプール</div>
             </div>
-            <div class="chart-label">クアラルンプール</div>
-          </div>
-          <div class="chart-item">
-            <div class="chart-bar">
-              <div class="chart-fill" style="height: 40%;"></div>
+            <div class="chart-item">
+              <div class="chart-bar"><div class="chart-fill" style="height: 40%;"></div></div>
+              <div class="chart-label">ペナン</div>
             </div>
-            <div class="chart-label">ペナン</div>
-          </div>
-          <div class="chart-item">
-            <div class="chart-bar">
-              <div class="chart-fill" style="height: 42%;"></div>
+            <div class="chart-item">
+              <div class="chart-bar"><div class="chart-fill" style="height: 42%;"></div></div>
+              <div class="chart-label">バンコク</div>
             </div>
-            <div class="chart-label">バンコク</div>
           </div>
         </div>
-      </div>
 
-      <div class="grid cols-2">
-        <article class="card reveal">
-          <h3 class="u-mt0">住まい（コンドミニアム）</h3>
-          <p class="subtle">
-            24時間セキュリティ、プール・ジム・サウナなど共用設備が標準。家具付きで入居もスムーズ。
-          </p>
-          <table aria-label="housing cost">
-            <thead><tr><th>項目</th><th>KL 目安</th><th>Penang 目安</th></tr></thead>
-            <tbody>
-              <tr><td>1LDK 家賃</td><td>RM1,800–2,800</td><td>RM1,500–2,300</td></tr>
-              <tr><td>光熱費</td><td>RM150–250</td><td>RM130–220</td></tr>
-              <tr><td>通信（SIM/光）</td><td>RM80–150</td><td>RM80–150</td></tr>
-            </tbody>
-          </table>
-          <div class="badge u-mt12">💡 プール＆ジムは“ほぼ標準装備”</div>
-        </article>
+        <div class="wrap" style="padding-top:0">
+          <div class="grid cols-2">
+            <article class="card reveal">
+              <h3 class="u-mt0">住まい（コンドミニアム）</h3>
+              <p class="subtle">24時間セキュリティ、プール・ジム・サウナなど共用設備が標準。家具付きで入居もスムーズ。</p>
+              <table aria-label="housing cost" style="width:100%;border-collapse:separate;border-spacing:0;margin:6px 0 0">
+                <thead><tr><th>項目</th><th>KL 目安</th><th>Penang 目安</th></tr></thead>
+                <tbody>
+                  <tr><td>1LDK 家賃</td><td>RM1,800–2,800</td><td>RM1,500–2,300</td></tr>
+                  <tr><td>光熱費</td><td>RM150–250</td><td>RM130–220</td></tr>
+                  <tr><td>通信（SIM/光）</td><td>RM80–150</td><td>RM80–150</td></tr>
+                </tbody>
+              </table>
+              <div class="badge u-mt12">💡 プール＆ジムは“ほぼ標準装備”</div>
+            </article>
 
-        <article class="card reveal">
-          <h3 class="u-mt0">食と文化</h3>
-          <p class="subtle">ローカル屋台から各国料理まで、多民族の食文化が日常に。</p>
-          <ul style="padding-left:18px">
-            <li>日本食・ハラル・ベジ対応など選択肢が豊富</li>
-            <li>カフェ文化が発達、週末ブランチが楽しみ</li>
-            <li>祭礼・祝日も多文化が共存し“違い”が自然</li>
-          </ul>
-          <div class="badge u-mt12">💡 “多様性”が前提の社会</div>
-        </article>
-      </div>
+            <article class="card reveal">
+              <h3 class="u-mt0">食と文化</h3>
+              <p class="subtle">ローカル屋台から各国料理まで、多民族の食文化が日常に。</p>
+              <ul style="padding-left:18px">
+                <li>日本食・ハラル・ベジ対応など選択肢が豊富</li>
+                <li>カフェ文化が発達、週末ブランチが楽しみ</li>
+                <li>祭礼・祝日も多文化が共存し“違い”が自然</li>
+              </ul>
+              <div class="badge u-mt12">💡 “多様性”が前提の社会</div>
+            </article>
+          </div>
 
-      <div class="grid cols-2 u-mt16">
-        <article class="card reveal">
-          <h3 class="u-mt0">交通・移動</h3>
-          <ul style="padding-left:18px">
-            <li>都市鉄道（MRT/LRT/BTS）とバスの組み合わせが便利</li>
-            <li>Grab等の配車アプリが安価で高頻度</li>
-            <li>空港アクセス良好、出張・旅行も快適</li>
-          </ul>
-          <div class="badge u-mt12">💡 通勤ストレスを最小化</div>
-        </article>
+          <div class="grid cols-2 u-mt16">
+            <article class="card reveal">
+              <h3 class="u-mt0">交通・移動</h3>
+              <ul style="padding-left:18px">
+                <li>都市鉄道（MRT/LRT/BTS）とバスの組み合わせが便利</li>
+                <li>Grab等の配車アプリが安価で高頻度</li>
+                <li>空港アクセス良好、出張・旅行も快適</li>
+              </ul>
+              <div class="badge u-mt12">💡 通勤ストレスを最小化</div>
+            </article>
 
-        <article class="card reveal">
-          <h3 class="u-mt0">余暇・週末</h3>
-          <ul style="padding-left:18px">
-            <li>公園ラン、ハイキング、ビーチ、リゾート</li>
-            <li>モール・映画館・イベントも充実</li>
-            <li>LCC活用で“週末海外”も現実的</li>
-          </ul>
-          <div class="badge u-mt12">💡 旅のハブで“非日常”が近い</div>
-        </article>
-      </div>
+            <article class="card reveal">
+              <h3 class="u-mt0">余暇・週末</h3>
+              <ul style="padding-left:18px">
+                <li>公園ラン、ハイキング、ビーチ、リゾート</li>
+                <li>モール・映画館・イベントも充実</li>
+                <li>LCC活用で“週末海外”も現実的</li>
+              </ul>
+              <div class="badge u-mt12">💡 旅のハブで“非日常”が近い</div>
+            </article>
+          </div>
 
-      <div class="lifestyle-icons">
-        <div class="lifestyle-icon reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230057B8'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z'/%3E%3C/svg%3E" alt="Location">
-          <div>安全な生活環境</div>
-        </div>
-        <div class="lifestyle-icon reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230057B8'%3E%3Cpath d='M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z'/%3E%3C/svg%3E" alt="Food">
-          <div>豊かな食文化</div>
-        </div>
-        <div class="lifestyle-icon reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230057B8'%3E%3Cpath d='M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z'/%3E%3C/svg%3E" alt="Transportation">
-          <div>便利な交通</div>
-        </div>
-        <div class="lifestyle-icon reveal">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230057B8'%3E%3Cpath d='M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z'/%3E%3C/svg%3E" alt="Travel">
-          <div>旅行ハブ</div>
+          <!-- Lifestyle icons (full-width section; grid is max-width inside) -->
+          <div class="lifestyle-icons">
+            <div class="lifestyle-icon reveal">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0082'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z'/%3E%3C/svg%3E" alt="Location">
+              <div>安全な生活環境</div>
+            </div>
+            <div class="lifestyle-icon reveal">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0082'%3E%3Cpath d='M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z'/%3E%3C/svg%3E" alt="Food">
+              <div>豊かな食文化</div>
+            </div>
+            <div class="lifestyle-icon reveal">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0082'%3E%3Cpath d='M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z'/%3E%3C/svg%3E" alt="Transportation">
+              <div>便利な交通</div>
+            </div>
+            <div class="lifestyle-icon reveal">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff0082'%3E%3Cpath d='M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z'/%3E%3C/svg%3E" alt="Travel">
+              <div>旅行ハブ</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -576,37 +551,39 @@
         <h2 class="h2">旅のハブとしての利便性</h2>
         <p class="h2-sub">アジア・日本・世界へ、直行便や短距離フライトが多数</p>
       </div>
-      
-      <div class="card reveal">
-        <div class="city-comparison">
-          <div class="city-feature">
-            <h3>日本へのアクセス</h3>
-            <ul>
-              <li>東京・大阪・福岡など主要都市へ直行便</li>
-              <li>飛行時間：約6-7時間</li>
-              <li>LCC航空会社も充実</li>
-            </ul>
+
+      <div class="wrap">
+        <div class="card reveal">
+          <div class="city-comparison">
+            <div class="city-feature">
+              <h3>日本へのアクセス</h3>
+              <ul>
+                <li>東京・大阪・福岡など主要都市へ直行便</li>
+                <li>飛行時間：約6-7時間</li>
+                <li>LCC航空会社も充実</li>
+              </ul>
+            </div>
+            <div class="city-feature">
+              <h3>アジア旅行</h3>
+              <ul>
+                <li>シンガポール、台湾、ベトナム等へ2-4時間</li>
+                <li>週末旅行が気軽に実現</li>
+                <li>格安航空券が豊富</li>
+              </ul>
+            </div>
+            <div class="city-feature">
+              <h3>世界への玄関口</h3>
+              <ul>
+                <li>ヨーロッパ・中東・オセアニアへのフライト</li>
+                <li>乗り継ぎの利便性</li>
+                <li>ビザなし渡航国も多数</li>
+              </ul>
+            </div>
           </div>
-          <div class="city-feature">
-            <h3>アジア旅行</h3>
-            <ul>
-              <li>シンガポール、台湾、ベトナム等へ2-4時間</li>
-              <li>週末旅行が気軽に実現</li>
-              <li>格安航空券が豊富</li>
-            </ul>
+
+          <div class="quote u-mt12">
+            🗣️【社員の声】「国内旅行と同じ感覚で他国へ。週末の選択肢が一気に広がりました」
           </div>
-          <div class="city-feature">
-            <h3>世界への玄関口</h3>
-            <ul>
-              <li>ヨーロッパ・中東・オセアニアへのフライト</li>
-              <li>乗り継ぎの利便性</li>
-              <li>ビザなし渡航国も多数</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="quote u-mt12">
-          🗣️【社員の声】「国内旅行と同じ感覚で他国へ。週末の選択肢が一気に広がりました」
         </div>
       </div>
     </section>
@@ -617,99 +594,179 @@
         <h2 class="h2">社員の声</h2>
         <p class="h2-sub">実際にマレーシア・タイで働く日本人社員の体験談</p>
       </div>
-      
-      <div class="grid cols-3">
-        <div class="card reveal">
-          <div class="testimonial">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%230057B8'/%3E%3Cpath d='M20 19v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-1a6 6 0 016-6h4a6 6 0 016 6z' fill='%230057B8'/%3E%3C/svg%3E" alt="Maho">
-            <div>
-              <strong>Maho</strong>
-              <div class="subtle">TA | Japan Market</div>
+
+      <div class="wrap">
+        <div class="grid cols-3">
+          <div class="card reveal">
+            <div class="testimonial">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%23ff0082'/%3E%3Cpath d='M20 19v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-1a6 6 0 016-6h4a6 6 0 016 6z' fill='%23ff0082'/%3E%3C/svg%3E" alt="Maho">
+              <div>
+                <strong>Maho</strong>
+                <div class="subtle">TA | Japan Market</div>
+              </div>
             </div>
+            <p>「多様性が自然に受け入れられる環境。自分の個性を出しながら働けるのが魅力です。」</p>
           </div>
-          <p>「多様性が自然に受け入れられる環境。自分の個性を出しながら働けるのが魅力です。」</p>
-        </div>
-        
-        <div class="card reveal">
-          <div class="testimonial">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%230057B8'/%3E%3Cpath d='M20 19v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-1a6 6 0 016-6h4a6 6 0 016 6z' fill='%230057B8'/%3E%3C/svg%3E" alt="Kenta">
-            <div>
-              <strong>Kenta</strong>
-              <div class="subtle">Recruiter</div>
+
+          <div class="card reveal">
+            <div class="testimonial">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%23ff0082'/%3E%3Cpath d='M20 19v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-1a6 6 0 016-6h4a6 6 0 016 6z' fill='%23ff0082'/%3E%3C/svg%3E" alt="Kenta">
+              <div>
+                <strong>Kenta</strong>
+                <div class="subtle">Recruiter</div>
+              </div>
             </div>
+            <p>「生活コストが日本より抑えられるので、貯金や投資に回すお金が増えました。」</p>
           </div>
-          <p>「生活コストが日本より抑えられるので、貯金や投資に回すお金が増えました。」</p>
-        </div>
-        
-        <div class="card reveal">
-          <div class="testimonial">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%230057B8'/%3E%3Cpath d='M20 19v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-1a6 6 0 016-6h4a6 6 0 016 6z' fill='%230057B8'/%3E%3C/svg%3E" alt="Aya">
-            <div>
-              <strong>Aya</strong>
-              <div class="subtle">Coordinator</div>
+
+          <div class="card reveal">
+            <div class="testimonial">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='%23ff0082'/%3E%3Cpath d='M20 19v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-1a6 6 0 016-6h4a6 6 0 016 6z' fill='%23ff0082'/%3E%3C/svg%3E" alt="Aya">
+              <div>
+                <strong>Aya</strong>
+                <div class="subtle">Coordinator</div>
+              </div>
             </div>
+            <p>「週末は気軽に近隣国へ旅行。2年で10カ国以上を訪れることができました！」</p>
           </div>
-          <p>「週末は気軽に近隣国へ旅行。2年で10カ国以上を訪れることができました！」</p>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- CTA -->
     <section class="cta-section reveal">
       <h2>現地の暮らしを、まずは聞いてみる</h2>
       <p class="lead">住宅エリアや生活費、治安のこと。日本語で気軽にご相談ください。</p>
-      <div class="hero-ctas" style="justify-content: center;">
-        <a class="btn primary" href="#">カジュアル面談</a>
-        <a class="btn ghost" href="#">募集中の求人を見る</a>
+      <div class="hero-ctas" style="justify-content:center">
+        <a class="btn primary" href="https://forms.office.com/e/2UvpbweQww" target="_blank">カジュアル面談</a>
+        <a class="btn ghost" href="jobs-and-benefits.html">募集中の求人を見る</a>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- =========================================================
+       Footer (TP watermark restored)
+       ========================================================= -->
   <footer class="site-footer">
-    <div class="wrap">
-      <p>© 2025 TP — Malaysia & Thailand</p>
-      <p>多国籍な環境と、日本語を活かせる仕事。移住サポートと就労ビザ手続きで初めての海外就職を応援します。</p>
+    <div class="watermark" aria-hidden="true">
+      <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="tpGrad" x1="0" x2="1">
+            <stop offset="0%" stop-color="#ff0082"/>
+            <stop offset="100%" stop-color="#780096"/>
+          </linearGradient>
+        </defs>
+        <text x="50%" y="55%" text-anchor="middle" font-family="Inter, system-ui, sans-serif"
+              font-size="160" font-weight="900" fill="url(#tpGrad)" opacity="0.9" letter-spacing="4">
+          TELEPERFORMANCE
+        </text>
+      </svg>
+    </div>
+    <div class="wrap footer-flex">
+      <p class="copy">© <span id="year2"></span> TP — Malaysia &amp; Thailand</p>
+      <ul class="footer-links">
+        <li><a href="about-tp.html">会社紹介</a></li>
+        <li><a href="privacy.html">プライバシー</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
     </div>
   </footer>
 
+  <!-- =========================================================
+       Scripts: minimal local wiring + global site scripts
+       ========================================================= -->
   <script>
-    // Simple reveal animation
-    document.addEventListener('DOMContentLoaded', function() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-          }
+    // Smooth reveal
+    document.addEventListener('DOMContentLoaded', function(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+      // Year
+      const y = String(new Date().getFullYear());
+      const y2 = document.getElementById('year2'); if (y2) y2.textContent = y;
+
+      // Keep #lang in all top-level links
+      function currentLangFromHash(){
+        const h = (location.hash||'').replace('#','').toLowerCase();
+        return (h==='en'||h==='ko'||h==='ja') ? h : 'ja';
+      }
+      function applyLangButtons(active){
+        document.querySelectorAll('.lang-btn').forEach(btn=>{
+          const k = btn.dataset.lang;
+          if (k===active){ btn.classList.add('active'); btn.setAttribute('aria-current','true'); }
+          else { btn.classList.remove('active'); btn.removeAttribute('aria-current'); }
         });
-      }, { threshold: 0.1 });
-      
-      document.querySelectorAll('.reveal').forEach(el => {
-        observer.observe(el);
-      });
-      
-      // Language toggle
-      const langBtn = document.getElementById('langBtn');
-      langBtn.addEventListener('click', function() {
-        const currentLang = document.documentElement.getAttribute('data-lang');
-        const newLang = currentLang === 'ja' ? 'en' : 'ja';
-        document.documentElement.setAttribute('data-lang', newLang);
-        langBtn.textContent = newLang === 'ja' ? 'EN' : '日本語';
-        
-        // Update content based on language
-        if(newLang === 'en') {
-          document.querySelector('.hero-title').textContent = 'Why Malaysia & Thailand';
-          document.querySelector('.lead').textContent = 'More than just tourist destinations - places to call home. English-speaking environment, multicultural coexistence, and reasonable cost of living. Ideal for your first step in working overseas.';
-          document.querySelector('.eyebrow').textContent = 'Work Abroad with Confidence';
-          langBtn.textContent = '日本語';
+      }
+      function setHeroTexts(lang){
+        const eyebrow = document.getElementById('eyebrow');
+        const title   = document.getElementById('heroTitle');
+        const lead    = document.getElementById('heroLead');
+        if (lang==='en'){
+          eyebrow.textContent = 'Work Abroad with Confidence';
+          title.textContent = 'Why Malaysia & Thailand';
+          lead.textContent = 'More than just tourist destinations — places to call home. English-speaking environment, multicultural coexistence, and reasonable cost of living. Ideal for your first step in working overseas.';
+          document.documentElement.setAttribute('lang','en');
+          document.documentElement.setAttribute('data-lang','en');
+        } else if (lang==='ko'){
+          eyebrow.textContent = '자신있게 해외에서 일하기';
+          title.textContent = '말레이시아・태국의 매력';
+          lead.textContent = '“관광지”가 아닌 “사는 곳”으로 선택되는 나라. 영어가 통하는 안심감, 다문화 공존, 적절한 생활비. 해외 취업의 첫걸음으로 최적.';
+          document.documentElement.setAttribute('lang','ko');
+          document.documentElement.setAttribute('data-lang','ko');
         } else {
-          document.querySelector('.hero-title').textContent = 'マレーシア・タイの魅力';
-          document.querySelector('.lead').textContent = '“観光地”ではなく“暮らす場所”として選ばれる国。英語が通じる安心感、多文化の共存、ちょうど良い生活コスト。海外就職の第一歩に最適です。';
-          document.querySelector('.eyebrow').textContent = 'Why Malaysia & Thailand';
-          langBtn.textContent = 'EN';
+          eyebrow.textContent = 'Why Malaysia & Thailand';
+          title.textContent = 'マレーシア・タイの魅力';
+          lead.textContent = '“観光地”ではなく“暮らす場所”として選ばれる国。英語が通じる安心感、多文化の共存、ちょうど良い生活コスト。海外就職の第一歩に最適です。';
+          document.documentElement.setAttribute('lang','ja');
+          document.documentElement.setAttribute('data-lang','ja');
         }
+      }
+      function addHashToLinks(){
+        const lang = currentLangFromHash();
+        document.querySelectorAll('a[href$=".html"], a[href^="index.html"], a[href^="jobs-and-benefits.html"], a[href^="why-malaysia-thailand.html"], a[href^="relocation-visa.html"], a[href^="about-tp.html"], a[href^="faq.html"]').forEach(a=>{
+          const href = a.getAttribute('href');
+          if (!href) return;
+          const base = href.split('#')[0];
+          a.setAttribute('href', base + '#' + lang);
+        });
+        // Brand home
+        const home = document.getElementById('brandHome');
+        if (home){ home.setAttribute('href', 'index.html#' + lang); }
+      }
+      function onLangChange(lang){
+        history.replaceState(null, '', location.pathname + '#' + lang);
+        applyLangButtons(lang);
+        setHeroTexts(lang);
+        addHashToLinks();
+      }
+
+      // init from hash
+      const init = currentLangFromHash();
+      applyLangButtons(init);
+      setHeroTexts(init);
+      addHashToLinks();
+
+      // clicks
+      document.getElementById('langGroup')?.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.lang-btn'); if (!btn) return;
+        const lang = btn.dataset.lang || 'ja';
+        onLangChange(lang);
+      });
+
+      // react to manual hash edits
+      window.addEventListener('hashchange', ()=>{
+        const cur = currentLangFromHash();
+        applyLangButtons(cur);
+        setHeroTexts(cur);
+        addHashToLinks();
       });
     });
   </script>
+
+  <!-- Global site data & behavior (kept) -->
+  <script src="translations.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
