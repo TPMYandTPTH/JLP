@@ -1,49 +1,140 @@
 /* ============================================================================
-   TP Candidate Microsite — translations.js (FULL / FIXED)
-   Provides:
-     - window.I18N        (static UI strings & language-aware helpers)
-     - window.CONTENT     (page data rendered by app.js)
-     - window.getChatGPTPrompt(lang) (Ask ChatGPT prompt per language)
-     - window.normalizeLang(code)    (maps 'jp' -> 'ja', etc.)
-   Notes:
-     * Japanese is the default language.
-     * Supports URL/attr aliases: 'jp' is treated as 'ja'.
-     * DOM init is defensive (runs only if target nodes exist).
+   TP Candidate Microsite — translations.js  (FULL / RESTORED / EXPANDED)
+   ----------------------------------------------------------------------------
+   What this file provides to the site (global namespace):
+     • window.I18N                     → localized UI strings (ja / en / ko)
+     • window.CONTENT                  → page content (why, cities, benefits, etc.)
+     • window.getChatGPTPrompt(lang)   → returns the Ask ChatGPT prompt in that lang
+     • window.normalizeLang(code)      → normalizes "jp" → "ja", "ja-JP" → "ja", etc.
+     • window.getPreferredLang()       → best-guess of which language to use now
+     • window.getLangFromPath()        → parses /en /jp /ja /ko from current URL path
+     • window.LANGS                    → ordered list of supported langs: ['ja','en','ko']
+     • window.LANG_ALIASES             → alias map used by normalizeLang()
+     • DOM init: fills #chatgptPrompt and wires #copyPromptBtn/#openChatGPTBtn if present
+
+   Guarantees:
+     • Japanese is the default language.
+     • '/jp' after the URL is treated as 'ja' (and '/ja' works too).
+     • Nothing here requires app.js to change (helpers are additive).
+     • Clipboard copy has a fallback; code runs only if nodes exist.
+
+   Important links:
+     • Apply job ad (confirmed): 
+       https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE
+
    Updated: 2025-08-22
 ============================================================================ */
 
 (function () {
+  'use strict';
+
   /* ----------------------------------------------------------
-     0) Language aliases / helpers
+     0) Constants & Helpers (language plumbing)
+     ----------------------------------------------------------
+     - normalizeLang(code): maps alias → canonical ('jp' → 'ja')
+     - getLangFromPath():   reads '/en' '/jp' '/ja' '/ko' from URL path (any segment)
+     - getPreferredLang():  chooses language from (path → html[data-lang]/lang → browser)
   -----------------------------------------------------------*/
+
+  // Supported languages (display order)
+  const LANGS = ['ja', 'en', 'ko'];
+
+  // Expose supported language list
+  window.LANGS = LANGS.slice();
+
+  // Aliases for user-land / URL inputs; kept broad and generous.
   const LANG_ALIASES = {
     jp: 'ja',
     ja: 'ja',
+    'ja-jp': 'ja',
     en: 'en',
+    'en-us': 'en',
+    'en-gb': 'en',
+    'en-au': 'en',
     ko: 'ko',
-    // be permissive
-    'ja-JP': 'ja',
-    'en-US': 'en',
-    'en-GB': 'en',
-    'ko-KR': 'ko'
+    'ko-kr': 'ko'
   };
 
-  function normalizeLang(input) {
-    if (!input || typeof input !== 'string') return 'ja';
-    const key = input.toLowerCase().replace('_', '-').trim();
-    return LANG_ALIASES[key] || (key.startsWith('ja') ? 'ja'
-                         : key.startsWith('en') ? 'en'
-                         : key.startsWith('ko') ? 'ko'
-                         : 'ja');
+  // Export aliases (read-only usage expected by outside scripts)
+  window.LANG_ALIASES = Object.assign({}, LANG_ALIASES);
+
+  /**
+   * normalizeLang(code)
+   * - Makes incoming codes safe and canonical (ja/en/ko).
+   * - Unknown inputs → 'ja' (Japanese default).
+   */
+  function normalizeLang(code) {
+    if (!code || typeof code !== 'string') return 'ja';
+    const key = code.trim().toLowerCase().replace('_', '-');
+    // Direct alias map
+    if (LANG_ALIASES[key]) return LANG_ALIASES[key];
+    // Prefix matches for 'ja-*', 'en-*', 'ko-*'
+    if (key.startsWith('ja')) return 'ja';
+    if (key.startsWith('en')) return 'en';
+    if (key.startsWith('ko')) return 'ko';
+    return 'ja';
   }
 
-  // Expose for app.js or other scripts that want to normalize '/jp'
+  // Expose
   window.normalizeLang = normalizeLang;
 
+  /**
+   * getLangFromPath()
+   * - Returns a canonical language code inferred from the URL path,
+   *   accepting '/en', '/jp', '/ja', '/ko' anywhere *after* the domain.
+   * - If no match: returns '' (caller decides fallback).
+   */
+  function getLangFromPath() {
+    try {
+      const path = (location.pathname || '').toLowerCase();
+      const segs = path.split('/').map(s => s.trim()).filter(Boolean);
+      // Scan for any supported display segment
+      for (const seg of segs) {
+        if (seg === 'en' || seg === 'ja' || seg === 'jp' || seg === 'ko') {
+          return normalizeLang(seg);
+        }
+      }
+      return '';
+    } catch (_e) {
+      return '';
+    }
+  }
+
+  // Expose
+  window.getLangFromPath = getLangFromPath;
+
+  /**
+   * getPreferredLang()
+   * Priority:
+   *   1) URL path segment (/en /jp /ja /ko)
+   *   2) <html data-lang> or <html lang>
+   *   3) browser language (navigator.language)
+   * Defaults to 'ja'.
+   */
+  function getPreferredLang() {
+    const pathLang = getLangFromPath();
+    if (pathLang) return pathLang;
+
+    const root = document.documentElement;
+    const attrDataLang = root.getAttribute('data-lang');
+    const attrLang = root.getAttribute('lang');
+    if (attrDataLang) return normalizeLang(attrDataLang);
+    if (attrLang) return normalizeLang(attrLang);
+
+    const navLang = (navigator && (navigator.language || navigator.userLanguage)) || 'ja';
+    return normalizeLang(navLang);
+  }
+
+  // Expose
+  window.getPreferredLang = getPreferredLang;
+
   /* ----------------------------------------------------------
-     1) I18N: UI strings (JA / EN / KO)
-     - Keys are stable for app.js: brand.*, nav.*, drawer.*, hero.*, etc.
-     - contactThanks(...) kept as functions where used by app.js
+     1) I18N: UI strings
+     ----------------------------------------------------------
+     Notes:
+       - All keys preserved from your original mapping.
+       - Functions like contactThanks(name) kept as-is.
+       - No keys removed; some comments added for clarity.
   -----------------------------------------------------------*/
   const I18N = {
     ja: {
@@ -359,8 +450,18 @@
     }
   };
 
+  // Expose I18N
+  window.I18N = I18N;
+
   /* ----------------------------------------------------------
-     2) Content data consumed by app.js
+     2) Content data (rendered by app.js)
+     ----------------------------------------------------------
+     Structure:
+       CONTENT.links
+       CONTENT.ja / CONTENT.en / CONTENT.ko:
+         - why1, why2, cities, benefits, processSteps, offices, team,
+           voices, faq, galleryImgs
+     All preserved; harmless extra images are allowed (renderer loops).
   -----------------------------------------------------------*/
   const CONTENT = {
     links: {
@@ -368,7 +469,7 @@
       casual: 'https://forms.office.com/e/2UvpbweQww'
     },
 
-    /* ---------------------- Japanese content ---------------------- */
+    // ---------------------- Japanese content ----------------------
     ja: {
       why1: [
         { t: '🌍 グローバルな環境でレベルアップ', d: '英語・異文化理解が日常で鍛えられる国際チーム。' },
@@ -438,10 +539,30 @@
         }
       ],
       team: [
-        { name: 'Maho',  role: 'TA | Japan Market', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop', bio: '初めての海外就職も、日本語で伴走します。' },
-        { name: 'Kenta', role: 'Recruiter',        img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop', bio: 'キャリア相談、お気軽にどうぞ。' },
-        { name: 'Aya',   role: 'Coordinator',      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: '渡航手続きや現地生活もフォローします。' },
-        { name: 'Leo',   role: 'Sourcer',          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: 'ご希望のプロジェクトを一緒に探します。' }
+        {
+          name: 'Maho',
+          role: 'TA | Japan Market',
+          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
+          bio: '初めての海外就職も、日本語で伴走します。'
+        },
+        {
+          name: 'Kenta',
+          role: 'Recruiter',
+          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
+          bio: 'キャリア相談、お気軽にどうぞ。'
+        },
+        {
+          name: 'Aya',
+          role: 'Coordinator',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: '渡航手続きや現地生活もフォローします。'
+        },
+        {
+          name: 'Leo',
+          role: 'Sourcer',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: 'ご希望のプロジェクトを一緒に探します。'
+        }
       ],
       voices: [
         { quote: '「違っていい」という価値観が、心を自由にしてくれました。', who: '採用チーム Maho' },
@@ -449,9 +570,18 @@
         { quote: '英語は自然と伸びます。毎日がプチ留学みたい。', who: '社員 Bさん（Penang）' }
       ],
       faq: [
-        { q: '英語に自信がなくても応募できますか？', a: 'はい、日本語中心のポジションが多数あります。入社後に英語力を伸ばす支援もあります。' },
-        { q: '就労ビザの手続きは難しいですか？', a: '会社が申請を代行します。必要書類も日本語でご案内します。' },
-        { q: '住居はどうやって探せば良いですか？', a: '現地エージェントの紹介、オリエンテーションでのアドバイスなどを提供します。' }
+        {
+          q: '英語に自信がなくても応募できますか？',
+          a: 'はい、日本語中心のポジションが多数あります。入社後に英語力を伸ばす支援もあります。'
+        },
+        {
+          q: '就労ビザの手続きは難しいですか？',
+          a: '会社が申請を代行します。必要書類も日本語でご案内します。'
+        },
+        {
+          q: '住居はどうやって探せば良いですか？',
+          a: '現地エージェントの紹介、オリエンテーションでのアドバイスなどを提供します。'
+        }
       ],
       galleryImgs: [
         'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
@@ -461,7 +591,7 @@
       ]
     },
 
-    /* ---------------------- English content ---------------------- */
+    // ---------------------- English content ----------------------
     en: {
       why1: [
         { t: '🌍 Level up in a global team', d: 'Daily practice in English & cross-culture collaboration.' },
@@ -474,9 +604,24 @@
         { t: '🌈 Inclusive culture', d: 'Flat, diverse, collaborative.' }
       ],
       cities: [
-        { id: 'kl', title: 'Kuala Lumpur (KL)', img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop', desc: 'Big-city convenience & multicultural life. JP food, hospitals, schools, and transit.' },
-        { id: 'penang', title: 'Penang', img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop', desc: 'Island lifestyle with history, sea views, and calmer pace.' },
-        { id: 'bkk', title: 'Bangkok', img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop', desc: '"Tokyo of SEA" — extensive JP amenities and modern transit.' }
+        {
+          id: 'kl',
+          title: 'Kuala Lumpur (KL)',
+          img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop',
+          desc: 'Big-city convenience & multicultural life. JP food, hospitals, schools, and transit.'
+        },
+        {
+          id: 'penang',
+          title: 'Penang',
+          img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop',
+          desc: 'Island lifestyle with history, sea views, and calmer pace.'
+        },
+        {
+          id: 'bkk',
+          title: 'Bangkok',
+          img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
+          desc: '"Tokyo of SEA" — extensive JP amenities and modern transit.'
+        }
       ],
       benefits: [
         { t: 'Visa Support', d: 'Company handles EP application.' },
@@ -494,16 +639,52 @@
         { k: '5) Offer → Visa', v: 'Confirm, EP, flight & landing' }
       ],
       offices: [
-        { title: 'G Tower (KL)', img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop', points: ['Ampang Park (MRT/LRT)', 'KLCC/Intermark walkable', 'Grade A office'] },
-        { title: 'Penang — Livingston', img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop', points: ['Calm area', 'Food/pharmacy nearby', 'Easy commute'] },
-        { title: 'Penang — One Precinct', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop', points: ['Modern building', '15 min from airport', 'Near Queensbay Mall'] },
-        { title: 'Penang — GBS@Mahsuri', img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop', points: ['GBS hub', 'IT/BPO cluster', 'Walkable amenities'] }
+        {
+          title: 'G Tower (KL)',
+          img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop',
+          points: ['Ampang Park (MRT/LRT)', 'KLCC/Intermark walkable', 'Grade A office']
+        },
+        {
+          title: 'Penang — Livingston',
+          img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
+          points: ['Calm area', 'Food/pharmacy nearby', 'Easy commute']
+        },
+        {
+          title: 'Penang — One Precinct',
+          img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop',
+          points: ['Modern building', '15 min from airport', 'Near Queensbay Mall']
+        },
+        {
+          title: 'Penang — GBS@Mahsuri',
+          img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop',
+          points: ['GBS hub', 'IT/BPO cluster', 'Walkable amenities']
+        }
       ],
       team: [
-        { name: 'Maho',  role: 'TA | Japan Market', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop', bio: 'We\'ll support you end-to-end in JP.' },
-        { name: 'Kenta', role: 'Recruiter',        img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop', bio: 'Let\'s find your best-fit project.' },
-        { name: 'Aya',   role: 'Coordinator',      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: 'Relocation & daily life guidance.' },
-        { name: 'Leo',   role: 'Sourcer',          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: 'Exploring roles across accounts.' }
+        {
+          name: 'Maho',
+          role: 'TA | Japan Market',
+          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
+          bio: 'We\'ll support you end-to-end in JP.'
+        },
+        {
+          name: 'Kenta',
+          role: 'Recruiter',
+          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
+          bio: 'Let\'s find your best-fit project.'
+        },
+        {
+          name: 'Aya',
+          role: 'Coordinator',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: 'Relocation & daily life guidance.'
+        },
+        {
+          name: 'Leo',
+          role: 'Sourcer',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: 'Exploring roles across accounts.'
+        }
       ],
       voices: [
         { quote: 'Feeling "it\'s okay to be different" freed me at work.', who: 'TA Team — Maho' },
@@ -511,9 +692,18 @@
         { quote: 'My English grew naturally through daily collaboration.', who: 'Penang Member' }
       ],
       faq: [
-        { q: 'Can I apply if my English is basic?', a: 'Yes — many JP-first roles. We also support growth after you join.' },
-        { q: 'Is the work visa process hard?', a: 'The company handles EP application and guides you in English/Japanese.' },
-        { q: 'How do I find housing?', a: 'We share local agents and give practical tips in orientation.' }
+        {
+          q: 'Can I apply if my English is basic?',
+          a: 'Yes — many JP-first roles. We also support growth after you join.'
+        },
+        {
+          q: 'Is the work visa process hard?',
+          a: 'The company handles EP application and guides you in English/Japanese.'
+        },
+        {
+          q: 'How do I find housing?',
+          a: 'We share local agents and give practical tips in orientation.'
+        }
       ],
       galleryImgs: [
         'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
@@ -523,7 +713,7 @@
       ]
     },
 
-    /* ---------------------- Korean content ---------------------- */
+    // ---------------------- Korean content ----------------------
     ko: {
       why1: [
         { t: '🌍 글로벌 환경에서 레벨업', d: '영어・이문화 이해가 일상에서 단련되는 국제 팀.' },
@@ -536,9 +726,24 @@
         { t: '🌈 다양성이 베이스인 문화', d: '국적・성별・연령을 넘어 플랫하게 일할 수 있다.' }
       ],
       cities: [
-        { id: 'kl', title: '쿠알라룸푸르（KL）', img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop', desc: '도시의 편리함 × 다문화 공존. 일본 음식・병원・학교・교통망도 충실해서 안심.' },
-        { id: 'penang', title: '페낭（Penang）', img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop', desc: '자연과 역사가 살아 숨쉬는 섬 라이프. 바다가 보이는 고층 콘도, 안정된 치안.' },
-        { id: 'bkk', title: '방콕（Bangkok）', img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop', desc: '"동남아시아의 도쿄". 일계 시설이 초충실, BTS/MRT로 이동 쾌적.' }
+        {
+          id: 'kl',
+          title: '쿠알라룸푸르（KL）',
+          img: 'https://images.unsplash.com/photo-1507908708918-778587c9e563?q=80&w=1200&auto=format&fit=crop',
+          desc: '도시의 편리함 × 다문화 공존. 일본 음식・병원・학교・교통망도 충실해서 안심.'
+        },
+        {
+          id: 'penang',
+          title: '페낭（Penang）',
+          img: 'https://images.unsplash.com/photo-1597200381847-3d1e2415dfcf?q=80&w=1200&auto=format&fit=crop',
+          desc: '자연과 역사가 살아 숨쉬는 섬 라이프. 바다가 보이는 고층 콘도, 안정된 치안.'
+        },
+        {
+          id: 'bkk',
+          title: '방콕（Bangkok）',
+          img: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop',
+          desc: '"동남아시아의 도쿄". 일계 시설이 초충실, BTS/MRT로 이동 쾌적.'
+        }
       ],
       benefits: [
         { t: '취업 비자 지원', d: 'EP 신청을 회사가 대행（회사 부담）.' },
@@ -556,16 +761,52 @@
         { k: '⑤ 오퍼 → 비자', v: '조건 확인, EP 신청, 항공・초기 숙박' }
       ],
       offices: [
-        { title: 'G Tower（KL）', img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop', points: ['Ampang Park역 직결（MRT/LRT）', 'KLCC/Intermark가 도보권', 'Grade A 오피스'] },
-        { title: 'Penang — Livingston', img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop', points: ['조용한 환경', '주변에 음식점・약국', '통근 액세스 양호'] },
-        { title: 'Penang — One Precinct', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop', points: ['Bayan Baru의 모던 빌딩', '공항에서 약 15분', 'Queensbay Mall 근처'] },
-        { title: 'Penang — GBS@Mahsuri', img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop', points: ['주의 GBS 허브 중심', 'IT/BPO 기업이 집적', '생활 인프라가 도보권'] }
+        {
+          title: 'G Tower（KL）',
+          img: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?q=80&w=1200&auto=format&fit=crop',
+          points: ['Ampang Park역 직결（MRT/LRT）', 'KLCC/Intermark가 도보권', 'Grade A 오피스']
+        },
+        {
+          title: 'Penang — Livingston',
+          img: 'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
+          points: ['조용한 환경', '주변에 음식점・약국', '통근 액세스 양호']
+        },
+        {
+          title: 'Penang — One Precinct',
+          img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop',
+          points: ['Bayan Baru의 모던 빌딩', '공항에서 약 15분', 'Queensbay Mall 근처']
+        },
+        {
+          title: 'Penang — GBS@Mahsuri',
+          img: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1200&auto=format&fit=crop',
+          points: ['주의 GBS 허브 중심', 'IT/BPO 기업이 집적', '생활 인프라가 도보권']
+        }
       ],
       team: [
-        { name: 'Maho',  role: 'TA | Japan Market', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop', bio: '처음의 해외 취업도, 일본어로 동행합니다.' },
-        { name: 'Kenta', role: 'Recruiter',        img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop', bio: '커리어 상담, 편하게 연락주세요.' },
-        { name: 'Aya',   role: 'Coordinator',      img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: '항공 수속이나 현지 생활도 팔로우합니다.' },
-        { name: 'Leo',   role: 'Sourcer',          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop', bio: '희망하는 프로젝트를 함께 찾습니다.' }
+        {
+          name: 'Maho',
+          role: 'TA | Japan Market',
+          img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
+          bio: '처음의 해외 취업도, 일본어로 동행합니다.'
+        },
+        {
+          name: 'Kenta',
+          role: 'Recruiter',
+          img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop',
+          bio: '커리어 상담, 편하게 연락주세요.'
+        },
+        {
+          name: 'Aya',
+          role: 'Coordinator',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: '항공 수속이나 현지 생활도 팔로우합니다.'
+        },
+        {
+          name: 'Leo',
+          role: 'Sourcer',
+          img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+          bio: '희망하는 프로젝트를 함께 찾습니다.'
+        }
       ],
       voices: [
         { quote: '「달라도 괜찮다」는 가치관이, 마음을 자유롭게 해주었습니다.', who: '채용팀 Maho' },
@@ -573,9 +814,18 @@
         { quote: '영어는 자연스럽게 늘어납니다. 매일이 프티 유학 같아요.', who: '직원 B씨（Penang）' }
       ],
       faq: [
-        { q: '영어에 자신이 없어도 지원할 수 있습니까?', a: '네, 일본어 중심의 포지션이 다수 있습니다. 입사 후에 영어력을 늘리는 지원도 있습니다.' },
-        { q: '취업 비자 수속은 어렵습니까?', a: '회사가 신청을 대행합니다. 필요 서류도 일본어로 안내합니다.' },
-        { q: '주거는 어떻게 찾으면 좋습니까?', a: '현지 에이전트 소개, 오리엔테이션에서의 어드바이스 등을 제공합니다.' }
+        {
+          q: '영어에 자신이 없어도 지원할 수 있습니까?',
+          a: '네, 일본어 중심의 포지션이 다수 있습니다. 입사 후에 영어력을 늘리는 지원도 있습니다.'
+        },
+        {
+          q: '취업 비자 수속은 어렵습니까?',
+          a: '회사가 신청을 대행합니다. 필요 서류도 일본어로 안내합니다.'
+        },
+        {
+          q: '주거는 어떻게 찾으면 좋습니까?',
+          a: '현지 에이전트 소개, 오리엔테이션에서의 어드바이스 등을 제공합니다.'
+        }
       ],
       galleryImgs: [
         'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=800&auto=format&fit=crop',
@@ -586,8 +836,11 @@
     }
   };
 
+  // Expose CONTENT
+  window.CONTENT = CONTENT;
+
   /* ----------------------------------------------------------
-     3) ChatGPT prompts (JA / EN / KO)
+     3) ChatGPT Prompts (unchanged content, multi-language)
   -----------------------------------------------------------*/
   const CHATGPT_PROMPTS = {
     ja: `あなたは就職アドバイザーです。テレパフォーマンス（Teleperformance）マレーシア／タイ（TP Malaysia / TP Thailand）について、候補者が安心して応募を検討できるよう、以下の条件でポジティブに紹介してください。
@@ -647,41 +900,29 @@ Start with a concise summary → bullet points → a friendly CTA.`,
 시작은 간결한 개요→불릿 포인트→마무리 CTA 순서로.`
   };
 
-  /* ----------------------------------------------------------
-     4) Exports
-  -----------------------------------------------------------*/
-  window.I18N = I18N;
-  window.CONTENT = CONTENT;
+  // Export: getChatGPTPrompt(lang)
   window.getChatGPTPrompt = function getChatGPTPrompt(lang) {
     const code = normalizeLang(lang);
     return CHATGPT_PROMPTS[code] || CHATGPT_PROMPTS.ja;
   };
 
   /* ----------------------------------------------------------
-     5) DOM initialization for Ask ChatGPT + copy UX
-        - Detect lang from: data-lang → lang → URL path (/en, /jp, /ko)
-        - Japanese default
+     4) DOM initialization for "Ask ChatGPT" UI
+        - Initializes textarea with prompt for the resolved language
+        - Wires copy & open buttons if present
+        - Defensive: runs only when nodes exist
   -----------------------------------------------------------*/
   document.addEventListener('DOMContentLoaded', () => {
-    // 1) Determine current language
-    const root = document.documentElement;
-    const attrDataLang = root.getAttribute('data-lang');
-    const attrLang = root.getAttribute('lang');
+    // Choose language using our best-guess function
+    const resolved = getPreferredLang();
 
-    // Path-based hint (supports '/jp', '/ja', '/en', '/ko' anywhere after the domain)
-    const path = (location.pathname || '').toLowerCase();
-    const pathLang =
-      path.split('/').map(s => s.trim()).filter(Boolean).find(seg => ['jp','ja','en','ko'].includes(seg)) || '';
-
-    const resolved = normalizeLang(attrDataLang || attrLang || pathLang || (navigator.language || ''));
-
-    // 2) Initialize Ask ChatGPT textarea if present
+    // 4.1) Initialize Ask ChatGPT textarea
     const ta = document.getElementById('chatgptPrompt');
     if (ta) {
       ta.value = window.getChatGPTPrompt(resolved);
     }
 
-    // 3) Copy button UX
+    // 4.2) Copy button UX (+fallback)
     const copyBtn = document.getElementById('copyPromptBtn');
     if (copyBtn && ta) {
       copyBtn.addEventListener('click', async () => {
@@ -693,16 +934,33 @@ Start with a concise summary → bullet points → a friendly CTA.`,
             resolved === 'ko' ? '복사했습니다!' : 'Copied!';
           copyBtn.textContent = copiedText;
           setTimeout(() => (copyBtn.textContent = original), 1400);
-        } catch (e) {
-          // Fallback (some browsers / http)
+        } catch (_err) {
+          // Fallback for http / older browsers
           try {
             ta.select();
             document.execCommand('copy');
           } catch (_ignored) {
-            // last resort: no-op
+            // No-op as absolute fallback
           }
         }
       });
     }
+
+    // 4.3) Open ChatGPT button (optional)
+    const openBtn = document.getElementById('openChatGPTBtn');
+    if (openBtn) {
+      openBtn.addEventListener('click', () => {
+        // Keep simple & robust (avoid window features that some browsers block)
+        window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    // 4.4) Ensure <html> carries the normalized language (non-destructive)
+    try {
+      const root = document.documentElement;
+      root.setAttribute('data-lang', resolved);
+      root.setAttribute('lang', resolved);
+    } catch (_ignored) {}
   });
+
 })();
