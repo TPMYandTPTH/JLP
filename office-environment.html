@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1a237e" />
+  <title>Office Environment — Spaces, Culture & Tour</title>
+  <meta name="description" content="Explore our office environment: photo gallery, amenities, culture, access info, and schedule an office tour with instant calendar invite."/>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================
+       Design System
+       ======================================== */
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #12141a;
+      --muted: #5f6b7a;
+      --line: #e6e8ee;
+      --primary: #1a237e; /* deep indigo */
+      --accent: #780096;  /* purple accent */
+      --success: #0f9d58;
+      --warning: #f59e0b;
+      --danger:  #d11a2a;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(20, 24, 40, 0.12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1116;
+        --card: #151925;
+        --ink: #e8ecf2;
+        --muted: #9aa5b1;
+        --line: #2a3242;
+        --shadow: 0 10px 30px rgba(0,0,0,0.5);
+      }
+    }
+
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+
+    /* 10% transparent watermark that does not affect layout */
+    body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(transparent 60%, rgba(0,0,0,0.02)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600"><g fill="%23b1b7c4" fill-opacity="0.10"><text x="60" y="200" font-family="Inter, Arial" font-size="110">Office Environment</text><text x="60" y="360" font-family="Inter, Arial" font-size="80">Spaces • Culture • Tour</text></g></svg>');background-repeat:no-repeat;background-position:center 18vh;background-size: 1200px auto;pointer-events:none;z-index:-1}
+
+    .container{max-width:1180px;margin:0 auto;padding:18px}
+
+    header.site-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:20px 0 6px}
+    .brand{display:flex;align-items:center;justify-content:center;gap:10px}
+    .brand img{width:40px;height:40px;object-fit:contain}
+    .brand h1{font-size:20px;margin:0;letter-spacing:.3px}
+    .header-actions{display:flex;gap:10px;justify-content:flex-end}
+
+    .lang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .lang-toggle button{appearance:none;border:0;background:transparent;color:var(--muted);padding:8px 14px;cursor:pointer;font-weight:700;letter-spacing:.2px}
+    .lang-toggle button[aria-pressed="true"]{background:var(--card);color:var(--ink)}
+    .mode-hint{color:var(--muted);font-size:12px;text-align:center;margin-top:4px}
+
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .section{padding:18px}
+    .grid{display:grid;gap:16px}
+    .cols-2{grid-template-columns:1fr 1fr}
+    .cols-3{grid-template-columns:1fr 1fr 1fr}
+    @media (max-width: 960px){.cols-2,.cols-3{grid-template-columns:1fr}}
+
+    .hero{margin:10px 0 20px;padding:18px;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+    @media (max-width:960px){.hero{grid-template-columns:1fr}}
+    .hero h2{font-size:28px;margin:6px 0 6px}
+    .hero p{margin:8px 0;color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#fff;background:var(--primary);padding:6px 10px;border-radius:999px}
+    .badge i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+
+    h3{margin:0 0 8px;font-size:18px}
+    p{margin:6px 0;color:var(--muted)}
+
+    .pills{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{padding:8px 12px;border:1px solid var(--line);border-radius:999px;cursor:pointer;user-select:none}
+    .pill[aria-pressed="true"]{background:#eef2ff;border-color:#c7d2fe;color:#1e1b4b}
+
+    /* Gallery */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media (max-width:960px){.gallery{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.gallery{grid-template-columns:1fr}}
+    .tile{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:#e9eef7;min-height:180px;display:flex;align-items:flex-end;justify-content:space-between;padding:10px}
+    .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05);transition:transform .4s ease}
+    .tile:hover img{transform:scale(1.03)}
+    .tile .label{position:relative;z-index:1;background:rgba(0,0,0,.54);color:#fff;padding:6px 10px;border-radius:999px;font-size:12px}
+    .tile .open{position:relative;z-index:1}
+    .tile .open button{background:rgba(255,255,255,.9);border:0;border-radius:10px;padding:6px 10px;cursor:pointer;font-weight:700}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(5,8,18,.85);display:none;align-items:center;justify-content:center;z-index:50}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:92vw;max-height:82vh;border-radius:14px;box-shadow:0 20px 80px rgba(0,0,0,.45)}
+    .lightbox .controls{position:absolute;bottom:20px;display:flex;gap:10px}
+    .lightbox button{background:rgba(255,255,255,.92);border:0;border-radius:999px;padding:10px 12px;cursor:pointer;font-weight:800}
+
+    /* Amenities */
+    .amenities{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    @media (max-width:960px){.amenities{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.amenities{grid-template-columns:1fr}}
+    .amenity{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+    .amenity strong{display:block;margin-bottom:6px}
+
+    /* Forms & Buttons */
+    label{display:block;font-weight:700;margin-bottom:6px}
+    select,input[type="text"],textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);outline:none;transition:border .2s ease}
+    select:focus,input:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(26,35,126,.08)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800;letter-spacing:.3px;border:0;border-radius:12px;padding:12px 16px;cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,var(--primary),#0f174f);color:#fff}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+    .btn.accent{background:linear-gradient(180deg,var(--accent),#5b006f);color:#fff}
+
+    .site-footer{margin:26px 0 50px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+    .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#0b1225;color:#fff;padding:10px 14px;border-radius:999px;box-shadow:var(--shadow);font-size:14px;display:none}
+
+    .hide{display:none!important}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ===================== HEADER ===================== -->
+    <header class="site-header">
+      <div></div>
+      <div class="brand" aria-label="Brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Logo_Blue.svg" alt="Logo" aria-hidden="true" />
+        <h1 data-i18n="title">Office Environment</h1>
+      </div>
+      <div class="header-actions">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" id="btn-en" aria-pressed="true">EN</button>
+          <button type="button" id="btn-ja" aria-pressed="false">日本語</button>
+        </div>
+      </div>
+      <div class="mode-hint" id="timezone"></div>
+    </header>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero card" aria-labelledby="hero-title">
+      <div class="section">
+        <span class="badge"><i></i><span data-i18n="hero.badge">Comfortable • Modern • Welcoming</span></span>
+        <h2 id="hero-title" data-i18n="hero.title">Discover our office spaces</h2>
+        <p data-i18n="hero.lede">Browse photos, check amenities and access info, and book a quick tour to experience it yourself.</p>
+
+        <div class="pills" role="group" aria-label="Office">
+          <button class="pill" id="pill-kl" aria-pressed="true" data-i18n="office.kl">Kuala Lumpur</button>
+          <button class="pill" id="pill-pg" aria-pressed="false" data-i18n="office.pg">Penang</button>
+        </div>
+      </div>
+      <div class="section card">
+        <h3 data-i18n="quick.title">Quick actions</h3>
+        <div class="pills">
+          <button class="pill" id="filter-all" aria-pressed="true" data-i18n="filter.all">All</button>
+          <button class="pill" id="filter-work" aria-pressed="false" data-i18n="filter.work">Work Areas</button>
+          <button class="pill" id="filter-meet" aria-pressed="false" data-i18n="filter.meet">Meeting</button>
+          <button class="pill" id="filter-break" aria-pressed="false" data-i18n="filter.break">Break & Pantry</button>
+          <button class="pill" id="filter-well" aria-pressed="false" data-i18n="filter.well">Wellbeing</button>
+        </div>
+        <p class="mode-hint" data-i18n="hint.zoom">Click any photo to view large; use ← → keys to navigate.</p>
+      </div>
+    </section>
+
+    <!-- ===================== GALLERY ===================== -->
+    <section class="card section" aria-labelledby="gallery-title">
+      <h3 id="gallery-title" data-i18n="gallery.title">Photo gallery</h3>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- ===================== AMENITIES & CULTURE ===================== -->
+    <section class="grid cols-3" style="margin-top:16px">
+      <div class="card section">
+        <h3 data-i18n="amen.title">Amenities</h3>
+        <div class="amenities">
+          <div class="amenity"><strong data-i18n="amen.pantry">Pantry (coffee & snacks)</strong><span data-i18n="amen.pantryD">Fridge, microwave, filtered water.</span></div>
+          <div class="amenity"><strong data-i18n="amen.focus">Focus pods</strong><span data-i18n="amen.focusD">Quiet booths for calls.</span></div>
+          <div class="amenity"><strong data-i18n="amen.meet">Meeting rooms</strong><span data-i18n="amen.meetD">HD screen & whiteboard.</span></div>
+          <div class="amenity"><strong data-i18n="amen.health">Wellbeing</strong><span data-i18n="amen.healthD">Prayer room, nursing room.</span></div>
+          <div class="amenity"><strong data-i18n="amen.desk">Ergonomics</strong><span data-i18n="amen.deskD">Adjustable chairs & standing desks.</span></div>
+          <div class="amenity"><strong data-i18n="amen.security">Security</strong><span data-i18n="amen.securityD">24/7 access control & CCTV.</span></div>
+          <div class="amenity"><strong data-i18n="amen.net">Connectivity</strong><span data-i18n="amen.netD">High-speed Wi‑Fi & backups.</span></div>
+          <div class="amenity"><strong data-i18n="amen.it">IT Help</strong><span data-i18n="amen.itD">Onsite support during office hours.</span></div>
+        </div>
+      </div>
+      <div class="card section">
+        <h3 data-i18n="culture.title">Work culture</h3>
+        <ul>
+          <li data-i18n="culture.c1">Inclusive, supportive teams.</li>
+          <li data-i18n="culture.c2">Focus time balanced with collaboration.</li>
+          <li data-i18n="culture.c3">Regular knowledge sharing & socials.</li>
+          <li data-i18n="culture.c4">Continuous learning & career growth.</li>
+        </ul>
+        <h3 style="margin-top:12px" data-i18n="access.title">Access & hours</h3>
+        <p><strong data-i18n="access.hours">Mon–Fri, 9:00–18:00</strong> <span data-i18n="access.flex">(flex/shift roles vary)</span></p>
+        <p data-i18n="access.commute">Near LRT/MRT & bus lines; paid parking options nearby.</p>
+        <div class="pills">
+          <a class="btn ghost" id="btn-maps" target="_blank" rel="noopener" data-i18n="access.map">Open in Google Maps</a>
+          <button class="btn ghost" id="btn-print" data-i18n="access.print">Print access guide</button>
+          <button class="btn ghost" id="btn-share" data-i18n="access.share">Share this page</button>
+        </div>
+      </div>
+      <div class="card section">
+        <h3 data-i18n="tour.title">Book an office tour</h3>
+        <p data-i18n="tour.lede">Pick a date and time; we’ll generate a calendar invite and optional WhatsApp reminder.</p>
+        <div class="grid cols-2">
+          <div>
+            <label for="tour-date" data-i18n="tour.date">Date</label>
+            <select id="tour-date"></select>
+          </div>
+          <div>
+            <label for="tour-time" data-i18n="tour.time">Time</label>
+            <select id="tour-time"></select>
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <label for="tour-name" data-i18n="tour.name">Your name</label>
+          <input type="text" id="tour-name" placeholder="e.g., Alex Tan"/>
+        </div>
+        <div class="pills" style="margin-top:10px">
+          <button class="btn primary" id="btn-ics" data-i18n="tour.ics">Download .ics</button>
+          <button class="btn ghost" id="btn-gcal" data-i18n="tour.gcal">Add to Google Calendar</button>
+          <button class="btn ghost" id="btn-wa" data-i18n="tour.wa">WhatsApp reminder</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== POLICIES ===================== -->
+    <section class="card section" style="margin-top:16px">
+      <h3 data-i18n="policy.title">Safety, etiquette & accessibility</h3>
+      <details>
+        <summary data-i18n="policy.s1">Visitors & badges</summary>
+        <div class="mode-hint" data-i18n="policy.d1">Bring a photo ID for the reception; wear your badge visibly.</div>
+      </details>
+      <details>
+        <summary data-i18n="policy.s2">Clean desk & privacy</summary>
+        <div class="mode-hint" data-i18n="policy.d2">Keep work surfaces tidy; don’t leave confidential info exposed.</div>
+      </details>
+      <details>
+        <summary data-i18n="policy.s3">Emergency & health</summary>
+        <div class="mode-hint" data-i18n="policy.d3">Follow building procedures; first-aid kits and contacts are available.</div>
+      </details>
+      <details>
+        <summary data-i18n="policy.s4">Accessibility</summary>
+        <div class="mode-hint" data-i18n="policy.d4">Let us know any accommodations needed; we’re happy to arrange.</div>
+      </details>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+      <div>
+        <span data-i18n="footer.copy">© Office Tour & Culture. Info for orientation & candidate visits only.</span>
+      </div>
+      <div class="pills">
+        <a class="btn ghost" href="#" id="btn-print2" data-i18n="footer.print">Print</a>
+        <a class="btn ghost" href="#" id="btn-share2" data-i18n="footer.share">Share</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer">
+    <img id="lb-img" alt="Preview" />
+    <div class="controls">
+      <button id="prev" aria-label="Previous">⟨</button>
+      <button id="next" aria-label="Next">⟩</button>
+      <button id="close" aria-label="Close">✕</button>
+    </div>
+  </div>
+
+  <div role="status" aria-live="polite" class="toast" id="toast">Copied!</div>
+
+  <script>
+    // ==============================================================
+    // i18n Strings
+    // ==============================================================
+    const I18N = {
+      en: {
+        title: "Office Environment",
+        "hero.badge": "Comfortable • Modern • Welcoming",
+        "hero.title": "Discover our office spaces",
+        "hero.lede": "Browse photos, check amenities and access info, and book a quick tour to experience it yourself.",
+        "office.kl": "Kuala Lumpur",
+        "office.pg": "Penang",
+        "quick.title": "Quick actions",
+        "filter.all": "All",
+        "filter.work": "Work Areas",
+        "filter.meet": "Meeting",
+        "filter.break": "Break & Pantry",
+        "filter.well": "Wellbeing",
+        "hint.zoom": "Click any photo to view large; use ← → keys to navigate.",
+        "gallery.title": "Photo gallery",
+        "amen.title": "Amenities",
+        "amen.pantry": "Pantry (coffee & snacks)",
+        "amen.pantryD": "Fridge, microwave, filtered water.",
+        "amen.focus": "Focus pods",
+        "amen.focusD": "Quiet booths for calls.",
+        "amen.meet": "Meeting rooms",
+        "amen.meetD": "HD screen & whiteboard.",
+        "amen.health": "Wellbeing",
+        "amen.healthD": "Prayer room, nursing room.",
+        "amen.desk": "Ergonomics",
+        "amen.deskD": "Adjustable chairs & standing desks.",
+        "amen.security": "Security",
+        "amen.securityD": "24/7 access control & CCTV.",
+        "amen.net": "Connectivity",
+        "amen.netD": "High-speed Wi‑Fi & backups.",
+        "amen.it": "IT Help",
+        "amen.itD": "Onsite support during office hours.",
+        "culture.title": "Work culture",
+        "culture.c1": "Inclusive, supportive teams.",
+        "culture.c2": "Focus time balanced with collaboration.",
+        "culture.c3": "Regular knowledge sharing & socials.",
+        "culture.c4": "Continuous learning & career growth.",
+        "access.title": "Access & hours",
+        "access.hours": "Mon–Fri, 9:00–18:00",
+        "access.flex": "(flex/shift roles vary)",
+        "access.commute": "Near LRT/MRT & bus lines; paid parking options nearby.",
+        "access.map": "Open in Google Maps",
+        "access.print": "Print access guide",
+        "access.share": "Share this page",
+        "tour.title": "Book an office tour",
+        "tour.lede": "Pick a date and time; we’ll generate a calendar invite and optional WhatsApp reminder.",
+        "tour.date": "Date",
+        "tour.time": "Time",
+        "tour.name": "Your name",
+        "tour.ics": "Download .ics",
+        "tour.gcal": "Add to Google Calendar",
+        "tour.wa": "WhatsApp reminder",
+        "policy.title": "Safety, etiquette & accessibility",
+        "policy.s1": "Visitors & badges",
+        "policy.d1": "Bring a photo ID for the reception; wear your badge visibly.",
+        "policy.s2": "Clean desk & privacy",
+        "policy.d2": "Keep work surfaces tidy; don’t leave confidential info exposed.",
+        "policy.s3": "Emergency & health",
+        "policy.d3": "Follow building procedures; first-aid kits and contacts are available.",
+        "policy.s4": "Accessibility",
+        "policy.d4": "Let us know any accommodations needed; we’re happy to arrange.",
+        "footer.copy": "© Office Tour & Culture. Info for orientation & candidate visits only.",
+        "footer.print": "Print",
+        "footer.share": "Share"
+      },
+      ja: {
+        title: "オフィス環境",
+        "hero.badge": "快適 • 近代的 • ウェルカム",
+        "hero.title": "私たちのオフィスをご紹介",
+        "hero.lede": "写真や設備、アクセス情報をチェック。見学予約もこちらから。",
+        "office.kl": "クアラルンプール",
+        "office.pg": "ペナン",
+        "quick.title": "クイック操作",
+        "filter.all": "すべて",
+        "filter.work": "ワークエリア",
+        "filter.meet": "会議室",
+        "filter.break": "休憩・パントリー",
+        "filter.well": "ウェルビーイング",
+        "hint.zoom": "写真をクリックで拡大。矢印キー（← →）で移動。",
+        "gallery.title": "フォトギャラリー",
+        "amen.title": "設備",
+        "amen.pantry": "パントリー（コーヒー＆スナック）",
+        "amen.pantryD": "冷蔵庫、電子レンジ、浄水器",
+        "amen.focus": "フォーカスポッド",
+        "amen.focusD": "通話向けの静かなブース",
+        "amen.meet": "会議室",
+        "amen.meetD": "ディスプレイ＆ホワイトボード",
+        "amen.health": "ウェルビーイング",
+        "amen.healthD": "礼拝室、授乳室",
+        "amen.desk": "エルゴノミクス",
+        "amen.deskD": "可動チェア＆昇降デスク",
+        "amen.security": "セキュリティ",
+        "amen.securityD": "24時間入退室管理＆CCTV",
+        "amen.net": "ネットワーク",
+        "amen.netD": "高速Wi‑Fi＆バックアップ",
+        "amen.it": "ITサポート",
+        "amen.itD": "オフィス時間内に対応",
+        "culture.title": "カルチャー",
+        "culture.c1": "インクルーシブで支え合うチーム",
+        "culture.c2": "集中時間とコラボの両立",
+        "culture.c3": "ナレッジシェア＆交流会",
+        "culture.c4": "学習とキャリア成長を応援",
+        "access.title": "アクセス＆営業時間",
+        "access.hours": "月～金 9:00–18:00",
+        "access.flex": "（職種によりシフトあり）",
+        "access.commute": "LRT/MRT・バスが近く、駐車場もあり",
+        "access.map": "Googleマップを開く",
+        "access.print": "アクセス案内を印刷",
+        "access.share": "このページを共有",
+        "tour.title": "オフィス見学を予約",
+        "tour.lede": "日付と時間を選ぶと、カレンダー招待とWhatsAppリマインダーを作成します。",
+        "tour.date": "日付",
+        "tour.time": "時間",
+        "tour.name": "お名前",
+        "tour.ics": ".icsをダウンロード",
+        "tour.gcal": "Googleカレンダーに追加",
+        "tour.wa": "WhatsAppリマインダー",
+        "policy.title": "安全・マナー・アクセシビリティ",
+        "policy.s1": "来訪者＆バッジ",
+        "policy.d1": "受付で身分証を提示し、バッジを見える位置に付けてください。",
+        "policy.s2": "クリーンデスク＆プライバシー",
+        "policy.d2": "机上を整え、機密情報は放置しないでください。",
+        "policy.s3": "緊急時・健康",
+        "policy.d3": "建物の手順に従ってください。救急箱・連絡先は用意しています。",
+        "policy.s4": "アクセシビリティ",
+        "policy.d4": "必要な配慮があれば事前にお知らせください。柔軟に対応します。",
+        "footer.copy": "© Office Tour & Culture — オリエンテーション／候補者向け情報",
+        "footer.print": "印刷",
+        "footer.share": "共有"
+      }
+    };
+
+    function applyI18n(locale){
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        const str = I18N[locale]?.[key];
+        if(typeof str === 'string') el.textContent = str;
+      });
+      document.documentElement.lang = locale==='ja'?'ja':'en';
+    }
+
+    // ================= Gallery Data (replace src with your own paths) =================
+    const GALLERY = [
+      {office:'kl', tag:'work',  src:'https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1200&auto=format&fit=crop', alt:'Open workspace'},
+      {office:'kl', tag:'meet',  src:'https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop', alt:'Meeting room'},
+      {office:'kl', tag:'break', src:'https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=1200&auto=format&fit=crop', alt:'Pantry area'},
+      {office:'kl', tag:'well',  src:'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?q=80&w=1200&auto=format&fit=crop', alt:'Quiet/wellbeing space'},
+      {office:'pg', tag:'work',  src:'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop', alt:'Team area'},
+      {office:'pg', tag:'meet',  src:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop', alt:'Boardroom'},
+      {office:'pg', tag:'break', src:'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1200&auto=format&fit=crop', alt:'Cafe corner'},
+      {office:'pg', tag:'well',  src:'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop', alt:'Wellbeing area'}
+    ];
+
+    // ================= State & Elements =================
+    const btnEN = document.getElementById('btn-en');
+    const btnJA = document.getElementById('btn-ja');
+    const pillKL = document.getElementById('pill-kl');
+    const pillPG = document.getElementById('pill-pg');
+    const galleryEl = document.getElementById('gallery');
+
+    const filters = {
+      all: document.getElementById('filter-all'),
+      work: document.getElementById('filter-work'),
+      meet: document.getElementById('filter-meet'),
+      break: document.getElementById('filter-break'),
+      well: document.getElementById('filter-well')
+    };
+
+    let locale = 'en';
+    let office = 'kl';
+    let tag = 'all';
+
+    function setLang(l){
+      locale=l;applyI18n(l);
+      btnEN.setAttribute('aria-pressed', l==='en');
+      btnJA.setAttribute('aria-pressed', l==='ja');
+    }
+
+    function setOffice(o){
+      office=o;
+      pillKL.setAttribute('aria-pressed', o==='kl');
+      pillPG.setAttribute('aria-pressed', o==='pg');
+      renderGallery();
+      setMapsLink();
+    }
+
+    function setTag(t){
+      tag=t;
+      Object.entries(filters).forEach(([k,el])=> el.setAttribute('aria-pressed', k===t));
+      renderGallery();
+    }
+
+    // ================= Render Gallery =================
+    let currentIndex = 0; // for lightbox
+    function renderGallery(){
+      galleryEl.innerHTML='';
+      const items = GALLERY.filter(g => g.office===office && (tag==='all' || g.tag===tag));
+      items.forEach((item, idx)=>{
+        const tile = document.createElement('div');
+        tile.className='tile';
+        tile.innerHTML = `
+          <img src="${item.src}" alt="${item.alt}">
+          <span class="label">${item.alt}</span>
+          <span class="open"><button data-idx="${idx}">View</button></span>
+        `;
+        tile.querySelector('button').addEventListener('click',()=> openLightbox(idx, items));
+        galleryEl.appendChild(tile);
+      });
+      // store reference set for lightbox navigation
+      galleryEl._currentSet = items;
+    }
+
+    // ================= Lightbox =================
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const btnPrev = document.getElementById('prev');
+    const btnNext = document.getElementById('next');
+    const btnClose = document.getElementById('close');
+
+    function openLightbox(idx, set){
+      currentIndex = idx;
+      lb.classList.add('open');
+      updateLB(set);
+    }
+    function updateLB(set){
+      const items = set || galleryEl._currentSet || [];
+      if(!items.length){lb.classList.remove('open');return}
+      const it = items[currentIndex];
+      lbImg.src = it.src; lbImg.alt = it.alt;
+    }
+    function step(delta){
+      const items = galleryEl._currentSet || [];
+      if(!items.length) return;
+      currentIndex = (currentIndex + delta + items.length) % items.length;
+      updateLB(items);
+    }
+
+    btnPrev.addEventListener('click', ()=> step(-1));
+    btnNext.addEventListener('click', ()=> step(1));
+    btnClose.addEventListener('click', ()=> lb.classList.remove('open'));
+    window.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='ArrowLeft') step(-1);
+      if(e.key==='ArrowRight') step(1);
+      if(e.key==='Escape') lb.classList.remove('open');
+    });
+
+    // ================= Maps & Utilities =================
+    function setMapsLink(){
+      const link = document.getElementById('btn-maps');
+      const q = office==='kl' ? 'Kuala+Lumpur+office' : 'Penang+office';
+      link.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+    }
+
+    function toast(text){
+      const t=document.getElementById('toast');
+      t.textContent=text; t.style.display='block';
+      setTimeout(()=> t.style.display='none', 1800);
+    }
+
+    document.getElementById('btn-print').addEventListener('click', (e)=>{e.preventDefault(); window.print();});
+    document.getElementById('btn-print2').addEventListener('click', (e)=>{e.preventDefault(); window.print();});
+
+    async function sharePage(){
+      const data={ title: document.title, text: 'Office Environment', url: location.href };
+      try{ if(navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(location.href); toast('Link copied'); } }
+      catch{}
+    }
+    document.getElementById('btn-share').addEventListener('click', (e)=>{e.preventDefault(); sharePage();});
+    document.getElementById('btn-share2').addEventListener('click', (e)=>{e.preventDefault(); sharePage();});
+
+    // ================= Tour Scheduler (similar to casual-interview) =================
+    const SLOT_TIMES = ["10:00", "11:30", "15:00", "17:30"]; // local time slots
+
+    function populateTourDates(){
+      const sel = document.getElementById('tour-date');
+      sel.innerHTML='';
+      const now = new Date();
+      for(let i=0;i<10;i++){
+        const dt = new Date(now); dt.setDate(now.getDate()+i+1);
+        const opt = document.createElement('option');
+        opt.value = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+        opt.textContent = dt.toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+        sel.appendChild(opt);
+      }
+    }
+    function populateTourTimes(){
+      const sel = document.getElementById('tour-time'); sel.innerHTML='';
+      SLOT_TIMES.forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; sel.appendChild(o); });
+    }
+
+    function buildDateTimes(date, time){
+      const [hh,mm] = time.split(':').map(Number);
+      const [y,m,d] = date.split('-').map(Number);
+      const start = new Date(y, m-1, d, hh, mm, 0);
+      const end = new Date(start.getTime()+ 45*60000);
+      return {start,end};
+    }
+    function toICSDate(dt){
+      const y = dt.getUTCFullYear();
+      const m = String(dt.getUTCMonth()+1).padStart(2,'0');
+      const d = String(dt.getUTCDate()).padStart(2,'0');
+      const hh = String(dt.getUTCHours()).padStart(2,'0');
+      const mm = String(dt.getUTCMinutes()).padStart(2,'0');
+      const ss = String(dt.getUTCSeconds()).padStart(2,'0');
+      return `${y}${m}${d}T${hh}${mm}${ss}Z`;
+    }
+
+    function attachTourActions(){
+      const btnIcs = document.getElementById('btn-ics');
+      const btnG = document.getElementById('btn-gcal');
+      const btnWa = document.getElementById('btn-wa');
+
+      btnIcs.onclick = ()=>{
+        const date = document.getElementById('tour-date').value;
+        const time = document.getElementById('tour-time').value;
+        const name = document.getElementById('tour-name').value.trim() || 'Guest';
+        const {start,end} = buildDateTimes(date,time);
+        const title = 'Office Tour';
+        const loc = office==='kl' ? 'Kuala Lumpur Office' : 'Penang Office';
+        const desc = `Visitor: ${name}\\nOffice: ${loc}`;
+        const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Office Tour//EN\nBEGIN:VEVENT\nUID:${Date.now()}@office-tour\nDTSTAMP:${toICSDate(new Date())}\nDTSTART:${toICSDate(start)}\nDTEND:${toICSDate(end)}\nSUMMARY:${title}\nDESCRIPTION:${desc}\nLOCATION:${loc}\nEND:VEVENT\nEND:VCALENDAR`;
+        const blob = new Blob([ics],{type:'text/calendar;charset=utf-8'});
+        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`Office_Tour_${date}_${time.replace(':','')}.ics`; document.body.appendChild(a); a.click(); a.remove();
+      };
+
+      btnG.onclick = ()=>{
+        const date = document.getElementById('tour-date').value;
+        const time = document.getElementById('tour-time').value;
+        const name = document.getElementById('tour-name').value.trim() || 'Guest';
+        const {start,end} = buildDateTimes(date,time);
+        const loc = office==='kl' ? 'Kuala Lumpur Office' : 'Penang Office';
+        const title = 'Office Tour';
+        const desc = `Visitor: ${name}\\nOffice: ${loc}`;
+        const u = new URL('https://calendar.google.com/calendar/render');
+        u.searchParams.set('action','TEMPLATE');
+        u.searchParams.set('text', title);
+        u.searchParams.set('dates', `${toICSDate(start)}/${toICSDate(end)}`);
+        u.searchParams.set('details', desc);
+        u.searchParams.set('location', loc);
+        u.searchParams.set('ctz', Intl.DateTimeFormat().resolvedOptions().timeZone);
+        window.open(u.toString(), '_blank');
+      };
+
+      btnWa.onclick = ()=>{
+        const date = document.getElementById('tour-date').value;
+        const time = document.getElementById('tour-time').value;
+        const {start} = buildDateTimes(date,time);
+        const loc = office==='kl' ? 'Kuala Lumpur Office' : 'Penang Office';
+        const msg = `Please remind me about my office tour on ${start.toLocaleString()} at ${loc}.`;
+        const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        window.open(url,'_blank');
+      };
+    }
+
+    // ================= Timezone & Init =================
+    function setTimezoneHint(){
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById('timezone').textContent = `Local time: ${tz}`;
+    }
+
+    document.getElementById('btn-en').addEventListener('click', ()=> setLang('en'));
+    document.getElementById('btn-ja').addEventListener('click', ()=> setLang('ja'));
+
+    pillKL.addEventListener('click', ()=> setOffice('kl'));
+    pillPG.addEventListener('click', ()=> setOffice('pg'));
+
+    filters.all.addEventListener('click', ()=> setTag('all'));
+    filters.work.addEventListener('click', ()=> setTag('work'));
+    filters.meet.addEventListener('click', ()=> setTag('meet'));
+    filters.break.addEventListener('click', ()=> setTag('break'));
+    filters.well.addEventListener('click', ()=> setTag('well'));
+
+    (function init(){
+      setLang('en');
+      setOffice('kl');
+      setTag('all');
+      renderGallery();
+      setTimezoneHint();
+      populateTourDates();
+      populateTourTimes();
+      attachTourActions();
+    })();
+  </script>
+</body>
+</html>
