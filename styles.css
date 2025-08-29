@@ -6,61 +6,63 @@
      - Primary accent: TP Pink #ff0082. Secondary accent (fallback): #780096.
      - Fonts: Noto Sans JP preferred; Calibri Light / Calibri fallback.
      - Full-bleed sections with centered content (container max width).
-     - Heavier shadows across all cards/tiles/timelines/carousels.
+     - STRONGER shadows across all cards/tiles/timelines/carousels for better depth
      - Secondary Icons grid: 4 per row on desktop, 3 per row on phones.
      - Visible language buttons (JA default). Drawer for mobile.
-     - Footer with large “TP” watermark restored (responsive).
+     - Footer with large "TP" watermark restored (responsive).
      - Lots of explicit rules and vendor-safe variants kept (not shortened).
-   Updated: 2025-08-22
+   Updated: 2025-08-25
+   更新: 2025-08-25 - より強いシャドウ効果を追加 / Added stronger shadow effects
 ============================================================================ */
 
 /* ---------------------------------------------
    0) Root variables (Light theme only)
+   ルート変数（ライトテーマのみ）
 ---------------------------------------------- */
 :root {
-  /* Brand & palette */
+  /* Brand & palette / ブランド＆パレット */
   --bg: #ffffff;
   --ink: #0b0b0b;
   --ink-2: #1f2937;
   --ink-3: #102840;
   --muted: #6b7280;
   --muted-2: #4B5563;
-  --line: #e9edf3;            /* soft divider */
+  --line: #e9edf3;            /* soft divider / ソフトな区切り線 */
   --line-2: #eef1f6;
   --line-3: #dfe6ef;
   --surface: #fbfdff;
-  --surface-2: #f7fbff;       /* slightly more tinted */
-  --surface-3: #fff7fb;       /* light pink-ish surface */
-  --accent: #ff0082;          /* TP Pink */
-  --accent-2: #780096;        /* TP Purple */
-  --accent-ink: #ffffff;      /* text on accent */
-  --accent-ink-2: #fefefe;    /* slight var */
+  --surface-2: #f7fbff;       /* slightly more tinted / わずかに色付き */
+  --surface-3: #fff7fb;       /* light pink-ish surface / 薄いピンク系の表面 */
+  --accent: #ff0082;          /* TP Pink / TPピンク */
+  --accent-2: #780096;        /* TP Purple / TPパープル */
+  --accent-ink: #ffffff;      /* text on accent / アクセント上のテキスト */
+  --accent-ink-2: #fefefe;    /* slight var / わずかな変化 */
 
-  /* Shadows (heavier by request) */
-  --shadow-xxl: 0 28px 88px rgba(16, 24, 40, 0.22);
-  --shadow-xl:  0 22px 70px rgba(16, 24, 40, 0.18);
-  --shadow-lg:  0 16px 46px rgba(16, 24, 40, 0.14);
-  --shadow-md:  0 10px 28px rgba(16, 24, 40, 0.12);
-  --shadow-sm:  0 8px  20px rgba(16, 24, 40, 0.10);
-  --shadow-xs:  0 3px  12px rgba(16, 24, 40, 0.08);
+  /* STRONGER Shadows for better depth / より強いシャドウで深みを出す */
+  --shadow-xxl: 0 32px 96px rgba(16, 24, 40, 0.28), 0 8px 32px rgba(16, 24, 40, 0.12);
+  --shadow-xl:  0 24px 72px rgba(16, 24, 40, 0.24), 0 6px 24px rgba(16, 24, 40, 0.10);
+  --shadow-lg:  0 20px 56px rgba(16, 24, 40, 0.20), 0 4px 18px rgba(16, 24, 40, 0.08);
+  --shadow-md:  0 12px 36px rgba(16, 24, 40, 0.16), 0 3px 12px rgba(16, 24, 40, 0.06);
+  --shadow-sm:  0 8px 24px rgba(16, 24, 40, 0.12), 0 2px 8px rgba(16, 24, 40, 0.04);
+  --shadow-xs:  0 4px 16px rgba(16, 24, 40, 0.08), 0 1px 4px rgba(16, 24, 40, 0.02);
 
-  /* Rounding */
+  /* Rounding / 角丸 */
   --radius: 14px;
   --radius-md: 16px;
   --radius-lg: 18px;
   --radius-xl: 22px;
   --radius-full: 999px;
 
-  /* Layout */
+  /* Layout / レイアウト */
   --maxw: 1200px;
   --pad: 24px;
   --gap: 20px;
   --navH: 72px;
 
-  /* Focus ring uses accent */
+  /* Focus ring uses accent / フォーカスリングはアクセントカラーを使用 */
   --focus: 0 0 0 3px rgba(255, 0, 130, 0.28);
 
-  /* Transitions */
+  /* Transitions / トランジション */
   --fast:   .14s ease;
   --normal: .24s ease;
   --slow:   .42s cubic-bezier(.2,.9,.3,1);
@@ -68,6 +70,7 @@
 
 /* ---------------------------------------------
    1) Base reset / type / images
+   基本リセット / タイポグラフィ / 画像
 ---------------------------------------------- */
 *,
 *::before,
@@ -110,7 +113,7 @@ hr {
 
 ul, ol { padding-left: 18px; }
 
-/* Visually hidden (skip link etc.) */
+/* Visually hidden (skip link etc.) / 視覚的に隠す（スキップリンクなど） */
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; margin: -1px;
   padding: 0; border: 0; clip: rect(0 0 0 0); overflow: hidden; white-space: nowrap;
@@ -118,6 +121,7 @@ ul, ol { padding-left: 18px; }
 
 /* ---------------------------------------------
    2) Containers & full-bleed wrappers
+   コンテナ＆フルブリードラッパー
 ---------------------------------------------- */
 .container {
   max-width: var(--maxw);
@@ -140,6 +144,7 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    3) Section headers
+   セクションヘッダー
 ---------------------------------------------- */
 .section-head {
   display: flex; align-items: end; justify-content: space-between;
@@ -160,6 +165,7 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    4) Header (sticky) + brand + nav + language
+   ヘッダー（スティッキー）＋ブランド＋ナビ＋言語
 ---------------------------------------------- */
 .site-header {
   position: sticky; top: 0; z-index: 120;
@@ -167,7 +173,7 @@ section { padding-block: 28px; }
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
 }
 
 .header-inner {
@@ -184,7 +190,7 @@ section { padding-block: 28px; }
 .brand-logo {
   width: 46px; height: 46px; border-radius: 10px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
   object-fit: contain;
   background: #fff;
 }
@@ -207,7 +213,12 @@ section { padding-block: 28px; }
   color: #263238;
   border: 1px solid transparent;
 }
-.site-nav a:hover { background: #fff0f8; color: #4a0a2a; border-color: var(--line); }
+.site-nav a:hover { 
+  background: #fff0f8; 
+  color: #4a0a2a; 
+  border-color: var(--line); 
+  box-shadow: var(--shadow-xs); /* Add shadow on hover / ホバー時にシャドウを追加 */
+}
 .site-nav a:focus-visible { box-shadow: var(--focus); }
 
 /* Actions (language buttons + hamburger) */
@@ -216,13 +227,13 @@ section { padding-block: 28px; }
 }
 
 /* Visible language button group (JA / EN / KO) */
-.lang-group {
+.lang-group, .lang-switch {
   display: inline-flex; gap: 8px; align-items: center;
   padding: 4px;
   border-radius: 12px;
   background: #fff;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
 }
 .lang-btn {
   padding: 8px 12px;
@@ -237,7 +248,8 @@ section { padding-block: 28px; }
   letter-spacing: .02em;
 }
 .lang-btn[aria-current="true"],
-.lang-btn.active {
+.lang-btn.active,
+.lang-btn.is-active {
   background: var(--accent);
   color: var(--accent-ink);
   box-shadow: 0 10px 28px rgba(255, 0, 130, 0.22);
@@ -245,7 +257,7 @@ section { padding-block: 28px; }
 .lang-btn:focus-visible { outline: none; box-shadow: var(--focus); }
 
 /* Legacy single toggle hidden but preserved for compatibility */
-#langBtn.visually-hidden { display: none !important; }
+#langBtn { display: none !important; }
 
 /* Hamburger */
 .hamburger {
@@ -253,7 +265,7 @@ section { padding-block: 28px; }
   width: 42px; height: 42px; border-radius: 10px;
   align-items: center; justify-content: center; gap: 3px;
   border: 1px solid var(--line); background: #fff;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
   cursor: pointer;
 }
 .hamburger span {
@@ -262,10 +274,12 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    5) Drawer (mobile nav)
+   ドロワー（モバイルナビ）
 ---------------------------------------------- */
 .scrim {
   position: fixed; inset: 0; background: rgba(10, 20, 40, 0.42);
   opacity: 0; pointer-events: none; transition: opacity var(--normal);
+  z-index: 119;
 }
 .scrim.show { opacity: 1; pointer-events: auto; }
 
@@ -277,6 +291,7 @@ section { padding-block: 28px; }
   transform: translateX(100%);
   transition: transform var(--normal);
   display: flex; flex-direction: column;
+  z-index: 121;
 }
 .drawer.open { transform: translateX(0); }
 .drawer-head {
@@ -289,15 +304,23 @@ section { padding-block: 28px; }
 .drawer-nav .d-link {
   display: block; padding: 12px 12px; border-radius: 12px;
   font-weight: 800; color: #102840; border: 1px solid var(--line);
-  background: #fff; box-shadow: var(--shadow-xs);
+  background: #fff; box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
 }
-.drawer-nav .d-link:hover { background: #fff0f8; }
+.drawer-nav .d-link:hover { 
+  background: #fff0f8; 
+  box-shadow: var(--shadow-md); /* Stronger hover shadow / より強いホバーシャドウ */
+}
 .drawer-foot {
   padding: 12px; border-top: 1px solid var(--line); background: #fff;
+}
+.drawer-foot .lang-switch {
+  margin-bottom: 10px;
+  justify-content: center;
 }
 
 /* ---------------------------------------------
    6) Buttons (primary/ghost/round/sizes)
+   ボタン（プライマリ/ゴースト/ラウンド/サイズ）
 ---------------------------------------------- */
 .btn {
   --btn-bg: #fff;
@@ -312,23 +335,37 @@ section { padding-block: 28px; }
   font-weight: 800;
   transition: transform var(--fast), box-shadow var(--fast), background var(--fast), color var(--fast), border var(--fast);
   text-align: center;
+  box-shadow: var(--shadow-sm); /* Default shadow / デフォルトシャドウ */
 }
-.btn:hover { box-shadow: var(--shadow-sm); }
-.btn:active { transform: translateY(1px); }
+.btn:hover { 
+  box-shadow: var(--shadow-md); /* Stronger hover / より強いホバー */
+  transform: translateY(-1px);
+}
+.btn:active { 
+  transform: translateY(1px); 
+  box-shadow: var(--shadow-xs);
+}
 .btn:focus-visible { outline: none; box-shadow: var(--focus); }
 
 .btn.primary {
   --btn-bg: var(--accent);
   --btn-ink: var(--accent-ink);
   border-color: var(--accent);
-  box-shadow: 0 12px 30px rgba(255, 0, 130, 0.25);
+  box-shadow: 0 12px 30px rgba(255, 0, 130, 0.25), var(--shadow-sm);
 }
-.btn.primary:where(:hover, :focus-visible) { filter: saturate(1.07) brightness(1.03); }
+.btn.primary:where(:hover, :focus-visible) { 
+  filter: saturate(1.07) brightness(1.03); 
+  box-shadow: 0 16px 40px rgba(255, 0, 130, 0.30), var(--shadow-md);
+}
 
 .btn.ghost {
   --btn-bg: #fff;
   --btn-ink: #0a2540;
   background: #fff;
+  box-shadow: var(--shadow-xs);
+}
+.btn.ghost:hover {
+  box-shadow: var(--shadow-sm);
 }
 
 .btn.round {
@@ -343,6 +380,7 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    7) Hero (full-bleed aesthetic)
+   ヒーロー（フルブリード美学）
 ---------------------------------------------- */
 .hero {
   position: relative;
@@ -354,7 +392,7 @@ section { padding-block: 28px; }
   background: linear-gradient(180deg, #fff 0%, var(--surface) 100%);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-xl); /* Strong shadow for hero / ヒーローに強いシャドウ */
 }
 .eyebrow {
   color: var(--accent);
@@ -376,7 +414,7 @@ section { padding-block: 28px; }
 .stat {
   background: #fff; border: 1px solid var(--line);
   border-radius: 12px; padding: 10px 14px; min-width: 96px;
-  text-align: center; box-shadow: var(--shadow-md);
+  text-align: center; box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
 }
 .stat strong { display: block; font-size: 18px; color: var(--ink-2); }
 .stat span { font-size: 12px; color: var(--muted); }
@@ -384,11 +422,12 @@ section { padding-block: 28px; }
 .hero-media img {
   width: 440px; height: 320px; object-fit: cover;
   border-radius: 14px; border: 1px solid var(--line);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg); /* Stronger shadow / より強いシャドウ */
 }
 
 /* ---------------------------------------------
    8) Grid utilities (explicit)
+   グリッドユーティリティ（明示的）
 ---------------------------------------------- */
 .grid { display: grid; gap: var(--gap); }
 .cols-1 { grid-template-columns: 1fr; }
@@ -402,13 +441,13 @@ section { padding-block: 28px; }
 .cols-3-md { }
 .cols-1-sm { }
 
-/* Alignment helpers */
+/* Alignment helpers / 配置ヘルパー */
 .u-center   { text-align: center; }
 .u-right    { text-align: right; }
 .u-left     { text-align: left; }
 .u-middle   { vertical-align: middle; }
 
-/* Spacing utilities (kept verbose) */
+/* Spacing utilities (kept verbose) / スペーシングユーティリティ（詳細を維持） */
 .u-mt0  { margin-top: 0 !important; }
 .u-mt4  { margin-top: 4px !important; }
 .u-mt6  { margin-top: 6px !important; }
@@ -423,13 +462,19 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    9) Cards, quotes, badges (more shadow)
+   カード、引用、バッジ（より多くのシャドウ）
 ---------------------------------------------- */
 .card {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 18px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg); /* Much stronger shadow / はるかに強いシャドウ */
+}
+.card:hover {
+  box-shadow: var(--shadow-xl); /* Even stronger on hover / ホバー時にさらに強く */
+  transform: translateY(-2px);
+  transition: all var(--normal);
 }
 
 .quote {
@@ -439,16 +484,19 @@ section { padding-block: 28px; }
   background: #FAFAFC;
   border-radius: 10px;
   margin: 8px 0 0;
+  box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
 }
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 10px; border-radius: var(--radius-full);
   background: #fff0f8; color: #4a0a2a; font-weight: 900;
   border: 1px solid var(--line); font-size: 12px;
+  box-shadow: var(--shadow-sm); /* Add shadow / シャドウを追加 */
 }
 
 /* ---------------------------------------------
    10) Priority / Secondary icon grids (photo tiles)
+   優先/セカンダリアイコングリッド（写真タイル）
 ---------------------------------------------- */
 .icon-grid { position: relative; }
 .icon-grid .grid { margin-top: 8px; }
@@ -461,16 +509,21 @@ section { padding-block: 28px; }
   border-radius: var(--radius);
   padding: 10px;
   background: #fff;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
   transition: transform var(--fast), box-shadow var(--fast), border var(--fast);
 }
-.icon-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); border-color: var(--line-2); }
+.icon-card:hover { 
+  transform: translateY(-3px); 
+  box-shadow: var(--shadow-xl); /* Stronger on hover / ホバー時により強く */
+  border-color: var(--accent); 
+}
 .icon-card:active { transform: translateY(1px); }
 
 .icon-card .icon {
   display: grid; place-items: center; height: 54px; width: 54px;
   border-radius: 12px; background: #fff7fb; border: 1px solid var(--line);
-  box-shadow: var(--shadow-xs); margin-top: 4px;
+  box-shadow: var(--shadow-sm); margin-top: 4px;
+  font-size: 32px; /* Larger emoji/icon size / より大きな絵文字/アイコンサイズ */
 }
 .icon-card .meta .title { display: block; font-weight: 900; margin-top: 8px; }
 .icon-card .meta .desc { display: block; font-size: 13px; color: var(--muted); }
@@ -481,7 +534,7 @@ section { padding-block: 28px; }
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
 }
 .is-photo-card .photo-img {
   width: 100%; height: 100%; object-fit: cover;
@@ -498,6 +551,7 @@ section { padding-block: 28px; }
     linear-gradient(180deg, #fff 0%, var(--surface-2) 30%, #fff 100%);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  padding: 32px 0; /* Add padding for better spacing / より良い間隔のためにパディングを追加 */
 }
 .secondary .grid {
   grid-template-columns: repeat(4, 1fr);
@@ -523,6 +577,7 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    11) Cities tiles (勤務先都市)
+   都市タイル（勤務先都市）
 ---------------------------------------------- */
 .city {
   position: relative;
@@ -530,7 +585,7 @@ section { padding-block: 28px; }
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-xl); /* Much stronger shadow / はるかに強いシャドウ */
   transform: translateZ(0);
   background: #fff;
 }
@@ -542,17 +597,22 @@ section { padding-block: 28px; }
   box-shadow: 0 10px 22px rgba(0,0,0,.16);
   font-weight: 700;
 }
-.city:hover { transform: translateY(-2px); transition: transform var(--normal); }
+.city:hover { 
+  transform: translateY(-4px); 
+  box-shadow: var(--shadow-xxl); /* Even stronger on hover / ホバー時にさらに強く */
+  transition: transform var(--normal); 
+}
 
 /* ---------------------------------------------
    12) Timelines (interview process)
+   タイムライン（面接プロセス）
 ---------------------------------------------- */
 .timeline {
   list-style: none; margin: 0; padding: 12px 14px;
   background: #fff;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-xl); /* Strong shadow / 強いシャドウ */
 }
 .timeline li {
   position: relative;
@@ -568,13 +628,14 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    13) Carousel (benefits strip)
+   カルーセル（特典ストリップ）
 ---------------------------------------------- */
-.carousel {
+.carousel, .carousel-wrap {
   position: relative; overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: #fff;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-xl); /* Strong shadow / 強いシャドウ */
   padding: 8px 46px; /* space for prev/next */
 }
 .slides {
@@ -584,7 +645,32 @@ section { padding-block: 28px; }
 .slide {
   min-width: 320px; max-width: 380px;
   border: 1px solid var(--line); border-radius: 12px;
-  padding: 14px; background: #fff; box-shadow: var(--shadow-lg);
+  padding: 14px; background: #fff; 
+  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
+}
+.slide:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+.carousel-controls {
+  display: flex;
+  gap: 8px;
+}
+.carousel-controls .ctrl {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #fff; 
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  font-weight: bold;
+}
+.carousel-controls .ctrl:hover {
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
 }
 .carousel .btn.round {
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -592,17 +678,28 @@ section { padding-block: 28px; }
 }
 #bPrev { left: 8px; }
 #bNext { right: 8px; }
+.section-head.with-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 /* ---------------------------------------------
    14) Team cards
+   チームカード
 ---------------------------------------------- */
 .member {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 12px;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-xl); /* Strong shadow / 強いシャドウ */
   text-align: center;
+}
+.member:hover {
+  box-shadow: var(--shadow-xxl);
+  transform: translateY(-2px);
+  transition: all var(--normal);
 }
 .member img {
   width: 100%; height: 180px; object-fit: cover;
@@ -612,39 +709,53 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    15) FAQ (accordion)
+   FAQ（アコーディオン）
 ---------------------------------------------- */
 .faq .q {
   display: block; width: 100%;
   padding: 12px 14px; border-radius: 10px;
   background: #fff; border: 1px solid var(--line);
   text-align: left; font-weight: 900; cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md); /* Strong shadow / 強いシャドウ */
+}
+.faq .q:hover {
+  box-shadow: var(--shadow-lg);
+  background: var(--surface);
 }
 .faq .q + .a {
   border: 1px solid var(--line); border-top: 0;
   border-radius: 0 0 10px 10px; padding: 12px 14px;
   background: var(--surface);
-}
-
-/* ---------------------------------------------
-   16) Gallery (simple)
----------------------------------------------- */
-#gallery img {
-  height: 180px; width: 100%; object-fit: cover;
-  border-radius: 10px; border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
 }
 
 /* ---------------------------------------------
+   16) Gallery (simple)
+   ギャラリー（シンプル）
+---------------------------------------------- */
+#gallery img {
+  height: 180px; width: 100%; object-fit: cover;
+  border-radius: 10px; border: 1px solid var(--line);
+  box-shadow: var(--shadow-md); /* Strong shadow / 強いシャドウ */
+}
+#gallery img:hover {
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.02);
+  transition: all var(--normal);
+}
+
+/* ---------------------------------------------
    17) Ask ChatGPT block
+   ChatGPTブロックに質問
 ---------------------------------------------- */
 .chatgpt-wrap {
   display: grid; gap: 10px;
 }
-.chatgpt-text {
+.chatgpt-text, #chatgptPrompt {
   width: 100%; min-height: 200px; resize: vertical;
   border-radius: 12px; border: 1px solid var(--line);
-  padding: 12px; font: inherit; box-shadow: var(--shadow-sm);
+  padding: 12px; font: inherit; 
+  box-shadow: var(--shadow-md) inset; /* Inner shadow / 内側のシャドウ */
   background: #fff;
 }
 .chatgpt-actions {
@@ -654,6 +765,7 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    18) Sticky apply bar (bottom)
+   スティッキー応募バー（下部）
 ---------------------------------------------- */
 .apply-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 110;
@@ -664,32 +776,108 @@ section { padding-block: 28px; }
   border-top: 1px solid var(--line);
   transform: translateY(100%);
   transition: transform var(--normal), box-shadow var(--normal);
-  box-shadow: 0 -6px 18px rgba(10, 30, 60, 0.08);
+  box-shadow: 0 -8px 24px rgba(10, 30, 60, 0.12); /* Strong upward shadow / 強い上向きシャドウ */
 }
 .apply-bar a { min-width: 140px; }
 
+/* Floating action buttons / フローティングアクションボタン */
+.float-bar, #floatBar {
+  position: fixed; right: 18px; bottom: 18px; z-index: 120;
+  display: flex; gap: 10px; align-items: center;
+}
+.to-top, #toTop {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
+  text-decoration: none;
+  font-weight: 900;
+  color: var(--accent);
+}
+.to-top:hover, #toTop:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+.apply-float {
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(255, 0, 130, 0.25), var(--shadow-md);
+}
+.apply-float:hover {
+  box-shadow: 0 16px 40px rgba(255, 0, 130, 0.30), var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
 /* ---------------------------------------------
    19) Footer + Watermark
+   フッター＋ウォーターマーク
 ---------------------------------------------- */
 .site-footer {
   border-top: 1px solid var(--line);
   background: #fff;
+  margin-top: 40px;
 }
 .footer-inner {
   display: flex; align-items: center; justify-content: space-between;
   padding-block: 18px;
   gap: 10px;
 }
+.f-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.f-brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+.f-nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.f-nav a {
+  padding: 8px 10px; 
+  border-radius: 8px;
+  border: 1px solid var(--line); 
+  background: #fff; 
+  box-shadow: var(--shadow-sm);
+  font-weight: 800;
+}
+.f-nav a:hover {
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
+.f-copy, .copy {
+  font-size: 13px;
+  color: var(--muted);
+}
 .footer-links {
   list-style: none; padding: 0; margin: 0; display: inline-flex; gap: 12px;
 }
 .footer-links a {
   padding: 8px 10px; border-radius: 8px;
-  border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-xs);
+  border: 1px solid var(--line); background: #fff; 
+  box-shadow: var(--shadow-sm);
   font-weight: 800;
 }
+.footer-links a:hover {
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
 
-/* Restored watermark variant */
+/* Watermark (big letters) / ウォーターマーク（大きな文字） */
 .footer-watermark { position: relative; overflow: hidden; }
 .footer-watermark .footer-bg-letters {
   position: absolute;
@@ -700,9 +888,27 @@ section { padding-block: 28px; }
   pointer-events: none; user-select: none;
 }
 .footer-watermark .footer-inner { position: relative; z-index: 1; }
+.footer-watermark .footer-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile tweak—center the letters a bit lower */
+@media (max-width: 640px) {
+  .footer-watermark .footer-bg-letters {
+    inset: auto 0 -24px 0;
+    font-size: clamp(220px, 80vw, 520px);
+  }
+}
 
 /* ---------------------------------------------
    20) Reveal-in animations
+   リビールインアニメーション
 ---------------------------------------------- */
 .reveal {
   opacity: 0;
@@ -717,14 +923,21 @@ section { padding-block: 28px; }
 
 /* ---------------------------------------------
    21) Tables (housing / costs)
+   テーブル（住宅/コスト）
 ---------------------------------------------- */
 table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 6px 0 0; background: #fff; }
 th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
 th { background: #F7FAFF; text-align: left; font-weight: 900; letter-spacing: .01em; }
 tbody tr:hover { background: #fafcff; }
+.pay-table {
+  box-shadow: var(--shadow-md); /* Add shadow to tables / テーブルにシャドウを追加 */
+  border-radius: var(--radius);
+  overflow: hidden;
+}
 
 /* ---------------------------------------------
    22) Lifestyle icons (Why MY & TH)
+   ライフスタイルアイコン（なぜMY＆TH）
 ---------------------------------------------- */
 .lifestyle-icons {
   display: grid;
@@ -738,7 +951,11 @@ tbody tr:hover { background: #fafcff; }
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #fff;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
+}
+.lifestyle-icon:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
 }
 .lifestyle-icon img {
   width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px;
@@ -747,6 +964,7 @@ tbody tr:hover { background: #fafcff; }
 
 /* ---------------------------------------------
    23) Forms (contact demo)
+   フォーム（連絡先デモ）
 ---------------------------------------------- */
 form input[type="text"],
 form input[type="email"],
@@ -766,23 +984,72 @@ form textarea {
 }
 form textarea { min-height: 120px; resize: vertical; }
 form input:focus, form select:focus, form textarea:focus {
-  border-color: #d8e2f0;
-  box-shadow: var(--focus);
+  border-color: var(--accent);
+  box-shadow: var(--focus), var(--shadow-sm) inset;
 }
 label { display: block; font-weight: 800; margin-bottom: 6px; }
 .helper { color: var(--muted); font-size: 12px; margin-top: 4px; }
 
 /* ---------------------------------------------
    24) Badges / chips variants (extra)
+   バッジ/チップバリアント（追加）
 ---------------------------------------------- */
 .badge.info    { background: #eef6ff; color: #0b3a77; }
 .badge.warn    { background: #fff6f2; color: #7a2005; }
 .badge.success { background: #ecfdf3; color: #145a32; }
 .badge.pink    { background: #fff0f8; color: #4a0a2a; }
 .badge.purple  { background: #f6e8ff; color: #3a0962; }
+.badge.note    { background: #fff0f7; }
 
 /* ---------------------------------------------
-   25) Media queries (comprehensive)
+   25) Special classes for enhanced depth
+   深度を強化するための特別なクラス
+---------------------------------------------- */
+.job-card, .office-card, .benefit-card {
+  box-shadow: var(--shadow-xl) !important;
+}
+.job-card:hover, .office-card:hover, .benefit-card:hover {
+  box-shadow: var(--shadow-xxl) !important;
+  transform: translateY(-3px);
+}
+
+.cta-band .card, .cta-section {
+  box-shadow: var(--shadow-xl);
+  background: linear-gradient(120deg, #fff2f9, #ffe6f4);
+}
+
+.benefit-icon {
+  width: 64px; height: 64px; 
+  border-radius: 14px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border: 1px solid var(--line); 
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-size: 28px;
+}
+
+.pill {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+  padding: 6px 10px;
+  border-radius: 999px; 
+  border: 1px solid var(--line); 
+  background: #fff; 
+  font-weight: 800; 
+  font-size: 12px;
+  box-shadow: var(--shadow-xs);
+}
+
+.subtle { color: var(--muted); }
+.note { font-size: 13px; color: #6b7280; }
+.hint { font-size: 13px; color: #6b7280; }
+
+/* ---------------------------------------------
+   26) Media queries (comprehensive)
+   メディアクエリ（包括的）
 ---------------------------------------------- */
 @media (max-width: 1280px) {
   .container--xl { max-width: 1320px; }
@@ -807,7 +1074,7 @@ label { display: block; font-weight: 800; margin-bottom: 6px; }
 @media (max-width: 900px) {
   .header-inner { grid-template-columns: 1fr auto auto; }
   .site-nav { display: none; } /* use drawer on tablets/phones */
-  .lang-group { padding: 3px; }
+  .lang-group, .lang-switch { padding: 3px; }
   .lang-btn { padding: 8px 10px; font-size: 12px; }
 }
 
@@ -820,6 +1087,7 @@ label { display: block; font-weight: 800; margin-bottom: 6px; }
   .stat { min-width: 88px; }
   .slide { min-width: 280px; }
   .member img { height: 200px; }
+  .lifestyle-icons { grid-template-columns: repeat(3, 1fr); } /* 3 on phones as requested */
 }
 
 @media (max-width: 560px) {
@@ -828,19 +1096,21 @@ label { display: block; font-weight: 800; margin-bottom: 6px; }
   .hero { margin-top: 10px; }
   .hero-inner { padding: 18px; }
   .icon-card .icon { height: 50px; width: 50px; }
+  .drawer-foot .lang-switch.mobile { display: flex; }
 }
 
 @media (max-width: 420px) {
   .hero-title { font-size: 24px; }
-  .lang-group { gap: 6px; }
+  .lang-group, .lang-switch { gap: 6px; }
   .lang-btn { padding: 8px 9px; }
 }
 
 /* ---------------------------------------------
-   26) Print (explicit)
+   27) Print (explicit)
+   印刷（明示的）
 ---------------------------------------------- */
 @media print {
-  .site-header, .apply-bar, .drawer, .scrim { display: none !important; }
+  .site-header, .apply-bar, .drawer, .scrim, .float-bar, #floatBar { display: none !important; }
   a { text-decoration: underline; }
   .card, .city, .member, .timeline, .carousel, .icon-card, .stats .stat {
     box-shadow: none !important;
@@ -850,31 +1120,81 @@ label { display: block; font-weight: 800; margin-bottom: 6px; }
 }
 
 /* ---------------------------------------------
-   27) Legacy selectors kept for safety (do not remove)
+   28) Legacy selectors kept for safety (do not remove)
+   安全のために保持されているレガシーセレクター（削除しないでください）
 ---------------------------------------------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: var(--pad); } /* exists on Why page */
-header.site { position: sticky; top: 12px; z-index: 120; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; } /* legacy page header */
+header.site { 
+  position: sticky; top: 12px; z-index: 120; 
+  background: rgba(255,255,255,0.92); 
+  -webkit-backdrop-filter: blur(8px); 
+  backdrop-filter: blur(8px); 
+  border: 1px solid var(--line); 
+  border-radius: 16px; 
+  box-shadow: var(--shadow-md); 
+  padding: 10px 14px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 12px; 
+} /* legacy page header */
 .brand .t { font-weight: 900; letter-spacing: .02em; }
 .brand .s { font-size: 12px; color: var(--muted); }
 nav.primary { display: flex; gap: 10px; align-items: center; }
-nav.primary a { padding: 8px 10px; border-radius: 10px; color: #263238; font-weight: 800; font-size: 14px; }
-nav.primary a:hover { background: #fff0f8; color: #4a0a2a; }
+nav.primary a { 
+  padding: 8px 10px; 
+  border-radius: 10px; 
+  color: #263238; 
+  font-weight: 800; 
+  font-size: 14px; 
+  box-shadow: var(--shadow-xs);
+}
+nav.primary a:hover { 
+  background: #fff0f8; 
+  color: #4a0a2a; 
+  box-shadow: var(--shadow-sm);
+}
 nav.primary a:focus { outline: none; box-shadow: var(--focus); }
-.hero .inner { display: grid; grid-template-columns: 1fr 440px; gap: 20px; align-items: center; padding: 28px; background: linear-gradient(180deg,#fff,var(--surface)); border-radius: var(--radius-lg); }
+.hero .inner { 
+  display: grid; 
+  grid-template-columns: 1fr 440px; 
+  gap: 20px; 
+  align-items: center; 
+  padding: 28px; 
+  background: linear-gradient(180deg,#fff,var(--surface)); 
+  border-radius: var(--radius-lg); 
+  box-shadow: var(--shadow-xl);
+}
 .eyebrow { color: var(--accent); font-size: 12px; letter-spacing: .08em; font-weight: 900; text-transform: uppercase; }
 h1.hero-title { font-size: 36px; line-height: 1.12; margin: 10px 0; }
 .typewriter { display: inline-block; border-right: 2px solid var(--accent); padding-right: 6px; min-height: 1.2em; }
 .lead { color: #4B5563; max-width: 64ch; }
 .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 .stats { display: flex; gap: 14px; margin-top: 14px; }
-.stat { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; text-align: center; min-width: 96px; }
+.stat { 
+  background: #fff; 
+  border: 1px solid var(--line); 
+  border-radius: 12px; 
+  padding: 10px 14px; 
+  text-align: center; 
+  min-width: 96px; 
+  box-shadow: var(--shadow-md);
+}
 .stat strong { display: block; font-size: 18px; color: var(--ink-2); }
 .stat span { font-size: 12px; color: var(--muted); }
-.hero-media img { width: 440px; height: 320px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.hero-media img { 
+  width: 440px; 
+  height: 320px; 
+  object-fit: cover; 
+  border-radius: 14px; 
+  border: 1px solid var(--line); 
+  box-shadow: var(--shadow-lg); 
+}
 section { margin-top: 0; } /* maintain spacing compatibility */
 
 /* ---------------------------------------------
-   28) Extra helpers (kept verbose for stability)
+   29) Extra helpers (kept verbose for stability)
+   追加ヘルパー（安定性のために詳細を維持）
 ---------------------------------------------- */
 .shadow-xs { box-shadow: var(--shadow-xs) !important; }
 .shadow-sm { box-shadow: var(--shadow-sm) !important; }
@@ -919,17 +1239,33 @@ section { margin-top: 0; } /* maintain spacing compatibility */
 .maxw { max-width: var(--maxw) !important; margin-inline: auto !important; }
 
 /* ---------------------------------------------
-   29) Compatibility placeholders (IDs/classes seen in HTML variants)
+   30) Compatibility placeholders (IDs/classes seen in HTML variants)
+   互換性プレースホルダー（HTMLバリアントで見られるID/クラス）
 ---------------------------------------------- */
 #cities, #lifestyle, #travel, #testimonials { position: relative; }
 #cities .grid, #lifestyle .grid, #travel .grid, #testimonials .grid { position: relative; }
 
-/* keep a visible “top to main” anchor clear area if used */
+/* keep a visible "top to main" anchor clear area if used */
 #main { scroll-margin-top: calc(var(--navH) + 14px); }
 
 /* ---------------------------------------------
-   30) Safety: hero image background solid white
+   31) Safety: hero image background solid white
+   安全性：ヒーロー画像の背景を白一色に
 ---------------------------------------------- */
 #heroCover { background: #fff; }
+
+/* ---------------------------------------------
+   32) Noscript message styling
+   Noscriptメッセージのスタイリング
+---------------------------------------------- */
+.noscript {
+  background: #fff0f8;
+  border: 1px solid var(--line);
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  color: #4a0a2a;
+  box-shadow: var(--shadow-md);
+}
 
 /* End of FULL EXPANDED styles.css */
