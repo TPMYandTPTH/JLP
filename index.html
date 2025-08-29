@@ -527,30 +527,70 @@
       </div>
     </section>
 
-    <!-- =========================================================
-         Footer (keeping original with TP watermark)
-    ========================================================== -->
-    <footer class="site-footer footer-watermark">
-      <div class="footer-bg-letters" aria-hidden="true">TP</div>
-      <div class="container footer-inner">
-        <div class="footer-grid">
-          <div>
-            <h4 class="u-mt0">Teleperformance Japan Recruiting — Malaysia &amp; Thailand</h4>
-            <p class="subtle">© <span id="year">2025</span> Teleperformance. All rights reserved.</p>
-          </div>
-          <ul class="footer-links">
-            <li><a href="about-tp.html" data-i18n="footer.about">会社紹介</a></li>
-            <li><a href="relocation-visa.html" data-i18n="nav.relocation">移住・ビザ</a></li>
-            <li><a href="interview-process.html" data-i18n="nav.process">面接プロセス</a></li>
-            <li><a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人・福利厚生</a></li>
-            <li><a href="why-malaysia-thailand.html" data-i18n="nav.why">勤務先都市</a></li>
-            <li><a target="_blank"
-                   href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
-                   data-i18n="cta.apply">ご応募はこちら</a></li>
-          </ul>
+<!-- =========================================================
+     Footer (brand card style, JP only)
+========================================================== -->
+<footer class="site-footer site-footer--brandcard">
+  <div class="container">
+    <!-- Brand card -->
+    <div class="f-brandcard card">
+      <div class="f-brandcard__head">
+        <img
+          src="TPLogo11.png"
+          alt="TP ロゴ"
+          class="f-brandcard__logo"
+          onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%23fff0f8%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%22100%22 y=%22110%22 text-anchor=%22middle%22 fill=%22%23ff0082%22 font-size=%2248%22 font-weight=%22bold%22%3ETP%3C/text%3E%3C/svg%3E';"
+        />
+        <div class="f-brandcard__titlewrap">
+          <div class="f-brandcard__title">TP</div>
+          <div class="f-brandcard__sub">Malaysia · Thailand — 日本語採用</div>
         </div>
       </div>
-    </footer>
+
+      <p class="f-brandcard__desc">
+        テレパフォーマンスは、日本語スピーカーの海外キャリアを
+        就労ビザと移住サポートで伴走します。
+      </p>
+
+      <!-- (任意) バッジ：不要ならこのブロックごと削除 OK -->
+      <div class="f-badges">
+        <span class="pill">🏆 Great Place to Work®</span>
+        <span class="pill">🌍 Diversity &amp; Inclusion</span>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="f-quick">
+      <h4 class="f-quick__title">クイックリンク</h4>
+
+      <div class="f-quick__buttons">
+        <a href="faq.html" class="btn ghost" style="width:100%;">FAQ</a>
+
+        <a
+          href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+          target="_blank"
+          rel="noopener"
+          class="btn primary"
+          data-i18n="cta.apply"
+          style="width:100%;"
+        >ご応募はこちら</a>
+      </div>
+
+      <div class="f-quick__links">
+        <a href="about-tp.html" data-i18n="footer.about">会社紹介</a>
+        <a href="relocation-visa.html" data-i18n="nav.relocation">移住・ビザ</a>
+        <a href="interview-process.html" data-i18n="nav.process">面接プロセス</a>
+        <a href="jobs-and-benefits.html" data-i18n="nav.jobs">求人・福利厚生</a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="f-copy">
+      © <span id="year"></span> Teleperformance. All rights reserved.
+    </div>
+  </div>
+</footer>
+
 
     <!-- =========================================================
          Floating action buttons (keeping both buttons)
