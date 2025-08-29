@@ -1,9 +1,8 @@
 /* ============================================================================
-   TP Candidate Microsite — app.js
+   TP Candidate Microsite — app.js (JAPANESE ONLY VERSION)
    Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
-   Purpose : Bind UI, render dynamic content, and keep things snappy on mobile
-   Updated : 2025-08-22 (Enh: URL-after language via hash; JA default; EN/KO supported;
-             link rewriting to persist lang; visible language button group)
+   Purpose: Bind UI, render dynamic content, keep things snappy on mobile
+   Updated: 2025-01-15 - Simplified to Japanese only with English comments
 ============================================================================ */
 
 /* ----------------------------------------------------------
@@ -26,118 +25,110 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+/**
+ * Image fallback handler - handles SVG data URIs properly
+ */
 function imageFallback(img, fallbackAlt = 'image') {
   if (!img) return;
+  
+  // Don't add error handler for data URIs (they don't fail)
+  if (img.src && img.src.startsWith('data:')) return;
+  
   img.addEventListener('error', () => {
-    // Last-resort placeholder (keeps layout pleasant)
-    img.src = 'TPLogo11.png';
+    // SVG fallback with TP logo
+    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23fff0f8" width="200" height="200"/%3E%3Ctext x="100" y="100" text-anchor="middle" fill="%23ff0082" font-size="48" font-weight="bold"%3ETP%3C/text%3E%3C/svg%3E';
     img.alt = fallbackAlt || img.alt || 'TP';
     img.style.objectFit = 'contain';
-    img.style.background = '#f6f8fb';
+    img.style.background = '#fff';
   }, { once: true });
 }
 
 /* ----------------------------------------------------------
-   1) Language & i18n plumbing (ENHANCED)
+   1) Simplified language handling (Japanese only)
 -----------------------------------------------------------*/
-const I18N    = window.I18N    || { ja: {}, en: {}, ko: {} };
-const CONTENT = window.CONTENT || { links:{}, ja:{}, en:{}, ko:{} };
+const I18N    = window.I18N    || { jp: {} };
+const CONTENT = window.CONTENT || { links:{}, jp:{} };
 
-const SUPPORTED_LANGS = ['ja', 'en', 'ko'];  // NEW
-const LANG_STORAGE_KEY = 'tp_lang';
+// Fixed to Japanese only
+const currentLang = 'jp';
 
-/* Normalize variety to canonical: jp->ja, ja-JP->ja, en-US->en, ko-KR->ko */
-function normalizeLang(raw) {                // NEW
-  if (!raw) return '';
-  const s = String(raw).toLowerCase().trim();
-  if (s === 'jp') return 'ja';
-  if (s.startsWith('ja')) return 'ja';
-  if (s.startsWith('en')) return 'en';
-  if (s.startsWith('ko')) return 'ko';
-  return '';
-}
-
-/* Read lang AFTER URL using hash (#ja/#en/#ko); also support ?lang= and tolerate trailing /ja */
-function getLangFromURL() {                  // NEW
-  // 1) Hash
-  const hash = (location.hash || '').replace('#','').trim();
-  const h = normalizeLang(hash);
-  if (SUPPORTED_LANGS.includes(h)) return h;
-
-  // 2) Query ?lang=ja
-  const params = new URLSearchParams(location.search || '');
-  const q = normalizeLang(params.get('lang'));
-  if (SUPPORTED_LANGS.includes(q)) return q;
-
-  // 3) Trailing path segment /ja or /jp or /en or /ko (tolerate; we’ll mirror it to #)
-  const m = (location.pathname || '').match(/\/(ja|jp|en|ko)\/?$/i);
-  if (m && m[1]) {
-    const p = normalizeLang(m[1]);
-    if (SUPPORTED_LANGS.includes(p)) return p;
-  }
-  return '';
-}
-
-function getInitialLang() {
-  // Prefer URL (hash or query or tolerated trailing seg)
-  const fromURL = getLangFromURL();
-  if (fromURL) return fromURL;
-
-  // Storage
-  const saved = localStorage.getItem(LANG_STORAGE_KEY);
-  if (SUPPORTED_LANGS.includes(saved)) return saved;
-
-  // Default heuristic -> JA default unless browser clearly English/Korean
-  if (navigator.language) {
-    const auto = normalizeLang(navigator.language);
-    if (SUPPORTED_LANGS.includes(auto)) return auto;
-  }
-  return 'ja';
-}
-let currentLang = getInitialLang();
-
+/** Apply Japanese to HTML root */
 function applyLangToHtmlRoot() {
-  // Keep both attributes for CSS/JS
-  document.documentElement.setAttribute('lang', currentLang);
-  document.documentElement.setAttribute('data-lang', currentLang);
+  document.documentElement.setAttribute('lang', 'ja');
+  document.documentElement.setAttribute('data-lang', 'jp');
 }
 
+/** Get translation (Japanese only) */
 function t(key) {
-  const dict = I18N[currentLang] || {};
+  const dict = I18N.jp || {};
   const val = dict[key];
-  if (typeof val === 'function') return val;
-  return val ?? I18N.ja[key] ?? I18N.en[key] ?? I18N.ko?.[key] ?? '';
+  if (typeof val === 'function') return val();
+  return val ?? '';
 }
 
+/** Apply static text with data-i18n attributes */
 function applyI18nStaticText() {
   $$('[data-i18n]').forEach((el) => {
     const key = el.getAttribute('data-i18n');
     const val = t(key);
-    if (typeof val === 'string' || typeof val === 'number') el.innerHTML = val;
+    if (typeof val === 'string' || typeof val === 'number') {
+      el.innerHTML = val;
+    }
   });
-  // Some elements may use data-i18n-static to keep text-only (no HTML)
   $$('[data-i18n-static]').forEach((el) => {
     const key = el.getAttribute('data-i18n-static');
     const val = t(key);
-    if (typeof val === 'string' || typeof val === 'number') el.textContent = val;
+    if (typeof val === 'string' || typeof val === 'number') {
+      el.textContent = val;
+    }
+  });
+  
+  // Update placeholder text
+  $$('[data-i18n-placeholder]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    const val = t(key);
+    if (val && el.placeholder !== undefined) {
+      el.placeholder = val;
+    }
+  });
+  
+  // Update aria-labels
+  $$('[data-i18n-aria-label]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    const val = t(key);
+    if (val) {
+      el.setAttribute('aria-label', val);
+    }
   });
 }
 
 /* ----------------------------------------------------------
-   2) Typewriter (hero)
+   2) Typewriter animation for hero
 -----------------------------------------------------------*/
+let typewriterCleanup = null;
+
 function typewriter(node, texts, speed = 58, pause = 1200) {
+  // Clean up previous typewriter if exists
+  if (typewriterCleanup) {
+    typewriterCleanup();
+    typewriterCleanup = null;
+  }
+
   if (!node || !texts || !texts.length) return () => {};
   if (prefersReducedMotion()) {
     node.textContent = texts[0] || '';
     return () => {};
   }
+  
   let idx = 0;
   let isDeleting = false;
   let char = 0;
   let timer;
+  let isRunning = true;
 
   function tick() {
+    if (!isRunning) return;
+    
     const full = texts[idx] || '';
     if (!isDeleting) {
       char++;
@@ -160,32 +151,42 @@ function typewriter(node, texts, speed = 58, pause = 1200) {
       timer = setTimeout(tick, Math.max(35, speed - 20));
     }
   }
+  
   tick();
-  return () => clearTimeout(timer);
+  
+  typewriterCleanup = () => {
+    isRunning = false;
+    clearTimeout(timer);
+  };
+  
+  return typewriterCleanup;
 }
 
 /* ----------------------------------------------------------
-   3) Reveal-on-scroll (IO)
+   3) Reveal-on-scroll with Intersection Observer
 -----------------------------------------------------------*/
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        revealObserver.unobserve(e.target);
-      }
-    }
-  },
-  { threshold: 0.14 }
-);
+const revealObserver = typeof IntersectionObserver !== 'undefined' 
+  ? new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            revealObserver.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.14 }
+    )
+  : null;
+
 function observeReveal(node) {
-  if (!node) return;
+  if (!node || !revealObserver) return;
   node.classList.add('reveal');
   revealObserver.observe(node);
 }
 
 /* ----------------------------------------------------------
-   4) Simple horizontal carousel
+   4) Simple horizontal carousel for Benefits
 -----------------------------------------------------------*/
 function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
   const track = $(containerSel);
@@ -212,14 +213,16 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
   on(prev, 'click', () => go(-1));
   on(next, 'click', () => go(1));
 
-  // gentle autoplay
+  // Gentle autoplay
   let timer = setInterval(() => {
     const count = track.children.length;
     index = (index + 1) % Math.max(1, count);
     update();
   }, 5200);
+  
   on(track, 'mouseenter', () => clearInterval(timer));
   on(track, 'mouseleave', () => {
+    clearInterval(timer);
     timer = setInterval(() => {
       const count = track.children.length;
       index = (index + 1) % Math.max(1, count);
@@ -227,18 +230,18 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
     }, 5200);
   });
 
-  // initial
+  // Initial update
   requestAnimationFrame(update);
   return { destroy: () => { clearInterval(timer); } };
 }
 
 /* ----------------------------------------------------------
-   5) Dynamic renders (Why / Cities / Benefits / Process / Offices / Team / Voices / FAQ / Gallery)
+   5) Dynamic content rendering functions
 -----------------------------------------------------------*/
 function renderWhyLists() {
   const lists = [
-    { id: '#whyList1', data: CONTENT[currentLang]?.why1 || [] },
-    { id: '#whyList2', data: CONTENT[currentLang]?.why2 || [] }
+    { id: '#whyList1', data: CONTENT.jp.why1 || [] },
+    { id: '#whyList2', data: CONTENT.jp.why2 || [] }
   ];
   lists.forEach(({ id, data }) => {
     const root = $(id);
@@ -258,7 +261,7 @@ function renderCities() {
   const root = $('#citiesCards');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.cities || []).forEach((c) => {
+  (CONTENT.jp.cities || []).forEach((c) => {
     const d = document.createElement('div');
     d.className = 'city';
     d.innerHTML = `
@@ -274,7 +277,7 @@ function renderBenefits() {
   const track = $('#benefitSlides');
   if (!track) return;
   track.innerHTML = '';
-  (CONTENT[currentLang]?.benefits || []).forEach((b) => {
+  (CONTENT.jp.benefits || []).forEach((b) => {
     const el = document.createElement('div');
     el.className = 'slide';
     el.innerHTML = `<h4 style="margin:0 0 6px">${b.t}</h4><p class="subtle" style="margin:0">${b.d}</p>`;
@@ -287,7 +290,7 @@ function renderProcess() {
   const root = $('#processList');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.processSteps || []).forEach((s) => {
+  (CONTENT.jp.processSteps || []).forEach((s) => {
     const li = document.createElement('li');
     li.innerHTML = `<strong>${s.k}</strong><div class="subtle" style="margin-top:6px">${s.v}</div>`;
     root.appendChild(li);
@@ -299,7 +302,7 @@ function renderOffices() {
   const root = $('#officeCards');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.offices || CONTENT.ja?.offices || []).forEach((o) => {
+  (CONTENT.jp.offices || []).forEach((o) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -318,7 +321,7 @@ function renderTeam() {
   const root = $('#teamGrid');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.team || []).forEach((m) => {
+  (CONTENT.jp.team || []).forEach((m) => {
     const card = document.createElement('div');
     card.className = 'member';
     card.innerHTML = `
@@ -336,7 +339,7 @@ function renderVoices() {
   const root = $('#voiceGrid');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.voices || []).forEach((v) => {
+  (CONTENT.jp.voices || []).forEach((v) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `<p class="quote" style="margin-top:0">${v.quote}</p><div class="subtle" style="margin-top:8px">${v.who}</div>`;
@@ -349,14 +352,14 @@ function renderFaq() {
   const root = $('#faqList');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.faq || []).forEach((q) => {
+  (CONTENT.jp.faq || []).forEach((q) => {
     const wrap = document.createElement('div');
     wrap.innerHTML = `
-      <button class="q">${q.q}</button>
-      <div class="a">${q.a}</div>`;
+      <button class="q" type="button">${q.q}</button>
+      <div class="a" style="display:none">${q.a}</div>`;
     root.appendChild(wrap);
   });
-  // Wiring accordion behavior
+  // Wire accordion behavior
   $$('#faqList .q').forEach((btn) => {
     on(btn, 'click', () => {
       const a = btn.nextElementSibling;
@@ -371,7 +374,7 @@ function renderGallery() {
   const root = $('#gallery');
   if (!root) return;
   root.innerHTML = '';
-  (CONTENT[currentLang]?.galleryImgs || []).forEach((src, i) => {
+  (CONTENT.jp.galleryImgs || []).forEach((src, i) => {
     const img = document.createElement('img');
     img.src = src;
     img.alt = `gallery-${i+1}`;
@@ -384,33 +387,28 @@ function renderGallery() {
 }
 
 /* ----------------------------------------------------------
-   6) Priority / Secondary galleries (3×3 tiles with background connector)
-   - Uses your existing <a class="icon-card">…</a> in HTML and
-     upgrades each card into a photo tile with caption-under-image.
+   6-8) Priority and secondary galleries with decorations
 -----------------------------------------------------------*/
 const PHOTO_SOURCES = {
-  // culturally-friendly placeholder photos (Unsplash, no external JS needed)
-  about: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop',
-  jobs: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
-  relocation: 'https://images.unsplash.com/photo-1502920917128-1aa500764ce7?q=80&w=1200&auto=format&fit=crop',
-  process: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1200&auto=format&fit=crop',
-  why: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop',
-  casual: 'https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=1200&auto=format&fit=crop',
-  testimonials: 'https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200&auto=format&fit=crop',
-  office: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
-  career: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop',
-  cost: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?q=80&w=1200&auto=format&fit=crop',
-  team: 'https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200&auto=format&fit=crop',
-  area: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop',
-  blog: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop',
-  line: 'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop',
-  culture: 'https://images.unsplash.com/photo-1561484930-998b6a7b22a8?q=80&w=1200&auto=format&fit=crop',
-  faq: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1200&auto=format&fit=crop'
+  about: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f9ff" width="400" height="300"/%3E%3Ccircle fill="%233b82f6" cx="200" cy="150" r="60"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="24" font-weight="bold"%3EAbout%3C/text%3E%3C/svg%3E',
+  jobs: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fff0f8" width="400" height="300"/%3E%3Crect fill="%23ff0082" x="150" y="100" width="100" height="100"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="24" font-weight="bold"%3EJobs%3C/text%3E%3C/svg%3E',
+  relocation: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23e0f7fa" width="400" height="300"/%3E%3Cpath fill="%2322d3ee" d="M150 150l50-50 50 50-50 50z"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EVisa%3C/text%3E%3C/svg%3E',
+  process: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fef3c7" width="400" height="300"/%3E%3Ccircle fill="%23f59e0b" cx="200" cy="150" r="50"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EProcess%3C/text%3E%3C/svg%3E',
+  why: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0fdf4" width="400" height="300"/%3E%3Crect fill="%2322c55e" x="150" y="100" width="100" height="100"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="24" font-weight="bold"%3EWhy%3C/text%3E%3C/svg%3E',
+  casual: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f3e8ff" width="400" height="300"/%3E%3Ccircle fill="%239333ea" cx="200" cy="150" r="60"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EChat%3C/text%3E%3C/svg%3E',
+  testimonials: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fce7f3" width="400" height="300"/%3E%3Cpath fill="%23ec4899" d="M150 120h100v60h-100z"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EVoices%3C/text%3E%3C/svg%3E',
+  office: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23ecfdf5" width="400" height="300"/%3E%3Crect fill="%2310b981" x="140" y="90" width="120" height="120"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EOffice%3C/text%3E%3C/svg%3E',
+  career: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fef2f2" width="400" height="300"/%3E%3Cpath fill="%23ef4444" d="M200 100l50 100h-100z"/%3E%3Ctext x="200" y="170" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3ECareer%3C/text%3E%3C/svg%3E',
+  cost: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fff7ed" width="400" height="300"/%3E%3Ccircle fill="%23fb923c" cx="200" cy="150" r="50"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3ECost%3C/text%3E%3C/svg%3E',
+  team: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23eff6ff" width="400" height="300"/%3E%3Crect fill="%232563eb" x="170" y="120" width="60" height="60"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3ETeam%3C/text%3E%3C/svg%3E',
+  area: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f5f3ff" width="400" height="300"/%3E%3Ccircle fill="%237c3aed" cx="200" cy="150" r="55"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EArea%3C/text%3E%3C/svg%3E',
+  blog: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fdf4ff" width="400" height="300"/%3E%3Crect fill="%23d946ef" x="150" y="100" width="100" height="100"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3EBlog%3C/text%3E%3C/svg%3E',
+  line: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0fdfa" width="400" height="300"/%3E%3Ccircle fill="%2314b8a6" cx="200" cy="150" r="50"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3ELINE%3C/text%3E%3C/svg%3E',
+  culture: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23fefce8" width="400" height="300"/%3E%3Cpath fill="%23facc15" d="M150 120h100v60h-100z"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="20" font-weight="bold"%3ECulture%3C/text%3E%3C/svg%3E',
+  faq: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f9ff" width="400" height="300"/%3E%3Ccircle fill="%230ea5e9" cx="200" cy="150" r="50"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="24" font-weight="bold"%3EFAQ%3C/text%3E%3C/svg%3E'
 };
 
 function decorateIconCard(a, key) {
-  // Expect structure: <a.icon-card><span.icon>…</span><span.meta><span.title>…</span><span.desc>…</span></span></a>
-  // We’ll inject a <div class="photo"> before meta, and keep SVG for accessibility.
   const title = $('.title', a)?.textContent?.trim() || a.getAttribute('aria-label') || '';
   const photoURL = PHOTO_SOURCES[key] || PHOTO_SOURCES.about;
   let photo = $('.photo', a);
@@ -426,7 +424,6 @@ function decorateIconCard(a, key) {
     img.alt = title || key;
     imageFallback(img, title || key);
   }
-  // Normalize icon size (SVG stays small and centered above photo on hover)
   a.classList.add('is-photo-card');
 }
 
@@ -434,14 +431,9 @@ function renderPriorityGallery() {
   const root = $('section.icon-grid.priority');
   if (!root) return;
   const items = $$('.icon-card', root);
-  // Add subtle connector background
   injectConnectorBackground(root);
-  // Map each card to a key to pick a photo
-  const keyMap = [
-    'about','jobs','relocation','process','why','casual','testimonials','office','career'
-  ];
+  const keyMap = ['about','jobs','relocation','process','why','casual','testimonials','office','career'];
   items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'about'));
-  // enforce 3×3 layout via CSS utility classes (kept semantic)
   root.classList.add('priority-3x3');
   items.forEach((el) => observeReveal(el));
 }
@@ -457,27 +449,21 @@ function renderSecondaryGallery() {
   items.forEach((el) => observeReveal(el));
 }
 
-/* ----------------------------------------------------------
-   7) Background connector SVG (subtle, modern)
------------------------------------------------------------*/
 function injectConnectorBackground(sectionEl, opts = {}) {
   if (!sectionEl) return;
   const { density = 12, variant = 'grid' } = opts;
-  // If already present, skip
   if ($('.bg-connectors', sectionEl)) return;
 
   const svg = document.createElement('div');
   svg.className = 'bg-connectors';
   svg.setAttribute('aria-hidden', 'true');
 
-  // Create lightweight SVG pattern
   const w = sectionEl.clientWidth || 1200;
   const h = 320;
   const stroke = 'rgba(2, 32, 71, 0.06)';
   let svgInner = '';
 
   if (variant === 'dots') {
-    // Dotted connector
     const rows = 4, cols = density;
     const cellW = w / cols;
     const cellH = h / rows;
@@ -491,7 +477,6 @@ function injectConnectorBackground(sectionEl, opts = {}) {
     }
     svgInner += `</svg>`;
   } else {
-    // Thin grid/lines
     const cols = density;
     const cellW = w / cols;
     svgInner += `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;
@@ -506,7 +491,6 @@ function injectConnectorBackground(sectionEl, opts = {}) {
   svg.innerHTML = svgInner;
   sectionEl.prepend(svg);
 
-  // Update on resize
   let raf;
   on(window, 'resize', () => {
     cancelAnimationFrame(raf);
@@ -519,10 +503,9 @@ function injectConnectorBackground(sectionEl, opts = {}) {
 }
 
 /* ----------------------------------------------------------
-   8) Language toggle + full refresh of dynamic sections (ENHANCED)
+   8) Refresh all dynamic sections
 -----------------------------------------------------------*/
 function renderAllDynamic() {
-  // These only exist on the long single-page template.
   renderWhyLists();
   renderCities();
   renderBenefits();
@@ -532,151 +515,26 @@ function renderAllDynamic() {
   renderVoices();
   renderFaq();
   renderGallery();
-
-  // Icon galleries (3×3 + secondary)
   renderPriorityGallery();
   renderSecondaryGallery();
 
-  // Year in footer
+  // Update year
   const y = String(new Date().getFullYear());
   const yNode = document.getElementById('year');
   if (yNode) yNode.textContent = y;
-
   const yNode2 = document.getElementById('year2');
   if (yNode2) yNode2.textContent = y;
 }
 
-/* Append #ja/#en/#ko to internal links to persist language across pages */
-function rewriteLocalLinksForLang() {                   // NEW
-  const keepers = [
-    ...$$('.site-nav a'),
-    ...$$('.drawer-nav a'),
-    ...$$('a.brand'),
-    ...$$('a[data-keep-lang="1"]')
-  ];
-  keepers.forEach((a) => {
-    const href = a.getAttribute('href') || '';
-    if (!href) return;
-    // Skip external/anchors/mailto/tel
-    if (/^(https?:|mailto:|tel:|#)/i.test(href)) return;
-    // Only rewrite local pages (e.g., *.html or relative paths)
-    const url = new URL(href, location.href);
-    // preserve query, but set hash to currentLang
-    url.hash = `#${currentLang}`;
-    a.setAttribute('href', url.pathname + url.search + url.hash);
-  });
-}
-
-/* Update the visible language button group (if present) */
-function updateLangButtonsUI() {                         // NEW
-  $$('.lang-group .lang-btn').forEach((btn) => {
-    const code = normalizeLang(btn.getAttribute('data-lang'));
-    if (code === currentLang) {
-      btn.classList.add('active');
-      btn.setAttribute('aria-current', 'true');
-    } else {
-      btn.classList.remove('active');
-      btn.removeAttribute('aria-current');
-    }
-  });
-}
-
-function setLang(lang, opts = {}) {
-  const { updateURL = true, fromHashChange = false } = opts;  // NEW options
-  const normalized = normalizeLang(lang) || 'ja';
-  currentLang = SUPPORTED_LANGS.includes(normalized) ? normalized : 'ja';
-
-  localStorage.setItem(LANG_STORAGE_KEY, currentLang);
-  applyLangToHtmlRoot();
-  applyI18nStaticText();
-  renderAllDynamic();
-
-  // Update hero typewriter text
-  const heroNode = $('#heroType');
-  const heroTexts = I18N[currentLang]?.heroTexts || [];
-  typewriter(heroNode, heroTexts);
-
-  // Update Ask ChatGPT prompt
-  const ta = $('#chatgptPrompt');
-  if (ta && typeof window.getChatGPTPrompt === 'function') {
-    ta.value = window.getChatGPTPrompt(currentLang);
-  }
-
-  // Update legacy single-toggle (kept for compatibility)
-  const langBtn = $('#langBtn');
-  if (langBtn) langBtn.textContent = currentLang === 'ja' ? 'EN' : (currentLang === 'en' ? '日本語' : '日本語');
-
-  // NEW: visible language button group state
-  updateLangButtonsUI();
-
-  // NEW: Update URL hash to reflect language (AFTER URL)
-  if (updateURL) {
-    const base = location.pathname + location.search;
-    const newURL = `${base}#${currentLang}`;
-    // Avoid scroll jump: replaceState does not move viewport
-    history.replaceState(null, '', newURL);
-  }
-
-  // NEW: persist lang across navigation
-  rewriteLocalLinksForLang();
-
-  // If change came from hashchange, do nothing else
-  if (fromHashChange) return;
-}
-
-/* Sync language with URL hash changes (manual edits) */
-function initLangRouter() {                              // NEW
-  // On first load, mirror tolerated trailing segment to hash to avoid confusion
-  const trailing = (location.pathname || '').match(/\/(ja|jp|en|ko)\/?$/i);
-  if (trailing && trailing[1]) {
-    const normalized = normalizeLang(trailing[1]);
-    if (SUPPORTED_LANGS.includes(normalized)) {
-      const base = location.pathname.replace(/\/(ja|jp|en|ko)\/?$/i, '');
-      history.replaceState(null, '', `${base}${location.search}#${normalized}`);
-    }
-  } else {
-    // If hash missing, set it based on currentLang
-    if (!location.hash) {
-      history.replaceState(null, '', `${location.pathname}${location.search}#${currentLang}`);
-    }
-  }
-
-  on(window, 'hashchange', () => {
-    const lang = normalizeLang((location.hash || '').replace('#',''));
-    if (SUPPORTED_LANGS.includes(lang) && lang !== currentLang) {
-      setLang(lang, { updateURL: false, fromHashChange: true });
-    }
-  });
-}
-
 /* ----------------------------------------------------------
-   9) Header actions: language + drawer + smooth anchors (ENHANCED)
+   9) Header actions: drawer + smooth anchors
 -----------------------------------------------------------*/
 function initHeader() {
-  // NEW: Visible language button group (JA/EN/KO)
-  const group = $('.lang-group');
-  if (group) {
-    $$('.lang-group .lang-btn').forEach((btn) => {
-      const code = normalizeLang(btn.getAttribute('data-lang'));
-      on(btn, 'click', (e) => {
-        e.preventDefault();
-        if (SUPPORTED_LANGS.includes(code)) {
-          setLang(code);
-        }
-      });
-    });
-    updateLangButtonsUI();
-  }
-
-  // Legacy single toggle remains (no removal)
-  const langBtn = $('#langBtn');
-  if (langBtn && !group) {
-    langBtn.textContent = currentLang === 'ja' ? 'EN' : (currentLang === 'en' ? '日本語' : '日本語');
-    on(langBtn, 'click', () => {
-      const next = currentLang === 'ja' ? 'en' : (currentLang === 'en' ? 'ja' : 'ja'); // KO button exists in group; legacy toggles JA/EN
-      setLang(next);
-    });
-  }
+  // Remove language switching - keeping Japanese only
+  // Hide language buttons
+  $$('.lang-btn').forEach(btn => btn.style.display = 'none');
+  $$('.lang-switch').forEach(el => el.style.display = 'none');
+  $('#langBtn')?.remove();
 
   // Drawer (mobile)
   const menuOpen  = $('#menuBtn');
@@ -713,93 +571,75 @@ function initHeader() {
     })
   );
 
-  // Smooth scroll for any in-page anchors in header/footer
+  // Smooth scroll for any in-page anchors
   $$('a[href^="#"]').forEach((a) => {
+    if (a.getAttribute('href') === '#') return;
     on(a, 'click', (e) => {
       const id = a.getAttribute('href');
-      if (!id || id === '#') return;
       const el = $(id);
       if (!el) return;
       e.preventDefault();
       smoothScrollTo(el, 76);
     });
   });
-
-  // Brand logo should go home (HTML handles the href). We also ensure lang persists:
-  const brandA = $('.brand');
-  if (brandA) {
-    const href = brandA.getAttribute('href') || 'index.html';
-    const url = new URL(href, location.href);
-    url.hash = `#${currentLang}`;
-    brandA.setAttribute('href', url.pathname + url.search + url.hash);
-  }
 }
 
 /* ----------------------------------------------------------
-   10) Sticky mobile apply bar + back-to-top
+   10-13) Other initialization functions
 -----------------------------------------------------------*/
 function initStickyBars() {
   const applyBar = $('.apply-bar');
-  const toTop = $('#toTop');
+  const floatBar = $('#floatBar');
 
   function onScroll() {
     const y = window.scrollY;
     if (applyBar) {
-      // show after hero area
       applyBar.style.transform = y > 360 ? 'translateY(0)' : 'translateY(100%)';
     }
-    if (toTop) {
-      if (y > 560) toTop.classList.add('show');
-      else toTop.classList.remove('show');
+    if (floatBar) {
+      floatBar.setAttribute('aria-hidden', y < 200 ? 'true' : 'false');
+      floatBar.style.opacity = y < 200 ? '0' : '1';
+      floatBar.style.pointerEvents = y < 200 ? 'none' : 'auto';
     }
   }
-
   on(window, 'scroll', onScroll, { passive: true });
   onScroll();
 
-  if (toTop) {
-    on(toTop, 'click', (e) => {
+  const toTopBtn = $('#toTopBtn');
+  if (toTopBtn) {
+    on(toTopBtn, 'click', (e) => {
       e.preventDefault();
-      smoothScrollTo('body', 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 }
 
-/* ----------------------------------------------------------
-   11) Contact form (demo-safe)
------------------------------------------------------------*/
 function initContactForm() {
   const form = $('#contactForm');
   if (!form) return;
   on(form, 'submit', (e) => {
     e.preventDefault();
     const name = $('#name')?.value?.trim() || '';
-    const fn = I18N[currentLang]?.contactThanks || I18N.ja.contactThanks || (() => 'ありがとうございました。');
-    const msg = typeof fn === 'function' ? fn(name || (currentLang === 'ja' ? '応募者' : currentLang === 'ko' ? '지원자' : 'Candidate')) : fn;
+    const fn = I18N.jp.contactThanks || (() => 'ありがとうございました。');
+    const msg = typeof fn === 'function' ? fn(name || '応募者') : fn;
     alert(msg);
     form.reset();
   });
 }
 
-/* ----------------------------------------------------------
-   12) Ask ChatGPT section: copy & open actions
------------------------------------------------------------*/
 function initChatGPTSection() {
   const ta = $('#chatgptPrompt');
   const btnCopy = $('#copyPromptBtn');
   const btnOpen = $('#openChatGPTBtn');
   if (ta && typeof window.getChatGPTPrompt === 'function') {
-    ta.value = window.getChatGPTPrompt(currentLang);
+    ta.value = window.getChatGPTPrompt('jp');
   }
   if (btnCopy && ta) {
     on(btnCopy, 'click', async () => {
       try {
         await navigator.clipboard.writeText(ta.value);
         const original = btnCopy.textContent;
-        let copiedText = 'Copied!';
-        if (currentLang === 'ja') copiedText = 'コピーしました！';
-        else if (currentLang === 'ko') copiedText = '복사했습니다!';
-        btnCopy.textContent = copiedText;
+        btnCopy.textContent = 'コピーしました！';
         setTimeout(() => (btnCopy.textContent = original), 1400);
       } catch (e) {
         ta.select();
@@ -814,9 +654,6 @@ function initChatGPTSection() {
   }
 }
 
-/* ----------------------------------------------------------
-   13) Misc boot helpers
------------------------------------------------------------*/
 function initHeroMediaFallbacks() {
   imageFallback($('#heroCover'), 'Hero');
   imageFallback($('#logoImg'), 'TP');
@@ -824,7 +661,6 @@ function initHeroMediaFallbacks() {
 }
 
 function initCultureStripAnimations() {
-  // lightweight parallax on large screens (no library)
   const strip = $('.culture-strip');
   if (!strip || prefersReducedMotion()) return;
 
@@ -834,7 +670,7 @@ function initCultureStripAnimations() {
     if (rect.top > window.innerHeight || rect.bottom < 0) return;
     const progress = 1 - Math.abs(rect.top) / (window.innerHeight + rect.height);
     motifs.forEach((m, i) => {
-      const factor = (i + 1) * 4; // increasing subtle offset
+      const factor = (i + 1) * 4;
       m.style.transform = `translateY(${(1 - progress) * factor}px)`;
     });
   }
@@ -843,7 +679,6 @@ function initCultureStripAnimations() {
 }
 
 function normalizeIconSizes() {
-  // Make sure icons (SVGs) above photos are tidy
   $$('.icon-card .icon svg, .icon-card .icon img').forEach((node) => {
     node.setAttribute('width', '48');
     node.setAttribute('height', '48');
@@ -853,13 +688,10 @@ function normalizeIconSizes() {
 }
 
 /* ----------------------------------------------------------
-   14) Boot sequence (ENHANCED)
+   14) Boot sequence
 -----------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
-  // 0) Router for #lang and tolerant trailing segments -> hash
-  initLangRouter();                 // NEW
-
-  // 1) Apply language + static strings
+  // 1) Apply Japanese language
   applyLangToHtmlRoot();
   applyI18nStaticText();
 
@@ -868,16 +700,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3) Hero typewriter
   const heroNode  = $('#heroType');
-  const heroTexts = I18N[currentLang]?.heroTexts || [];
-  typewriter(heroNode, heroTexts);
+  const heroTexts = I18N.jp.heroTexts || [];
+  if (heroNode && heroTexts.length > 0) {
+    typewriter(heroNode, heroTexts);
+  }
 
   // 4) Carousels
   makeCarousel('#benefitSlides', '#bPrev', '#bNext');
 
-  // 5) Observe all revealables that exist initially
+  // 5) Observe all revealables
   $$('.reveal').forEach(observeReveal);
 
-  // 6) Header, sticky, contact, chatgpt
+  // 6) Initialize components
   initHeader();
   initStickyBars();
   initContactForm();
@@ -887,7 +721,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroMediaFallbacks();
   initCultureStripAnimations();
   normalizeIconSizes();
-
-  // 8) Ensure all local nav links carry the current #lang after load
-  rewriteLocalLinksForLang();       // NEW (final sweep)
 });
