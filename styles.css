@@ -1269,3 +1269,127 @@ section { margin-top: 0; } /* maintain spacing compatibility */
 }
 
 /* End of FULL EXPANDED styles.css */
+
+
+
+
+/* ============================================================
+   Footer: brand card variant (mobile-first, matches screenshot)
+============================================================ */
+.site-footer--brandcard {
+  background: #fff;
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.site-footer--brandcard .container {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+/* Brand card */
+.f-brandcard {
+  max-width: 640px;
+  margin: 0 auto 20px;
+}
+
+.f-brandcard__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.f-brandcard__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  object-fit: contain;
+  box-shadow: var(--shadow-sm);
+}
+
+.f-brandcard__title {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.f-brandcard__sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.f-brandcard__desc {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 6px 0 14px;
+}
+
+/* Badges row (uses your .pill style) */
+.f-badges {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Quick links */
+.f-quick {
+  text-align: center;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.f-quick__title {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 16px;
+}
+
+.f-quick__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 320px;
+  margin: 0 auto 20px;
+}
+
+/* small horizontal link row */
+.f-quick__links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.f-quick__links a {
+  color: var(--muted);
+  padding: 6px 0;
+}
+
+.f-quick__links a:hover {
+  color: var(--ink-2);
+}
+
+/* Copyright */
+.f-copy {
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 20px;
+}
+
+/* tablet+ refinements */
+@media (min-width: 720px) {
+  .f-quick__buttons {
+    flex-direction: row;
+    max-width: 520px;
+  }
+  .f-quick__buttons .btn { flex: 1 1 0; }
+}
