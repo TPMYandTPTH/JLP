@@ -2,7 +2,7 @@
    TP Candidate Microsite — app.js (JAPANESE ONLY VERSION)
    Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
    Purpose: Bind UI, render dynamic content, keep things snappy on mobile
-   Updated: 2025-01-15 - Simplified to Japanese only with English comments
+   Updated: 2025-09-2 - Simplified to Japanese only with English comments
 ============================================================================ */
 
 /* ----------------------------------------------------------
