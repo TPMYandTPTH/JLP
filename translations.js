@@ -1,7 +1,7 @@
 /* ============================================================================
    TP Candidate Microsite — translations.js (JAPANESE ONLY VERSION)
    Purpose: All content from PPT slides - Japanese only
-   Updated: 2025-01-15 - Simplified to Japanese only with English comments
+   Updated: 2025-09-2 - Simplified to Japanese only with English comments
 ============================================================================ */
 
 (function () {
