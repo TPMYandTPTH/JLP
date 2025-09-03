@@ -1,1395 +1,1093 @@
 /* ============================================================================
-   TP Candidate Microsite — styles.css (FULL EXPANDED)
-   Brand: Teleperformance Malaysia & Thailand (JP recruitment)
-   Design notes:
-     - Light only (no dark mode). Background must be white by default.
-     - Primary accent: TP Pink #ff0082. Secondary accent (fallback): #780096.
-     - Fonts: Noto Sans JP preferred; Calibri Light / Calibri fallback.
-     - Full-bleed sections with centered content (container max width).
-     - STRONGER shadows across all cards/tiles/timelines/carousels for better depth
-     - Secondary Icons grid: 4 per row on desktop, 3 per row on phones.
-     - Visible language buttons (JA default). Drawer for mobile.
-     - Footer with large "TP" watermark restored (responsive).
-     - Lots of explicit rules and vendor-safe variants kept (not shortened).
-   Updated: 2025-08-25
-   更新: 2025-08-25 - より強いシャドウ効果を追加 / Added stronger shadow effects
+   TP Candidate Microsite — styles.css (JP-only)
+   Author: you + GPT-5 Thinking
+   Purpose: Clean, accessible UI with lightweight animations
+   Notes:
+   - Matches the class names and IDs used in index.html + app.js
+   - Uses CSS variables for easy theming
+   - Mobile-first, with md/sm breakpoints
 ============================================================================ */
 
-/* ---------------------------------------------
-   0) Root variables (Light theme only)
-   ルート変数（ライトテーマのみ）
----------------------------------------------- */
-:root {
-  /* Brand & palette / ブランド＆パレット */
-  --bg: #ffffff;
-  --ink: #0b0b0b;
-  --ink-2: #1f2937;
-  --ink-3: #102840;
-  --muted: #6b7280;
-  --muted-2: #4B5563;
-  --line: #e9edf3;            /* soft divider / ソフトな区切り線 */
-  --line-2: #eef1f6;
-  --line-3: #dfe6ef;
-  --surface: #fbfdff;
-  --surface-2: #f7fbff;       /* slightly more tinted / わずかに色付き */
-  --surface-3: #fff7fb;       /* light pink-ish surface / 薄いピンク系の表面 */
-  --accent: #ff0082;          /* TP Pink / TPピンク */
-  --accent-2: #780096;        /* TP Purple / TPパープル */
-  --accent-ink: #ffffff;      /* text on accent / アクセント上のテキスト */
-  --accent-ink-2: #fefefe;    /* slight var / わずかな変化 */
+/* ---------------------------------------
+   0) CSS Reset (opinionated)
+---------------------------------------- */
 
-  /* STRONGER Shadows for better depth / より強いシャドウで深みを出す */
-  --shadow-xxl: 0 32px 96px rgba(16, 24, 40, 0.28), 0 8px 32px rgba(16, 24, 40, 0.12);
-  --shadow-xl:  0 24px 72px rgba(16, 24, 40, 0.24), 0 6px 24px rgba(16, 24, 40, 0.10);
-  --shadow-lg:  0 20px 56px rgba(16, 24, 40, 0.20), 0 4px 18px rgba(16, 24, 40, 0.08);
-  --shadow-md:  0 12px 36px rgba(16, 24, 40, 0.16), 0 3px 12px rgba(16, 24, 40, 0.06);
-  --shadow-sm:  0 8px 24px rgba(16, 24, 40, 0.12), 0 2px 8px rgba(16, 24, 40, 0.04);
-  --shadow-xs:  0 4px 16px rgba(16, 24, 40, 0.08), 0 1px 4px rgba(16, 24, 40, 0.02);
-
-  /* Rounding / 角丸 */
-  --radius: 14px;
-  --radius-md: 16px;
-  --radius-lg: 18px;
-  --radius-xl: 22px;
-  --radius-full: 999px;
-
-  /* Layout / レイアウト */
-  --maxw: 1200px;
-  --pad: 24px;
-  --gap: 20px;
-  --navH: 72px;
-
-  /* Focus ring uses accent / フォーカスリングはアクセントカラーを使用 */
-  --focus: 0 0 0 3px rgba(255, 0, 130, 0.28);
-
-  /* Transitions / トランジション */
-  --fast:   .14s ease;
-  --normal: .24s ease;
-  --slow:   .42s cubic-bezier(.2,.9,.3,1);
-}
-
-/* ---------------------------------------------
-   1) Base reset / type / images
-   基本リセット / タイポグラフィ / 画像
----------------------------------------------- */
 *,
 *::before,
-*::after { box-sizing: border-box; }
+*::after {
+  box-sizing: border-box;
+}
 
-html, body { height: 100%; }
+:root {
+  /* Brand + palette */
+  --brand: #ff0082;
+  --brand-700: #cc0069;
+  --brand-50: #fff0f8;
+
+  --blue: #3b82f6;
+  --amber: #f59e0b;
+  --green: #10b981;
+  --cyan: #06b6d4;
+
+  /* Surfaces & text */
+  --bg: #ffffff;
+  --bg-soft: #fafbfc;
+  --card: #ffffff;
+  --text: #0b1b33;               /* Deep navy */
+  --muted: #5f7185;              /* Body secondary */
+  --muted-2: #7e8da0;
+  --line: #e5ebf2;               /* Divider */
+
+  /* Effects */
+  --shadow-1: 0 1px 2px rgba(2, 20, 45, .06), 0 1px 10px rgba(2, 20, 45, .04);
+  --shadow-2: 0 6px 20px rgba(2, 20, 45, .10);
+
+  /* Rounding & spacing */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+
+  /* Layout */
+  --container: 1120px;
+  --header-h: 64px;
+
+  /* Animation */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-in: cubic-bezier(.5, 0, .75, .0);
+}
+
+html, body {
+  height: 100%;
+}
 
 html {
   -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: "Noto Sans JP", "Inter", "Calibri Light", "Calibri", system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans", "Noto Sans CJK JP", "Yu Gothic UI", "Meiryo", sans-serif;
-  color: var(--ink);
   background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.65;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: .2px;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-img { max-width: 100%; display: block; height: auto; }
-svg { display: block; }
-picture { display: block; }
+/* ---------------------------------------
+   1) Base elements
+---------------------------------------- */
 
-a { color: inherit; text-decoration: none; }
-a:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 8px; }
-
-b, strong { font-weight: 800; }
-em, i { font-style: italic; }
-
-p { margin: 0 0 10px; }
-small { font-size: 0.875em; }
-hr {
-  height: 1px; border: 0; background: var(--line);
-  margin: 18px 0;
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
 }
 
-ul, ol { padding-left: 18px; }
-
-/* Visually hidden (skip link etc.) / 視覚的に隠す（スキップリンクなど） */
-.visually-hidden {
-  position: absolute !important; width: 1px; height: 1px; margin: -1px;
-  padding: 0; border: 0; clip: rect(0 0 0 0); overflow: hidden; white-space: nowrap;
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
-/* ---------------------------------------------
-   2) Containers & full-bleed wrappers
-   コンテナ＆フルブリードラッパー
----------------------------------------------- */
-.container {
-  max-width: var(--maxw);
-  margin-inline: auto;
-  padding-inline: var(--pad);
+p {
+  margin: 0 0 1em;
+  color: var(--text);
 }
 
-/* Wide containers preserved for hero-like bands if needed */
-.container--lg  { max-width: 1320px; }
-.container--xl  { max-width: 1440px; }
-
-section { padding-block: 28px; }
-
-/* Full-bleed band (keeps content centered via .container) */
-.fullwidth-section {
-  background: linear-gradient(180deg, #fff 0%, var(--surface) 100%);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+h1, h2, h3, h4 {
+  margin: 0 0 .6em;
+  line-height: 1.25;
+  letter-spacing: .2px;
+  color: var(--text);
 }
 
-/* ---------------------------------------------
-   3) Section headers
-   セクションヘッダー
----------------------------------------------- */
-.section-head {
-  display: flex; align-items: end; justify-content: space-between;
-  gap: 12px; margin-bottom: 14px;
+h1.hero-title {
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 800;
 }
+
 .h2 {
-  font-size: clamp(22px, 2.1vw, 28px);
-  font-weight: 900;
-  margin: 0 0 4px;
-  letter-spacing: .01em;
-  color: var(--ink-2);
-  text-align: left;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
 }
 .h2-sub {
-  font-size: 13px;
   color: var(--muted);
+  margin-top: -4px;
 }
 
-/* ---------------------------------------------
-   4) Header (sticky) + brand + nav + language
-   ヘッダー（スティッキー）＋ブランド＋ナビ＋言語
----------------------------------------------- */
-.site-header {
-  position: sticky; top: 0; z-index: 120;
-  background: rgba(255, 255, 255, 0.94);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-  box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
+.eyebrow {
+  color: var(--brand);
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: none;
+  margin-bottom: 8px;
 }
 
-.header-inner {
+/* Skip link */
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.visually-hidden:focus {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  z-index: 9999;
+}
+
+/* Containers & utilities */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.u-center { text-align: center; }
+
+.u-mt8  { margin-top: 8px; }
+.u-mt10 { margin-top: 10px; }
+.u-mt12 { margin-top: 12px; }
+.u-mt14 { margin-top: 14px; }
+.u-mt16 { margin-top: 16px; }
+.u-mt20 { margin-top: 20px; }
+.u-mt24 { margin-top: 24px; }
+.u-mt28 { margin-top: 28px; }
+.u-mt32 { margin-top: 32px; }
+
+/* Responsive grid helpers */
+.grid {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center;
-  min-height: var(--navH);
   gap: 12px;
 }
+.cols-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.cols-1 { grid-template-columns: 1fr; }
 
-.brand {
-  display: inline-flex; align-items: center; gap: 12px;
+/* md: collapse to 2 columns when requested */
+@media (max-width: 1024px) {
+  .cols-2-md { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
-.brand-logo {
-  width: 46px; height: 46px; border-radius: 10px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
-  object-fit: contain;
-  background: #fff;
-}
-.brand-text .t {
-  font-size: 20px; font-weight: 900; letter-spacing: .02em;
-}
-.brand-text .s {
-  font-size: 12px; color: var(--muted);
+/* sm: collapse to 1 column when requested */
+@media (max-width: 640px) {
+  .cols-1-sm { grid-template-columns: 1fr; }
 }
 
-/* Primary nav (hidden on narrow, drawer replaces) */
-.site-nav {
-  display: flex; align-items: center; gap: 10px;
-}
-.site-nav a {
-  padding: 9px 10px;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 14px;
-  color: #263238;
-  border: 1px solid transparent;
-}
-.site-nav a:hover { 
-  background: #fff0f8; 
-  color: #4a0a2a; 
-  border-color: var(--line); 
-  box-shadow: var(--shadow-xs); /* Add shadow on hover / ホバー時にシャドウを追加 */
-}
-.site-nav a:focus-visible { box-shadow: var(--focus); }
+/* ---------------------------------------
+   2) Buttons
+---------------------------------------- */
 
-/* Actions (language buttons + hamburger) */
-.header-actions {
-  display: inline-flex; align-items: center; gap: 10px;
-}
-
-/* Visible language button group (JA / EN / KO) */
-.lang-group, .lang-switch {
-  display: inline-flex; gap: 8px; align-items: center;
-  padding: 4px;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
-}
-.lang-btn {
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 13px;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  color: #0a2540;
-  line-height: 1;
-  letter-spacing: .02em;
-}
-.lang-btn[aria-current="true"],
-.lang-btn.active,
-.lang-btn.is-active {
-  background: var(--accent);
-  color: var(--accent-ink);
-  box-shadow: 0 10px 28px rgba(255, 0, 130, 0.22);
-}
-.lang-btn:focus-visible { outline: none; box-shadow: var(--focus); }
-
-/* Legacy single toggle hidden but preserved for compatibility */
-#langBtn { display: none !important; }
-
-/* Hamburger */
-.hamburger {
-  display: inline-flex;
-  width: 42px; height: 42px; border-radius: 10px;
-  align-items: center; justify-content: center; gap: 3px;
-  border: 1px solid var(--line); background: #fff;
-  box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
-  cursor: pointer;
-}
-.hamburger span {
-  width: 18px; height: 2px; background: #0a2540; border-radius: 3px;
-}
-
-/* ---------------------------------------------
-   5) Drawer (mobile nav)
-   ドロワー（モバイルナビ）
----------------------------------------------- */
-.scrim {
-  position: fixed; inset: 0; background: rgba(10, 20, 40, 0.42);
-  opacity: 0; pointer-events: none; transition: opacity var(--normal);
-  z-index: 119;
-}
-.scrim.show { opacity: 1; pointer-events: auto; }
-
-.drawer {
-  position: fixed; top: 0; right: 0; height: 100dvh; width: min(92vw, 420px);
-  background: #fff;
-  border-left: 1px solid var(--line);
-  box-shadow: var(--shadow-xxl);
-  transform: translateX(100%);
-  transition: transform var(--normal);
-  display: flex; flex-direction: column;
-  z-index: 121;
-}
-.drawer.open { transform: translateX(0); }
-.drawer-head {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px; border-bottom: 1px solid var(--line);
-}
-.drawer-nav {
-  padding: 10px; display: grid; gap: 8px; overflow: auto; flex: 1;
-}
-.drawer-nav .d-link {
-  display: block; padding: 12px 12px; border-radius: 12px;
-  font-weight: 800; color: #102840; border: 1px solid var(--line);
-  background: #fff; box-shadow: var(--shadow-sm); /* Stronger shadow / より強いシャドウ */
-}
-.drawer-nav .d-link:hover { 
-  background: #fff0f8; 
-  box-shadow: var(--shadow-md); /* Stronger hover shadow / より強いホバーシャドウ */
-}
-.drawer-foot {
-  padding: 12px; border-top: 1px solid var(--line); background: #fff;
-}
-.drawer-foot .lang-switch {
-  margin-bottom: 10px;
-  justify-content: center;
-}
-
-/* ---------------------------------------------
-   6) Buttons (primary/ghost/round/sizes)
-   ボタン（プライマリ/ゴースト/ラウンド/サイズ）
----------------------------------------------- */
 .btn {
-  --btn-bg: #fff;
-  --btn-ink: #0a2540;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  --btn-bg: #f2f5f9;
+  --btn-text: var(--text);
+  --btn-border: var(--line);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
   padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  border: 1px solid var(--btn-border);
   background: var(--btn-bg);
-  color: var(--btn-ink);
+  color: var(--btn-text);
+  font-weight: 700;
+  line-height: 1;
   cursor: pointer;
-  font-weight: 800;
-  transition: transform var(--fast), box-shadow var(--fast), background var(--fast), color var(--fast), border var(--fast);
-  text-align: center;
-  box-shadow: var(--shadow-sm); /* Default shadow / デフォルトシャドウ */
+  text-decoration: none !important;
+  box-shadow: var(--shadow-1);
+  transition: transform .06s var(--ease-out), box-shadow .2s var(--ease-out), background .2s, border-color .2s;
 }
-.btn:hover { 
-  box-shadow: var(--shadow-md); /* Stronger hover / より強いホバー */
+.btn:hover {
   transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+  text-decoration: none;
 }
-.btn:active { 
-  transform: translateY(1px); 
-  box-shadow: var(--shadow-xs);
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
 }
-.btn:focus-visible { outline: none; box-shadow: var(--focus); }
 
 .btn.primary {
-  --btn-bg: var(--accent);
-  --btn-ink: var(--accent-ink);
-  border-color: var(--accent);
-  box-shadow: 0 12px 30px rgba(255, 0, 130, 0.25), var(--shadow-sm);
+  --btn-bg: var(--brand);
+  --btn-text: #fff;
+  --btn-border: transparent;
 }
-.btn.primary:where(:hover, :focus-visible) { 
-  filter: saturate(1.07) brightness(1.03); 
-  box-shadow: 0 16px 40px rgba(255, 0, 130, 0.30), var(--shadow-md);
+.btn.primary:hover {
+  background: var(--brand-700);
 }
 
 .btn.ghost {
   --btn-bg: #fff;
-  --btn-ink: #0a2540;
-  background: #fff;
-  box-shadow: var(--shadow-xs);
-}
-.btn.ghost:hover {
-  box-shadow: var(--shadow-sm);
+  --btn-text: var(--text);
+  --btn-border: var(--line);
 }
 
-.btn.round {
-  width: 42px; height: 42px; border-radius: 50%;
-  padding: 0; font-size: 18px; line-height: 1;
-  display: inline-grid; place-items: center;
-  border: 1px solid var(--line);
+.btn:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand), transparent 65%);
+  outline-offset: 2px;
 }
 
-.btn.sm { padding: 8px 10px; border-radius: 10px; font-size: 13px; }
-.btn.lg { padding: 14px 18px; border-radius: 14px; font-size: 16px; }
-
-/* ---------------------------------------------
-   7) Hero (full-bleed aesthetic)
-   ヒーロー（フルブリード美学）
----------------------------------------------- */
-.hero {
-  position: relative;
-  margin-top: 14px;
-}
-.hero-inner {
-  display: grid; grid-template-columns: 1fr 440px; gap: 20px; align-items: center;
-  padding: 24px;
-  background: linear-gradient(180deg, #fff 0%, var(--surface) 100%);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl); /* Strong shadow for hero / ヒーローに強いシャドウ */
-}
-.eyebrow {
-  color: var(--accent);
-  font-size: 12px; letter-spacing: .08em; font-weight: 900; text-transform: uppercase;
-}
-.hero-title {
-  font-size: clamp(26px, 3.2vw, 40px);
-  line-height: 1.12; margin: 10px 0;
-  letter-spacing: .01em;
-}
-.typewriter {
-  display: inline-block; border-right: 2px solid var(--accent);
-  padding-right: 6px; min-height: 1.2em;
-}
-.lead { color: var(--muted-2); max-width: 64ch; }
-.hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-
-.stats { display: flex; gap: 14px; margin-top: 14px; padding: 0; list-style: none; }
-.stat {
-  background: #fff; border: 1px solid var(--line);
-  border-radius: 12px; padding: 10px 14px; min-width: 96px;
-  text-align: center; box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
-}
-.stat strong { display: block; font-size: 18px; color: var(--ink-2); }
-.stat span { font-size: 12px; color: var(--muted); }
-
-.hero-media img {
-  width: 440px; height: 320px; object-fit: cover;
-  border-radius: 14px; border: 1px solid var(--line);
-  box-shadow: var(--shadow-lg); /* Stronger shadow / より強いシャドウ */
-}
-
-/* ---------------------------------------------
-   8) Grid utilities (explicit)
-   グリッドユーティリティ（明示的）
----------------------------------------------- */
-.grid { display: grid; gap: var(--gap); }
-.cols-1 { grid-template-columns: 1fr; }
-.cols-2 { grid-template-columns: repeat(2, 1fr); }
-.cols-3 { grid-template-columns: repeat(3, 1fr); }
-.cols-4 { grid-template-columns: repeat(4, 1fr); }
-.cols-5 { grid-template-columns: repeat(5, 1fr); } /* extra */
-.cols-6 { grid-template-columns: repeat(6, 1fr); }
-
-.cols-2-md { }
-.cols-3-md { }
-.cols-1-sm { }
-
-/* Alignment helpers / 配置ヘルパー */
-.u-center   { text-align: center; }
-.u-right    { text-align: right; }
-.u-left     { text-align: left; }
-.u-middle   { vertical-align: middle; }
-
-/* Spacing utilities (kept verbose) / スペーシングユーティリティ（詳細を維持） */
-.u-mt0  { margin-top: 0 !important; }
-.u-mt4  { margin-top: 4px !important; }
-.u-mt6  { margin-top: 6px !important; }
-.u-mt8  { margin-top: 8px !important; }
-.u-mt10 { margin-top: 10px !important; }
-.u-mt12 { margin-top: 12px !important; }
-.u-mt14 { margin-top: 14px !important; }
-.u-mt16 { margin-top: 16px !important; }
-.u-mt20 { margin-top: 20px !important; }
-.u-mt24 { margin-top: 24px !important; }
-.u-mb0  { margin-bottom: 0 !important; }
-
-/* ---------------------------------------------
-   9) Cards, quotes, badges (more shadow)
-   カード、引用、バッジ（より多くのシャドウ）
----------------------------------------------- */
-.card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: var(--shadow-lg); /* Much stronger shadow / はるかに強いシャドウ */
-}
-.card:hover {
-  box-shadow: var(--shadow-xl); /* Even stronger on hover / ホバー時にさらに強く */
-  transform: translateY(-2px);
-  transition: all var(--normal);
-}
-
-.quote {
-  font-style: italic;
-  padding: 14px 16px;
-  border-left: 3px solid var(--accent);
-  background: #FAFAFC;
-  border-radius: 10px;
-  margin: 8px 0 0;
-  box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
-}
-.badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 10px; border-radius: var(--radius-full);
-  background: #fff0f8; color: #4a0a2a; font-weight: 900;
-  border: 1px solid var(--line); font-size: 12px;
-  box-shadow: var(--shadow-sm); /* Add shadow / シャドウを追加 */
-}
-
-/* ---------------------------------------------
-   10) Priority / Secondary icon grids (photo tiles)
-   優先/セカンダリアイコングリッド（写真タイル）
----------------------------------------------- */
-.icon-grid { position: relative; }
-.icon-grid .grid { margin-top: 8px; }
-
-.icon-card {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 8px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 10px;
-  background: #fff;
-  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
-  transition: transform var(--fast), box-shadow var(--fast), border var(--fast);
-}
-.icon-card:hover { 
-  transform: translateY(-3px); 
-  box-shadow: var(--shadow-xl); /* Stronger on hover / ホバー時により強く */
-  border-color: var(--accent); 
-}
-.icon-card:active { transform: translateY(1px); }
-
-.icon-card .icon {
-  display: grid; place-items: center; height: 54px; width: 54px;
-  border-radius: 12px; background: #fff7fb; border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm); margin-top: 4px;
-  font-size: 32px; /* Larger emoji/icon size / より大きな絵文字/アイコンサイズ */
-}
-.icon-card .meta .title { display: block; font-weight: 900; margin-top: 8px; }
-.icon-card .meta .desc { display: block; font-size: 13px; color: var(--muted); }
-
-/* Decorated with photo */
-.is-photo-card .photo {
-  height: 160px;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-md); /* Stronger shadow / より強いシャドウ */
-}
-.is-photo-card .photo-img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-
-/* Priority: 3×3 fixed on desktop for symmetry */
-.priority .grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* Secondary: 4 per row desktop, 3 per row phones, full-width background more visible */
-.secondary {
-  background:
-    linear-gradient(180deg, #fff 0%, var(--surface-2) 30%, #fff 100%);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 32px 0; /* Add padding for better spacing / より良い間隔のためにパディングを追加 */
-}
-.secondary .grid {
-  grid-template-columns: repeat(4, 1fr);
-}
-.secondary .icon-card {
-  /* slightly smaller card visual than Priority */
-  padding: 10px;
-  box-shadow: var(--shadow-md);
-}
-.secondary .section-head .h2 { letter-spacing: .02em; }
-
-/* Decorative connectors */
-.bg-connectors {
-  position: relative;
-  width: 100%;
-  height: 320px;
-  margin-bottom: -280px; /* overlap under grid */
-  opacity: 0.9;
-  pointer-events: none;
-}
-.icon-grid .section-head { position: relative; z-index: 1; }
-.icon-grid .grid { position: relative; z-index: 2; }
-
-/* ---------------------------------------------
-   11) Cities tiles (勤務先都市)
-   都市タイル（勤務先都市）
----------------------------------------------- */
-.city {
-  position: relative;
-  min-height: 220px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-xl); /* Much stronger shadow / はるかに強いシャドウ */
-  transform: translateZ(0);
-  background: #fff;
-}
-.city img { width: 100%; height: 100%; object-fit: cover; }
-.city .overlay {
-  position: absolute; left: 12px; bottom: 12px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.60), rgba(0,0,0,0.24));
-  padding: 10px 12px; border-radius: 10px; color: #fff; max-width: 80%;
-  box-shadow: 0 10px 22px rgba(0,0,0,.16);
-  font-weight: 700;
-}
-.city:hover { 
-  transform: translateY(-4px); 
-  box-shadow: var(--shadow-xxl); /* Even stronger on hover / ホバー時にさらに強く */
-  transition: transform var(--normal); 
-}
-
-/* ---------------------------------------------
-   12) Timelines (interview process)
-   タイムライン（面接プロセス）
----------------------------------------------- */
-.timeline {
-  list-style: none; margin: 0; padding: 12px 14px;
-  background: #fff;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-xl); /* Strong shadow / 強いシャドウ */
-}
-.timeline li {
-  position: relative;
-  padding: 10px 0 10px 18px;
-  border-bottom: 1px solid var(--line);
-}
-.timeline li:last-child { border-bottom: 0; }
-.timeline li::before {
-  content: ""; position: absolute; left: 0; top: 16px;
-  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 0 3px rgba(255, 0, 130, 0.20);
-}
-
-/* ---------------------------------------------
-   13) Carousel (benefits strip)
-   カルーセル（特典ストリップ）
----------------------------------------------- */
-.carousel, .carousel-wrap {
-  position: relative; overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  background: #fff;
-  box-shadow: var(--shadow-xl); /* Strong shadow / 強いシャドウ */
-  padding: 8px 46px; /* space for prev/next */
-}
-.slides {
-  display: flex; gap: 12px; transition: transform .45s ease;
-  will-change: transform;
-}
-.slide {
-  min-width: 320px; max-width: 380px;
-  border: 1px solid var(--line); border-radius: 12px;
-  padding: 14px; background: #fff; 
-  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
-}
-.slide:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
-}
-.carousel-controls {
-  display: flex;
-  gap: 8px;
-}
-.carousel-controls .ctrl {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: #fff; 
-  border: 1px solid var(--line);
+/* Language buttons (hidden by JS for JP-only, but styled here) */
+.lang-switch {
   display: inline-flex;
+  gap: 6px;
   align-items: center;
-  justify-content: center;
+}
+.lang-btn {
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  font-weight: bold;
 }
-.carousel-controls .ctrl:hover {
-  box-shadow: var(--shadow-md);
-  background: var(--surface);
+.lang-btn.is-active {
+  color: var(--brand);
+  border-color: color-mix(in srgb, var(--brand), white 70%);
+  background: var(--brand-50);
 }
-.carousel .btn.round {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: #fff; border-color: var(--line);
+
+/* ---------------------------------------
+   3) Header
+---------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: saturate(1.15) blur(6px);
+  background: color-mix(in srgb, #ffffff 88%, transparent);
+  border-bottom: 1px solid var(--line);
 }
-#bPrev { left: 8px; }
-#bNext { right: 8px; }
-.section-head.with-controls {
+.header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: var(--header-h);
+  gap: 16px;
 }
 
-/* ---------------------------------------------
-   14) Team cards
-   チームカード
----------------------------------------------- */
-.member {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 12px;
-  box-shadow: var(--shadow-xl); /* Strong shadow / 強いシャドウ */
-  text-align: center;
-}
-.member:hover {
-  box-shadow: var(--shadow-xxl);
-  transform: translateY(-2px);
-  transition: all var(--normal);
-}
-.member img {
-  width: 100%; height: 180px; object-fit: cover;
-  border-radius: 10px; border: 1px solid var(--line);
-  box-shadow: var(--shadow-md);
-}
-
-/* ---------------------------------------------
-   15) FAQ (accordion)
-   FAQ（アコーディオン）
----------------------------------------------- */
-.faq .q {
-  display: block; width: 100%;
-  padding: 12px 14px; border-radius: 10px;
-  background: #fff; border: 1px solid var(--line);
-  text-align: left; font-weight: 900; cursor: pointer;
-  box-shadow: var(--shadow-md); /* Strong shadow / 強いシャドウ */
-}
-.faq .q:hover {
-  box-shadow: var(--shadow-lg);
-  background: var(--surface);
-}
-.faq .q + .a {
-  border: 1px solid var(--line); border-top: 0;
-  border-radius: 0 0 10px 10px; padding: 12px 14px;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-
-/* ---------------------------------------------
-   16) Gallery (simple)
-   ギャラリー（シンプル）
----------------------------------------------- */
-#gallery img {
-  height: 180px; width: 100%; object-fit: cover;
-  border-radius: 10px; border: 1px solid var(--line);
-  box-shadow: var(--shadow-md); /* Strong shadow / 強いシャドウ */
-}
-#gallery img:hover {
-  box-shadow: var(--shadow-lg);
-  transform: scale(1.02);
-  transition: all var(--normal);
-}
-
-/* ---------------------------------------------
-   17) Ask ChatGPT block
-   ChatGPTブロックに質問
----------------------------------------------- */
-.chatgpt-wrap {
-  display: grid; gap: 10px;
-}
-.chatgpt-text, #chatgptPrompt {
-  width: 100%; min-height: 200px; resize: vertical;
-  border-radius: 12px; border: 1px solid var(--line);
-  padding: 12px; font: inherit; 
-  box-shadow: var(--shadow-md) inset; /* Inner shadow / 内側のシャドウ */
-  background: #fff;
-}
-.chatgpt-actions {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-}
-.chatgpt-actions .subtle { color: var(--muted); font-size: 13px; }
-
-/* ---------------------------------------------
-   18) Sticky apply bar (bottom)
-   スティッキー応募バー（下部）
----------------------------------------------- */
-.apply-bar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 110;
-  display: flex; gap: 10px; justify-content: center;
-  padding: 10px; background: rgba(255,255,255,0.94);
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
-  border-top: 1px solid var(--line);
-  transform: translateY(100%);
-  transition: transform var(--normal), box-shadow var(--normal);
-  box-shadow: 0 -8px 24px rgba(10, 30, 60, 0.12); /* Strong upward shadow / 強い上向きシャドウ */
-}
-.apply-bar a { min-width: 140px; }
-
-/* Floating action buttons / フローティングアクションボタン */
-.float-bar, #floatBar {
-  position: fixed; right: 18px; bottom: 18px; z-index: 120;
-  display: flex; gap: 10px; align-items: center;
-}
-.to-top, #toTop {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  display: inline-flex;
+.brand {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  background: #fff;
+  gap: 10px;
+  color: inherit;
+}
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
-  text-decoration: none;
+  background: #fff;
+}
+.brand-text .t {
   font-weight: 900;
-  color: var(--accent);
+  letter-spacing: .3px;
 }
-.to-top:hover, #toTop:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
-}
-.apply-float {
-  padding: 10px 16px;
-  border-radius: var(--radius-full);
-  background: var(--accent);
-  color: #fff;
-  font-weight: 800;
-  text-decoration: none;
-  box-shadow: 0 12px 30px rgba(255, 0, 130, 0.25), var(--shadow-md);
-}
-.apply-float:hover {
-  box-shadow: 0 16px 40px rgba(255, 0, 130, 0.30), var(--shadow-lg);
-  transform: translateY(-2px);
+.brand-text .s {
+  color: var(--muted);
+  font-size: 12px;
 }
 
-/* ---------------------------------------------
-   19) Footer + Watermark
-   フッター＋ウォーターマーク
----------------------------------------------- */
-.site-footer {
-  border-top: 1px solid var(--line);
-  background: #fff;
-  margin-top: 40px;
+.site-nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
-.footer-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-block: 18px;
+.site-nav a {
+  color: var(--text);
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.site-nav a:hover {
+  background: #fff;
+  border-color: var(--line);
+  text-decoration: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
-.f-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.f-brand img {
+
+/* Hamburger (hidden desktop) */
+.hamburger {
+  display: none;
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  padding: 0 10px;
+  border-radius: 10px;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
+  background: #fff;
+  box-shadow: var(--shadow-1);
 }
-.f-nav {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--text);
+  margin: 6px 0;
+  border-radius: 2px;
 }
-.f-nav a {
-  padding: 8px 10px; 
-  border-radius: 8px;
-  border: 1px solid var(--line); 
-  background: #fff; 
-  box-shadow: var(--shadow-sm);
-  font-weight: 800;
-}
-.f-nav a:hover {
-  box-shadow: var(--shadow-md);
-  background: var(--surface);
-}
-.f-copy, .copy {
-  font-size: 13px;
-  color: var(--muted);
-}
-.footer-links {
-  list-style: none; padding: 0; margin: 0; display: inline-flex; gap: 12px;
-}
-.footer-links a {
-  padding: 8px 10px; border-radius: 8px;
-  border: 1px solid var(--line); background: #fff; 
-  box-shadow: var(--shadow-sm);
-  font-weight: 800;
-}
-.footer-links a:hover {
-  box-shadow: var(--shadow-md);
-  background: var(--surface);
+@media (max-width: 980px) {
+  .site-nav { display: none; }
+  .hamburger { display: inline-block; }
 }
 
-/* Watermark (big letters) / ウォーターマーク（大きな文字） */
-.footer-watermark { position: relative; overflow: hidden; }
-.footer-watermark .footer-bg-letters {
-  position: absolute;
-  inset: -10% -4% -10% auto;
-  left: 0; right: 0; margin: auto; text-align: center;
-  font-weight: 900; letter-spacing: .08em; color: rgba(2,32,71,.05);
-  font-size: clamp(160px, 28vw, 520px); line-height: 1;
-  pointer-events: none; user-select: none;
+/* ---------------------------------------
+   4) Drawer (mobile menu)
+---------------------------------------- */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 10, 20, .35);
+  opacity: 0;
+  transition: opacity .2s;
+  z-index: 199;
 }
-.footer-watermark .footer-inner { position: relative; z-index: 1; }
-.footer-watermark .footer-grid {
+.scrim.show { opacity: 1; }
+
+.drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: min(86vw, 420px);
+  height: 100dvh;
+  background: #fff;
+  border-left: 1px solid var(--line);
+  box-shadow: -10px 0 30px rgba(3,10,20,.08);
+  transform: translateX(100%);
+  transition: transform .24s var(--ease-out);
+  z-index: 200;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.drawer.open { transform: translateX(0%); }
+
+.drawer-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-nav {
+  padding: 12px;
+  overflow: auto;
+}
+.d-link {
+  display: block;
+  padding: 12px 10px;
+  border-radius: 10px;
+  color: var(--text);
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.d-link[aria-current="page"],
+.d-link:hover {
+  border-color: var(--line);
+  background: var(--bg-soft);
+  text-decoration: none;
+}
+
+.drawer-foot {
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+
+/* ---------------------------------------
+   5) Hero
+---------------------------------------- */
+
+.hero {
   position: relative;
-  z-index: 1;
-}
-
-/* Mobile tweak—center the letters a bit lower */
-@media (max-width: 640px) {
-  .footer-watermark .footer-bg-letters {
-    inset: auto 0 -24px 0;
-    font-size: clamp(220px, 80vw, 520px);
-  }
-}
-
-/* ---------------------------------------------
-   20) Reveal-in animations
-   リビールインアニメーション
----------------------------------------------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .6s cubic-bezier(0.2, 0.9, 0.3, 1),
-              transform .6s cubic-bezier(0.2, 0.9, 0.3, 1);
-}
-.reveal.in {
-  opacity: 1;
-  transform: none;
-}
-
-/* ---------------------------------------------
-   21) Tables (housing / costs)
-   テーブル（住宅/コスト）
----------------------------------------------- */
-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 6px 0 0; background: #fff; }
-th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
-th { background: #F7FAFF; text-align: left; font-weight: 900; letter-spacing: .01em; }
-tbody tr:hover { background: #fafcff; }
-.pay-table {
-  box-shadow: var(--shadow-md); /* Add shadow to tables / テーブルにシャドウを追加 */
-  border-radius: var(--radius);
+  padding: 34px 0 24px;
   overflow: hidden;
 }
-
-/* ---------------------------------------------
-   22) Lifestyle icons (Why MY & TH)
-   ライフスタイルアイコン（なぜMY＆TH）
----------------------------------------------- */
-.lifestyle-icons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 20px;
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(800px 300px at 10% 0%, rgba(59,130,246,.10), transparent 40%),
+    radial-gradient(600px 280px at 100% 0%, rgba(255,0,130,.10), transparent 40%);
 }
-.lifestyle-icon {
-  text-align: center;
-  padding: 14px 12px;
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 22px;
+  align-items: center;
+}
+@media (max-width: 980px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+
+.hero-copy .lead {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--muted);
+}
+.typewriter {
+  min-height: 28px;
+  font-weight: 800;
+  font-size: clamp(18px, 2vw, 22px);
+  margin-top: 8px;
+  color: var(--brand);
+  position: relative;
+  padding-right: 8px;
+}
+.typewriter::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 10%;
+  width: 2px;
+  height: 80%;
+  background: currentColor;
+  animation: caret 1s step-end infinite;
+}
+@keyframes caret {
+  50% { opacity: 0; }
+}
+
+.stats {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 16px;
+  margin: 14px 0 0;
+  flex-wrap: wrap;
+}
+.stat {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-1);
+  display: grid;
+  gap: 2px;
+}
+.stat strong {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+.stat span {
+  font-weight: 900;
+}
+
+/* ---------------------------------------
+   6) Section heads
+---------------------------------------- */
+
+.section-head {
+  margin: 22px 0 14px;
+}
+.section-head.with-controls {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ---------------------------------------
+   7) Icon grids (priority & secondary)
+---------------------------------------- */
+
+.icon-grid {
+  position: relative;
+  padding: 8px 0 6px;
+}
+.icon-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+  padding: 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #fff;
-  box-shadow: var(--shadow-lg); /* Strong shadow / 強いシャドウ */
+  box-shadow: var(--shadow-1);
+  min-height: 88px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .06s var(--ease-out), box-shadow .2s var(--ease-out), border-color .2s;
 }
-.lifestyle-icon:hover {
-  box-shadow: var(--shadow-xl);
+.icon-card:hover {
   transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+  border-color: color-mix(in srgb, var(--brand), #e5ebf2 70%);
+  text-decoration: none;
 }
-.lifestyle-icon img {
-  width: 64px; height: 64px; object-fit: contain; margin-bottom: 10px;
+.icon-card .icon {
+  font-size: 28px;
+  display: grid;
+  place-items: center;
 }
-.lifestyle-icon div { font-weight: 800; }
+.icon-card .meta .title {
+  display: block;
+  font-weight: 900;
+}
+.icon-card .meta .desc {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
 
-/* ---------------------------------------------
-   23) Forms (contact demo)
-   フォーム（連絡先デモ）
----------------------------------------------- */
-form input[type="text"],
-form input[type="email"],
-form input[type="tel"],
-form select,
-form textarea {
+/* Photo-decorated cards (JS adds .is-photo-card and .photo) */
+.is-photo-card {
+  grid-template-columns: 80px 1fr;
+}
+.is-photo-card .photo {
+  position: relative;
   width: 100%;
-  padding: 10px 12px;
+  height: 100%;
+  max-height: 88px;
+  overflow: hidden;
   border-radius: 10px;
   border: 1px solid var(--line);
   background: #fff;
-  color: var(--ink);
-  outline: none;
-  box-shadow: var(--shadow-xs) inset;
-  transition: box-shadow var(--fast), border var(--fast);
-  font: inherit;
 }
-form textarea { min-height: 120px; resize: vertical; }
-form input:focus, form select:focus, form textarea:focus {
-  border-color: var(--accent);
-  box-shadow: var(--focus), var(--shadow-sm) inset;
-}
-label { display: block; font-weight: 800; margin-bottom: 6px; }
-.helper { color: var(--muted); font-size: 12px; margin-top: 4px; }
-
-/* ---------------------------------------------
-   24) Badges / chips variants (extra)
-   バッジ/チップバリアント（追加）
----------------------------------------------- */
-.badge.info    { background: #eef6ff; color: #0b3a77; }
-.badge.warn    { background: #fff6f2; color: #7a2005; }
-.badge.success { background: #ecfdf3; color: #145a32; }
-.badge.pink    { background: #fff0f8; color: #4a0a2a; }
-.badge.purple  { background: #f6e8ff; color: #3a0962; }
-.badge.note    { background: #fff0f7; }
-
-/* ---------------------------------------------
-   25) Special classes for enhanced depth
-   深度を強化するための特別なクラス
----------------------------------------------- */
-.job-card, .office-card, .benefit-card {
-  box-shadow: var(--shadow-xl) !important;
-}
-.job-card:hover, .office-card:hover, .benefit-card:hover {
-  box-shadow: var(--shadow-xxl) !important;
-  transform: translateY(-3px);
+.is-photo-card .photo-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.cta-band .card, .cta-section {
-  box-shadow: var(--shadow-xl);
-  background: linear-gradient(120deg, #fff2f9, #ffe6f4);
+/* Background connectors (inserted by JS) */
+.bg-connectors {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 320px;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .9;
 }
+.icon-grid.secondary .bg-connectors { opacity: .7; }
 
-.benefit-icon {
-  width: 64px; height: 64px; 
-  border-radius: 14px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  border: 1px solid var(--line); 
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  font-size: 28px;
-}
+/* ---------------------------------------
+   8) Cards, lists, galleries
+---------------------------------------- */
 
-.pill {
-  display: inline-flex; 
-  align-items: center; 
-  gap: 8px; 
-  padding: 6px 10px;
-  border-radius: 999px; 
-  border: 1px solid var(--line); 
-  background: #fff; 
-  font-weight: 800; 
-  font-size: 12px;
-  box-shadow: var(--shadow-xs);
-}
-
-.subtle { color: var(--muted); }
-.note { font-size: 13px; color: #6b7280; }
-.hint { font-size: 13px; color: #6b7280; }
-
-/* ---------------------------------------------
-   26) Media queries (comprehensive)
-   メディアクエリ（包括的）
----------------------------------------------- */
-@media (max-width: 1280px) {
-  .container--xl { max-width: 1320px; }
-  .hero-inner { grid-template-columns: 1fr 420px; }
-  .hero-media img { width: 420px; height: 300px; }
-}
-
-@media (max-width: 1200px) {
-  .hero-inner { grid-template-columns: 1fr 380px; }
-  .hero-media img { width: 380px; height: 280px; }
-  .priority .grid { grid-template-columns: repeat(3, 1fr); }
-  .cols-4 { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 1024px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-media img { width: 100%; height: 220px; }
-  .secondary .grid { grid-template-columns: repeat(3, 1fr); } /* requested phone layout */
-  .footer-watermark .footer-bg-letters { font-size: clamp(140px, 42vw, 360px); }
-}
-
-@media (max-width: 900px) {
-  .header-inner { grid-template-columns: 1fr auto auto; }
-  .site-nav { display: none; } /* use drawer on tablets/phones */
-  .lang-group, .lang-switch { padding: 3px; }
-  .lang-btn { padding: 8px 10px; font-size: 12px; }
-}
-
-@media (max-width: 780px) {
-  .cols-2, .cols-3, .cols-4, .cols-5, .cols-6 { grid-template-columns: 1fr; }
-  .cols-2-md { grid-template-columns: 1fr; }
-  .cols-3-md { grid-template-columns: 1fr; }
-  .cols-1-sm { grid-template-columns: 1fr; }
-  .stats { flex-wrap: wrap; }
-  .stat { min-width: 88px; }
-  .slide { min-width: 280px; }
-  .member img { height: 200px; }
-  .lifestyle-icons { grid-template-columns: repeat(3, 1fr); } /* 3 on phones as requested */
-}
-
-@media (max-width: 560px) {
-  .brand-logo { width: 42px; height: 42px; }
-  .brand-text .s { display: none; }
-  .hero { margin-top: 10px; }
-  .hero-inner { padding: 18px; }
-  .icon-card .icon { height: 50px; width: 50px; }
-  .drawer-foot .lang-switch.mobile { display: flex; }
-}
-
-@media (max-width: 420px) {
-  .hero-title { font-size: 24px; }
-  .lang-group, .lang-switch { gap: 6px; }
-  .lang-btn { padding: 8px 9px; }
-}
-
-/* ---------------------------------------------
-   27) Print (explicit)
-   印刷（明示的）
----------------------------------------------- */
-@media print {
-  .site-header, .apply-bar, .drawer, .scrim, .float-bar, #floatBar { display: none !important; }
-  a { text-decoration: underline; }
-  .card, .city, .member, .timeline, .carousel, .icon-card, .stats .stat {
-    box-shadow: none !important;
-    border-color: #bbb !important;
-  }
-  body { background: #fff !important; color: #000 !important; }
-}
-
-/* ---------------------------------------------
-   28) Legacy selectors kept for safety (do not remove)
-   安全のために保持されているレガシーセレクター（削除しないでください）
----------------------------------------------- */
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: var(--pad); } /* exists on Why page */
-header.site { 
-  position: sticky; top: 12px; z-index: 120; 
-  background: rgba(255,255,255,0.92); 
-  -webkit-backdrop-filter: blur(8px); 
-  backdrop-filter: blur(8px); 
-  border: 1px solid var(--line); 
-  border-radius: 16px; 
-  box-shadow: var(--shadow-md); 
-  padding: 10px 14px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  gap: 12px; 
-} /* legacy page header */
-.brand .t { font-weight: 900; letter-spacing: .02em; }
-.brand .s { font-size: 12px; color: var(--muted); }
-nav.primary { display: flex; gap: 10px; align-items: center; }
-nav.primary a { 
-  padding: 8px 10px; 
-  border-radius: 10px; 
-  color: #263238; 
-  font-weight: 800; 
-  font-size: 14px; 
-  box-shadow: var(--shadow-xs);
-}
-nav.primary a:hover { 
-  background: #fff0f8; 
-  color: #4a0a2a; 
-  box-shadow: var(--shadow-sm);
-}
-nav.primary a:focus { outline: none; box-shadow: var(--focus); }
-.hero .inner { 
-  display: grid; 
-  grid-template-columns: 1fr 440px; 
-  gap: 20px; 
-  align-items: center; 
-  padding: 28px; 
-  background: linear-gradient(180deg,#fff,var(--surface)); 
-  border-radius: var(--radius-lg); 
-  box-shadow: var(--shadow-xl);
-}
-.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: .08em; font-weight: 900; text-transform: uppercase; }
-h1.hero-title { font-size: 36px; line-height: 1.12; margin: 10px 0; }
-.typewriter { display: inline-block; border-right: 2px solid var(--accent); padding-right: 6px; min-height: 1.2em; }
-.lead { color: #4B5563; max-width: 64ch; }
-.hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-.stats { display: flex; gap: 14px; margin-top: 14px; }
-.stat { 
-  background: #fff; 
-  border: 1px solid var(--line); 
-  border-radius: 12px; 
-  padding: 10px 14px; 
-  text-align: center; 
-  min-width: 96px; 
-  box-shadow: var(--shadow-md);
-}
-.stat strong { display: block; font-size: 18px; color: var(--ink-2); }
-.stat span { font-size: 12px; color: var(--muted); }
-.hero-media img { 
-  width: 440px; 
-  height: 320px; 
-  object-fit: cover; 
-  border-radius: 14px; 
-  border: 1px solid var(--line); 
-  box-shadow: var(--shadow-lg); 
-}
-section { margin-top: 0; } /* maintain spacing compatibility */
-
-/* ---------------------------------------------
-   29) Extra helpers (kept verbose for stability)
-   追加ヘルパー（安定性のために詳細を維持）
----------------------------------------------- */
-.shadow-xs { box-shadow: var(--shadow-xs) !important; }
-.shadow-sm { box-shadow: var(--shadow-sm) !important; }
-.shadow-md { box-shadow: var(--shadow-md) !important; }
-.shadow-lg { box-shadow: var(--shadow-lg) !important; }
-.shadow-xl { box-shadow: var(--shadow-xl) !important; }
-.shadow-xxl{ box-shadow: var(--shadow-xxl)!important; }
-
-.round-8  { border-radius: 8px  !important; }
-.round-10 { border-radius: 10px !important; }
-.round-12 { border-radius: 12px !important; }
-.round-14 { border-radius: 14px !important; }
-.round-16 { border-radius: 16px !important; }
-.round-18 { border-radius: 18px !important; }
-.round-20 { border-radius: 20px !important; }
-.round-full { border-radius: 999px !important; }
-
-.border { border: 1px solid var(--line) !important; }
-.border-2 { border: 2px solid var(--line) !important; }
-.border-ink { border-color: #cfd8e3 !important; }
-
-.text-ink   { color: var(--ink) !important; }
-.text-ink2  { color: var(--ink-2) !important; }
-.text-muted { color: var(--muted) !important; }
-.text-accent{ color: var(--accent) !important; }
-
-.bg-white   { background: #fff !important; }
-.bg-surface { background: var(--surface) !important; }
-.bg-surface2{ background: var(--surface-2) !important; }
-.bg-pink    { background: #fff0f8 !important; }
-.bg-purple  { background: #f6e8ff !important; }
-
-.inline-flex { display: inline-flex !important; }
-.flex { display: flex !important; }
-.items-center { align-items: center !important; }
-.justify-center { justify-content: center !important; }
-.gap-8 { gap: 8px !important; }
-.gap-10 { gap: 10px !important; }
-.gap-12 { gap: 12px !important; }
-.gap-14 { gap: 14px !important; }
-
-.maxw { max-width: var(--maxw) !important; margin-inline: auto !important; }
-
-/* ---------------------------------------------
-   30) Compatibility placeholders (IDs/classes seen in HTML variants)
-   互換性プレースホルダー（HTMLバリアントで見られるID/クラス）
----------------------------------------------- */
-#cities, #lifestyle, #travel, #testimonials { position: relative; }
-#cities .grid, #lifestyle .grid, #travel .grid, #testimonials .grid { position: relative; }
-
-/* keep a visible "top to main" anchor clear area if used */
-#main { scroll-margin-top: calc(var(--navH) + 14px); }
-
-/* ---------------------------------------------
-   31) Safety: hero image background solid white
-   安全性：ヒーロー画像の背景を白一色に
----------------------------------------------- */
-#heroCover { background: #fff; }
-
-/* ---------------------------------------------
-   32) Noscript message styling
-   Noscriptメッセージのスタイリング
----------------------------------------------- */
-.noscript {
-  background: #fff0f8;
+.card {
+  background: var(--card);
   border: 1px solid var(--line);
-  padding: 12px;
-  text-align: center;
-  font-weight: 600;
-  color: #4a0a2a;
-  box-shadow: var(--shadow-md);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow-1);
 }
 
-/* End of FULL EXPANDED styles.css */
+.item.card h4 { font-weight: 900; }
+.subtle { color: var(--muted); }
 
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  font-weight: 800;
+  color: var(--text);
+}
 
+/* Offices list */
+#officeCards .card ul { margin: 0; }
+#officeCards li { margin: 6px 0; }
 
-
-/* ============================================================
-   Footer: brand card variant (mobile-first, matches screenshot)
-============================================================ */
-.site-footer--brandcard {
+/* Cities */
+#citiesCards .city {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
   background: #fff;
+}
+#citiesCards .city img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+#citiesCards .overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  background: linear-gradient(to top, rgba(5,20,40,.7), rgba(5,20,40,0));
+  color: #fff;
+  padding: 12px;
+}
+
+/* Voices */
+#voiceGrid .card .quote {
+  font-size: 16px;
+  font-weight: 800;
+}
+#voiceGrid .subtle {
+  font-size: 13px;
+}
+
+/* Team */
+#teamGrid .member {
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+  box-shadow: var(--shadow-1);
+}
+#teamGrid .member img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+/* Gallery */
+#gallery {
+  --g: 10px;
+  display: grid;
+  gap: var(--g);
+  grid-template-columns: repeat(4, 1fr);
+}
+#gallery img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  transition: transform .18s var(--ease-out);
+}
+#gallery img:hover {
+  transform: scale(1.02);
+}
+@media (max-width: 960px) {
+  #gallery { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  #gallery { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------
+   9) Carousel (Benefits)
+---------------------------------------- */
+
+.carousel-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.slides {
+  display: flex;
+  gap: 12px;
+  will-change: transform;
+  transition: transform .3s var(--ease-out);
+}
+.slide {
+  min-width: clamp(240px, 48%, 360px);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow-1);
+}
+
+.carousel-controls {
+  display: inline-flex;
+  gap: 8px;
+}
+.ctrl {
+  width: 40px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: transform .06s var(--ease-out);
+}
+.ctrl:hover { transform: translateY(-1px); }
+
+/* ---------------------------------------
+   10) Process timeline
+---------------------------------------- */
+
+.timeline {
+  list-style: none;
+  padding: 0 0 0 22px;
+  margin: 0;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--line);
+}
+.timeline li {
+  padding: 10px 6px 10px 12px;
+  position: relative;
+  border-radius: 10px;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 3px #fff;
+}
+
+/* ---------------------------------------
+   11) FAQ
+---------------------------------------- */
+
+.faq .q {
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background .18s, border-color .18s;
+}
+.faq .q:hover {
+  background: var(--bg-soft);
+}
+.faq .a {
+  border-left: 3px solid var(--brand);
+  background: #fff;
+  padding: 12px;
+  margin: 8px 0 12px 6px;
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+/* ---------------------------------------
+   12) Ask ChatGPT / Contact
+---------------------------------------- */
+
+.chatgpt-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  padding: 10px;
+  background: #fff;
+  color: var(--text);
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: var(--text);
+  transition: border-color .18s, box-shadow .18s;
+}
+form input::placeholder,
+form textarea::placeholder {
+  color: var(--muted-2);
+}
+form input:focus,
+form textarea:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--brand), #e5ebf2 70%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand), transparent 80%);
+}
+label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+/* Quick link list */
+.linklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.linklist li { margin: 8px 0; }
+.linklist a { font-weight: 800; }
+
+/* Pills (footer badges) */
+.pill {
+  display: inline-block;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+/* ---------------------------------------
+   13) Footer (brand card layout)
+---------------------------------------- */
+
+.site-footer {
+  margin-top: 28px;
+  padding: 22px 0 28px;
   border-top: 1px solid var(--line);
-  margin-top: 40px;
+  background: linear-gradient(0deg, var(--bg), var(--bg)) padding-box,
+              radial-gradient(50% 50% at 100% 0%, rgba(255,0,130,.08), transparent 70%) border-box,
+              radial-gradient(50% 50% at 0% 0%, rgba(59,130,246,.08), transparent 70%) border-box;
 }
 
 .site-footer--brandcard .container {
-  padding-top: 24px;
-  padding-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .site-footer--brandcard .container { grid-template-columns: 1fr; }
 }
 
-/* Brand card */
-.f-brandcard {
-  max-width: 640px;
-  margin: 0 auto 20px;
+.f-brandcard.card {
+  display: grid;
+  gap: 10px;
 }
-
 .f-brandcard__head {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
 }
-
 .f-brandcard__logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
+  width: 40px; height: 40px;
+  border-radius: 10px;
   border: 1px solid var(--line);
   background: #fff;
-  object-fit: contain;
-  box-shadow: var(--shadow-sm);
 }
-
 .f-brandcard__title {
-  font-size: 18px;
   font-weight: 900;
-  letter-spacing: .02em;
 }
-
 .f-brandcard__sub {
   font-size: 12px;
   color: var(--muted);
-  margin-top: 2px;
 }
+.f-brandcard__desc { color: var(--muted); }
 
-.f-brandcard__desc {
-  font-size: 14px;
-  color: var(--ink-2);
-  margin: 6px 0 14px;
-}
-
-/* Badges row (uses your .pill style) */
-.f-badges {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* Quick links */
-.f-quick {
-  text-align: center;
-  padding: 24px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: #fff;
-}
+.f-badges { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .f-quick__title {
-  font-size: 16px;
-  font-weight: 800;
-  margin: 0 0 16px;
+  font-weight: 900;
+  margin-bottom: 10px;
 }
-
 .f-quick__buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 320px;
-  margin: 0 auto 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+@media (max-width: 520px) {
+  .f-quick__buttons { grid-template-columns: 1fr; }
 }
 
-/* small horizontal link row */
 .f-quick__links {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 8px;
-  font-size: 14px;
 }
-
 .f-quick__links a {
-  color: var(--muted);
-  padding: 6px 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-weight: 800;
+  color: var(--text);
+  box-shadow: var(--shadow-1);
 }
-
-.f-quick__links a:hover {
-  color: var(--ink-2);
-}
-
-/* Copyright */
 .f-copy {
-  text-align: center;
-  font-size: 12px;
-  color: #9ca3af;
-  margin-top: 20px;
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-/* tablet+ refinements */
-@media (min-width: 720px) {
-  .f-quick__buttons {
-    flex-direction: row;
-    max-width: 520px;
+/* ---------------------------------------
+   14) Float bar (Apply + To top)
+---------------------------------------- */
+
+.float-bar {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  gap: 10px;
+  z-index: 150;
+  transition: opacity .2s, transform .2s;
+}
+.apply-float {
+  min-width: 180px;
+}
+.to-top {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  font-weight: 900;
+}
+@media (max-width: 560px) {
+  .float-bar {
+    right: 10px; bottom: 10px;
   }
-  .f-quick__buttons .btn { flex: 1 1 0; }
+}
+
+/* Optional sticky apply bar (if used) */
+.apply-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid var(--line);
+  padding: 8px 0;
+  transform: translateY(100%);
+  transition: transform .24s var(--ease-out);
+  z-index: 140;
+}
+.apply-bar .container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ---------------------------------------
+   15) Reveal on scroll
+---------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .48s var(--ease-out), transform .48s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------------------------------------
+   16) Noscript
+---------------------------------------- */
+
+.noscript {
+  margin: 10px;
+  padding: 12px 14px;
+  background: #fff8d9;
+  border: 1px solid #ffe8a3;
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+/* ---------------------------------------
+   17) Extras & small refinements
+---------------------------------------- */
+
+/* Section spacing harmony */
+section { padding: 8px 0 16px; }
+section .card + .u-center,
+section .grid + .u-center { margin-top: 12px; }
+
+/* Ghost links in cards */
+.card a.btn.ghost { background: #fff; }
+
+/* Improve anchor offset for sticky header */
+:target {
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+
+/* Typography tweaks for tiny screens */
+@media (max-width: 360px) {
+  .btn { padding: 9px 12px; }
+  .stat { padding: 8px 10px; }
+}
+
+/* ---------------------------------------
+   18) Accessibility focus states unify
+---------------------------------------- */
+
+a[href], button, .btn, .d-link, .ctrl, .to-top, .lang-btn {
+  outline: none;
+}
+a[href]:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.d-link:focus-visible,
+.ctrl:focus-visible,
+.to-top:focus-visible,
+.lang-btn:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand), transparent 65%);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+
+/* ---------------------------------------
+   19) Print (basic)
+---------------------------------------- */
+
+@media print {
+  .site-header,
+  .float-bar,
+  .drawer,
+  .scrim { display: none !important; }
+
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 12px;
+    color: #555;
+  }
+
+  .btn { border: 1px solid #000; box-shadow: none; }
 }
