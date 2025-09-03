@@ -2,7 +2,8 @@
    TP Candidate Microsite — app.js (JAPANESE ONLY VERSION)
    Requires: translations.js (window.I18N, window.CONTENT, window.getChatGPTPrompt)
    Purpose: Bind UI, render dynamic content, keep things snappy on mobile
-   Updated: 2025-09-2 - Simplified to Japanese only with English comments
+   Updated: 2025-09-03 - JP-only + full wiring (links, travel hub, activities,
+            accommodation, cost table, stats, media, floating apply)
 ============================================================================ */
 
 /* ----------------------------------------------------------
@@ -13,6 +14,8 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const on    = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+
+const isExternal = (href) => /^https?:\/\//i.test(href || '');
 
 function smoothScrollTo(target, offset = 0) {
   const el = typeof target === 'string' ? $(target) : target;
@@ -25,18 +28,12 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-/**
- * Image fallback handler - handles SVG data URIs properly
- */
+/** Image fallback handler - handles SVG data URIs properly */
 function imageFallback(img, fallbackAlt = 'image') {
   if (!img) return;
-  
-  // Don't add error handler for data URIs (they don't fail)
-  if (img.src && img.src.startsWith('data:')) return;
-  
+  if (img.src && img.src.startsWith('data:')) return; // data URIs won’t 404
   img.addEventListener('error', () => {
-    // SVG fallback with TP logo
-    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23fff0f8" width="200" height="200"/%3E%3Ctext x="100" y="100" text-anchor="middle" fill="%23ff0082" font-size="48" font-weight="bold"%3ETP%3C/text%3E%3C/svg%3E';
+    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23fff0f8" width="200" height="200"/%3E%3Ctext x="100" y="110" text-anchor="middle" fill="%23ff0082" font-size="48" font-weight="bold"%3ETP%3C/text%3E%3C/svg%3E';
     img.alt = fallbackAlt || img.alt || 'TP';
     img.style.objectFit = 'contain';
     img.style.background = '#fff';
@@ -62,7 +59,7 @@ function applyLangToHtmlRoot() {
 function t(key) {
   const dict = I18N.jp || {};
   const val = dict[key];
-  if (typeof val === 'function') return val();
+  // Do not auto-call functions here; some (e.g., contactThanks) expect args
   return val ?? '';
 }
 
@@ -82,23 +79,15 @@ function applyI18nStaticText() {
       el.textContent = val;
     }
   });
-  
-  // Update placeholder text
   $$('[data-i18n-placeholder]').forEach((el) => {
     const key = el.getAttribute('data-i18n-placeholder');
     const val = t(key);
-    if (val && el.placeholder !== undefined) {
-      el.placeholder = val;
-    }
+    if (val && el.placeholder !== undefined) el.placeholder = val;
   });
-  
-  // Update aria-labels
   $$('[data-i18n-aria-label]').forEach((el) => {
     const key = el.getAttribute('data-i18n-aria-label');
     const val = t(key);
-    if (val) {
-      el.setAttribute('aria-label', val);
-    }
+    if (val) el.setAttribute('aria-label', val);
   });
 }
 
@@ -108,57 +97,29 @@ function applyI18nStaticText() {
 let typewriterCleanup = null;
 
 function typewriter(node, texts, speed = 58, pause = 1200) {
-  // Clean up previous typewriter if exists
-  if (typewriterCleanup) {
-    typewriterCleanup();
-    typewriterCleanup = null;
-  }
-
+  if (typewriterCleanup) { typewriterCleanup(); typewriterCleanup = null; }
   if (!node || !texts || !texts.length) return () => {};
-  if (prefersReducedMotion()) {
-    node.textContent = texts[0] || '';
-    return () => {};
-  }
-  
-  let idx = 0;
-  let isDeleting = false;
-  let char = 0;
-  let timer;
-  let isRunning = true;
+  if (prefersReducedMotion()) { node.textContent = texts[0] || ''; return () => {}; }
+
+  let idx = 0, isDeleting = false, char = 0, timer, isRunning = true;
 
   function tick() {
     if (!isRunning) return;
-    
     const full = texts[idx] || '';
     if (!isDeleting) {
       char++;
       node.textContent = full.slice(0, char);
-      if (char >= full.length) {
-        isDeleting = true;
-        timer = setTimeout(tick, pause);
-        return;
-      }
+      if (char >= full.length) { isDeleting = true; timer = setTimeout(tick, pause); return; }
       timer = setTimeout(tick, speed);
     } else {
       char--;
       node.textContent = full.slice(0, char);
-      if (char <= 0) {
-        isDeleting = false;
-        idx = (idx + 1) % texts.length;
-        timer = setTimeout(tick, speed * 3);
-        return;
-      }
+      if (char <= 0) { isDeleting = false; idx = (idx + 1) % texts.length; timer = setTimeout(tick, speed * 3); return; }
       timer = setTimeout(tick, Math.max(35, speed - 20));
     }
   }
-  
   tick();
-  
-  typewriterCleanup = () => {
-    isRunning = false;
-    clearTimeout(timer);
-  };
-  
+  typewriterCleanup = () => { isRunning = false; clearTimeout(timer); };
   return typewriterCleanup;
 }
 
@@ -167,14 +128,9 @@ function typewriter(node, texts, speed = 58, pause = 1200) {
 -----------------------------------------------------------*/
 const revealObserver = typeof IntersectionObserver !== 'undefined' 
   ? new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            revealObserver.unobserve(e.target);
-          }
-        }
-      },
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); }
+      }),
       { threshold: 0.14 }
     )
   : null;
@@ -198,28 +154,26 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
   function update() {
     const first = track.children[0];
     if (!first) return;
-    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 12);
+    const s = getComputedStyle(track);
+    const gap = parseFloat(s.columnGap || s.gap || 12);
     const slideW = first.getBoundingClientRect().width + (Number.isFinite(gap) ? gap : 12);
     track.style.transform = `translateX(${-index * slideW}px)`;
   }
-
   function go(dir) {
     const count = track.children.length;
     index = clamp(index + dir, 0, Math.max(0, count - 1));
     update();
   }
-
   on(window, 'resize', update);
   on(prev, 'click', () => go(-1));
   on(next, 'click', () => go(1));
 
-  // Gentle autoplay
+  // Autoplay (pause on hover)
   let timer = setInterval(() => {
     const count = track.children.length;
     index = (index + 1) % Math.max(1, count);
     update();
   }, 5200);
-  
   on(track, 'mouseenter', () => clearInterval(timer));
   on(track, 'mouseleave', () => {
     clearInterval(timer);
@@ -230,13 +184,12 @@ function makeCarousel(containerSel, prevBtnSel, nextBtnSel) {
     }, 5200);
   });
 
-  // Initial update
   requestAnimationFrame(update);
-  return { destroy: () => { clearInterval(timer); } };
+  return { destroy: () => clearInterval(timer) };
 }
 
 /* ----------------------------------------------------------
-   5) Dynamic content rendering functions
+   5) Dynamic content rendering functions (core)
 -----------------------------------------------------------*/
 function renderWhyLists() {
   const lists = [
@@ -244,8 +197,7 @@ function renderWhyLists() {
     { id: '#whyList2', data: CONTENT.jp.why2 || [] }
   ];
   lists.forEach(({ id, data }) => {
-    const root = $(id);
-    if (!root) return;
+    const root = $(id); if (!root) return;
     root.innerHTML = '';
     data.forEach((item) => {
       const card = document.createElement('div');
@@ -266,7 +218,7 @@ function renderCities() {
     d.className = 'city';
     d.innerHTML = `
       <img src="${c.img}" alt="${c.title}">
-      <div class="overlay"><strong>${c.title}</strong><div style="font-size:13px;margin-top:6px">${c.desc}</div></div>`;
+      <div class="overlay"><strong>${c.title}</strong><div style="font-size:13px;margin-top:6px">${c.desc || ''}</div></div>`;
     imageFallback(d.querySelector('img'), c.title);
     root.appendChild(d);
     observeReveal(d);
@@ -308,9 +260,7 @@ function renderOffices() {
     card.innerHTML = `
       <img src="${o.img}" alt="${o.title}" style="height:160px;width:100%;object-fit:cover;border-radius:10px;border:1px solid var(--line);margin-bottom:10px">
       <h4 style="margin:6px 0">${o.title}</h4>
-      <ul class="subtle" style="padding-left:18px;margin:8px 0 0">${(o.points||[])
-        .map((p) => `<li>${p}</li>`)
-        .join('')}</ul>`;
+      <ul class="subtle" style="padding-left:18px;margin:8px 0 0">${(o.points||[]).map((p) => `<li>${p}</li>`).join('')}</ul>`;
     imageFallback(card.querySelector('img'), o.title);
     root.appendChild(card);
     observeReveal(card);
@@ -387,7 +337,7 @@ function renderGallery() {
 }
 
 /* ----------------------------------------------------------
-   6-8) Priority and secondary galleries with decorations
+   6) Priority and secondary galleries with decorations
 -----------------------------------------------------------*/
 const PHOTO_SOURCES = {
   about: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f9ff" width="400" height="300"/%3E%3Ccircle fill="%233b82f6" cx="200" cy="150" r="60"/%3E%3Ctext x="200" y="160" text-anchor="middle" fill="white" font-size="24" font-weight="bold"%3EAbout%3C/text%3E%3C/svg%3E',
@@ -425,28 +375,6 @@ function decorateIconCard(a, key) {
     imageFallback(img, title || key);
   }
   a.classList.add('is-photo-card');
-}
-
-function renderPriorityGallery() {
-  const root = $('section.icon-grid.priority');
-  if (!root) return;
-  const items = $$('.icon-card', root);
-  injectConnectorBackground(root);
-  const keyMap = ['about','jobs','relocation','process','why','casual','testimonials','office','career'];
-  items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'about'));
-  root.classList.add('priority-3x3');
-  items.forEach((el) => observeReveal(el));
-}
-
-function renderSecondaryGallery() {
-  const root = $('section.icon-grid.secondary');
-  if (!root) return;
-  const items = $$('.icon-card', root);
-  injectConnectorBackground(root, { density: 10, variant: 'dots' });
-  const keyMap = ['cost','team','area','blog','line','culture','faq'];
-  items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
-  root.classList.add('secondary-grid');
-  items.forEach((el) => observeReveal(el));
 }
 
 function injectConnectorBackground(sectionEl, opts = {}) {
@@ -502,10 +430,171 @@ function injectConnectorBackground(sectionEl, opts = {}) {
   });
 }
 
+function renderPriorityGallery() {
+  const root = $('section.icon-grid.priority');
+  if (!root) return;
+  const items = $$('.icon-card', root);
+  injectConnectorBackground(root);
+  const keyMap = ['about','jobs','relocation','process','why','casual','testimonials','office','career'];
+  items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'about'));
+  root.classList.add('priority-3x3');
+  items.forEach((el) => observeReveal(el));
+}
+
+function renderSecondaryGallery() {
+  const root = $('section.icon-grid.secondary');
+  if (!root) return;
+  const items = $$('.icon-card', root);
+  injectConnectorBackground(root, { density: 10, variant: 'dots' });
+  const keyMap = ['cost','team','area','blog','line','culture','faq'];
+  items.forEach((a, i) => decorateIconCard(a, keyMap[i] || 'blog'));
+  root.classList.add('secondary-grid');
+  items.forEach((el) => observeReveal(el));
+}
+
 /* ----------------------------------------------------------
-   8) Refresh all dynamic sections
+   7) Extra sections required by spec (ADDED)
+-----------------------------------------------------------*/
+// Stats counters (optional simple count-up)
+function renderStats() {
+  const nCountries = t('stat.countries');
+  const nPeople    = t('stat.people');
+  const nRoles     = t('stat.jp_roles');
+  const nRolesN    = t('stat.jp_roles_n');
+
+  const set = (id, val) => { const node = $(id); if (node && val) node.textContent = val; };
+  set('#statCountries', nCountries);
+  set('#statPeople', nPeople);
+  set('#statJpRoles', nRoles);
+  set('#statJpRolesN', nRolesN);
+}
+
+// Cost of Living (table + quotes). Supports both detailed and minimal content.
+function renderCostTable() {
+  const T = CONTENT.jp.costOfLiving || {};
+  const tbl = $('#costTable tbody');
+  if (tbl) {
+    tbl.innerHTML = '';
+    const rows = Array.isArray(T.table) && T.table.length
+      ? T.table
+      : [
+          { item: '家賃（1LDK）', tokyo: '約12万円〜',    kl: '約5〜6万円（プール・ジム付）' },
+          { item: '外食',         tokyo: '約1,000円〜',  kl: '約300円〜' },
+          { item: '交通費',       tokyo: '月1万円以上',  kl: '数千円以内（Grab移動）' },
+        ];
+    rows.forEach((r) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${r.item}</td><td>${r.tokyo}</td><td>${r.kl}</td>`;
+      tbl.appendChild(tr);
+    });
+  }
+  const quotes = $('#costQuotes');
+  if (quotes) {
+    quotes.innerHTML = '';
+    const Q = Array.isArray(T.quotes) && T.quotes.length
+      ? T.quotes
+      : [
+          '「物価が安いから、カフェ巡りや外食が気軽に楽しめるようになりました。」— 30代・男性',
+          '「通勤ストレスがなくなり、平日の夜もヨガや友達との時間をゆったり過ごせます。」— 20代・女性'
+        ];
+    Q.forEach((q) => quotes.appendChild(Object.assign(document.createElement('div'), { className: 'quote', textContent: q })));
+  }
+}
+
+// Accommodation features (KL/Penang)
+function renderAccommodation() {
+  const A = CONTENT.jp.accommodation || {};
+  const ul = $('#accommodationFeatures');
+  if (ul && Array.isArray(A.features)) {
+    ul.innerHTML = '';
+    A.features.forEach((f) => ul.appendChild(Object.assign(document.createElement('li'), { textContent: f })));
+  }
+  const set = (id, val) => { const n = $(id); if (n && val) n.textContent = val; };
+  set('#accommodationRent', A.rent);
+  set('#accommodationKL',   A.kl);
+  set('#accommodationPenang', A.penang);
+}
+
+// Activities / Weekends
+function renderActivities() {
+  function fillList(sel, arr) {
+    const ul = $(sel);
+    if (!ul || !Array.isArray(arr)) return;
+    ul.innerHTML = '';
+    arr.forEach((t) => ul.appendChild(Object.assign(document.createElement('li'), { textContent: t })));
+  }
+  const A = CONTENT.jp.activities || {};
+  const set = (id, val) => { const n = $(id); if (n && val) n.textContent = val; };
+  set('#activitiesTitle', A.title);
+  fillList('#activitiesDaily', A.daily);
+  fillList('#activitiesNature', A.weekendNature);
+  fillList('#activitiesFood', A.food);
+  fillList('#activitiesCity', A.cityConvenience);
+  fillList('#activitiesTravel', A.travel);
+}
+
+// Travel Hub bullets
+function renderTravelHub() {
+  const wrap = $('#travelBullets');
+  const hub  = CONTENT.jp.travelHub || {};
+  if (!wrap || !Array.isArray(hub.bullets)) return;
+  wrap.innerHTML = '';
+  hub.bullets.forEach((b) => wrap.appendChild(Object.assign(document.createElement('li'), { textContent: b })));
+  const title = $('#travelTitle'); if (title && hub.title) title.textContent = hub.title;
+}
+
+// Current Openings (simple list)
+function renderOpenings() {
+  const root = $('#openingsList');
+  const co = CONTENT.jp.currentOpenings || {};
+  if (!root || !Array.isArray(co.positions)) return;
+  root.innerHTML = '';
+  co.positions.forEach((p) => root.appendChild(Object.assign(document.createElement('li'), { textContent: p })));
+  const title = $('#openingsTitle'); if (title && co.title) title.textContent = co.title;
+}
+
+/* ----------------------------------------------------------
+   8) Links & media wiring (ADDED)
+-----------------------------------------------------------*/
+function setHref(a, href) {
+  if (!a || !href) return;
+  a.href = href;
+  if (isExternal(href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+}
+
+function wireExternalLinks() {
+  const LINKS = CONTENT.links || {};
+  // Apply
+  ['a.js-apply', '.apply-float', '.apply-bar a', 'a.apply-now', 'a[data-link="apply"]']
+    .forEach(sel => $$(sel).forEach((a) => setHref(a, LINKS.apply)));
+  // Casual
+  ['a.js-casual', 'a[data-link="casual"]']
+    .forEach(sel => $$(sel).forEach((a) => setHref(a, LINKS.casual)));
+  // LINE
+  ['a.js-line', '#lineLink', 'a[data-link="line"]']
+    .forEach(sel => $$(sel).forEach((a) => setHref(a, LINKS.line)));
+  // VTour
+  const vtour = CONTENT.jp.vtour?.url || LINKS.vtour;
+  setHref($('#vtourLink'), vtour);
+  // Optional QR image
+  if (CONTENT.jp.lineAccount?.qr) {
+    const qr = $('#lineQR'); if (qr) { qr.src = CONTENT.jp.lineAccount.qr; imageFallback(qr, 'LINE'); }
+  }
+}
+
+function wireIntroMedia() {
+  const intro = CONTENT.intro || {};
+  if (intro.mapImg) { const m = $('#worldMap'); if (m) { m.src = intro.mapImg; imageFallback(m, 'World Map'); } }
+  const vids = intro.videos || [];
+  if (vids[0]) setHref($('#introVideo1'), vids[0]);
+  if (vids[1]) setHref($('#introVideo2'), vids[1]);
+}
+
+/* ----------------------------------------------------------
+   9) Refresh all dynamic sections
 -----------------------------------------------------------*/
 function renderAllDynamic() {
+  renderStats();
   renderWhyLists();
   renderCities();
   renderBenefits();
@@ -515,26 +604,25 @@ function renderAllDynamic() {
   renderVoices();
   renderFaq();
   renderGallery();
+  renderOpenings();
+  renderCostTable();
+  renderAccommodation();
+  renderActivities();
+  renderTravelHub();
   renderPriorityGallery();
   renderSecondaryGallery();
 
-  // Update year
+  // Update year(s)
   const y = String(new Date().getFullYear());
-  const yNode = document.getElementById('year');
-  if (yNode) yNode.textContent = y;
-  const yNode2 = document.getElementById('year2');
-  if (yNode2) yNode2.textContent = y;
+  ['#year', '#year2'].forEach((id) => { const n = $(id); if (n) n.textContent = y; });
 }
 
 /* ----------------------------------------------------------
-   9) Header actions: drawer + smooth anchors
+   10) Header actions: drawer + smooth anchors
 -----------------------------------------------------------*/
 function initHeader() {
-  // Remove language switching - keeping Japanese only
-  // Hide language buttons
-  $$('.lang-btn').forEach(btn => btn.style.display = 'none');
-  $$('.lang-switch').forEach(el => el.style.display = 'none');
-  $('#langBtn')?.remove();
+  // Hide language switching completely (JP only)
+  $$('.lang-btn, .lang-switch, #langBtn').forEach(el => { if (el) el.style.display = 'none'; });
 
   // Drawer (mobile)
   const menuOpen  = $('#menuBtn');
@@ -565,9 +653,7 @@ function initHeader() {
     on(a, 'click', () => {
       closeDrawer();
       const href = a.getAttribute('href') || '';
-      if (href.startsWith('#')) {
-        setTimeout(() => smoothScrollTo(href, 76), 10);
-      }
+      if (href.startsWith('#')) setTimeout(() => smoothScrollTo(href, 76), 10);
     })
   );
 
@@ -576,16 +662,16 @@ function initHeader() {
     if (a.getAttribute('href') === '#') return;
     on(a, 'click', (e) => {
       const id = a.getAttribute('href');
-      const el = $(id);
-      if (!el) return;
+      const target = $(id);
+      if (!target) return;
       e.preventDefault();
-      smoothScrollTo(el, 76);
+      smoothScrollTo(target, 76);
     });
   });
 }
 
 /* ----------------------------------------------------------
-   10-13) Other initialization functions
+   11) Other initialization functions
 -----------------------------------------------------------*/
 function initStickyBars() {
   const applyBar = $('.apply-bar');
@@ -593,25 +679,19 @@ function initStickyBars() {
 
   function onScroll() {
     const y = window.scrollY;
-    if (applyBar) {
-      applyBar.style.transform = y > 360 ? 'translateY(0)' : 'translateY(100%)';
-    }
+    if (applyBar) applyBar.style.transform = y > 360 ? 'translateY(0)' : 'translateY(100%)';
     if (floatBar) {
-      floatBar.setAttribute('aria-hidden', y < 200 ? 'true' : 'false');
-      floatBar.style.opacity = y < 200 ? '0' : '1';
-      floatBar.style.pointerEvents = y < 200 ? 'none' : 'auto';
+      const show = y >= 200;
+      floatBar.setAttribute('aria-hidden', show ? 'false' : 'true');
+      floatBar.style.opacity = show ? '1' : '0';
+      floatBar.style.pointerEvents = show ? 'auto' : 'none';
     }
   }
   on(window, 'scroll', onScroll, { passive: true });
   onScroll();
 
   const toTopBtn = $('#toTopBtn');
-  if (toTopBtn) {
-    on(toTopBtn, 'click', (e) => {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  if (toTopBtn) on(toTopBtn, 'click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 }
 
 function initContactForm() {
@@ -641,17 +721,12 @@ function initChatGPTSection() {
         const original = btnCopy.textContent;
         btnCopy.textContent = 'コピーしました！';
         setTimeout(() => (btnCopy.textContent = original), 1400);
-      } catch (e) {
-        ta.select();
-        document.execCommand('copy');
+      } catch {
+        ta.select(); document.execCommand('copy');
       }
     });
   }
-  if (btnOpen) {
-    on(btnOpen, 'click', () => {
-      window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer');
-    });
-  }
+  if (btnOpen) on(btnOpen, 'click', () => window.open('https://chat.openai.com/', '_blank', 'noopener,noreferrer'));
 }
 
 function initHeroMediaFallbacks() {
@@ -663,16 +738,12 @@ function initHeroMediaFallbacks() {
 function initCultureStripAnimations() {
   const strip = $('.culture-strip');
   if (!strip || prefersReducedMotion()) return;
-
   const motifs = $$('.culture-strip .motif', strip);
   function onScroll() {
     const rect = strip.getBoundingClientRect();
     if (rect.top > window.innerHeight || rect.bottom < 0) return;
     const progress = 1 - Math.abs(rect.top) / (window.innerHeight + rect.height);
-    motifs.forEach((m, i) => {
-      const factor = (i + 1) * 4;
-      m.style.transform = `translateY(${(1 - progress) * factor}px)`;
-    });
+    motifs.forEach((m, i) => { const factor = (i + 1) * 4; m.style.transform = `translateY(${(1 - progress) * factor}px)`; });
   }
   on(window, 'scroll', onScroll, { passive: true });
   onScroll();
@@ -688,10 +759,10 @@ function normalizeIconSizes() {
 }
 
 /* ----------------------------------------------------------
-   14) Boot sequence
+   12) Boot sequence
 -----------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
-  // 1) Apply Japanese language
+  // 1) Apply Japanese language + static i18n strings
   applyLangToHtmlRoot();
   applyI18nStaticText();
 
@@ -701,9 +772,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3) Hero typewriter
   const heroNode  = $('#heroType');
   const heroTexts = I18N.jp.heroTexts || [];
-  if (heroNode && heroTexts.length > 0) {
-    typewriter(heroNode, heroTexts);
-  }
+  if (heroNode && heroTexts.length > 0) typewriter(heroNode, heroTexts);
 
   // 4) Carousels
   makeCarousel('#benefitSlides', '#bPrev', '#bNext');
@@ -721,4 +790,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroMediaFallbacks();
   initCultureStripAnimations();
   normalizeIconSizes();
+
+  // 8) Links & media (ADDED)
+  wireExternalLinks();
+  wireIntroMedia();
 });
