@@ -36,7 +36,6 @@
      23) Reveal-on-Scroll Animations
      24) Media Queries: Responsive Tweaks
      25) Accessibility: Focus, Reduced Motion, Forced Colors
-     26) Dark Mode (optional theming)
      27) Print Styles
      28) Misc Helpers (z-index, opacity, cursor, text helpers)
    ============================================================================ */
@@ -1130,65 +1129,6 @@ button:focus-visible,
   .btn.primary { background: Highlight; color: HighlightText; }
   .site-header { border-bottom-color: ButtonText; }
   .drawer, .sidenav { border-color: ButtonText; }
-}
-
-
-/* ============================================================================
-   26) Dark Mode (optional theming)
-   - Only applies if you add: <html data-theme="dark"> or @media prefers-color-scheme
-============================================================================ */
-
-html[data-theme="dark"] {
-  --bg: #0f1722;
-  --bg-soft: #151e2b;
-  --bg-strong: #0b1220;
-  --card: #121a27;
-  --line: #203047;
-  --line-strong: #2a3b58;
-  --text: #e7eef7;
-  --muted: #a9b7c7;
-  --muted-2: #9fb0c3;
-  --muted-3: #7f8da1;
-  --shadow-1: 0 1px 2px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.28);
-  --shadow-2: 0 8px 20px rgba(0,0,0,.45), 0 4px 10px rgba(0,0,0,.35);
-  --shadow-3: 0 22px 52px rgba(0,0,0,.55), 0 12px 22px rgba(0,0,0,.45);
-}
-@media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) {
-    --bg: #0f1722;
-    --bg-soft: #151e2b;
-    --bg-strong: #0b1220;
-    --card: #121a27;
-    --line: #203047;
-    --line-strong: #2a3b58;
-    --text: #e7eef7;
-    --muted: #a9b7c7;
-    --muted-2: #9fb0c3;
-    --muted-3: #7f8da1;
-    --shadow-1: 0 1px 2px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.28);
-    --shadow-2: 0 8px 20px rgba(0,0,0,.45), 0 4px 10px rgba(0,0,0,.35);
-    --shadow-3: 0 22px 52px rgba(0,0,0,.55), 0 12px 22px rgba(0,0,0,.45);
-  }
-
-  /* slight contrast tweaks for dark */
-  .site-header {
-    background: color-mix(in srgb, #0b1220 86%, transparent);
-    border-bottom-color: var(--line);
-  }
-  .brand-logo { background: #0b1220; }
-  .site-nav a:hover { background: #0b1220; }
-  .icon-card, .card, .slide, .stat, .timeline li, .faq .q, .faq .a {
-    background: #0f1724;
-    border-color: var(--line);
-  }
-  .faq .a { background: #0f1828; }
-  .ctrl, .to-top, .hamburger, .lang-btn { background: #0f1724; }
-  .bg-connectors { filter: none; opacity: .6; }
-  .hero-bg {
-    background:
-      radial-gradient(800px 300px at 10% 0%, rgba(59,130,246,.15), transparent 40%),
-      radial-gradient(600px 280px at 100% 0%, rgba(255,0,130,.15), transparent 40%);
-  }
 }
 
 
