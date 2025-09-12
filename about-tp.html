@@ -27,19 +27,24 @@
 
 <style>
 :root {
-  --tp-primary: #FF0066;
-  --tp-primary-dark: #E6005C;
-  --tp-secondary: #00BFFF;
-  --tp-accent: #FFD700;
-  --tp-dark: #1A1A2E;
-  --tp-light: #F5F5F5;
-  --tp-white: #FFFFFF;
-  --tp-text: #333333;
-  --tp-text-light: #666666;
-  --tp-border: #E0E0E0;
-  --tp-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  --tp-radius: 8px;
-  --tp-transition: all 0.3s ease;
+  --tp-black: #000000;
+  --tp-dark: #1a1a1a;
+  --tp-charcoal: #2d2d2d;
+  --tp-gray-dark: #4a4a4a;
+  --tp-gray: #666666;
+  --tp-gray-light: #999999;
+  --tp-silver: #cccccc;
+  --tp-light: #e5e5e5;
+  --tp-off: #f5f5f5;
+  --tp-white: #ffffff;
+  --accent-purple: #780096;
+  --accent-pink: #ff0082;
+  --max: 1050px;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
+  --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
 }
 
 * {
@@ -48,579 +53,782 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Noto Sans JP', sans-serif;
-  line-height: 1.6;
-  color: var(--tp-text);
+  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--tp-dark);
+  line-height: 1.75;
   background: var(--tp-white);
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "palt" 1;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Header Styles */
+/* Header */
 header {
-  background: var(--tp-white);
-  box-shadow: var(--tp-shadow);
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
+  background: rgba(255,255,255,0.97);
+  border-bottom: 1px solid var(--tp-light);
   z-index: 1000;
-  transition: var(--tp-transition);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-xs);
 }
 
 .header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-  max-width: 1200px;
+  max-width: var(--max);
   margin: 0 auto;
+  padding: 0.75rem 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  text-decoration: none;
+  gap: 0.625rem;
 }
 
 .brand img {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  object-fit: contain;
 }
 
 .brand-text {
   display: flex;
   flex-direction: column;
+  line-height: 1.2;
 }
 
 .brand-name {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: var(--tp-primary);
-  letter-spacing: -0.5px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--tp-black);
 }
 
 .brand-tagline {
-  font-size: 0.75rem;
-  color: var(--tp-text-light);
-}
-
-nav[aria-label="メインナビゲーション"] {
-  flex: 1;
-  margin: 0 40px;
+  font-size: 0.7rem;
+  color: var(--tp-gray);
 }
 
 nav ul {
   display: flex;
+  gap: 1.25rem;
   list-style: none;
-  gap: 30px;
-  justify-content: center;
+  align-items: center;
 }
 
 nav a {
-  color: var(--tp-text);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: var(--tp-transition);
+  font-size: 0.85rem;
   position: relative;
+  transition: all 0.3s;
+  padding: 0.2rem 0;
 }
 
-nav a:hover {
-  color: var(--tp-primary);
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--tp-black);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after,
+nav a:focus::after {
+  width: 100%;
 }
 
 nav a[aria-current="page"] {
-  color: var(--tp-primary);
+  font-weight: 600;
 }
 
 nav a[aria-current="page"]::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--tp-primary);
+  width: 100%;
 }
 
 .apply-btn {
-  background: var(--tp-primary);
-  color: var(--tp-white) !important;
-  padding: 10px 20px;
-  border-radius: var(--tp-radius);
-  font-weight: 700;
+  background: var(--accent-purple);
+  color: var(--tp-white);
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 600;
+  border: 2px solid var(--accent-purple);
+  transition: all 0.3s;
 }
 
 .apply-btn:hover {
-  background: var(--tp-primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255,0,102,0.3);
+  background: var(--tp-white);
+  color: var(--accent-purple);
 }
 
-/* Mobile Toggle */
+.apply-btn::after {
+  display: none;
+}
+
+/* Mobile Menu */
 .mobile-toggle {
   display: none;
-  flex-direction: column;
-  background: none;
-  border: none;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 2px solid var(--tp-black);
+  border-radius: 4px;
   cursor: pointer;
-  padding: 4px;
+  position: relative;
 }
 
 .mobile-toggle span {
-  width: 25px;
-  height: 3px;
-  background: var(--tp-dark);
-  margin: 3px 0;
-  transition: var(--tp-transition);
-  border-radius: 2px;
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--tp-black);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s;
+}
+
+.mobile-toggle span:nth-child(1) { top: 10px; }
+.mobile-toggle span:nth-child(2) { top: 17px; }
+.mobile-toggle span:nth-child(3) { bottom: 10px; }
+
+.mobile-toggle.active span:nth-child(1) {
+  transform: translateX(-50%) rotate(45deg);
+  top: 17px;
+}
+
+.mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle.active span:nth-child(3) {
+  transform: translateX(-50%) rotate(-45deg);
+  bottom: 17px;
 }
 
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 70px;
+  top: 60px;
   left: 0;
   right: 0;
   background: var(--tp-white);
-  box-shadow: var(--tp-shadow);
-  max-height: calc(100vh - 70px);
+  border-top: 1px solid var(--tp-light);
+  box-shadow: var(--shadow-lg);
+  max-height: calc(100vh - 60px);
   overflow-y: auto;
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
+  z-index: 999;
 }
 
 .mobile-menu.active {
-  transform: translateY(0);
+  display: block;
 }
 
 .mobile-menu ul {
   list-style: none;
-  padding: 20px;
+  padding: 0.875rem 0;
 }
 
 .mobile-menu a {
   display: block;
-  padding: 12px 0;
-  color: var(--tp-text);
-  text-decoration: none;
-  font-weight: 500;
-  border-bottom: 1px solid var(--tp-border);
+  padding: 0.625rem 1.25rem;
+  border-bottom: 1px solid var(--tp-light);
+  transition: background 0.3s;
 }
 
-/* Main Content */
-.about-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 120px 0 60px;
-  text-align: center;
+.mobile-menu a:hover {
+  background: var(--tp-off);
 }
 
+/* Container */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Section Header */
 .section-title {
-  font-size: 2.5rem;
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.625rem;
   font-weight: 900;
-  margin-bottom: 20px;
-  animation: fadeInUp 0.8s ease;
+  color: var(--tp-black);
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.95;
-  max-width: 600px;
-  margin: 0 auto;
-  animation: fadeInUp 0.8s ease 0.2s backwards;
+  text-align: center;
+  color: var(--tp-gray);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
 }
 
+/* About Section - Hero Style */
+.about-section {
+  padding: 120px 20px 56px;
+  background: linear-gradient(135deg, var(--tp-white) 0%, var(--tp-off) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  width: clamp(240px, 35vw, 520px);
+  height: clamp(240px, 35vw, 520px);
+  background-image: url('/photos/TPLogo11.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.035;
+  filter: saturate(0);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* About Content Blocks */
 .about-content {
-  padding: 60px 0;
-  background: var(--tp-white);
-}
-
-.content-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 60px;
-  margin-bottom: 40px;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  max-width: var(--max);
+  margin: 3rem auto;
+  padding: 2rem 0;
 }
 
-.content-block {
-  animation: fadeInUp 0.8s ease;
-}
-
-.content-block h2 {
-  font-size: 1.8rem;
-  color: var(--tp-primary);
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-.content-block p {
-  margin-bottom: 15px;
+.about-text {
+  color: var(--tp-gray-dark);
   line-height: 1.8;
-  color: var(--tp-text);
+}
+
+.about-text h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--tp-black);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.about-image {
+  position: relative;
+  text-align: center;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
 }
 
 /* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-top: 30px;
+  gap: 1.5rem;
+  margin: 2rem 0;
 }
 
 .stat-item {
   text-align: center;
-  padding: 20px;
-  background: var(--tp-light);
-  border-radius: var(--tp-radius);
-  transition: var(--tp-transition);
+  padding: 1.5rem;
+  background: var(--tp-white);
+  border: 1px solid var(--tp-light);
+  border-radius: 8px;
+  transition: all 0.3s;
 }
 
 .stat-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--tp-shadow);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--tp-black);
 }
 
 .stat-number {
   font-size: 2.5rem;
   font-weight: 900;
-  color: var(--tp-primary);
-  margin-bottom: 10px;
+  color: var(--accent-purple);
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 
 .stat-label {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--tp-text);
-  margin-bottom: 8px;
+  color: var(--tp-black);
+  margin-bottom: 0.3rem;
 }
 
 .stat-desc {
-  font-size: 0.9rem;
-  color: var(--tp-text-light);
+  font-size: 0.8rem;
+  color: var(--tp-gray);
 }
 
 /* Award List */
 .award-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-top: 25px;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .award-item {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background: var(--tp-light);
-  border-radius: var(--tp-radius);
-  transition: var(--tp-transition);
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background: var(--tp-white);
+  border: 1px solid var(--tp-light);
+  border-radius: 8px;
+  transition: all 0.3s;
 }
 
 .award-item:hover {
-  transform: translateX(10px);
-  box-shadow: var(--tp-shadow);
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-purple);
 }
 
 .award-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  flex-shrink: 0;
 }
 
 .award-item h3 {
   font-size: 1.1rem;
-  margin-bottom: 5px;
-  color: var(--tp-dark);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--tp-black);
 }
 
 .award-item p {
   margin: 0;
-  color: var(--tp-text-light);
-  font-size: 0.95rem;
+  color: var(--tp-gray);
+  font-size: 0.85rem;
 }
 
-/* Testimonials */
-.testimonial-section {
-  background: var(--tp-light);
-  padding: 60px 0;
+/* Testimonials Section */
+.testimonials {
+  padding: 56px 20px;
+  background: var(--tp-off);
 }
 
 .testimonial-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-.testimonial-card {
+.testimonial {
   background: var(--tp-white);
-  padding: 30px;
-  border-radius: var(--tp-radius);
-  box-shadow: var(--tp-shadow);
-  transition: var(--tp-transition);
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  border: 1px solid var(--tp-light);
+  transition: all 0.3s;
 }
 
-.testimonial-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+.testimonial:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
 }
 
-.testimonial-text {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: var(--tp-text);
-  margin-bottom: 20px;
-  font-style: italic;
+.testimonial::before {
+  content: '"';
+  font-size: 2.5rem;
+  color: var(--tp-light);
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-family: Georgia, serif;
+}
+
+.testimonial-content {
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--tp-dark);
 }
 
 .testimonial-author {
-  border-top: 1px solid var(--tp-border);
-  padding-top: 15px;
-}
-
-.testimonial-author strong {
-  display: block;
-  color: var(--tp-primary);
-  margin-bottom: 5px;
-}
-
-.testimonial-author span {
-  font-size: 0.85rem;
-  color: var(--tp-text-light);
-}
-
-/* CTA Section */
-.contact-min {
-  padding: 60px 0;
-  background: var(--tp-white);
-}
-
-.cta-links {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 40px;
-}
-
-.cta-link {
   display: flex;
   align-items: center;
-  padding: 20px;
-  background: var(--tp-white);
-  border: 2px solid var(--tp-border);
-  border-radius: var(--tp-radius);
-  text-decoration: none;
-  transition: var(--tp-transition);
-  gap: 15px;
+  gap: 0.75rem;
 }
 
-.cta-link:hover {
-  border-color: var(--tp-primary);
-  transform: translateY(-3px);
-  box-shadow: var(--tp-shadow);
+.author-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.cta-ico {
-  font-size: 2rem;
-  flex-shrink: 0;
-}
-
-.cta-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.cta-main strong {
-  color: var(--tp-text);
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-.cta-main em {
-  color: var(--tp-text-light);
-  font-style: normal;
+.author-info strong {
+  display: block;
   font-size: 0.85rem;
+  margin-bottom: 0.1rem;
 }
 
-.cta-arrow {
-  font-size: 1.5rem;
-  color: var(--tp-primary);
-  flex-shrink: 0;
+.author-info span {
+  color: var(--tp-gray);
+  font-size: 0.75rem;
+}
+
+/* Contact CTA Section */
+.contact {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, var(--tp-white) 0%, var(--tp-off) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(120,0,150,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: var(--max);
+  margin: 3rem auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-card {
+  background: var(--tp-white);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 2px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.contact-card:hover::before {
+  transform: scaleX(1);
+}
+
+.contact-card.casual {
+  background: linear-gradient(135deg, #fff 0%, #f8f3ff 100%);
+}
+
+.contact-card.line {
+  background: linear-gradient(135deg, #fff 0%, #f0fff4 100%);
+}
+
+.contact-card.apply {
+  background: linear-gradient(135deg, #fff 0%, #fff3f8 100%);
+}
+
+.contact-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.contact-card.casual:hover {
+  border-color: var(--accent-purple);
+}
+
+.contact-card.line:hover {
+  border-color: #06c755;
+}
+
+.contact-card.apply:hover {
+  border-color: var(--accent-pink);
+}
+
+.contact-card-icon {
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.contact-card:nth-child(2) .contact-card-icon {
+  animation-delay: 0.5s;
+}
+
+.contact-card:nth-child(3) .contact-card-icon {
+  animation-delay: 1s;
+}
+
+.contact-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--tp-black);
+}
+
+.contact-card p {
+  font-size: 0.95rem;
+  color: var(--tp-gray);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.contact-card-action {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tp-black);
+  position: relative;
+  transition: all 0.3s;
+}
+
+.contact-card:hover .contact-card-action {
+  transform: translateX(5px);
 }
 
 /* Footer */
 footer {
-  background: var(--tp-dark);
+  background: var(--tp-black);
   color: var(--tp-white);
-  padding: 60px 0 20px;
-  margin-top: 80px;
+  padding: 40px 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
 }
 
 .footer-content {
+  max-width: var(--max);
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0.875rem;
 }
 
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.625rem;
 }
 
 .footer-logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  filter: brightness(0) invert(1);
 }
 
 .footer-logo-text {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: var(--tp-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
 .footer-desc {
-  line-height: 1.8;
-  opacity: 0.9;
-}
-
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.badge-item {
-  background: rgba(255,255,255,0.1);
-  padding: 8px 16px;
-  border-radius: 20px;
+  opacity: 0.8;
+  line-height: 1.75;
   font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-.footer-cta {
-  margin-top: 10px;
-}
-
-.btn-accent {
-  background: var(--tp-primary);
-  color: var(--tp-white);
-  padding: 12px 30px;
-  border-radius: var(--tp-radius);
-  text-decoration: none;
-  display: inline-block;
-  font-weight: 700;
-  transition: var(--tp-transition);
-}
-
-.btn-accent:hover {
-  background: var(--tp-primary-dark);
-  transform: translateY(-2px);
 }
 
 .footer-section h3 {
-  margin-bottom: 20px;
-  color: var(--tp-primary);
-  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
 }
 
 .footer-section ul {
   list-style: none;
 }
 
+.footer-section li {
+  margin-bottom: 0.3rem;
+}
+
 .footer-section a {
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  display: block;
-  padding: 5px 0;
-  transition: var(--tp-transition);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
 }
 
 .footer-section a:hover {
+  opacity: 1;
+}
+
+.badges {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badges .badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.footer-cta {
+  margin-top: 1rem;
+}
+
+.btn-accent {
+  background: var(--accent-purple);
   color: var(--tp-white);
-  transform: translateX(5px);
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s;
+  text-align: center;
+  border: 2px solid var(--accent-purple);
+  font-size: 0.9rem;
+}
+
+.btn-accent:hover {
+  background: var(--tp-white);
+  color: var(--accent-purple);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(120,0,150,0.15);
 }
 
 .footer-bottom {
   text-align: center;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  opacity: 0.8;
-  font-size: 0.9rem;
+  padding-top: 12px;
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
 
 .footer-bottom a {
   color: var(--tp-white);
-  text-decoration: none;
-  margin: 0 10px;
+  text-decoration: underline;
+  margin: 0 0.3rem;
 }
 
-/* Floating Elements */
+.footer-bottom a:hover {
+  opacity: 1;
+}
+
+/* Floating Apply */
 .floating-apply {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: var(--tp-primary);
+  bottom: 20px;
+  right: 20px;
+  background: var(--accent-purple);
   color: var(--tp-white);
-  padding: 15px 25px;
+  padding: 0.75rem 1.25rem;
   border-radius: 50px;
-  text-decoration: none;
-  font-weight: 700;
-  box-shadow: 0 4px 20px rgba(255,0,102,0.4);
-  transition: var(--tp-transition);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(120,0,150,0.3);
   z-index: 999;
+  transition: all 0.3s;
+  border: 2px solid var(--accent-purple);
+  font-size: 0.85rem;
 }
 
 .floating-apply:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 30px rgba(255,0,102,0.5);
+  box-shadow: 0 6px 20px rgba(120,0,150,0.4);
+  background: var(--tp-white);
+  color: var(--accent-purple);
 }
 
+/* Back to Top */
 .back-to-top {
   position: fixed;
-  bottom: 100px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
+  bottom: 20px;
+  right: 90px;
+  width: 36px;
+  height: 36px;
   background: var(--tp-white);
-  color: var(--tp-primary);
-  border: 2px solid var(--tp-primary);
+  border: 2px solid var(--tp-black);
   border-radius: 50%;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--tp-transition);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
   z-index: 998;
 }
 
 .back-to-top.show {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
 
 .back-to-top:hover {
-  background: var(--tp-primary);
+  background: var(--tp-black);
   color: var(--tp-white);
-  transform: translateY(-5px);
+  transform: translateY(-2px);
 }
 
 /* Animations */
@@ -635,24 +843,31 @@ footer {
   }
 }
 
+.fade-in {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
 /* Responsive */
-@media (max-width: 768px) {
-  nav[aria-label="メインナビゲーション"] {
+@media (max-width: 900px) {
+  nav {
     display: none;
   }
   
   .mobile-toggle {
-    display: flex;
-  }
-  
-  .mobile-menu {
     display: block;
   }
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+  }
   
-  .content-grid,
-  .stats-grid,
-  .cta-links,
-  .testimonial-cards {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-cards {
     grid-template-columns: 1fr;
   }
   
@@ -661,24 +876,26 @@ footer {
     text-align: center;
   }
   
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .stat-number {
-    font-size: 2rem;
-  }
-  
   .floating-apply {
-    bottom: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    font-size: 0.9rem;
+    bottom: 14px;
+    right: 14px;
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
   }
   
   .back-to-top {
-    bottom: 80px;
-    right: 20px;
+    right: 75px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
   }
 }
 </style>
@@ -688,9 +905,9 @@ footer {
 <header role="banner">
   <div class="header-inner">
     <div class="brand">
-      <img src="/photos/TPLogo11.png" alt="TP Japan" width="40" height="40">
+      <img src="/photos/TPLogo11.png" alt="Teleperformance Japan" width="40" height="40">
       <div class="brand-text">
-        <span class="brand-name">TP</span>
+        <span class="brand-name">Teleperformance</span>
         <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
       </div>
     </div>
@@ -735,92 +952,98 @@ footer {
 
 <main>
   <!-- Company Overview & Mission -->
-  <section class="about-content">
-    <div class="container">
-      <div class="content-grid">
-        <div class="content-block">
-          <h2 class="section-heading">テレパフォーマンスについて</h2>
-          <p>
-            テレパフォーマンス（TP）は1978年にフランス・パリで設立されたグローバルBPO企業です。
-            世界100カ国以上、50万人以上の従業員を擁し、カスタマーエクスペリエンスの分野で
-            世界をリードしています。
-          </p>
-          <p>
-            最先端のテクノロジーと優れた人材を融合させ、世界中の有名ブランドに
-            最高のカスタマーエクスペリエンスを提供。現在、日本語スピーカーを対象に、
-            マレーシアおよびタイにて積極的な採用活動を行っています。
-          </p>
-          <p>
-            新卒の方から経験豊富なプロフェッショナルまで、皆様の語学力と個性が活かせる、
-            多文化で働きやすい職場環境をご用意しています。
-          </p>
-        </div>
-        <div class="content-block">
-          <h2 class="section-heading">私たちのミッション</h2>
-          <p>
-            「Each interaction matters」- 一つひとつの顧客対応に真摯に向き合い、
-            クライアント企業の成功を支援することが私たちの使命です。
-          </p>
-          <p>
-            多様性を尊重し、従業員一人ひとりの成長を支援する環境づくりに注力。
-            グローバルな視野と、ローカルな細やかさを併せ持つサービスを提供します。
-          </p>
-          <p>
-            日本語スピーカーの皆様にとって、海外でのキャリア構築が
-            より身近で魅力的な選択肢となるよう、充実したサポート体制を整えています。
-          </p>
-        </div>
+  <section>
+    <div class="about-content">
+      <div class="about-text">
+        <h2>テレパフォーマンスについて</h2>
+        <p>
+          テレパフォーマンス（TP）は1978年にフランス・パリで設立されたグローバルBPO企業です。
+          世界100カ国以上、50万人以上の従業員を擁し、カスタマーエクスペリエンスの分野で
+          世界をリードしています。
+        </p>
+        <p>
+          最先端のテクノロジーと優れた人材を融合させ、世界中の有名ブランドに
+          最高のカスタマーエクスペリエンスを提供。現在、日本語スピーカーを対象に、
+          マレーシアおよびタイにて積極的な採用活動を行っています。
+        </p>
+        <p>
+          新卒の方から経験豊富なプロフェッショナルまで、皆様の語学力と個性が活かせる、
+          多文化で働きやすい職場環境をご用意しています。
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="/photos/G TOWER.jpg" alt="TP オフィスビル" loading="lazy" decoding="async">
+      </div>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-image">
+        <img src="/photos/great place to work.png" alt="Great Place to Work 認定" loading="lazy" decoding="async">
+      </div>
+      <div class="about-text">
+        <h2>私たちのミッション</h2>
+        <p>
+          「Each interaction matters」- 一つひとつの顧客対応に真摯に向き合い、
+          クライアント企業の成功を支援することが私たちの使命です。
+        </p>
+        <p>
+          多様性を尊重し、従業員一人ひとりの成長を支援する環境づくりに注力。
+          グローバルな視野と、ローカルな細やかさを併せ持つサービスを提供します。
+        </p>
+        <p>
+          日本語スピーカーの皆様にとって、海外でのキャリア構築が
+          より身近で魅力的な選択肢となるよう、充実したサポート体制を整えています。
+        </p>
       </div>
     </div>
   </section>
 
   <!-- TP Scale Information -->
-  <section class="about-content">
+  <section style="padding: 56px 20px; background: var(--tp-off);">
     <div class="container">
-      <div class="content-grid">
-        <div class="content-block">
-          <h2 class="section-heading">グローバル展開</h2>
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number">100+</div>
-              <div class="stat-label">拠点国数</div>
-              <p class="stat-desc">世界中にサービスセンターを展開</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">500,000+</div>
-              <div class="stat-label">従業員数</div>
-              <p class="stat-desc">多様な人材が活躍する職場</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">7,300+</div>
-              <div class="stat-label">日本人スタッフ</div>
-              <p class="stat-desc">マレーシア・タイ拠点合計（2025年6月）</p>
+      <h2 class="section-title">グローバル展開</h2>
+      <p class="section-subtitle">世界中にサービスセンターを展開</p>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">拠点国数</div>
+          <p class="stat-desc">世界中にサービスセンターを展開</p>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">500,000+</div>
+          <div class="stat-label">従業員数</div>
+          <p class="stat-desc">多様な人材が活躍する職場</p>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">7,300+</div>
+          <div class="stat-label">日本人スタッフ</div>
+          <p class="stat-desc">マレーシア・タイ拠点合計（2025年6月）</p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 3rem;">
+        <h2 class="section-title">認定・受賞歴</h2>
+        <div class="award-list">
+          <div class="award-item">
+            <span class="award-icon">🏆</span>
+            <div>
+              <h3>Great Place to Work®</h3>
+              <p>マレーシア拠点 6年連続受賞</p>
             </div>
           </div>
-        </div>
-        <div class="content-block">
-          <h2 class="section-heading">認定・受賞歴</h2>
-          <div class="award-list">
-            <div class="award-item">
-              <span class="award-icon">🏆</span>
-              <div>
-                <h3>Great Place to Work®</h3>
-                <p>マレーシア拠点 6年連続受賞</p>
-              </div>
+          <div class="award-item">
+            <span class="award-icon">🌍</span>
+            <div>
+              <h3>業界リーダー</h3>
+              <p>BPO業界で世界最大規模の企業</p>
             </div>
-            <div class="award-item">
-              <span class="award-icon">🌍</span>
-              <div>
-                <h3>業界リーダー</h3>
-                <p>BPO業界で世界最大規模の企業</p>
-              </div>
-            </div>
-            <div class="award-item">
-              <span class="award-icon">📈</span>
-              <div>
-                <h3>成長企業</h3>
-                <p>日本語スピーカー採用を継続的に拡大中</p>
-              </div>
+          </div>
+          <div class="award-item">
+            <span class="award-icon">📈</span>
+            <div>
+              <h3>成長企業</h3>
+              <p>日本語スピーカー採用を継続的に拡大中</p>
             </div>
           </div>
         </div>
@@ -828,68 +1051,81 @@ footer {
     </div>
   </section>
 
-  <!-- Testimonial Cards -->
-  <section class="testimonial-section">
+  <!-- Testimonials Section -->
+  <section class="testimonials">
     <div class="container">
       <h2 class="section-title">社員の声</h2>
+      <p class="section-subtitle">実際に働くメンバーのリアルな感想</p>
       <div class="testimonial-cards">
-        <div class="testimonial-card">
-          <p class="testimonial-text">
+        <div class="testimonial">
+          <p class="testimonial-content">
             「違いを尊重し合える環境が心地よいです。日本にいた時より、
             周りの目を気にしなくなり、自分らしく働けています。
             キャリアアップの機会も多く、やりがいを感じています。」
           </p>
           <div class="testimonial-author">
-            <strong>Maho</strong>
-            <span>採用チーム（クアラルンプール）</span>
+            <img src="/photos/Maho.png" alt="Maho" class="author-img">
+            <div class="author-info">
+              <strong>Maho</strong>
+              <span>採用チーム（クアラルンプール）</span>
+            </div>
           </div>
         </div>
-        <div class="testimonial-card">
-          <p class="testimonial-text">
+        <div class="testimonial">
+          <p class="testimonial-content">
             「英語が苦手でも、日本語メインの仕事からスタートできたので
             安心でした。徐々に英語を使う機会も増え、自然とスキルアップ
             できました。サポート体制が充実しているのが心強いです。」
           </p>
           <div class="testimonial-author">
-            <strong>Takeshi</strong>
-            <span>カスタマーサポート（ペナン）</span>
+            <img src="/photos/Akito san.jpg" alt="Takeshi" class="author-img">
+            <div class="author-info">
+              <strong>Takeshi</strong>
+              <span>カスタマーサポート（ペナン）</span>
+            </div>
           </div>
         </div>
-        <div class="testimonial-card">
-          <p class="testimonial-text">
+        <div class="testimonial">
+          <p class="testimonial-content">
             「物価が安く、生活の質が格段に上がりました。
             プール付きコンドミニアムに住み、週末は近隣国へ旅行。
             仕事もプライベートも充実した毎日を送っています。」
           </p>
           <div class="testimonial-author">
-            <strong>Yuki</strong>
-            <span>プロジェクトリーダー（バンコク）</span>
+            <img src="/photos/Joseph on vacation.jpg" alt="Yuki" class="author-img">
+            <div class="author-info">
+              <strong>Yuki</strong>
+              <span>プロジェクトリーダー（バンコク）</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="contact-min" id="contact">
+  <!-- Contact CTA Section -->
+  <section class="contact">
     <div class="container">
       <h2 class="section-title">お問い合わせ・各種リンク</h2>
       <p class="section-subtitle">目的にあわせて、すぐアクセス</p>
-      <div class="cta-links">
-        <a class="cta-link" href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">
-          <span class="cta-ico" aria-hidden="true">🗓️</span>
-          <span class="cta-main"><strong>カジュアル面談予約</strong><em>30分オンラインで気軽に相談</em></span>
-          <span class="cta-arrow" aria-hidden="true">→</span>
+      <div class="contact-cards">
+        <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener" class="contact-card casual">
+          <span class="contact-card-icon">🗓️</span>
+          <h3>カジュアル面談予約</h3>
+          <p>30分オンラインで気軽に相談</p>
+          <span class="contact-card-action">予約する →</span>
         </a>
-        <a class="cta-link" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">
-          <span class="cta-ico" aria-hidden="true">💬</span>
-          <span class="cta-main"><strong>LINE公式アカウント</strong><em>最新募集・イベント情報を配信</em></span>
-          <span class="cta-arrow" aria-hidden="true">→</span>
+        <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener" class="contact-card line">
+          <span class="contact-card-icon">💬</span>
+          <h3>LINE公式アカウント</h3>
+          <p>最新募集・イベント情報を配信</p>
+          <span class="contact-card-action">友達追加 →</span>
         </a>
-        <a class="cta-link" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener">
-          <span class="cta-ico" aria-hidden="true">✍️</span>
-          <span class="cta-main"><strong>応募ページ</strong><em>履歴書アップロードで簡単エントリー</em></span>
-          <span class="cta-arrow" aria-hidden="true">→</span>
+        <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="contact-card apply">
+          <span class="contact-card-icon">✍️</span>
+          <h3>応募ページ</h3>
+          <p>履歴書アップロードで簡単エントリー</p>
+          <span class="contact-card-action">応募する →</span>
         </a>
       </div>
     </div>
@@ -900,8 +1136,8 @@ footer {
   <div class="footer-content">
     <div class="footer-brand">
       <div class="footer-logo">
-        <img src="/photos/TPLogo11.png" alt="TP">
-        <span class="footer-logo-text">TP</span>
+        <img src="/photos/TPLogo11.png" alt="Teleperformance">
+        <span class="footer-logo-text">Teleperformance</span>
       </div>
       <p class="footer-desc">
         世界100カ国以上で展開するグローバルBPO企業。<br>
@@ -911,7 +1147,7 @@ footer {
         <span class="badge-item">🏆 Great Place to Work® 6年連続</span>
       </div>
       <div class="footer-cta">
-        <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn-accent">ご応募はこちら</a>
       </div>
     </div>
     <div class="footer-section">
@@ -943,7 +1179,7 @@ footer {
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 TP. All rights reserved. | 
+    <p>&copy; 2025 Teleperformance. All rights reserved. | 
       <a href="/privacy.html">プライバシーポリシー</a> | 
       <a href="/terms.html">利用規約</a>
     </p>
@@ -954,98 +1190,90 @@ footer {
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
 <script>
-// Mobile menu toggle
-const mobileToggle = document.getElementById('mobileToggle');
-const mobileMenu = document.getElementById('mobileMenu');
+// Mobile Menu Toggle
+(function(){
+  const toggle = document.getElementById('mobileToggle');
+  const menu = document.getElementById('mobileMenu');
+  
+  if(toggle && menu){
+    toggle.addEventListener('click', function(){
+      toggle.classList.toggle('active');
+      menu.classList.toggle('active');
+    });
+    
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('active');
+        menu.classList.remove('active');
+      });
+    });
+  }
+})();
 
-if(mobileToggle && mobileMenu) {
-  mobileToggle.addEventListener('click', function() {
-    mobileMenu.classList.toggle('active');
-    const spans = this.querySelectorAll('span');
-    if(mobileMenu.classList.contains('active')) {
-      spans[0].style.transform = 'rotate(45deg) translateY(8px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
-    } else {
-      spans[0].style.transform = '';
-      spans[1].style.opacity = '';
-      spans[2].style.transform = '';
-    }
-  });
-}
-
-// Back to top button
-const backToTop = document.getElementById('backToTop');
-
-if(backToTop) {
-  window.addEventListener('scroll', function() {
-    if(window.scrollY > 300) {
+// Back to Top Button
+(function(){
+  const backToTop = document.getElementById('backToTop');
+  
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 300){
       backToTop.classList.add('show');
     } else {
       backToTop.classList.remove('show');
     }
   });
   
-  backToTop.addEventListener('click', function() {
+  backToTop.addEventListener('click', function(){
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   });
-}
+})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
+  anchor.addEventListener('click', function(e){
+    const href = this.getAttribute('href');
+    if(href === '#') return;
+    
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if(target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+    const target = document.querySelector(href);
+    if(target){
+      const offset = 70;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
       });
     }
   });
 });
 
 // Add animation on scroll
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
+(function(){
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+  
+  // Observe elements
+  const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card');
+  elements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s, transform 0.6s';
+    observer.observe(el);
   });
-}, observerOptions);
-
-// Observe elements with animation classes
-document.querySelectorAll('.content-block, .stat-item, .award-item, .testimonial-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'all 0.6s ease';
-  observer.observe(el);
-});
-
-// Header scroll effect
-const header = document.querySelector('header');
-let lastScroll = 0;
-
-window.addEventListener('scroll', function() {
-  const currentScroll = window.scrollY;
-  
-  if(currentScroll > 100) {
-    header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-  } else {
-    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-  }
-  
-  lastScroll = currentScroll;
-});
+})();
 </script>
 
 </body>
