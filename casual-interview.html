@@ -1,693 +1,428 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1a237e" />
-  <title>Casual Interview — Confirmation & Scheduling</title>
-  <meta name="description" content="Schedule and prepare for a casual interview. Pick a time, choose online or onsite, and get a calendar invite + WhatsApp reminder."/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>カジュアル面談 | TP マレーシア・タイ</title>
+<meta name="description" content="カジュアル面談 実施中。Microsoft Teamsで30分、日本語で気軽に相談。面接ではありません。未経験や転職を迷っている方も歓迎。"/>
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="photos/TPLogo11.png">
+<link rel="apple-touch-icon" href="photos/TPLogo11.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tp-black:#000;--tp-dark:#1a1a1a;--tp-gray:#666;--tp-light:#e5e5e5;--tp-off:#f5f5f5;--tp-white:#fff;
+  --accent-purple:#780096;--max:1050px;--shadow-sm:0 2px 4px rgba(0,0,0,.08);--shadow-md:0 4px 10px rgba(0,0,0,.12);
+}
 
-  <style>
-    /* ========================================
-       Design System
-       ======================================== */
-    :root {
-      --bg: #f6f7fb;
-      --card: #ffffff;
-      --ink: #12141a;
-      --muted: #5f6b7a;
-      --line: #e6e8ee;
-      --primary: #1a237e; /* deep indigo */
-      --accent: #780096;  /* purple accent (user-preferred) */
-      --success: #0f9d58;
-      --warning: #f59e0b;
-      --danger:  #d11a2a;
-      --radius: 14px;
-      --shadow: 0 10px 30px rgba(20, 24, 40, 0.12);
-    }
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--tp-dark);background:var(--tp-white);line-height:1.75;-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1}
+a{color:inherit;text-decoration:none}
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1116;
-        --card: #151925;
-        --ink: #e8ecf2;
-        --muted: #9aa5b1;
-        --line: #2a3242;
-        --shadow: 0 10px 30px rgba(0,0,0,0.5);
-      }
-    }
+/* Header (same look & feel) */
+header{position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--tp-light);z-index:1000;backdrop-filter:blur(10px)}
+.header-inner{max-width:var(--max);margin:0 auto;padding:.75rem 20px;display:flex;justify-content:space-between;align-items:center;gap:1.25rem}
+.brand{display:flex;align-items:center;gap:.625rem}
+.brand img{width:40px;height:40px;object-fit:contain}
+.brand-text{line-height:1.2}
+.brand-name{font-size:1rem;font-weight:800}
+.brand-tagline{font-size:.7rem;color:#777}
+nav ul{list-style:none;display:flex;gap:1.25rem;align-items:center}
+nav a{font-size:.85rem;position:relative;padding:.2rem 0}
+nav a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--tp-black);transition:width .25s}
+nav a:hover::after,nav a[aria-current="page"]::after{width:100%}
+.apply-btn{background:var(--accent-purple);color:#fff;padding:.5rem 1.1rem;border-radius:4px;font-weight:700;border:2px solid var(--accent-purple);transition:.25s}
+.apply-btn:hover{background:#fff;color:var(--accent-purple)}
+.mobile-toggle{display:none;width:36px;height:36px;background:transparent;border:2px solid var(--tp-black);border-radius:4px;position:relative}
+.mobile-toggle span{display:block;width:18px;height:2px;background:var(--tp-black);position:absolute;left:50%;transform:translateX(-50%);transition:.25s}
+.mobile-toggle span:nth-child(1){top:10px}.mobile-toggle span:nth-child(2){top:17px}.mobile-toggle span:nth-child(3){bottom:10px}
+.mobile-toggle.active span:nth-child(1){transform:translateX(-50%) rotate(45deg);top:17px}
+.mobile-toggle.active span:nth-child(2){opacity:0}
+.mobile-toggle.active span:nth-child(3){transform:translateX(-50%) rotate(-45deg);bottom:17px}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:#fff;border-top:1px solid var(--tp-light);box-shadow:var(--shadow-md);z-index:999}
+.mobile-menu.active{display:block}
+.mobile-menu a{display:block;padding:.7rem 1rem;border-bottom:1px solid var(--tp-light)}
+@media (max-width:900px){nav{display:none}.mobile-toggle{display:block}}
 
-    /* Base */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans JP", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-    }
+/* Hero */
+.hero{min-height:58vh;display:flex;align-items:center;background:linear-gradient(135deg,#fff 0%,#f8f6fb 100%);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:6%;top:50%;width:420px;height:420px;background-image:url('photos/TPLogo11.png');background-size:contain;background-repeat:no-repeat;opacity:.05;transform:translateY(-50%)}
+.hero-inner{max-width:var(--max);margin:0 auto;padding:48px 20px;position:relative;z-index:1}
+.hero h1{font-family:'Zen Maru Gothic',serif;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.35;letter-spacing:-.02em;color:#000;font-weight:900;margin-bottom:.6rem}
+.hero p{color:#555;max-width:720px}
+.hero-cta{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.1rem}
+.btn{display:inline-block;padding:.8rem 1.4rem;border:2px solid #000;border-radius:6px;font-weight:800;font-size:.9rem;transition:.25s}
+.btn-primary{background:#000;color:#fff}
+.btn-primary:hover{background:#fff;color:#000}
+.btn-accent{background:var(--accent-purple);border-color:var(--accent-purple);color:#fff}
+.btn-accent:hover{background:#fff;color:var(--accent-purple)}
+.btn-secondary{background:#fff;color:#000}
+.btn-secondary:hover{background:#000;color:#fff}
 
-    /* Low-visibility watermark that does NOT affect layout or interactions */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(transparent 60%, rgba(0,0,0,0.02)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800"><g fill="%23b1b7c4" fill-opacity="0.10"><text x="50" y="200" font-family="Inter, Arial" font-size="120">Casual Interview</text><text x="50" y="360" font-family="Inter, Arial" font-size="90">Schedule • Prepare • Confirm</text></g></svg>');
-      background-repeat: no-repeat;
-      background-position: center 20vh;
-      background-size: 1200px auto;
-      pointer-events: none; /* don't interfere */
-      z-index: -1; /* behind everything */
-    }
+/* Sections */
+.section{padding:56px 20px}
+.container{max-width:var(--max);margin:0 auto}
+.section-title{text-align:center;font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:#000;letter-spacing:-.02em;margin-bottom:.6rem}
+.section-sub{color:#666;text-align:center;max-width:800px;margin:0 auto 1.6rem}
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 18px; }
+/* Key Points */
+.points{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.point{background:#fff;border:1px solid var(--tp-light);border-radius:10px;padding:14px;box-shadow:var(--shadow-sm);transition:.25s}
+.point:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.point strong{display:block;font-weight:900;margin-bottom:4px}
+.point p{font-size:.88rem;color:#555}
+@media (max-width:900px){.points{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.points{grid-template-columns:1fr}}
 
-    header.site-header {
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-      gap: 12px; padding: 20px 0 6px;
-    }
-    .brand { display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .brand img { width: 40px; height: 40px; object-fit: contain; }
-    .brand h1 { font-size: 20px; margin: 0; letter-spacing: 0.3px; }
+/* How it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.step{background:#fff;border:1px solid var(--tp-light);border-radius:12px;padding:16px;box-shadow:var(--shadow-sm)}
+.step .no{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:999px;background:#000;color:#fff;font-weight:900;margin-bottom:.5rem}
+.step h3{font-size:1rem}
+.step p{font-size:.9rem;color:#555;margin-top:.25rem}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
 
-    .header-actions { display: flex; gap: 10px; justify-content: flex-end; }
-    .lang-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-    .lang-toggle button {
-      appearance: none; border: 0; background: transparent; color: var(--muted);
-      padding: 8px 14px; cursor: pointer; font-weight: 600; letter-spacing: .3px;
-    }
-    .lang-toggle button[aria-pressed="true"] { background: var(--card); color: var(--ink); }
+/* Agenda & Coverage */
+.split{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.card{background:#fff;border:1px solid var(--tp-light);border-radius:12px;box-shadow:var(--shadow-sm);padding:16px}
+.card h3{font-size:1rem;margin-bottom:.4rem}
+ul.check{list-style:none}
+ul.check li{position:relative;padding-left:1.1rem;margin:.4rem 0}
+ul.check li::before{content:"✔";position:absolute;left:0;top:.1rem;font-size:.85rem}
 
-    .mode-hint { color: var(--muted); font-size: 12px; text-align: center; margin-top: 4px; }
+/* TA Team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.member{background:#fff;border:1px solid var(--tp-light);border-radius:12px;padding:16px;text-align:center;box-shadow:var(--shadow-sm)}
+.member img{width:110px;height:110px;border-radius:50%;object-fit:cover;margin-bottom:.6rem;border:3px solid #eee}
+.member strong{display:block}
+.member span{display:block;font-size:.85rem;color:#666;margin-top:2px}
+@media (max-width:900px){.team{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.team{grid-template-columns:1fr}}
 
-    .hero {
-      margin: 10px 0 20px; padding: 18px; border: 1px solid var(--line); background: var(--card);
-      border-radius: var(--radius); box-shadow: var(--shadow);
-      display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px;
-    }
-    @media (max-width: 920px) { .hero { grid-template-columns: 1fr; } }
-    .hero h2 { font-size: 28px; margin: 6px 0 6px; }
-    .hero p  { margin: 8px 0; color: var(--muted); }
-    .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #fff; background: var(--primary); padding: 6px 10px; border-radius: 999px; }
-    .badge i { display:inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.15); }
+/* FAQ */
+.faq{max-width:760px;margin:0 auto}
+.faq-item{border:1px solid var(--tp-light);border-radius:10px;overflow:hidden;background:#fff;margin-bottom:.7rem}
+.faq-q{padding:14px 16px;font-weight:800;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:"+"}
+.faq-item.active .faq-q::after{content:"−"}
+.faq-a{max-height:0;overflow:hidden;padding:0 16px;transition:max-height .25s,padding .25s}
+.faq-item.active .faq-a{max-height:280px;padding:0 16px 14px}
+.faq-a p{color:#555;font-size:.95rem}
 
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
-    .card + .card { margin-top: 16px; }
+/* CTAs */
+.cta-center{text-align:center;margin-top:1.2rem}
+.cta-note{font-size:.85rem;color:#666;margin-top:.4rem}
+.link-ghost{display:inline-block;padding:.75rem 1.1rem;border:2px solid #000;border-radius:6px;font-weight:800}
 
-    .grid { display: grid; gap: 16px; }
-    .grid.cols-2 { grid-template-columns: 1fr 1fr; }
-    .grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-    @media (max-width: 920px) { .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; } }
+/* Footer */
+footer{background:#000;color:#fff;padding:40px 20px 16px;margin-top:40px;position:relative}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-purple),transparent)}
+.footer-content{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:2rem;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,.12)}
+.footer-logo{display:flex;align-items:center;gap:.6rem}
+.footer-logo img{width:40px;height:40px;filter:brightness(0) invert(1)}
+.footer-desc{opacity:.8;font-size:.9rem;margin-top:.4rem}
+.footer-section h3{font-size:.9rem;margin-bottom:.5rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+.footer-section ul{list-style:none}
+.footer-section li{margin:.3rem 0}
+.footer-section a{opacity:.8}
+.footer-section a:hover{opacity:1}
+.footer-bottom{text-align:center;opacity:.6;font-size:.8rem}
+@media (max-width:820px){.footer-content{grid-template-columns:1fr;text-align:center}}
 
-    .section { padding: 18px; }
-    .section h3 { margin: 0 0 8px; font-size: 18px; }
-    .section p  { margin: 6px 0; color: var(--muted); }
-
-    /* Form */
-    .form { display: grid; gap: 12px; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media (max-width: 720px) { .row { grid-template-columns: 1fr; } }
-    label { display: block; font-weight: 600; margin-bottom: 6px; }
-    input[type="text"], input[type="email"], select, textarea {
-      width: 100%; padding: 12px 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink);
-      outline: none; transition: border .2s ease;
-    }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(26,35,126,.08); }
-    .help { font-size: 12px; color: var(--muted); margin-top: 4px; }
-
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; letter-spacing:.3px;
-      border: 0; border-radius: 12px; padding: 12px 16px; cursor: pointer; }
-    .btn.primary { background: linear-gradient(180deg, var(--primary), #0f174f); color: #fff; }
-    .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
-    .btn.accent { background: linear-gradient(180deg, var(--accent), #5b006f); color: #fff; }
-    .btn:disabled { opacity: .5; cursor: not-allowed; }
-
-    .inline { display: inline-flex; gap: 8px; flex-wrap: wrap; }
-
-    /* Pills */
-    .pills { display: flex; gap: 8px; flex-wrap: wrap; }
-    .pill { padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; user-select: none; }
-    .pill[aria-pressed="true"] { background: #eef2ff; border-color: #c7d2fe; color: #1e1b4b; }
-
-    /* Summary */
-    .summary { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
-    .summary dl { display: grid; grid-template-columns: 140px 1fr; gap: 10px; margin: 0; }
-    .summary dt { font-weight: 700; color: var(--muted); }
-    .summary dd { margin: 0; }
-
-    /* Accordion */
-    details { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--card); }
-    details + details { margin-top: 10px; }
-    summary { font-weight: 700; cursor: pointer; }
-
-    /* Footer */
-    .site-footer { margin: 26px 0 50px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-
-    /* Toast */
-    .toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: #0b1225; color: #fff; padding: 10px 14px; border-radius: 999px; box-shadow: var(--shadow); font-size: 14px; display: none; }
-
-    /* Stepper */
-    .steps { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-    .step { display:flex; align-items:center; gap:8px; color: var(--muted); }
-    .step .dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--line); display:grid; place-items:center; font-size: 12px; }
-    .step.active { color: var(--ink); }
-    .step.active .dot { border-color: var(--primary); color: var(--primary); font-weight: 700; }
-
-    /* Utilities */
-    .hide { display: none !important; }
-  </style>
+/* Floating Apply & Back-to-top */
+.floating-apply{position:fixed;right:18px;bottom:20px;background:var(--accent-purple);color:#fff;border:2px solid var(--accent-purple);border-radius:999px;padding:.7rem 1.1rem;font-weight:800;box-shadow:0 6px 20px rgba(120,0,150,.35);z-index:999}
+.floating-apply:hover{background:#fff;color:var(--accent-purple)}
+.back-to-top{position:fixed;right:18px;bottom:78px;width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid #000;display:grid;place-items:center;opacity:0;visibility:hidden;transition:.25s;z-index:998}
+.back-to-top.show{opacity:1;visibility:visible}
+.back-to-top:hover{background:#000;color:#fff}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <!-- ===================== HEADER ===================== -->
-    <header class="site-header">
-      <div></div>
-      <div class="brand" aria-label="Brand">
-        <!-- Swap the src with your logo path -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Logo_Blue.svg" alt="Logo" aria-hidden="true" />
-        <h1 data-i18n="title">Casual Interview</h1>
+<header role="banner">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="photos/TPLogo11.png" alt="TP Japan">
+      <div class="brand-text">
+        <span class="brand-name">TP</span>
+        <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
       </div>
-      <div class="header-actions">
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <button type="button" id="btn-en" aria-pressed="true">EN</button>
-          <button type="button" id="btn-ja" aria-pressed="false">日本語</button>
-        </div>
-      </div>
-      <div class="mode-hint" id="timezone"></div>
-    </header>
-
-    <!-- ===================== HERO ===================== -->
-    <section class="hero card" aria-labelledby="hero-title">
-      <div class="section">
-        <span class="badge"><i></i><span data-i18n="hero.badge">Friendly chat • 30–45 min</span></span>
-        <h2 id="hero-title" data-i18n="hero.title">Let’s schedule your casual interview</h2>
-        <p data-i18n="hero.lede">Pick your preferred time, choose online or onsite, and instantly get a calendar invite + WhatsApp reminder.</p>
-
-        <div class="steps" aria-label="Process">
-          <div class="step active"><span class="dot">1</span><span data-i18n="step.pick">Pick time</span></div>
-          <div class="step"><span class="dot">2</span><span data-i18n="step.details">Fill details</span></div>
-          <div class="step"><span class="dot">3</span><span data-i18n="step.confirm">Confirm & add to calendar</span></div>
-        </div>
-      </div>
-      <div class="section">
-        <div class="card section">
-          <h3 data-i18n="quick.title">Quick options</h3>
-          <div class="pills" role="group" aria-label="Interview type">
-            <button class="pill" id="pill-online" aria-pressed="true" data-i18n="quick.online">Online</button>
-            <button class="pill" class="pill" id="pill-onsite" aria-pressed="false" data-i18n="quick.onsite">Onsite</button>
-          </div>
-          <p class="help" data-i18n="quick.help">You can switch anytime; location fields adjust automatically.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== SCHEDULER + FORM ===================== -->
-    <section class="grid cols-2">
-      <div class="card section" aria-labelledby="schedule-title">
-        <h3 id="schedule-title" data-i18n="schedule.title">Choose a slot</h3>
-        <p class="help" data-i18n="schedule.help">We’ll show the next 10 days in your local time. All slots are 45 minutes.</p>
-        <div class="row">
-          <div>
-            <label for="date" data-i18n="schedule.date">Date</label>
-            <select id="date"></select>
-          </div>
-          <div>
-            <label for="time" data-i18n="schedule.time">Time</label>
-            <select id="time"></select>
-            <div class="help" id="tz-hint"></div>
-          </div>
-        </div>
-      </div>
-
-      <form class="card section form" id="form" aria-labelledby="details-title">
-        <h3 id="details-title" data-i18n="details.title">Your details</h3>
-        <div class="row">
-          <div>
-            <label for="name" data-i18n="details.name">Full name</label>
-            <input type="text" id="name" placeholder="e.g., Alex Tan" autocomplete="name" required />
-          </div>
-          <div>
-            <label for="email" data-i18n="details.email">Email</label>
-            <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required />
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <label for="language" data-i18n="details.prefLang">Preferred language</label>
-            <select id="language">
-              <option value="en">English</option>
-              <option value="ja">日本語</option>
-            </select>
-          </div>
-          <div id="online-fields">
-            <label for="meet" data-i18n="details.meet">Meeting platform</label>
-            <select id="meet">
-              <option>Google Meet</option>
-              <option>Zoom</option>
-              <option>Microsoft Teams</option>
-            </select>
-          </div>
-          <div id="onsite-fields" class="hide">
-            <label for="location" data-i18n="details.location">Onsite location</label>
-            <select id="location">
-              <option value="Kuala Lumpur">Kuala Lumpur Office</option>
-              <option value="Penang">Penang Office</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label for="notes" data-i18n="details.notes">Anything we should know?</label>
-          <textarea id="notes" rows="3" placeholder="Optional"></textarea>
-        </div>
-
-        <div class="inline">
-          <button type="button" class="btn ghost" id="btn-preview" data-i18n="details.preview">Preview summary</button>
-          <button type="submit" class="btn primary" id="btn-confirm" data-i18n="details.confirm">Confirm & Generate Invite</button>
-        </div>
-
-        <div class="summary" id="summary" hidden>
-          <h3 style="margin:0 0 6px" data-i18n="summary.title">Summary</h3>
-          <dl>
-            <dt data-i18n="summary.when">When</dt><dd id="sum-when">—</dd>
-            <dt data-i18n="summary.type">Type</dt><dd id="sum-type">—</dd>
-            <dt data-i18n="summary.where">Where</dt><dd id="sum-where">—</dd>
-            <dt data-i18n="summary.name">Name</dt><dd id="sum-name">—</dd>
-            <dt data-i18n="summary.email">Email</dt><dd id="sum-email">—</dd>
-          </dl>
-          <div class="inline" style="margin-top:10px">
-            <button type="button" class="btn accent" id="btn-ics" data-i18n="summary.dliCS">Download .ics</button>
-            <button type="button" class="btn ghost" id="btn-gcal" data-i18n="summary.gcal">Add to Google Calendar</button>
-            <button type="button" class="btn ghost" id="btn-wa" data-i18n="summary.whatsapp">Send WhatsApp reminder</button>
-            <button type="button" class="btn ghost" id="btn-copy" data-i18n="summary.copy">Copy summary</button>
-          </div>
-        </div>
-      </form>
-    </section>
-
-    <!-- ===================== PREP & FAQ ===================== -->
-    <section class="grid cols-3" aria-labelledby="prep-title" style="margin-top:16px">
-      <div class="card section">
-        <h3 id="prep-title" data-i18n="prep.title">Light prep (optional)</h3>
-        <ul>
-          <li data-i18n="prep.li1">Have a quick look at the role description & your recent projects.</li>
-          <li data-i18n="prep.li2">If online: test your mic/camera and a stable connection.</li>
-          <li data-i18n="prep.li3">If onsite: bring an ID and arrive 10 minutes early.</li>
-        </ul>
-      </div>
-      <div class="card section">
-        <h3 data-i18n="prep.docs">What to bring</h3>
-        <ul>
-          <li data-i18n="prep.d1">Latest resume / portfolio (digital is fine).</li>
-          <li data-i18n="prep.d2">Any questions you want to ask us.</li>
-          <li data-i18n="prep.d3">A bottle of water and your best smile 🙂</li>
-        </ul>
-      </div>
-      <div class="card section">
-        <h3 data-i18n="prep.safety">Accessibility & comfort</h3>
-        <p data-i18n="prep.s1">Let us know if you need accommodations — we’ll tailor the session.</p>
-        <p data-i18n="prep.s2">Casual dress is totally OK.</p>
-      </div>
-    </section>
-
-    <section class="card section" style="margin-top:16px">
-      <h3 data-i18n="faq.title">FAQ</h3>
-      <details>
-        <summary data-i18n="faq.q1">How long is the casual interview?</summary>
-        <div class="help" data-i18n="faq.a1">Usually 30–45 minutes, depending on your questions and experience.</div>
-      </details>
-      <details>
-        <summary data-i18n="faq.q2">Can I reschedule later?</summary>
-        <div class="help" data-i18n="faq.a2">Yes — just reply to the calendar invite or reach out via WhatsApp.</div>
-      </details>
-      <details>
-        <summary data-i18n="faq.q3">Is this a technical interview?</summary>
-        <div class="help" data-i18n="faq.a3">No — it’s an informal chat about your background, interests, and goals.</div>
-      </details>
-    </section>
-
-    <!-- ===================== FOOTER ===================== -->
-    <footer class="site-footer">
-      <div>
-        <span data-i18n="footer.privacy">By confirming, you consent to us storing your information for interview coordination only.</span>
-      </div>
-      <div class="inline">
-        <a class="btn ghost" href="#" id="print" data-i18n="footer.print">Print</a>
-        <a class="btn ghost" href="#" id="share" data-i18n="footer.share">Share</a>
-      </div>
-    </footer>
+    </div>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="index.html#about">会社紹介</a></li>
+        <li><a href="index.html#jobs">求人一覧</a></li>
+        <li><a href="index.html#benefits">給与・福利厚生</a></li>
+        <li><a href="index.html#relocation">移住・ビザ</a></li>
+        <li><a href="index.html#interview">面接プロセス</a></li>
+        <li><a href="index.html#cities">勤務先都市</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="#" aria-current="page" class="apply-btn" style="border-color:#000;background:#000">カジュアル面談</a></li>
+        <li><a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+      </ul>
+    </nav>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="index.html#about">会社紹介</a></li>
+      <li><a href="index.html#jobs">求人一覧</a></li>
+      <li><a href="index.html#benefits">給与・福利厚生</a></li>
+      <li><a href="index.html#relocation">移住・ビザ</a></li>
+      <li><a href="index.html#interview">面接プロセス</a></li>
+      <li><a href="index.html#cities">勤務先都市</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="#">カジュアル面談</a></li>
+      <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <div role="status" aria-live="polite" class="toast" id="toast">Copied!</div>
+<main id="main">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>カジュアル面談 実施中！— まずは気軽に、<br>日本語でご相談ください</h1>
+      <p>
+        マレーシア・タイでの「仕事」「働き方」「生活費」「住まい」について、30分のオンライン（Microsoft&nbsp;Teams）でご案内します。<br>
+        面接ではありません。未経験の方、転職を迷っている方も歓迎です。
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-accent" target="_blank" rel="noopener" href="https://forms.office.com/e/2UvpbweQww">面談フォームを開く →</a>
+        <a class="btn btn-secondary" href="#details">面談の内容を見る</a>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    // ==============================================================
-    // i18n Strings (EN + JA)
-    // ==============================================================
-    const I18N = {
-      en: {
-        title: "Casual Interview",
-        "hero.badge": "Friendly chat • 30–45 min",
-        "hero.title": "Let’s schedule your casual interview",
-        "hero.lede": "Pick your preferred time, choose online or onsite, and instantly get a calendar invite + WhatsApp reminder.",
-        "step.pick": "Pick time",
-        "step.details": "Fill details",
-        "step.confirm": "Confirm & add to calendar",
-        "quick.title": "Quick options",
-        "quick.online": "Online",
-        "quick.onsite": "Onsite",
-        "quick.help": "You can switch anytime; location fields adjust automatically.",
-        "schedule.title": "Choose a slot",
-        "schedule.help": "We’ll show the next 10 days in your local time. All slots are 45 minutes.",
-        "schedule.date": "Date",
-        "schedule.time": "Time",
-        "details.title": "Your details",
-        "details.name": "Full name",
-        "details.email": "Email",
-        "details.prefLang": "Preferred language",
-        "details.meet": "Meeting platform",
-        "details.location": "Onsite location",
-        "details.notes": "Anything we should know?",
-        "details.preview": "Preview summary",
-        "details.confirm": "Confirm & Generate Invite",
-        "summary.title": "Summary",
-        "summary.when": "When",
-        "summary.type": "Type",
-        "summary.where": "Where",
-        "summary.name": "Name",
-        "summary.email": "Email",
-        "summary.dliCS": "Download .ics",
-        "summary.gcal": "Add to Google Calendar",
-        "summary.whatsapp": "Send WhatsApp reminder",
-        "summary.copy": "Copy summary",
-        "prep.title": "Light prep (optional)",
-        "prep.li1": "Have a quick look at the role description & your recent projects.",
-        "prep.li2": "If online: test your mic/camera and a stable connection.",
-        "prep.li3": "If onsite: bring an ID and arrive 10 minutes early.",
-        "prep.docs": "What to bring",
-        "prep.d1": "Latest resume / portfolio (digital is fine).",
-        "prep.d2": "Any questions you want to ask us.",
-        "prep.d3": "A bottle of water and your best smile 🙂",
-        "prep.safety": "Accessibility & comfort",
-        "prep.s1": "Let us know if you need accommodations — we’ll tailor the session.",
-        "prep.s2": "Casual dress is totally OK.",
-        "faq.title": "FAQ",
-        "faq.q1": "How long is the casual interview?",
-        "faq.a1": "Usually 30–45 minutes, depending on your questions and experience.",
-        "faq.q2": "Can I reschedule later?",
-        "faq.a2": "Yes — just reply to the calendar invite or reach out via WhatsApp.",
-        "faq.q3": "Is this a technical interview?",
-        "faq.a3": "No — it’s an informal chat about your background, interests, and goals.",
-        "footer.privacy": "By confirming, you consent to us storing your information for interview coordination only.",
-        "footer.print": "Print",
-        "footer.share": "Share"
-      },
-      ja: {
-        title: "カジュアル面談",
-        "hero.badge": "気軽な面談 • 30～45分",
-        "hero.title": "カジュアル面談の日程を決めましょう",
-        "hero.lede": "希望の時間を選び、オンラインか対面を選択。カレンダー招待とWhatsAppリマインダーをすぐに作成します。",
-        "step.pick": "時間を選ぶ",
-        "step.details": "情報を入力",
-        "step.confirm": "確認してカレンダーへ",
-        "quick.title": "クイック設定",
-        "quick.online": "オンライン",
-        "quick.onsite": "対面",
-        "quick.help": "いつでも切り替え可能。入力欄は自動で変わります。",
-        "schedule.title": "希望日時",
-        "schedule.help": "今後10日間の候補を現地時間で表示します。面談は45分です。",
-        "schedule.date": "日付",
-        "schedule.time": "時間",
-        "details.title": "ご連絡先",
-        "details.name": "氏名",
-        "details.email": "メール",
-        "details.prefLang": "希望言語",
-        "details.meet": "ミーティングツール",
-        "details.location": "対面場所",
-        "details.notes": "事前に共有したいこと",
-        "details.preview": "内容を確認",
-        "details.confirm": "確定して招待を作成",
-        "summary.title": "確認内容",
-        "summary.when": "日時",
-        "summary.type": "形式",
-        "summary.where": "場所",
-        "summary.name": "氏名",
-        "summary.email": "メール",
-        "summary.dliCS": ".ics をダウンロード",
-        "summary.gcal": "Google カレンダーに追加",
-        "summary.whatsapp": "WhatsApp リマインダー",
-        "summary.copy": "内容をコピー",
-        "prep.title": "軽い準備（任意）",
-        "prep.li1": "募集要項と直近のプロジェクトを軽く確認。",
-        "prep.li2": "オンラインの場合：マイク/カメラと通信状態を確認。",
-        "prep.li3": "対面の場合：身分証を持参し10分前に到着。",
-        "prep.docs": "持ち物",
-        "prep.d1": "最新の履歴書／ポートフォリオ（デジタル可）",
-        "prep.d2": "質問したいことのメモ",
-        "prep.d3": "飲み物とリラックスした気持ち",
-        "prep.safety": "配慮が必要な方へ",
-        "prep.s1": "必要な配慮があれば事前にお知らせください。柔軟に対応します。",
-        "prep.s2": "服装は自由です。",
-        "faq.title": "よくある質問",
-        "faq.q1": "面談時間はどのくらい？",
-        "faq.a1": "通常30〜45分です。",
-        "faq.q2": "後から日程変更できますか？",
-        "faq.a2": "はい。カレンダー招待への返信またはWhatsAppでご連絡ください。",
-        "faq.q3": "技術面接ですか？",
-        "faq.a3": "いいえ。ご経歴や志向について気軽にお話しする場です。",
-        "footer.privacy": "確定により、面談調整のための情報保管に同意したものとします。",
-        "footer.print": "印刷",
-        "footer.share": "共有"
-      }
-    };
+  <!-- Key points -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">カジュアル面談のポイント</h2>
+      <p class="section-sub">短時間で不安や疑問を解消。応募の前に、まずは情報収集から。</p>
 
-    // Helper to apply translations
-    function applyI18n(locale) {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const str = I18N[locale]?.[key];
-        if (typeof str === 'string') el.textContent = str;
-      });
-      // Set html lang
-      document.documentElement.lang = locale === 'ja' ? 'ja' : 'en';
-    }
+      <div class="points" role="list">
+        <article class="point" role="listitem">
+          <strong>面接ではありません</strong>
+          <p>合否なし。情報収集・相談が目的のカジュアルな場です。</p>
+        </article>
+        <article class="point" role="listitem">
+          <strong>オンラインで30分</strong>
+          <p>Microsoft Teamsで実施。スマホ／PCどちらでもOK。</p>
+        </article>
+        <article class="point" role="listitem">
+          <strong>日本語でサポート</strong>
+          <p>日本語話者の担当が対応します。英語が不安でも大丈夫。</p>
+        </article>
+        <article class="point" role="listitem">
+          <strong>未経験・迷い歓迎</strong>
+          <p>就業経験の有無を問いません。転職を決めていなくてもOK。</p>
+        </article>
+      </div>
 
-    // ==============================================================
-    // Scheduling logic (next 10 days, 4 time slots per day)
-    // ==============================================================
-    const SLOT_TIMES = ["10:00", "11:30", "15:00", "17:30"]; // local times
+      <div class="cta-center">
+        <a class="btn btn-primary" target="_blank" rel="noopener" href="https://forms.office.com/e/2UvpbweQww">30分の面談を予約する</a>
+        <div class="cta-note">※ フォーム送信後、担当より日程調整のご連絡を差し上げます。</div>
+      </div>
+    </div>
+  </section>
 
-    function toLocalISO(date) {
-      // YYYY-MM-DD for input/select display
-      const y = date.getFullYear();
-      const m = String(date.getMonth()+1).padStart(2,'0');
-      const d = String(date.getDate()).padStart(2,'0');
-      return `${y}-${m}-${d}`;
-    }
+  <!-- How it works / Agenda -->
+  <section class="section" id="details">
+    <div class="container">
+      <h2 class="section-title">実施方法と当日の流れ</h2>
+      <p class="section-sub">オンラインで完結。スムーズにご参加いただけます。</p>
 
-    function populateDates() {
-      const sel = document.getElementById('date');
-      sel.innerHTML = '';
-      const now = new Date();
-      for (let i=0; i<10; i++) {
-        const dt = new Date(now);
-        dt.setDate(now.getDate()+i+1); // start from tomorrow to be safe
-        const opt = document.createElement('option');
-        const ds = dt.toLocaleDateString(undefined, { weekday:'short', year:'numeric', month:'short', day:'numeric' });
-        opt.value = toLocalISO(dt);
-        opt.textContent = ds;
-        sel.appendChild(opt);
-      }
-    }
+      <div class="steps">
+        <div class="step">
+          <div class="no">1</div>
+          <h3>フォームから申し込み</h3>
+          <p>簡単な項目を入力して送信。</p>
+        </div>
+        <div class="step">
+          <div class="no">2</div>
+          <h3>Teamsリンクを受け取る</h3>
+          <p>担当から日程調整とミーティングURLをご案内。</p>
+        </div>
+        <div class="step">
+          <div class="no">3</div>
+          <h3>日本語で30分相談</h3>
+          <p>ご状況に合わせて、仕事・生活の疑問にお答えします。</p>
+        </div>
+      </div>
 
-    function populateTimes() {
-      const sel = document.getElementById('time');
-      sel.innerHTML = '';
-      SLOT_TIMES.forEach(t => {
-        const opt = document.createElement('option');
-        opt.value = t; opt.textContent = t;
-        sel.appendChild(opt);
-      });
-    }
+      <div class="split" style="margin-top:18px">
+        <div class="card">
+          <h3>サンプルアジェンダ（30分）</h3>
+          <ul class="check">
+            <li>自己紹介（ご希望・ご経験の共有）</li>
+            <li>仕事／働き方のご説明</li>
+            <li>生活費・住まいの基本情報</li>
+            <li>選考プロセスの流れ（ご希望の方のみ）</li>
+            <li>質疑応答／次のステップご案内</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>相談できるトピック</h3>
+          <ul class="check">
+            <li>仕事：日本語ポジションの種類 など</li>
+            <li>働き方：シフト／勤務形態 など</li>
+            <li>生活費：食事・交通・家賃の目安</li>
+            <li>住まい：物件タイプや探し方の基本</li>
+          </ul>
+        </div>
+      </div>
 
-    // ==============================================================
-    // Mode toggles (online vs onsite)
-    // ==============================================================
-    const pillOnline = document.getElementById('pill-online');
-    const pillOnsite = document.getElementById('pill-onsite');
-    const onlineFields = document.getElementById('online-fields');
-    const onsiteFields = document.getElementById('onsite-fields');
+      <div class="cta-center">
+        <a class="link-ghost" target="_blank" rel="noopener" href="https://forms.office.com/e/2UvpbweQww">今すぐ予約（無料）</a>
+      </div>
+    </div>
+  </section>
 
-    function setMode(mode) {
-      const online = mode === 'online';
-      pillOnline.setAttribute('aria-pressed', online);
-      pillOnsite.setAttribute('aria-pressed', !online);
-      onlineFields.classList.toggle('hide', !online);
-      onsiteFields.classList.toggle('hide', online);
-    }
+  <!-- TA Team (team images requirement) -->
+  <section class="section" id="team">
+    <div class="container">
+      <h2 class="section-title">担当チーム（日本語対応）</h2>
+      <p class="section-sub">応募から入社まで、日本語で伴走します。</p>
 
-    pillOnline.addEventListener('click', () => setMode('online'));
-    pillOnsite.addEventListener('click', () => setMode('onsite'));
+      <div class="team">
+        <div class="member">
+          <img src="photos/Joseph Hiroyuki Ueda.jpg" alt="Joseph（ジョセフ）">
+          <strong>Joseph（ジョセフ）</strong>
+          <span>シニアマネージャー｜タレントアクイジション</span>
+        </div>
+        <div class="member">
+          <img src="photos/Akito san.jpg" alt="Akito">
+          <strong>Akito</strong>
+          <span>Talent Acquisition｜採用担当</span>
+        </div>
+        <div class="member">
+          <img src="photos/Maho.png" alt="Maho">
+          <strong>Maho</strong>
+          <span>Talent Attraction｜Sourcing</span>
+        </div>
+      </div>
 
-    // ==============================================================
-    // Summary + ICS + Calendar + WhatsApp
-    // ==============================================================
-    const form = document.getElementById('form');
-    const btnPreview = document.getElementById('btn-preview');
-    const summary = document.getElementById('summary');
+      <div class="cta-center">
+        <a class="btn btn-accent" target="_blank" rel="noopener" href="https://forms.office.com/e/2UvpbweQww">面談フォームを送る →</a>
+      </div>
+    </div>
+  </section>
 
-    function getSelection() {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const lang = document.getElementById('language').value;
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value; // HH:mm
-      const isOnline = pillOnline.getAttribute('aria-pressed') === 'true';
-      const meet = document.getElementById('meet').value;
-      const location = document.getElementById('location').value;
-      const notes = document.getElementById('notes').value.trim();
-      return { name, email, lang, date, time, isOnline, meet, location, notes };
-    }
+  <!-- FAQ (focused on casual interview) -->
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="section-title">よくある質問（カジュアル面談）</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q">Q. 面談は面接ですか？</div>
+          <div class="faq-a"><p>いいえ。合否の判断は行いません。情報提供とご相談の場です。</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Q. 所要時間はどれくらい？</div>
+          <div class="faq-a"><p>目安は30分です（Microsoft Teams）。</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Q. 英語が苦手でも大丈夫？</div>
+          <div class="faq-a"><p>日本語でご案内します。英語に自信がなくても問題ありません。</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Q. まだ転職するか決めていません。</div>
+          <div class="faq-a"><p>問題ありません。情報収集や検討段階でもお気軽にご参加ください。</p></div>
+        </div>
+      </div>
 
-    function buildDateTimes(date, time) {
-      // Build start/end in local then convert to UTC for ICS/Google
-      const [hh, mm] = time.split(':').map(Number);
-      const [y, m, d] = date.split('-').map(Number);
-      const start = new Date(y, m-1, d, hh, mm, 0);
-      const end = new Date(start.getTime() + 45*60000);
-      return { start, end };
-    }
+      <div class="cta-center" style="margin-top:14px">
+        <a class="btn btn-primary" target="_blank" rel="noopener" href="https://forms.office.com/e/2UvpbweQww">予約する</a>
+        <div class="cta-note">最新情報は <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener" style="text-decoration:underline">LINE公式アカウント</a> でも配信中。</div>
+      </div>
+    </div>
+  </section>
+</main>
 
-    function fmtHuman(dt) {
-      return dt.toLocaleString(undefined, { weekday: 'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
-    }
+<!-- Footer (same structure) -->
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-logo">
+        <img src="photos/TPLogo11.png" alt="TP"><span style="font-weight:800;font-size:1.1rem">TP</span>
+      </div>
+      <p class="footer-desc">世界100カ国以上で展開するグローバルBPO企業。日本語スピーカーの皆様の新たなキャリアをサポートします。</p>
+      <div style="opacity:.8;margin-top:.4rem">🏆 Great Place to Work®</div>
+    </div>
+    <div class="footer-section">
+      <h3>会社情報</h3>
+      <ul>
+        <li><a href="index.html#about">会社紹介</a></li>
+        <li><a href="index.html#benefits">福利厚生</a></li>
+        <li><a href="index.html#office">オフィス環境</a></li>
+        <li><a href="index.html#ta-team">採用チーム</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>求人・応募</h3>
+      <ul>
+        <li><a href="index.html#jobs">求人一覧</a></li>
+        <li><a href="index.html#interview">面接プロセス</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+        <li><a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener">カジュアル面談</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>生活情報</h3>
+      <ul>
+        <li><a href="index.html#cities">勤務先都市</a></li>
+        <li><a href="index.html#relocation">移住サポート</a></li>
+        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE公式</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 TP. All rights reserved.</div>
+</footer>
 
-    function toICSDate(dt) {
-      const y = dt.getUTCFullYear();
-      const m = String(dt.getUTCMonth()+1).padStart(2,'0');
-      const d = String(dt.getUTCDate()).padStart(2,'0');
-      const hh = String(dt.getUTCHours()).padStart(2,'0');
-      const mm = String(dt.getUTCMinutes()).padStart(2,'0');
-      const ss = String(dt.getUTCSeconds()).padStart(2,'0');
-      return `${y}${m}${d}T${hh}${mm}${ss}Z`;
-    }
+<!-- Floating Apply button (required on all pages) -->
+<a class="floating-apply" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" aria-label="今すぐ応募">応募する</a>
+<button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
-    function showSummary(sel) {
-      const { start, end } = buildDateTimes(sel.date, sel.time);
-      const when = `${fmtHuman(start)} — ${fmtHuman(end)}`;
-      document.getElementById('sum-when').textContent = when;
-      document.getElementById('sum-type').textContent = sel.isOnline ? 'Online' : 'Onsite';
-      document.getElementById('sum-where').textContent = sel.isOnline ? sel.meet : sel.location;
-      document.getElementById('sum-name').textContent = sel.name || '—';
-      document.getElementById('sum-email').textContent = sel.email || '—';
-      summary.hidden = false;
-    }
+<script>
+// Mobile menu
+(function(){
+  const t=document.getElementById('mobileToggle');
+  const m=document.getElementById('mobileMenu');
+  if(!t||!m) return;
+  t.addEventListener('click',()=>{t.classList.toggle('active');m.classList.toggle('active')});
+  m.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{t.classList.remove('active');m.classList.remove('active')}))
+})();
 
-    btnPreview.addEventListener('click', () => {
-      const sel = getSelection();
-      showSummary(sel);
-      toast('Preview ready');
-    });
+// FAQ accordion
+(function(){
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q=item.querySelector('.faq-q');
+    q.addEventListener('click',()=>{
+      const open=item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));
+      if(!open) item.classList.add('active');
+    })
+  })
+})();
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const sel = getSelection();
-      if (!sel.name || !sel.email || !sel.date || !sel.time) {
-        alert('Please complete name, email, date and time.');
-        return;
-      }
-      showSummary(sel);
-      buildActions(sel);
-      toast('Invite generated');
-    });
-
-    function buildActions(sel) {
-      const { start, end } = buildDateTimes(sel.date, sel.time);
-      const startICS = toICSDate(start);
-      const endICS = toICSDate(end);
-      const title = 'Casual Interview';
-      const location = sel.isOnline ? `${sel.meet} (Online)` : `${sel.location} (Onsite)`;
-      const desc = `Candidate: ${sel.name}\\nEmail: ${sel.email}\\nLanguage: ${sel.lang.toUpperCase()}\\nNotes: ${sel.notes || '—'}`;
-
-      // .ics download
-      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Casual Interview//EN\nBEGIN:VEVENT\nUID:${Date.now()}@casual-interview\nDTSTAMP:${toICSDate(new Date())}\nDTSTART:${startICS}\nDTEND:${endICS}\nSUMMARY:${title}\nDESCRIPTION:${desc}\nLOCATION:${location}\nEND:VEVENT\nEND:VCALENDAR`;
-      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
-      const btnIcs = document.getElementById('btn-ics');
-      btnIcs.onclick = () => {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `Casual_Interview_${sel.date}_${sel.time.replace(':','')}.ics`;
-        document.body.appendChild(a); a.click(); a.remove();
-      };
-
-      // Google Calendar link
-      const gUrl = new URL('https://calendar.google.com/calendar/render');
-      gUrl.searchParams.set('action', 'TEMPLATE');
-      gUrl.searchParams.set('text', title);
-      gUrl.searchParams.set('dates', `${startICS}/${endICS}`);
-      gUrl.searchParams.set('details', desc);
-      gUrl.searchParams.set('location', location);
-      gUrl.searchParams.set('ctz', Intl.DateTimeFormat().resolvedOptions().timeZone);
-      document.getElementById('btn-gcal').onclick = () => window.open(gUrl.toString(), '_blank');
-
-      // WhatsApp reminder (share message)
-      const msg = `Hi, please remind me about my casual interview on ${start.toLocaleString()} (${location}).`;
-      const wa = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-      document.getElementById('btn-wa').onclick = () => window.open(wa, '_blank');
-
-      // Copy summary
-      const summaryText = `${title}\nWhen: ${start.toString()} - ${end.toString()}\nType: ${sel.isOnline ? 'Online' : 'Onsite'}\nWhere: ${location}\nName: ${sel.name}\nEmail: ${sel.email}`;
-      document.getElementById('btn-copy').onclick = async () => {
-        try { await navigator.clipboard.writeText(summaryText); toast('Summary copied'); } catch { toast('Copy failed'); }
-      };
-    }
-
-    // ==============================================================
-    // UI helpers
-    // ==============================================================
-    function toast(text) {
-      const t = document.getElementById('toast');
-      t.textContent = text; t.style.display = 'block';
-      setTimeout(() => t.style.display = 'none', 1800);
-    }
-
-    document.getElementById('print').addEventListener('click', (e)=>{ e.preventDefault(); window.print(); });
-    document.getElementById('share').addEventListener('click', async (e)=>{
-      e.preventDefault();
-      const shareData = { title: document.title, text: 'Casual Interview — schedule & details', url: location.href };
-      try { if (navigator.share) await navigator.share(shareData); else { await navigator.clipboard.writeText(location.href); toast('Link copied'); } }
-      catch { /* ignored */ }
-    });
-
-    // Language toggles
-    const btnEN = document.getElementById('btn-en');
-    const btnJA = document.getElementById('btn-ja');
-    function setLang(l){
-      btnEN.setAttribute('aria-pressed', l==='en');
-      btnJA.setAttribute('aria-pressed', l==='ja');
-      applyI18n(l);
-    }
-    btnEN.addEventListener('click', ()=> setLang('en'));
-    btnJA.addEventListener('click', ()=> setLang('ja'));
-
-    // Time zone hint
-    function setTimezoneHint(){
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      document.getElementById('timezone').textContent = `Local time: ${tz}`;
-      document.getElementById('tz-hint').textContent = `(Times shown in ${tz})`;
-    }
-
-    // Init
-    (function init(){
-      setLang('en');
-      setTimezoneHint();
-      setMode('online');
-      populateDates();
-      populateTimes();
-    })();
-  </script>
+// Back to top
+(function(){
+  const btn=document.getElementById('backToTop');
+  function onScroll(){
+    if(window.scrollY>400){btn.classList.add('show')}else{btn.classList.remove('show')}
+  }
+  window.addEventListener('scroll',onScroll);
+  btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  onScroll();
+})();
+</script>
 </body>
 </html>
