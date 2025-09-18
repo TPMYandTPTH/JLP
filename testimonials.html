@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>社員の声 | Testimonials & Interview Stories | TP Japan</title>
+  <meta name="description" content="TPで働く日本語スピーカーのリアルな声。インタビュー動画・体験談・キャリアストーリーを掲載。マレーシア/タイでの仕事・生活の実感をチェック。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Design tokens (unified) ===== */
+    :root{
+      --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d; --tp-gray-dark:#4a4a4a; --tp-gray:#666; --tp-gray-light:#999;
+      --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off-white:#f5f5f5; --tp-white:#fff;
+      --accent-purple:#780096; --accent-pink:#ff0082;
+      --font-primary:'Noto Sans JP',sans-serif;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08); --shadow-md:0 4px 8px rgba(0,0,0,.12); --shadow-lg:0 8px 16px rgba(0,0,0,.16);
+      --radius:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-primary);color:var(--tp-dark);background:#fff;line-height:1.8}
+
+    /* ===== Header ===== */
+    header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--tp-light)}
+    .header-inner{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+    .brand img{width:40px;height:40px;display:block}
+    .brand-text{display:flex;flex-direction:column;line-height:1}
+    .brand-name{font-weight:900;font-size:1.1rem}
+    .brand-tagline{font-size:.72rem;color:var(--tp-gray)}
+    header nav ul{list-style:none;display:flex;gap:1.1rem;align-items:center}
+    header nav a{color:var(--tp-dark);text-decoration:none;font-weight:700;font-size:.95rem;position:relative;transition:.2s}
+    header nav a:hover{opacity:.75}
+    header nav a[aria-current="page"]::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--accent-purple)}
+    .apply-btn{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
+    .apply-btn:hover{background:var(--tp-black);color:#fff}
+    .mobile-toggle{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer}
+    .mobile-toggle span{display:block;width:24px;height:2px;background:#000}
+    .mobile-menu{display:none;border-top:1px solid var(--tp-light);background:#fff}
+    .mobile-menu ul{list-style:none;padding:1rem 2rem;display:flex;flex-direction:column;gap:.75rem}
+    .mobile-menu a{color:var(--tp-dark);text-decoration:none;font-weight:700}
+    @media (max-width:960px){
+      header nav{display:none}
+      .mobile-toggle{display:flex}
+      .mobile-menu.open{display:block}
+    }
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--tp-white) 0%,var(--tp-off-white) 100%);padding:3.6rem 20px;text-align:center}
+    .hero::before{
+      content:''; position:absolute; top:50%; right:6%;
+      width: clamp(220px, 32vw, 480px); height: clamp(220px, 32vw, 480px);
+      background-image:url('photos/TPLogo11.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+      opacity:.04; filter:saturate(0); transform:translateY(-50%); pointer-events:none;
+    }
+    .hero h1{font-size:2.4rem;font-weight:900;color:#000;margin-bottom:.45rem}
+    .hero p{color:var(--tp-gray-dark)}
+    .hero-cta{margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+    .btn{padding:.85rem 1.2rem;font-weight:900;border-radius:999px;text-decoration:none;display:inline-block;border:2px solid var(--accent-purple);color:var(--accent-purple);transition:.2s}
+    .btn:hover{background:var(--accent-purple);color:#fff}
+    .btn-solid{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
+    .btn-solid:hover{filter:brightness(.95)}
+
+    /* ===== Videos ===== */
+    .videos{max-width:1200px;margin:2rem auto;padding:0 20px}
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .video-card{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+    .video-card .frame{aspect-ratio:16/9;background:#000}
+    .video-card h3{font-size:1rem;padding:.75rem .9rem .1rem;color:#000}
+    .video-card p{padding:0 .9rem 1rem;color:var(--tp-gray-dark);font-size:.95rem}
+    @media (max-width:1020px){ .video-grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .video-grid{grid-template-columns:1fr} }
+
+    /* ===== Filters/Search ===== */
+    .filters{max-width:1200px;margin:1.6rem auto 0;padding:0 20px}
+    .filter-bar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .chip{padding:.45rem .8rem;border:1px solid #555;border-radius:999px;background:transparent;color:#000;font-weight:800;font-size:.9rem;text-decoration:none;cursor:pointer;user-select:none}
+    .chip.active{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
+    .searchbox{margin-left:auto;display:flex;gap:.5rem}
+    .searchbox input{padding:.55rem .8rem;border:2px solid var(--tp-light);border-radius:10px;font-family:inherit}
+    .searchbox input:focus{outline:none;border-color:var(--accent-purple)}
+
+    /* ===== Testimonial cards ===== */
+    .wrap{max-width:1200px;margin:1rem auto 3rem;padding:0 20px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .card{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm)}
+    .profile{display:flex;gap:.75rem;align-items:center;margin-bottom:.5rem}
+    .avatar{width:52px;height:52px;border-radius:50%;background:#eee center/cover no-repeat;flex:none}
+    .meta{line-height:1.2}
+    .name{font-weight:900;color:#000}
+    .role{font-size:.85rem;color:var(--tp-gray-dark)}
+    .quote{color:var(--tp-dark);margin:.4rem 0 0}
+    .more{margin-top:.4rem}
+    .more button{background:transparent;border:0;color:var(--accent-purple);font-weight:900;cursor:pointer}
+    @media (max-width:1020px){ .cards{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .cards{grid-template-columns:1fr} }
+
+    /* ===== Story blocks ===== */
+    .section{max-width:1200px;margin:2rem auto;padding:0 20px}
+    .section h2{font-size:1.6rem;color:#000;font-weight:900;margin-bottom:.6rem}
+    .story{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);margin-bottom:1rem}
+    .story h3{font-size:1.05rem;margin-bottom:.35rem;color:#000}
+    .story dl{display:grid;grid-template-columns:140px 1fr;gap:.4rem .8rem}
+    .story dt{color:var(--tp-gray);font-weight:700}
+    .story dd{margin:0}
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--tp-light);background:#fff}
+    .footer-content{max-width:1400px;margin:0 auto;padding:2rem 20px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:1.5rem}
+    .footer-brand .footer-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
+    .footer-brand img{width:36px;height:36px}
+    .footer-logo-text{font-weight:900}
+    .footer-desc{color:var(--tp-gray-dark);margin:.6rem 0}
+    .badges{margin:.5rem 0}
+    .badge-item{display:inline-block;font-size:.85rem;background:var(--tp-off-white);border:1px solid var(--tp-light);padding:.25rem .5rem;border-radius:6px}
+    .footer-section h3{font-size:1rem;margin-bottom:.5rem}
+    .footer-section ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-section a{text-decoration:none;color:var(--tp-gray-dark);font-weight:700}
+    .footer-section a:hover{color:#000}
+    .footer-bottom{border-top:1px solid var(--tp-light);padding:1rem 20px;text-align:center;color:var(--tp-gray-dark)}
+    .footer-bottom a{color:inherit}
+    @media (max-width:960px){ .footer-content{grid-template-columns:1fr 1fr} }
+    @media (max-width:560px){ .footer-content{grid-template-columns:1fr} }
+
+    /* Floating Apply */
+    .floating-apply{
+      position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--accent-purple);color:#fff;
+      border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
+    }
+    .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="header-inner">
+      <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
+        <img src="photos/TPLogo11.png" alt="TP Japan">
+        <div class="brand-text">
+          <span class="brand-name">TP</span>
+          <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
+        </div>
+      </a>
+
+      <nav aria-label="メインナビゲーション">
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html" aria-current="page">Testimonials</a></li>
+          <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html" aria-current="page">Testimonials</a></li>
+        <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>社員の声 / Testimonials & Interview Stories</h1>
+    <p>“海外で働く”を実現した先輩たちのリアル。<br>動画・体験談・インタビューで、TPの仕事と暮らしをのぞいてみましょう。</p>
+    <div class="hero-cta" role="group" aria-label="関連ページ">
+      <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談を予約</a>
+    </div>
+  </section>
+
+  <!-- Videos (3 attachments) -->
+  <section class="videos" aria-labelledby="video-title">
+    <h2 id="video-title" style="font-size:1.6rem;font-weight:900;color:#000;margin-bottom:.6rem">インタビュー動画・紹介ムービー</h2>
+    <div class="video-grid">
+      <!-- Video 1 -->
+      <article class="video-card">
+        <div class="frame">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/I0Uz5WbulNE?start=14" title="TP: Where Dreams Come True in the APAC Region" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <h3>TP: Where Dreams Come True in the APAC Region</h3>
+        <p>グローバルに活躍するTPの魅力を凝縮。日本語スピーカーのキャリア拡張にもフォーカス。</p>
+      </article>
+
+      <!-- Video 2 -->
+      <article class="video-card">
+        <div class="frame">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aPahVrsApXY?start=8" title="Elevate Your Career with TP in Malaysia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <h3>Elevate Your Career with TP in Malaysia</h3>
+        <p>マレーシア拠点のワークスタイルや成長機会を、実際の職場映像とともに紹介。</p>
+      </article>
+
+      <!-- Video 3 (attach local or replace with final YouTube link) -->
+      <article class="video-card">
+        <div class="frame">
+          <!-- Replace src with your final hosted file or YouTube link if available -->
+          <video width="100%" height="100%" controls poster="photos/video_poster_tp_family.jpg">
+            <source src="videos/tp-family-malaysia.mp4" type="video/mp4">
+            お使いのブラウザは動画をサポートしていません。
+          </video>
+        </div>
+        <h3>TP Family in Malaysia: A Great Place to Work</h3>
+        <p>現地で働く仲間の声や、イベント・表彰・学習支援など“TPファミリー”の雰囲気を感じられる1本。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters" aria-labelledby="filter-title">
+    <h2 id="filter-title" style="font-size:1.2rem;font-weight:900;margin-bottom:.5rem;color:#000">体験談を絞り込む</h2>
+    <div class="filter-bar">
+      <span class="chip active" data-filter="all">すべて</span>
+      <span class="chip" data-filter="KL">クアラルンプール</span>
+      <span class="chip" data-filter="Penang">ペナン</span>
+      <span class="chip" data-filter="Bangkok">バンコク</span>
+      <span class="chip" data-filter="Entry">未経験スタート</span>
+      <span class="chip" data-filter="Bilingual">英日バイリンガル</span>
+      <div class="searchbox" role="search">
+        <input id="searchInput" type="text" placeholder="キーワード検索（例：英語、家賃、昇進）" aria-label="体験談の検索">
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <div class="wrap">
+    <div class="cards" id="testimonialList">
+      <!-- Card 1 -->
+      <article class="card" data-city="KL" data-tags="Entry Japanese">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_maho.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">Maho（採用）</div>
+            <div class="role">Talent Acquisition｜KL</div>
+          </div>
+        </div>
+        <p class="quote">
+          “『違っていい』という価値観が、心を自由にしてくれました。日本にいるときより、周りの目を気にしなくなりました。”
+        </p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card" data-city="KL" data-tags="Entry Japanese">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_30m.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">T.S.（30代・男性）</div>
+            <div class="role">Customer Support｜KL</div>
+          </div>
+        </div>
+        <p class="quote">
+          “物価が安いから、カフェ巡りや外食が気軽に楽しめるようになりました。”
+        </p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card" data-city="KL" data-tags="Entry Japanese">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_20f.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">A.K.（20代・女性）</div>
+            <div class="role">Customer Support｜KL</div>
+          </div>
+        </div>
+        <p class="quote">
+          “通勤ストレスがなくなり、平日の夜もヨガや友達との時間をゆったり過ごせます。”
+        </p>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card" data-city="KL" data-tags="Entry Japanese">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_30f.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">Y.M.（30代・女性）</div>
+            <div class="role">E-commerce Support｜KL</div>
+          </div>
+        </div>
+        <p class="quote">
+          “毎週末にプール、サウナ、ジム。こんな暮らし、日本では考えられませんでした！”
+        </p>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card" data-city="Penang" data-tags="Japanese Entry">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_penang.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">R.N.（20代・男性）</div>
+            <div class="role">Travel Support｜Penang</div>
+          </div>
+        </div>
+        <p class="quote">
+          “休日は友達とビーチやナイトマーケットへ。仕事も遊びもバランスよく楽しめています！”
+        </p>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card" data-city="Bangkok" data-tags="Bilingual Experienced">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_bkk.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">Kenta（チームリーダー）</div>
+            <div class="role">Team Lead｜Bangkok</div>
+          </div>
+        </div>
+        <p class="quote">
+          “年齢や在籍年数ではなく実力で評価。入社2年でTLに昇進、次はQA/マネージャーに挑戦中です。”
+        </p>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="card" data-city="KL" data-tags="Bilingual Entry">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_bilingual.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">Saki（バイリンガル）</div>
+            <div class="role">Tech Support｜KL</div>
+          </div>
+        </div>
+        <p class="quote">
+          “日本語中心のプロジェクトから英語比率の高い部署へ社内異動。GoFluentとOJTで無理なく英語力が上がりました。”
+        </p>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="card" data-city="Penang" data-tags="Japanese Experienced">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_mgr.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">Eri（マネージャー）</div>
+            <div class="role">Operations Manager｜Penang</div>
+          </div>
+        </div>
+        <p class="quote">
+          “トレーナー→QA→TL→マネージャーへ。多国籍×実力主義の環境がキャリアを後押ししてくれます。”
+        </p>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="card" data-city="Bangkok" data-tags="Japanese Entry">
+        <div class="profile">
+          <div class="avatar" style="background-image:url('photos/testimonial_food.jpg')" aria-hidden="true"></div>
+          <div class="meta">
+            <div class="name">Takumi</div>
+            <div class="role">Customer Support｜Bangkok</div>
+          </div>
+        </div>
+        <p class="quote">
+          “日本食レストランやスーパーが充実。生活立ち上げが想像以上にスムーズでした。”
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <!-- Interview stories -->
+  <section class="section" aria-labelledby="story-title">
+    <h2 id="story-title">Interview Stories — ストーリーで知るTP</h2>
+
+    <article class="story">
+      <h3>“海外で働く最初の一歩” — 元営業職からCSへ（KL）</h3>
+      <dl>
+        <dt>応募理由</dt><dd>英語に自信がなくても日本語ポジションで挑戦できると知ったから。</dd>
+        <dt>入社の決め手</dt><dd>就労ビザ/航空券/到着後ホテルのサポートが手厚く、初めてでも安心だと感じた。</dd>
+        <dt>現在の仕事</dt><dd>大手Eコマースのカスタマーサポート（チャット/メール中心）。</dd>
+        <dt>成長実感</dt><dd>GoFluentで英語の土台を作り、社内のLanguage Bootcampで実務に活かせる表現が身についた。</dd>
+      </dl>
+    </article>
+
+    <article class="story">
+      <h3>“実力が認められる社風” — TLへの昇進（Bangkok）</h3>
+      <dl>
+        <dt>入社後1年</dt><dd>社内表彰を受け、スキルマトリクスで強みを可視化。</dd>
+        <dt>2年目</dt><dd>チームリーダーに昇進。メンター制度でマネジメントを学ぶ。</dd>
+        <dt>次の目標</dt><dd>QA/マネージャーへ。多国籍メンバーと働くことで視野が広がった。</dd>
+      </dl>
+    </article>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" aria-labelledby="cta-title">
+    <h2 id="cta-title">次は何をしますか？</h2>
+    <div class="videos" style="padding:0">
+      <div class="video-grid">
+        <div class="video-card">
+          <h3 style="padding:.9rem;color:#000">求人を見る</h3>
+          <p style="padding:0 .9rem 1rem">日本語スピーカー向けポジションが多数。未経験OKの案件も。</p>
+          <p style="padding:0 .9rem 1rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧へ</a></p>
+        </div>
+        <div class="video-card">
+          <h3 style="padding:.9rem;color:#000">移住・ビザサポート</h3>
+          <p style="padding:0 .9rem 1rem">就労ビザ申請、航空券、到着後ホテル（MY）まで専門チームが伴走。</p>
+          <p style="padding:0 .9rem 1rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">サポートを見る</a></p>
+        </div>
+        <div class="video-card">
+          <h3 style="padding:.9rem;color:#000">カジュアル面談</h3>
+          <p style="padding:0 .9rem 1rem">選考ではありません。日本語で30分、仕事/生活/移住の疑問を相談。</p>
+          <p style="padding:0 .9rem 1rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">予約する</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="https://tpmyandtpth.github.io/JLP/index.html">
+          <img src="photos/TPLogo11.png" alt="TP">
+          <span class="footer-logo-text">TP</span>
+        </a>
+        <p class="footer-desc">
+          世界100カ国以上で展開するグローバルBPO企業。<br>
+          日本語スピーカーの皆様の新たなキャリアをサポートします。
+        </p>
+        <div class="badges">
+          <span class="badge-item">🏆 Great Place to Work® 認証</span>
+        </div>
+        <div class="footer-cta" style="margin-top:.5rem">
+          <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/virtual-office-tour.html">バーチャルツアー</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>求人・応募</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">FAQ</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>現地情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a></li>
+          <li><a target="_blank" rel="noopener" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINE公式</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 TP. All rights reserved. |
+        <a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Apply Now -->
+  <a class="floating-apply"
+     href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+     target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
+    ご応募はこちら
+  </a>
+
+  <script>
+    // mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+
+    // testimonials filter + search
+    const chips = document.querySelectorAll('.chip');
+    const list = document.getElementById('testimonialList');
+    const cards = Array.from(list.querySelectorAll('.card'));
+    const search = document.getElementById('searchInput');
+
+    function applyFilters(){
+      const active = Array.from(chips).filter(c=>c.classList.contains('active') && c.dataset.filter !== 'all').map(c=>c.dataset.filter);
+      const term = (search.value||'').trim().toLowerCase();
+
+      cards.forEach(card=>{
+        const city = card.dataset.city;
+        const tags = (card.dataset.tags||'').split(' ');
+        const text = card.textContent.toLowerCase();
+
+        const matchFilter = active.length===0 || active.some(f => city===f || tags.includes(f));
+        const matchText = term==='' || text.includes(term);
+
+        card.style.display = (matchFilter && matchText) ? 'block' : 'none';
+      });
+    }
+
+    chips.forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        // if "all" clicked, clear others
+        if(chip.dataset.filter==='all'){
+          chips.forEach(c=>c.classList.remove('active'));
+          chip.classList.add('active');
+        }else{
+          // toggle this chip and make sure "all" is off
+          chip.classList.toggle('active');
+          const allChip = document.querySelector('.chip[data-filter="all"]');
+          allChip.classList.remove('active');
+          // if none active, restore "all"
+          const anyActive = Array.from(chips).some(c=>c!==allChip && c.classList.contains('active'));
+          if(!anyActive) allChip.classList.add('active');
+        }
+        applyFilters();
+      });
+    });
+    search.addEventListener('input', applyFilters);
+
+    // simple "read more" toggles if needed (optional hook for longer quotes)
+    document.querySelectorAll('.more button')?.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const p = btn.closest('.card').querySelector('.quote');
+        p.classList.toggle('expanded');
+        btn.textContent = p.classList.contains('expanded') ? '閉じる' : 'もっと読む';
+      });
+    });
+  </script>
+</body>
+</html>

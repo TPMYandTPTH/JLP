@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>周辺環境 | Area Around the Office | TP Japan</title>
+  <meta name="description" content="各拠点（KL／ペナン／バンコク）のオフィス周辺環境を写真で紹介。通勤・食事・買い物・カフェ・公園などの日常をイメージできます。（Secondary: 周辺環境）">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Tokens ===== */
+    :root{
+      --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d; --tp-gray-dark:#4a4a4a; --tp-gray:#666; --tp-gray-light:#999;
+      --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off-white:#f5f5f5; --tp-white:#fff;
+      --accent-purple:#780096; --accent-pink:#ff0082;
+      --font-primary:'Noto Sans JP',sans-serif;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08); --shadow-md:0 4px 8px rgba(0,0,0,.12); --shadow-lg:0 8px 16px rgba(0,0,0,.16);
+      --radius:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-primary);color:var(--tp-dark);background:#fff;line-height:1.8}
+
+    /* ===== Header (shared) ===== */
+    header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--tp-light)}
+    .header-inner{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+    .brand img{width:40px;height:40px;display:block}
+    .brand-text{display:flex;flex-direction:column;line-height:1}
+    .brand-name{font-weight:900;font-size:1.1rem}
+    .brand-tagline{font-size:.72rem;color:var(--tp-gray)}
+    header nav ul{list-style:none;display:flex;gap:1.1rem;align-items:center}
+    header nav a{color:var(--tp-dark);text-decoration:none;font-weight:700;font-size:.95rem;position:relative;transition:.2s}
+    header nav a:hover{opacity:.75}
+    header nav a[aria-current="page"]::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--accent-purple)}
+    .apply-btn{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
+    .apply-btn:hover{background:var(--tp-black);color:#fff}
+    .mobile-toggle{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer}
+    .mobile-toggle span{display:block;width:24px;height:2px;background:#000}
+    .mobile-menu{display:none;border-top:1px solid var(--tp-light);background:#fff}
+    .mobile-menu ul{list-style:none;padding:1rem 2rem;display:flex;flex-direction:column;gap:.75rem}
+    .mobile-menu a{color:var(--tp-dark);text-decoration:none;font-weight:700}
+    @media (max-width:1100px){
+      header nav{display:none}
+      .mobile-toggle{display:flex}
+      .mobile-menu.open{display:block}
+    }
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--tp-white) 0%,var(--tp-off-white) 100%);padding:3.6rem 20px;text-align:center}
+    .hero::before{
+      content:''; position:absolute; top:50%; right:6%;
+      width: clamp(220px, 32vw, 480px); height: clamp(220px, 32vw, 480px);
+      background-image:url('photos/TPLogo11.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+      opacity:.04; filter:saturate(0); transform:translateY(-50%); pointer-events:none;
+    }
+    .hero h1{font-size:2.3rem;font-weight:900;color:#000;margin-bottom:.45rem}
+    .hero p{color:var(--tp-gray-dark)}
+    .hero-cta{margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+    .btn{padding:.85rem 1.2rem;font-weight:900;border-radius:999px;text-decoration:none;display:inline-block;border:2px solid var(--accent-purple);color:var(--accent-purple);transition:.2s}
+    .btn:hover{background:var(--accent-purple);color:#fff}
+    .btn-solid{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
+    .btn-solid:hover{filter:brightness(.95)}
+    .pill-nav{margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+    .pill{padding:.45rem .75rem;border:1px solid var(--tp-light);border-radius:999px;font-weight:700;font-size:.92rem;text-decoration:none;color:var(--tp-dark)}
+    .pill:hover{border-color:var(--accent-purple);color:var(--accent-purple)}
+
+    /* ===== Sections & layouts ===== */
+    .section{max-width:1200px;margin:1.6rem auto;padding:0 20px}
+    .section h2{font-size:1.6rem;color:#000;font-weight:900;margin-bottom:.6rem}
+    .lead{color:var(--tp-gray-dark)}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    @media (max-width:1100px){ .grid-4{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:900px){ .grid-3{grid-template-columns:1fr 1fr} }
+    @media (max-width:720px){ .grid-3,.grid-2,.grid-4{grid-template-columns:1fr} }
+
+    .card{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm)}
+    .card h3{font-size:1.05rem;color:#000;margin-bottom:.35rem}
+    .muted{color:var(--tp-gray-dark)}
+
+    /* ===== Image blocks ===== */
+    .img-tile{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--tp-light);background:#fff}
+    .img-tile img{display:block;width:100%;height:200px;object-fit:cover}
+    .img-tile .caption{padding:.6rem .75rem;font-weight:800}
+    .img-tile small{display:block;color:var(--tp-gray-dark);font-weight:500}
+
+    /* ===== City section header ===== */
+    .city-h{display:flex;align-items:center;gap:.75rem;margin:.2rem 0 1rem}
+    .city-h img{width:44px;height:44px;object-fit:cover;border-radius:8px;border:1px solid var(--tp-light)}
+
+    /* ===== Quote / tips ===== */
+    .person{display:flex;gap:1rem;align-items:flex-start}
+    .avatar{width:64px;height:64px;border-radius:50%;background:#eee;flex:0 0 64px;object-fit:cover;border:1px solid var(--tp-light)}
+    blockquote{border-left:4px solid var(--accent-purple);padding:.4rem .9rem;background:var(--tp-off-white);border-radius:8px;margin-top:.4rem}
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--tp-light);background:#fff;margin-top:2rem}
+    .footer-content{max-width:1400px;margin:0 auto;padding:2rem 20px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:1.5rem}
+    .footer-brand .footer-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
+    .footer-brand img{width:36px;height:36px}
+    .footer-logo-text{font-weight:900}
+    .footer-desc{color:var(--tp-gray-dark);margin:.6rem 0}
+    .footer-section h3{font-size:1rem;margin-bottom:.5rem}
+    .footer-section ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-section a{text-decoration:none;color:var(--tp-gray-dark);font-weight:700}
+    .footer-section a:hover{color:#000}
+    .footer-bottom{border-top:1px solid var(--tp-light);padding:1rem 20px;text-align:center;color:var(--tp-gray-dark)}
+    .footer-bottom a{color:inherit}
+    @media (max-width:960px){ .footer-content{grid-template-columns:1fr 1fr} }
+    @media (max-width:560px){ .footer-content{grid-template-columns:1fr} }
+
+    /* Floating Apply */
+    .floating-apply{
+      position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--accent-purple);color:#fff;
+      border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
+    }
+    .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="header-inner">
+      <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
+        <img src="photos/TPLogo11.png" alt="TP Japan">
+        <div class="brand-text">
+          <span class="brand-name">TP</span>
+          <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
+        </div>
+      </a>
+
+      <nav aria-label="メインナビゲーション">
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html">Testimonials</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/ta-team.html">TA Team</a></li>
+          <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html">Testimonials</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/ta-team.html">TA Team</a></li>
+        <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>周辺環境 / Area Around the Office</h1>
+    <p>通勤・ランチ・カフェ・買い物・公園。<br>毎日の“暮らしやすさ”が、働きやすさに直結します。</p>
+    <div class="hero-cta" role="group" aria-label="関連アクション">
+      <a class="btn-solid" href="#kl">KL 周辺</a>
+      <a class="btn" href="#penang">Penang 周辺</a>
+      <a class="btn" href="#bangkok">Bangkok 周辺</a>
+    </div>
+    <div class="pill-nav" aria-label="ページ内目次">
+      <a class="pill" href="#kl">KL</a>
+      <a class="pill" href="#penang">Penang</a>
+      <a class="pill" href="#bangkok">Bangkok</a>
+      <a class="pill" href="#tips">ローカルおすすめ</a>
+    </div>
+  </section>
+
+  <!-- KL -->
+  <section id="kl" class="section">
+    <div class="city-h">
+      <img src="photos/KL 1.jpg" alt="クアラルンプールの街並み">
+      <h2>クアラルンプール（KL）オフィス周辺</h2>
+    </div>
+    <p class="lead">都市利便性 × 緑 × 多文化。日常の「移動しやすさ」「食の多様さ」「過ごしやすさ」をバランスよく叶えます。</p>
+
+    <div class="grid-4" style="margin-top:.8rem">
+      <figure class="img-tile">
+        <img src="photos/G TOWER.jpg" alt="G TOWER 付近の外観（参考）">
+        <figcaption class="caption">オフィス＆周辺ビル<small>通勤しやすい中心部エリア</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/KL 2.jpg" alt="KL中心部の風景">
+        <figcaption class="caption">シティビュー<small>仕事終わりに寄れるスポット多数</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Reception.png" alt="オフィス受付の様子">
+        <figcaption class="caption">受付・来客エリア<small>落ち着いた雰囲気</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Maho in front ofKLCC.jpg" alt="KLCC周辺に立つMaho">
+        <figcaption class="caption">KLCC周辺<small>週末・仕事帰りの定番スポット</small></figcaption>
+      </figure>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="card">
+        <h3>移動（公共交通・配車）</h3>
+        <p class="muted">電車・バスに加え、配車アプリでドアツードアの移動も手軽。中心部なので通勤・乗り換えもスムーズです。</p>
+      </div>
+      <div class="card">
+        <h3>ランチ＆カフェ</h3>
+        <p class="muted">屋台・ローカル・日本食・カフェまで選択肢が豊富。外食コストが抑えられ、気軽に開拓できます。</p>
+      </div>
+      <div class="card">
+        <h3>公園・ジム</h3>
+        <p class="muted">コンドのジム・プールはもちろん、市内の公園や商業施設内のフィットネスも利用しやすい環境です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Penang -->
+  <section id="penang" class="section">
+    <div class="city-h">
+      <img src="photos/Penang.jpg" alt="ペナンの海と街並み">
+      <h2>ペナン（Penang）オフィス周辺</h2>
+    </div>
+    <p class="lead">海と街が近い“ゆったり島ライフ”。落ち着いた雰囲気で、コスパ良く眺望の良い生活が叶います。</p>
+
+    <div class="grid-4" style="margin-top:.8rem">
+      <figure class="img-tile">
+        <img src="photos/Penang.jpg" alt="ペナン全景">
+        <figcaption class="caption">海が身近<small>休みの日は海辺でリフレッシュ</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Condo.jpg" alt="プール・ジム付きのコンド（例）">
+        <figcaption class="caption">設備充実の住環境<small>プールやジムが標準的</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Reception (2).png" alt="オフィス内の一角（参考）">
+        <figcaption class="caption">オフィス内観<small>落ち着いたワークスペース</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Reception (1).png" alt="受付付近（参考）">
+        <figcaption class="caption">受付付近<small>来客時も安心の導線</small></figcaption>
+      </figure>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="card">
+        <h3>移動</h3>
+        <p class="muted">市内移動は配車アプリが便利。海沿い・中心部いずれも生活しやすく、通勤ストレスを抑えられます。</p>
+      </div>
+      <div class="card">
+        <h3>食</h3>
+        <p class="muted">屋台・フードコート・カフェ文化が充実。ローカル・中華・インド系など多彩な味を日替わりで楽しめます。</p>
+      </div>
+      <div class="card">
+        <h3>余暇</h3>
+        <p class="muted">海岸散歩・週末ビーチ・カフェ巡りなど“ゆるオフ”が定番。長期滞在にも人気のエリアです。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bangkok -->
+  <section id="bangkok" class="section">
+    <div class="city-h">
+      <img src="photos/Bangkok1.jpg" alt="バンコク中心部の景観">
+      <h2>バンコク（Bangkok）オフィス周辺</h2>
+    </div>
+    <p class="lead">“東南アジアの東京”のような利便性。電車網・商業施設・日本語対応施設が集約された超便利都市。</p>
+
+    <div class="grid-4" style="margin-top:.8rem">
+      <figure class="img-tile">
+        <img src="photos/Singha Complex1.jpg" alt="Singha Complex 外観（参考）">
+        <figcaption class="caption">オフィス周辺商業施設<small>飲食・ショッピングが手軽</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Singha Complex2.jpg" alt="Singha Complex 周辺（参考）">
+        <figcaption class="caption">アクセスの良さ<small>電車・配車の両方が使いやすい</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Bangkok 2.jpg" alt="バンコクの夜景">
+        <figcaption class="caption">ナイトタイム<small>治安に配慮しつつ夜も楽しめる</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Reception (1).png" alt="オフィス受付（参考）">
+        <figcaption class="caption">オフィス受付<small>訪問・来客動線もスムーズ</small></figcaption>
+      </figure>
+    </div>
+
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="card">
+        <h3>移動</h3>
+        <p class="muted">電車網が発達し、主要エリアへのアクセスが容易。配車アプリと使い分けできます。</p>
+      </div>
+      <div class="card">
+        <h3>日本向け施設</h3>
+        <p class="muted">日本食・日用品・医療など日本語対応が充実。海外初心者でも生活立ち上げがスムーズです。</p>
+      </div>
+      <div class="card">
+        <h3>余暇</h3>
+        <p class="muted">大型モール・カフェ・イベント多数。近郊への小旅行にも出かけやすい好立地です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Local tips / team faces -->
+  <section id="tips" class="section">
+    <h2>ローカルおすすめ &amp; チームの声</h2>
+    <div class="grid-3" style="margin-top:.6rem">
+      <div class="card">
+        <div class="person">
+          <img class="avatar" src="photos/Maho.png" alt="Maho">
+          <div>
+            <strong>Maho（KL）</strong>
+            <blockquote>「ランチはローカル食堂も日本食も選び放題。コスパが良いので外食頻度が上がりました！」</blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="person">
+          <img class="avatar" src="photos/Maya.png" alt="Maya">
+          <div>
+            <strong>Maya（Penang）</strong>
+            <blockquote>「海が近いので、週末は気分転換に海沿いカフェへ。のんびり過ごせるのが魅力です。」</blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="person">
+          <img class="avatar" src="photos/Akito.jpg" alt="Akito">
+          <div>
+            <strong>Akito（Bangkok）</strong>
+            <blockquote>「電車移動が快適。仕事後にそのままカフェやモールに寄れるのが嬉しいポイントです。」</blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-4" style="margin-top:1rem">
+      <figure class="img-tile">
+        <img src="photos/Koyori.jpg" alt="チームメンバー Koyori">
+        <figcaption class="caption">Team snapshot<small>多国籍メンバーと働く</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Joseph Hiroyuki Ueda.jpg" alt="Joseph（ジョセフ）のポートレート">
+        <figcaption class="caption">TAチーム<small>日本語で安心のサポート</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/Joseph on vacation.jpg" alt="休日のJoseph">
+        <figcaption class="caption">オフも充実<small>近場旅行も気軽に</small></figcaption>
+      </figure>
+      <figure class="img-tile">
+        <img src="photos/G TOWER.jpg" alt="G TOWER 外観（再掲）">
+        <figcaption class="caption">オフィス周辺再掲<small>日常の便利さを重視</small></figcaption>
+      </figure>
+    </div>
+
+    <p class="muted" style="margin-top:.8rem"><small>※写真は一部イメージ・複数拠点の参考カットを含みます。実際の配属・通勤動線・施設は時期やプロジェクトにより異なる場合があります。</small></p>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="grid-3">
+      <div class="card">
+        <h3>求人を見る</h3>
+        <p class="muted">日本語スピーカー向けポジションを多数募集中。未経験からの挑戦も歓迎です。</p>
+        <p style="margin-top:.4rem"><a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧へ</a></p>
+      </div>
+      <div class="card">
+        <h3>カジュアル面談</h3>
+        <p class="muted">選考ではありません。生活・仕事・移住の疑問を日本語で相談。</p>
+        <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">予約する</a></p>
+      </div>
+      <div class="card">
+        <h3>LINEで最新情報</h3>
+        <p class="muted">新着求人や現地情報をお届け。トークでの質問もOK。</p>
+        <p style="margin-top:.4rem"><a class="btn" target="_blank" rel="noopener" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">友だち追加</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="https://tpmyandtpth.github.io/JLP/index.html">
+          <img src="photos/TPLogo11.png" alt="TP">
+          <span class="footer-logo-text">TP</span>
+        </a>
+        <p class="footer-desc">
+          世界100カ国以上で展開するグローバルBPO企業。<br>
+          日本語スピーカーの皆様の新たなキャリアをサポートします。
+        </p>
+        <div class="badges">
+          <img src="photos/great place to work.png" alt="Great Place to Work 認証" style="height:28px;vertical-align:middle">
+        </div>
+        <div class="footer-cta" style="margin-top:.5rem">
+          <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/virtual-office-tour.html">バーチャルツアー</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>求人・応募</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">FAQ</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>現地情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a></li>
+          <li><a target="_blank" rel="noopener" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINE公式</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 TP. All rights reserved. |
+        <a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Apply Now -->
+  <a class="floating-apply"
+     href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+     target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
+    ご応募はこちら
+  </a>
+
+  <script>
+    // mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+  </script>
+</body>
+</html>

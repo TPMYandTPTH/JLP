@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>マレーシア生活コスト | Cost of Living | TP Japan</title>
+  <meta name="description" content="東京とクアラルンプールの生活費比較、家賃相場、食費・交通費の目安、1ヶ月のモデル予算、節約TIPSを掲載。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Design tokens (unified) ===== */
+    :root{
+      --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d; --tp-gray-dark:#4a4a4a; --tp-gray:#666; --tp-gray-light:#999;
+      --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off-white:#f5f5f5; --tp-white:#fff;
+      --accent-purple:#780096; --accent-pink:#ff0082;
+      --font-primary:'Noto Sans JP',sans-serif;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08); --shadow-md:0 4px 8px rgba(0,0,0,.12); --shadow-lg:0 8px 16px rgba(0,0,0,.16);
+      --radius:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-primary);color:var(--tp-dark);background:#fff;line-height:1.8}
+
+    /* ===== Header ===== */
+    header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--tp-light)}
+    .header-inner{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+    .brand img{width:40px;height:40px;display:block}
+    .brand-text{display:flex;flex-direction:column;line-height:1}
+    .brand-name{font-weight:900;font-size:1.1rem}
+    .brand-tagline{font-size:.72rem;color:var(--tp-gray)}
+    header nav ul{list-style:none;display:flex;gap:1.1rem;align-items:center}
+    header nav a{color:var(--tp-dark);text-decoration:none;font-weight:700;font-size:.95rem;position:relative;transition:.2s}
+    header nav a:hover{opacity:.75}
+    header nav a[aria-current="page"]::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--accent-purple)}
+    .apply-btn{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
+    .apply-btn:hover{background:var(--tp-black);color:#fff}
+    .mobile-toggle{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer}
+    .mobile-toggle span{display:block;width:24px;height:2px;background:#000}
+    .mobile-menu{display:none;border-top:1px solid var(--tp-light);background:#fff}
+    .mobile-menu ul{list-style:none;padding:1rem 2rem;display:flex;flex-direction:column;gap:.75rem}
+    .mobile-menu a{color:var(--tp-dark);text-decoration:none;font-weight:700}
+    @media (max-width:1020px){
+      header nav{display:none}
+      .mobile-toggle{display:flex}
+      .mobile-menu.open{display:block}
+    }
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--tp-white) 0%,var(--tp-off-white) 100%);padding:3.6rem 20px;text-align:center}
+    .hero::before{
+      content:''; position:absolute; top:50%; right:6%;
+      width: clamp(220px, 32vw, 480px); height: clamp(220px, 32vw, 480px);
+      background-image:url('photos/TPLogo11.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+      opacity:.04; filter:saturate(0); transform:translateY(-50%); pointer-events:none;
+    }
+    .hero h1{font-size:2.4rem;font-weight:900;color:#000;margin-bottom:.45rem}
+    .hero p{color:var(--tp-gray-dark)}
+    .hero-cta{margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+    .btn{padding:.85rem 1.2rem;font-weight:900;border-radius:999px;text-decoration:none;display:inline-block;border:2px solid var(--accent-purple);color:var(--accent-purple);transition:.2s}
+    .btn:hover{background:var(--accent-purple);color:#fff}
+    .btn-solid{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
+    .btn-solid:hover{filter:brightness(.95)}
+
+    /* ===== Sections ===== */
+    .section{max-width:1200px;margin:1.6rem auto;padding:0 20px}
+    .section h2{font-size:1.6rem;color:#000;font-weight:900;margin-bottom:.6rem}
+    .lead{color:var(--tp-gray-dark)}
+    .muted{color:var(--tp-gray-dark)}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    @media (max-width:1020px){ .grid-3{grid-template-columns:1fr 1fr} }
+    @media (max-width:720px){ .grid-3,.grid-2{grid-template-columns:1fr} }
+
+    .card{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm)}
+    .card h3{font-size:1.05rem;color:#000;margin-bottom:.35rem}
+
+    /* ===== Tables ===== */
+    .mini{width:100%;border-collapse:collapse;margin-top:.5rem}
+    .mini th,.mini td{border:1px solid var(--tp-light);padding:.65rem .75rem;font-size:.96rem;vertical-align:top}
+    .mini th{background:var(--tp-off-white);text-align:left}
+
+    /* ===== Price grid ===== */
+    .pricegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .price{border:1px solid var(--tp-light);border-radius:10px;padding:.9rem;background:#fff}
+    .price strong{color:#000}
+    @media (max-width:1000px){ .pricegrid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px){ .pricegrid{grid-template-columns:1fr} }
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--tp-light);background:#fff}
+    .footer-content{max-width:1400px;margin:0 auto;padding:2rem 20px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:1.5rem}
+    .footer-brand .footer-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
+    .footer-brand img{width:36px;height:36px}
+    .footer-logo-text{font-weight:900}
+    .footer-desc{color:var(--tp-gray-dark);margin:.6rem 0}
+    .badges{margin:.5rem 0}
+    .badge-item{display:inline-block;font-size:.85rem;background:var(--tp-off-white);border:1px solid var(--tp-light);padding:.25rem .5rem;border-radius:6px}
+    .footer-section h3{font-size:1rem;margin-bottom:.5rem}
+    .footer-section ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-section a{text-decoration:none;color:var(--tp-gray-dark);font-weight:700}
+    .footer-section a:hover{color:#000}
+    .footer-bottom{border-top:1px solid var(--tp-light);padding:1rem 20px;text-align:center;color:var(--tp-gray-dark)}
+    .footer-bottom a{color:inherit}
+    @media (max-width:960px){ .footer-content{grid-template-columns:1fr 1fr} }
+    @media (max-width:560px){ .footer-content{grid-template-columns:1fr} }
+
+    /* Floating Apply */
+    .floating-apply{
+      position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--accent-purple);color:#fff;
+      border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
+    }
+    .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="header-inner">
+      <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
+        <img src="photos/TPLogo11.png" alt="TP Japan">
+        <div class="brand-text">
+          <span class="brand-name">TP</span>
+          <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
+        </div>
+      </a>
+
+      <nav aria-label="メインナビゲーション">
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html">Testimonials</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html" aria-current="page">生活コスト</a></li>
+          <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html">Testimonials</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html" aria-current="page">生活コスト</a></li>
+        <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>マレーシア生活コスト / Cost of Living</h1>
+    <p>“日本よりもゆとりのある暮らし”を実現しやすい国、マレーシア。<br>（データファイル：スライド15「日本 vs KL」比較に準拠）</p>
+    <div class="hero-cta" role="group" aria-label="関連ページ">
+      <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a>
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a>
+    </div>
+  </section>
+
+  <!-- Key points -->
+  <section class="section">
+    <h2>ポイント（概要）</h2>
+    <div class="grid-3" style="margin-top:.7rem">
+      <div class="card">
+        <h3>🏠 家賃が大きく抑えられる</h3>
+        <p class="muted">KLの1LDKは<strong>RM1,500〜2,500</strong>（約5〜8万円）で、プール・ジム・24hセキュリティ付きが一般的。（スライド15/16）</p>
+      </div>
+      <div class="card">
+        <h3>🍜 外食が日常の価格</h3>
+        <p class="muted">屋台やフードコートなら1食<strong>RM10〜</strong>（約300円〜）。毎日の外食＆カフェ巡りも気軽。（スライド15）</p>
+      </div>
+      <div class="card">
+        <h3>🚕 交通・移動もリーズナブル</h3>
+        <p class="muted">電車・バス・Grabを組み合わせて月数千円レベルに収まるケースが多め。（スライド15）</p>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:.6rem">※ 円換算は便宜上 <strong>1RM=約30円</strong> の目安で表示。実際のレートで変動します。</p>
+  </section>
+
+  <!-- JP vs KL table (from Slide 15) -->
+  <section class="section">
+    <h2>東京 vs クアラルンプール（目安）</h2>
+    <table class="mini" aria-label="生活コスト比較">
+      <tr><th>項目</th><th>日本（東京）</th><th>マレーシア（KL）</th></tr>
+      <tr>
+        <td>家賃（1LDK）</td>
+        <td>約12万円〜</td>
+        <td>約<strong>RM1,500〜2,500</strong>（約5〜8万円）<br><small>24hセキュリティ・プール・ジム付が一般的（スライド16）</small></td>
+      </tr>
+      <tr>
+        <td>外食</td>
+        <td>1,000円〜</td>
+        <td>約<strong>RM10〜</strong>（約300円〜）</td>
+      </tr>
+      <tr>
+        <td>交通費</td>
+        <td>月1万円以上</td>
+        <td>月<strong>RM150〜300</strong>（約4,500〜9,000円）目安<br><small>Grab＋電車/バスの併用</small></td>
+      </tr>
+    </table>
+    <p class="muted" style="margin-top:.5rem">出所：データファイル（スライド15・16）。エリア・物件・生活スタイルで増減します。</p>
+  </section>
+
+  <!-- Model Budgets -->
+  <section class="section">
+    <h2>1ヶ月のモデル予算（例）</h2>
+    <div class="grid-3" style="margin-top:.7rem">
+      <div class="card">
+        <h3>🧑 単身＠KL（1LDK）</h3>
+        <table class="mini">
+          <tr><th>項目</th><th>RM</th><th>円目安</th></tr>
+          <tr><td>家賃（1LDK）</td><td>2,000</td><td>約60,000</td></tr>
+          <tr><td>光熱（水道・電気）</td><td>250</td><td>約7,500</td></tr>
+          <tr><td>インターネット</td><td>120</td><td>約3,600</td></tr>
+          <tr><td>携帯</td><td>40</td><td>約1,200</td></tr>
+          <tr><td>交通（Grab＋電車）</td><td>250</td><td>約7,500</td></tr>
+          <tr><td>食費（外食＋自炊）</td><td>1,200</td><td>約36,000</td></tr>
+          <tr><td>レジャー・その他</td><td>350</td><td>約10,500</td></tr>
+          <tr><th>合計</th><th>4,210</th><th>約126,300</th></tr>
+        </table>
+        <p class="muted"><small>※ 目安。生活スタイルにより変動。</small></p>
+      </div>
+
+      <div class="card">
+        <h3>🧑 単身＠ペナン（1LDK）</h3>
+        <table class="mini">
+          <tr><th>項目</th><th>RM</th><th>円目安</th></tr>
+          <tr><td>家賃（1LDK）</td><td>1,700</td><td>約51,000</td></tr>
+          <tr><td>光熱</td><td>220</td><td>約6,600</td></tr>
+          <tr><td>インターネット</td><td>120</td><td>約3,600</td></tr>
+          <tr><td>携帯</td><td>40</td><td>約1,200</td></tr>
+          <tr><td>交通</td><td>200</td><td>約6,000</td></tr>
+          <tr><td>食費</td><td>1,050</td><td>約31,500</td></tr>
+          <tr><td>レジャー・その他</td><td>300</td><td>約9,000</td></tr>
+          <tr><th>合計</th><th>3,630</th><th>約108,900</th></tr>
+        </table>
+        <p class="muted"><small>※ ペナンはKLよりやや低コスト傾向（スライド12/16）。</small></p>
+      </div>
+
+      <div class="card">
+        <h3>👫 カップル＠KL（1LDK〜2LDK）</h3>
+        <table class="mini">
+          <tr><th>項目</th><th>RM</th><th>円目安</th></tr>
+          <tr><td>家賃（2LDK想定）</td><td>2,800</td><td>約84,000</td></tr>
+          <tr><td>光熱</td><td>300</td><td>約9,000</td></tr>
+          <tr><td>インターネット</td><td>130</td><td>約3,900</td></tr>
+          <tr><td>携帯（2名）</td><td>80</td><td>約2,400</td></tr>
+          <tr><td>交通（2名）</td><td>450</td><td>約13,500</td></tr>
+          <tr><td>食費（外食多め）</td><td>1,900</td><td>約57,000</td></tr>
+          <tr><td>レジャー・その他</td><td>500</td><td>約15,000</td></tr>
+          <tr><th>合計</th><th>6,160</th><th>約184,800</th></tr>
+        </table>
+        <p class="muted"><small>※ 設備充実物件・外食頻度高めのケース。</small></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typical Prices -->
+  <section class="section">
+    <h2>代表的な価格帯（KL 目安）</h2>
+    <div class="pricegrid" style="margin-top:.7rem">
+      <div class="price"><strong>屋台/ローカル食堂</strong><br>RM10〜18（約300〜540円）/1食</div>
+      <div class="price"><strong>日系/カフェ系ランチ</strong><br>RM25〜45（約750〜1,350円）</div>
+      <div class="price"><strong>カフェのコーヒー</strong><br>RM8〜15（約240〜450円）</div>
+      <div class="price"><strong>スーパーの卵(10個)</strong><br>RM7〜12（約210〜360円）</div>
+      <div class="price"><strong>映画館（大人）</strong><br>RM18〜25（約540〜750円）</div>
+      <div class="price"><strong>ジム(月額)</strong><br>RM120〜180（約3,600〜5,400円）</div>
+      <div class="price"><strong>Grab 5〜8km</strong><br>RM10〜20（約300〜600円）</div>
+      <div class="price"><strong>LRT/モノレール</strong><br>RM2〜6/片道（約60〜180円）</div>
+    </div>
+    <p class="muted" style="margin-top:.6rem"><small>※ いずれも目安。場所・時間帯・為替により変動。</small></p>
+  </section>
+
+  <!-- Housing callout -->
+  <section class="section">
+    <h2>住宅設備の“標準”が高い（スライド16）</h2>
+    <div class="grid-2" style="margin-top:.6rem">
+      <div class="card">
+        <h3>家具家電つき × すぐ生活開始</h3>
+        <p class="muted">多くのコンドが家具・家電付き。引っ越し直後から快適に暮らせます。</p>
+        <ul class="muted" style="margin-top:.4rem">
+          <li>24時間セキュリティ＆ゲート</li>
+          <li>プール・ジム・サウナ・BBQ</li>
+          <li>コワーキング/キッズ/ヨガ・ラウンジ</li>
+          <li>駐車場1台込み物件も多数</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>家賃相場（KL / ペナン）</h3>
+        <table class="mini">
+          <tr><th>都市</th><th>相場（1LDK）</th><th>特徴</th></tr>
+          <tr><td>KL</td><td>RM1,500〜2,500</td><td>都市機能充実・通勤至便</td></tr>
+          <tr><td>ペナン</td><td>RM1,300〜2,100</td><td>海近・落ち着き・やや低コスト</td></tr>
+        </table>
+        <p class="muted"><small>※ エリア/築年/設備で変動。詳細は面談・面接時にご案内。</small></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section class="section">
+    <h2>生活コストを抑えるTIPS</h2>
+    <div class="grid-3" style="margin-top:.7rem">
+      <div class="card">
+        <h3>🚉 通勤アクセス重視でエリア選び</h3>
+        <p class="muted">LRT/MRT沿線や職場近くのコンドを選ぶと、Grab利用が減り交通費節約につながります。</p>
+      </div>
+      <div class="card">
+        <h3>🍽️ ローカル/フードコート活用</h3>
+        <p class="muted">おいしくて手頃。平日は外食、週末は自炊でメリハリも◎。</p>
+      </div>
+      <div class="card">
+        <h3>📶 通信はプリペイド/格安プラン</h3>
+        <p class="muted">データ重視のプリペイドや低料金SIMで携帯代を最適化。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Steps CTA -->
+  <section class="section">
+    <h2>次のステップ</h2>
+    <div class="grid-3" style="margin-top:.6rem">
+      <div class="card">
+        <h3 style="color:#000">求人を見る</h3>
+        <p class="muted">日本語ポジション多数。未経験OKの案件もあります。</p>
+        <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧へ</a></p>
+      </div>
+      <div class="card">
+        <h3 style="color:#000">移住・ビザサポート</h3>
+        <p class="muted">就労ビザ、到着後ホテル、空港送迎などを日本語でサポート。</p>
+        <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">サポート内容を見る</a></p>
+      </div>
+      <div class="card">
+        <h3 style="color:#000">カジュアル面談（日本語）</h3>
+        <p class="muted">選考ではありません。生活・仕事の疑問を30分で気軽に相談。</p>
+        <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">予約する</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="https://tpmyandtpth.github.io/JLP/index.html">
+          <img src="photos/TPLogo11.png" alt="TP">
+          <span class="footer-logo-text">TP</span>
+        </a>
+        <p class="footer-desc">
+          世界100カ国以上で展開するグローバルBPO企業。<br>
+          日本語スピーカーの皆様の新たなキャリアをサポートします。
+        </p>
+        <div class="badges">
+          <span class="badge-item">🏆 Great Place to Work® 認証</span>
+        </div>
+        <div class="footer-cta" style="margin-top:.5rem">
+          <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/virtual-office-tour.html">バーチャルツアー</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>求人・応募</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">FAQ</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>現地情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html" aria-current="page">生活コスト</a></li>
+          <li><a target="_blank" rel="noopener" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINE公式</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 TP. All rights reserved. |
+        <a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Apply Now -->
+  <a class="floating-apply"
+     href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+     target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
+    ご応募はこちら
+  </a>
+
+  <script>
+    // mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>移住・ビザサポート | Relocation & Visa Support | TP Japan</title>
+  <meta name="description" content="就労ビザ（EP）申請は会社負担。日本語サポート、片道航空券・空港送迎・到着後6泊7日ホテル（マレーシア）など、移住支援の流れと内容をご案内。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Design tokens (unified with FAQ/Open Jobs/Benefits) ===== */
+    :root{
+      --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d; --tp-gray-dark:#4a4a4a; --tp-gray:#666; --tp-gray-light:#999;
+      --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off-white:#f5f5f5; --tp-white:#fff;
+      --accent-purple:#780096; --accent-pink:#ff0082;
+      --font-primary:'Noto Sans JP',sans-serif;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08); --shadow-md:0 4px 8px rgba(0,0,0,.12); --shadow-lg:0 8px 16px rgba(0,0,0,.16);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-primary);color:var(--tp-dark);background:#fff;line-height:1.8}
+
+    /* ===== Header (same structure across pages) ===== */
+    header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--tp-light)}
+    .header-inner{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+    .brand img{width:40px;height:40px;display:block}
+    .brand-text{display:flex;flex-direction:column;line-height:1}
+    .brand-name{font-weight:900;font-size:1.1rem}
+    .brand-tagline{font-size:.72rem;color:var(--tp-gray)}
+    header nav ul{list-style:none;display:flex;gap:1.1rem;align-items:center}
+    header nav a{color:var(--tp-dark);text-decoration:none;font-weight:700;font-size:.95rem;position:relative;transition:.2s}
+    header nav a:hover{opacity:.75}
+    header nav a[aria-current="page"]::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--accent-purple)}
+    .apply-btn{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
+    .apply-btn:hover{background:var(--tp-black);color:#fff}
+    .mobile-toggle{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer}
+    .mobile-toggle span{display:block;width:24px;height:2px;background:#000}
+    .mobile-menu{display:none;border-top:1px solid var(--tp-light);background:#fff}
+    .mobile-menu ul{list-style:none;padding:1rem 2rem;display:flex;flex-direction:column;gap:.75rem}
+    .mobile-menu a{color:var(--tp-dark);text-decoration:none;font-weight:700}
+    @media (max-width:960px){
+      header nav{display:none}
+      .mobile-toggle{display:flex}
+      .mobile-menu.open{display:block}
+    }
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--tp-white) 0%,var(--tp-off-white) 100%);padding:3.75rem 20px;text-align:center}
+    .hero::before{
+      content:''; position:absolute; top:50%; right:6%;
+      width: clamp(220px, 32vw, 480px); height: clamp(220px, 32vw, 480px);
+      background-image:url('photos/TPLogo11.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+      opacity:.04; filter:saturate(0); transform:translateY(-50%); pointer-events:none;
+    }
+    .hero h1{font-size:2.4rem;font-weight:900;color:#000;margin-bottom:.6rem}
+    .hero p{color:var(--tp-gray-dark)}
+    .hero-cta{margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+    .btn{padding:.85rem 1.2rem;font-weight:900;border-radius:999px;text-decoration:none;display:inline-block;border:2px solid var(--accent-purple);color:var(--accent-purple);transition:.2s}
+    .btn:hover{background:var(--accent-purple);color:#fff}
+    .btn-solid{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
+    .btn-solid:hover{filter:brightness(.95)}
+
+    /* ===== Sections ===== */
+    .section{max-width:1200px;margin:2rem auto;padding:0 20px}
+    .section h2{font-size:1.6rem;color:#000;font-weight:900;margin-bottom:.6rem}
+    .lead{color:var(--tp-gray-dark);margin-bottom:1rem}
+
+    /* highlight cards */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .card{background:#fff;border:1px solid var(--tp-light);border-radius:12px;padding:1.1rem;box-shadow:var(--shadow-sm)}
+    .card h3{font-size:1.05rem;margin-bottom:.35rem;color:#000}
+    .card p{color:var(--tp-gray-dark);font-size:.95rem}
+    @media (max-width:980px){ .cards{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .cards{grid-template-columns:1fr} }
+
+    /* stepper */
+    .steps{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem}
+    .step{background:#fff;border:1px solid var(--tp-light);border-radius:12px;padding:.9rem .8rem;text-align:left}
+    .step strong{display:block;color:#000}
+    .step small{display:block;color:var(--tp-gray-dark)}
+    @media (max-width:1100px){ .steps{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:700px){ .steps{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:480px){ .steps{grid-template-columns:1fr} }
+
+    /* accordion */
+    .acc{border:1px solid var(--tp-light);border-radius:12px;overflow:hidden}
+    .acc-item + .acc-item{border-top:1px solid var(--tp-light)}
+    .acc-q{padding:1rem 1.1rem;background:#fff;font-weight:900;color:#000;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+    .acc-q:focus{outline:2px dashed var(--accent-purple);outline-offset:3px}
+    .acc-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 1.1rem;color:var(--tp-gray-dark);background:#fff}
+    .acc-item.open .acc-a{max-height:900px;padding:0 1.1rem 1rem}
+    .plus{font-size:1.4rem;font-weight:300;transition:transform .2s}
+    .acc-item.open .plus{transform:rotate(45deg)}
+
+    /* pills */
+    .pills{display:flex;flex-wrap:wrap;gap:.5rem}
+    .pill{font-size:.85rem;background:var(--tp-off-white);border:1px solid var(--tp-light);padding:.3rem .6rem;border-radius:999px}
+
+    /* team photos */
+    .team-strip{max-width:1200px;margin:2rem auto 3rem;padding:0 20px}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+    .team-grid div{aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#eee center/cover no-repeat}
+    @media (max-width:900px){ .team-grid{grid-template-columns:repeat(2,1fr)} }
+
+    /* helper */
+    .helper{background:#fff;border-top:1px solid var(--tp-light);border-bottom:1px solid var(--tp-light);padding:2rem 20px;margin:2rem 0}
+    .helper .inner{max-width:1000px;margin:0 auto;text-align:center}
+    .helper h2{font-size:1.6rem;font-weight:900;color:#000;margin-bottom:.4rem}
+    .helper p{color:var(--tp-gray-dark)}
+
+    /* Footer */
+    footer{border-top:1px solid var(--tp-light);background:#fff}
+    .footer-content{max-width:1400px;margin:0 auto;padding:2rem 20px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:1.5rem}
+    .footer-brand .footer-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
+    .footer-brand img{width:36px;height:36px}
+    .footer-logo-text{font-weight:900}
+    .footer-desc{color:var(--tp-gray-dark);margin:.6rem 0}
+    .badges{margin:.5rem 0}
+    .badge-item{display:inline-block;font-size:.85rem;background:var(--tp-off-white);border:1px solid var(--tp-light);padding:.25rem .5rem;border-radius:6px}
+    .footer-section h3{font-size:1rem;margin-bottom:.5rem}
+    .footer-section ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+    .footer-section a{text-decoration:none;color:var(--tp-gray-dark);font-weight:700}
+    .footer-section a:hover{color:#000}
+    .footer-bottom{border-top:1px solid var(--tp-light);padding:1rem 20px;text-align:center;color:var(--tp-gray-dark)}
+    .footer-bottom a{color:inherit}
+    @media (max-width:960px){ .footer-content{grid-template-columns:1fr 1fr} }
+    @media (max-width:560px){ .footer-content{grid-template-columns:1fr} }
+
+    /* Floating Apply */
+    .floating-apply{
+      position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--accent-purple);color:#fff;
+      border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
+    }
+    .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="header-inner">
+      <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
+        <img src="photos/TPLogo11.png" alt="TP Japan">
+        <div class="brand-text">
+          <span class="brand-name">TP</span>
+          <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
+        </div>
+      </a>
+
+      <nav aria-label="メインナビゲーション">
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html" aria-current="page">Relocation &amp; Visa</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+          <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
+      <ul>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html" aria-current="page">Relocation &amp; Visa</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
+        <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>移住・ビザサポート <span aria-hidden="true">/</span> Relocation &amp; Visa Support</h1>
+    <p>就労ビザは<strong>会社負担</strong>で申請。専門チームが<strong>日本語</strong>で伴走し、<strong>片道航空券・空港送迎</strong>、<strong>到着後6泊7日のホテル（マレーシア）</strong>までサポートします。<br>
+       ※条件はポジション・勤務地により異なり、オファーで確定します。</p>
+    <div class="hero-cta" role="group" aria-label="関連ページ">
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+      <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a>
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">給与・福利厚生</a>
+    </div>
+  </section>
+
+  <!-- Highlights -->
+  <section class="section" aria-labelledby="high">
+    <h2 id="high">サポートのハイライト</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>ビザ費用は会社負担</h3>
+        <p>就労ビザ（EP）申請費用は<strong>会社負担</strong>。必要書類のご案内から申請まで一貫してサポートします。</p>
+      </div>
+      <div class="card">
+        <h3>目安スケジュール</h3>
+        <p>内定から<strong>1〜2ヶ月</strong>で発行が目安。進捗は日本語で都度ご案内します。</p>
+      </div>
+      <div class="card">
+        <h3>渡航・到着支援</h3>
+        <p><strong>片道航空券支給・空港送迎</strong>に加え、マレーシアでは<strong>到着後6泊7日ホテル</strong>をご用意（滞在中に住居探し）。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section" aria-labelledby="proc">
+    <h2 id="proc">入社までの流れ（概要）</h2>
+    <p class="lead">各プロジェクトのスケジュールに沿って進行します。</p>
+    <div class="steps" role="list">
+      <div class="step" role="listitem"><strong>1. 内定</strong><small>条件・入社時期の調整</small></div>
+      <div class="step" role="listitem"><strong>2. 書類案内</strong><small>必要書類のご提出</small></div>
+      <div class="step" role="listitem"><strong>3. ビザ申請</strong><small>専門チームが申請を実施（会社負担）</small></div>
+      <div class="step" role="listitem"><strong>4. 航空券手配</strong><small>片道航空券・到着日の確定</small></div>
+      <div class="step" role="listitem"><strong>5. 到着サポート</strong><small>空港送迎・ホテル（MY:6泊7日）</small></div>
+      <div class="step" role="listitem"><strong>6. 研修開始</strong><small>入社手続き・トレーニング</small></div>
+    </div>
+  </section>
+
+  <!-- Accordion: Visa & Arrival -->
+  <section class="section" aria-labelledby="visa">
+    <h2 id="visa">就労ビザと到着後サポート</h2>
+
+    <div class="acc" role="region" aria-label="ビザと到着後サポート詳細">
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          就労ビザ（Employment Pass, EP） <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <ul>
+            <li>申請費用：<strong>会社負担</strong></li>
+            <li>発行目安：<strong>内定から1〜2ヶ月</strong></li>
+            <li>日本語サポート：必要書類のご案内・申請進捗の共有</li>
+          </ul>
+          <p style="margin-top:.5rem;color:var(--tp-gray-dark)">※詳細はポジション・国の規定により異なります。最新情報は選考時にご案内します。</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          家族帯同（Dependent Pass） <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <p>就労ビザ（EP）取得後、<strong>配偶者・お子さま向けのDependent Pass</strong>申請が可能です。日本語医療機関や日本人学校/コミュニティもあり、帯同での移住例も多くあります。</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-q" aria-expanded="false">
+          渡航・到着時の支援 <span class="plus">+</span>
+        </button>
+        <div class="acc-a">
+          <ul>
+            <li><strong>片道航空券支給</strong>（入社時）</li>
+            <li><strong>空港送迎</strong>：到着時にサポート</li>
+            <li><strong>到着後6泊7日のホテル（マレーシア）</strong>：滞在中に住居探しを実施</li>
+          </ul>
+          <p style="margin-top:.5rem;color:var(--tp-gray-dark)">※タイのホテル手配は職種により異なります。面接時にご案内します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Housing & Daily Life -->
+  <section class="section" aria-labelledby="life">
+    <h2 id="life">住まい・生活立ち上げ</h2>
+    <p class="lead">現地日本人スタッフが、不動産エージェントの紹介や内見・契約の進め方をアドバイスします。</p>
+    <div class="cards">
+      <div class="card">
+        <h3>住居の一般像（KL/ペナン）</h3>
+        <p><strong>プール・ジム・24hセキュリティ</strong>付きのコンドが一般的。家具家電付きで即入居しやすい物件が多いです。</p>
+        <div class="pills" style="margin-top:.5rem">
+          <span class="pill">家具・家電付き</span>
+          <span class="pill">プール/ジム</span>
+          <span class="pill">24hセキュリティ</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>生活コストの目安</h3>
+        <p>日本（東京）と比べて生活コストが抑えやすく、時間・お金・心に<strong>ゆとり</strong>が生まれます。詳しくは「<a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a>」をご覧ください。</p>
+      </div>
+      <div class="card">
+        <h3>現地生活情報</h3>
+        <p>日本食材店や日本語医療、交通手段などは「<a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a>」「<a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a>」でまとめています。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Country specifics -->
+  <section class="section" aria-labelledby="countries">
+    <h2 id="countries">国・都市別の特徴（抜粋）</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>マレーシア（KL / ペナン）</h3>
+        <p>多文化で英語が広く通じ、日本語施設も充実。KLは都市型、ペナンは海や自然も身近。<strong>到着後6泊7日のホテル</strong>を手配（MY）。</p>
+      </div>
+      <div class="card">
+        <h3>タイ（バンコク）</h3>
+        <p>日本語施設・病院が非常に充実。BTS/MRTで移動しやすく、家具付きコンドで快適に生活。<br>※ホテル手配の有無は職種により異なります。</p>
+      </div>
+      <div class="card">
+        <h3>家族帯同の方へ</h3>
+        <p>Dependent Pass申請、学校/医療/住居の選び方なども日本語でご相談可能です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Helper CTA -->
+  <section class="helper">
+    <div class="inner">
+      <h2>まずは日本語で相談しませんか？</h2>
+      <p>30分の <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a> で、ビザ・住まい・生活の不安を解消。<br>
+        すぐ応募される方は <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a> へ。</p>
+    </div>
+  </section>
+
+  <!-- Team images (use your assets) -->
+  <section class="team-strip" aria-label="チームフォト">
+    <div class="team-grid">
+      <div style="background-image:url('photos/team_relocation_1.jpg')"></div>
+      <div style="background-image:url('photos/team_relocation_2.jpg')"></div>
+      <div style="background-image:url('photos/team_relocation_3.jpg')"></div>
+      <div style="background-image:url('photos/team_relocation_4.jpg')"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a class="footer-logo" href="https://tpmyandtpth.github.io/JLP/index.html">
+          <img src="photos/TPLogo11.png" alt="TP">
+          <span class="footer-logo-text">TP</span>
+        </a>
+        <p class="footer-desc">
+          世界100カ国以上で展開するグローバルBPO企業。<br>
+          日本語スピーカーの皆様の新たなキャリアをサポートします。
+        </p>
+        <div class="badges">
+          <span class="badge-item">🏆 Great Place to Work® 認証</span>
+        </div>
+        <div class="footer-cta" style="margin-top:.5rem">
+          <a href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn btn-accent">ご応募はこちら</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/virtual-office-tour.html">バーチャルツアー</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>求人・応募</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">FAQ</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>現地情報</h3>
+        <ul>
+          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地の魅力</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">現地生活</a></li>
+          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html">生活コスト</a></li>
+          <li><a target="_blank" rel="noopener" href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd">LINE公式</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 TP. All rights reserved. |
+        <a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating Apply Now -->
+  <a class="floating-apply"
+     href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+     target="_blank" rel="noopener" aria-label="ご応募はこちら（外部サイト）">
+    ご応募はこちら
+  </a>
+
+  <script>
+    // mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    });
+
+    // accordion
+    document.querySelectorAll('.acc-q').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const item = btn.parentElement;
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.acc-item').forEach(i=>{
+          i.classList.remove('open');
+          i.querySelector('.acc-q').setAttribute('aria-expanded','false');
+        });
+        if(!open){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+      });
+      btn.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); btn.click(); }
+      });
+    });
+  </script>
+</body>
+</html>
