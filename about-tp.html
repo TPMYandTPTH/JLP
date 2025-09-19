@@ -898,6 +898,38 @@ footer::before {
     scroll-behavior: auto;
   }
 }
+  /* ===== Why TP (7 reasons) ===== */
+.why-tp { padding: 56px 20px; background: var(--tp-white); }
+.why-tp .container { max-width: var(--max); margin: 0 auto; }
+
+.reasons-grid {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 880px){ .reasons-grid { grid-template-columns: 1fr; } }
+
+.reason-card{
+  background:#fff;border:1px solid var(--tp-light);border-radius:12px;
+  padding:16px; box-shadow: var(--shadow-sm); transition:.2s;
+}
+.reason-card:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.reason-head{ display:flex; gap:.6rem; align-items:flex-start; }
+.reason-emoji{ font-size:1.4rem; line-height:1; }
+.reason-title{ font-weight:900; color:var(--tp-black); margin-top:-2px; }
+.reason-desc{ color:var(--tp-gray-dark); font-size:.95rem; margin-top:.35rem; }
+
+.locations { margin-top: 16px; border:1px solid var(--tp-light); border-radius:12px; padding:16px; background: var(--tp-off); }
+.locations h3{ font-size:1.05rem; margin-bottom:.4rem; color:var(--tp-black); }
+.loc-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.loc-tag{ font-size:.84rem; padding:.2rem .6rem; border:1px solid var(--tp-light); border-radius:999px; background:#fff; }
+
+.checklist { margin-top: 18px; border:1px solid var(--tp-light); border-radius:12px; padding:16px; }
+.checklist h3{ font-size:1.05rem; margin-bottom:.4rem; }
+.checklist ul{ list-style:none; padding-left:0; display:grid; gap:.35rem; }
+.checklist li::before{ content:"✅ "; }
+
+.note-muted{ color:var(--tp-gray); font-size:.9rem; margin-top:.25rem; }
+
 </style>
 </head>
 
@@ -1050,6 +1082,131 @@ footer::before {
       </div>
     </div>
   </section>
+<section class="why-tp" id="why-tp">
+  <div class="container">
+    <h2 class="section-title">TPを選ぶ7つの理由</h2>
+    <p class="section-subtitle">日本語スピーカーの皆さまが海外で安心して活躍できるように設計された環境です</p>
+
+    <div class="reasons-grid">
+      <!-- 1 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">🌍</div>
+          <div>
+            <div class="reason-title">1. グローバルな環境で、自分をレベルアップ！</div>
+            <p class="reason-desc">
+              TP Malaysia・Thailandは、世界中から集まったスタッフが活躍する国際的なBPO企業。まるで“毎日がプチ留学”のような環境で、自然と英語力や異文化理解力がアップします。<br>
+              「海外で働く」という体験を通じて、あなたの視野とキャリアは確実に広がります！
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">🗣️</div>
+          <div>
+            <div class="reason-title">2. 日本語スピーカー向けのポジションが豊富！安心してスタート可能</div>
+            <p class="reason-desc">
+              日本語を活かせるカスタマーサポートや営業職などのポジションを多数ご用意。<br>
+              「英語に少し自信がない…」という方も、日本語中心の業務から安心して始められます。段階的に英語に触れながら、無理なくスキルを伸ばせます。<br>
+              また、TPは英語バイリンガルのポジションも豊富。英語力を存分に活かし、国際的なキャリアに挑戦できます。
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">👥</div>
+          <div>
+            <div class="reason-title">3. 日本人サポートも充実！初めての海外でも安心</div>
+            <p class="reason-desc">
+              多数の日本人スタッフが在籍しているため、「困ったときにすぐ相談できる環境」が整っています。生活・お仕事の両面で、安心のサポート体制があります。
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">💼</div>
+          <div>
+            <div class="reason-title">4. 実力次第でキャリアアップのチャンスも！</div>
+            <p class="reason-desc">
+              年齢や経歴に関係なく「頑張り」を評価する社風。トレーナー、QA、チームリーダー、マネージャーへの昇進や、別プロジェクトへの異動など、多彩なキャリアパスが描けます。
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">🏡</div>
+          <div>
+            <div class="reason-title">5. 就労ビザ＆一時滞在先サポートあり！スムーズに移住可能</div>
+            <p class="reason-desc">
+              就労ビザ申請サポート、空港送迎、一時滞在先（マレーシアのみ）の手配まで、入社前後の手続きをフルサポート。初めての海外生活でも安心してスタートできます。
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">🌈</div>
+          <div>
+            <div class="reason-title">6. 多様性あふれる、自由でフラットな社風</div>
+            <p class="reason-desc">
+              国籍・年齢・性別を問わず、お互いを尊重し合える文化が根付いています。世界中の仲間と協力し合いながら働けるのも、TPならではの魅力です。<br>
+              <span class="note-muted">🌐 世界中の仲間と出会い、協力しながら働ける環境です！</span>
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="reason-card">
+        <div class="reason-head">
+          <div class="reason-emoji">🎉</div>
+          <div>
+            <div class="reason-title">7. 仕事だけじゃない！イベント＆福利厚生も充実</div>
+            <p class="reason-desc">
+              社内イベントや表彰制度、チームビルディング活動など、人とのつながりを大切にするカルチャー。医療保険、有給休暇、各種手当なども完備し、安心して長く働ける環境です。
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Locations / 勤務地 -->
+    <div class="locations" aria-label="勤務地">
+      <h3>🏢 勤務地：マレーシア（ペナン・クアラルンプール）、タイ（バンコク）</h3>
+      <p class="note-muted">アジアの人気エリアから選択可能。住みやすく、観光・グルメも充実しています！</p>
+      <div class="loc-tags" style="margin-top:.5rem;">
+        <span class="loc-tag">🇲🇾 ペナン（Penang）</span>
+        <span class="loc-tag">🇲🇾 クアラルンプール（KL）</span>
+        <span class="loc-tag">🇹🇭 バンコク（Bangkok）</span>
+      </div>
+    </div>
+
+    <!-- Recommended checklist -->
+    <div class="checklist">
+      <h3>✅ こんな方におすすめ！</h3>
+      <ul>
+        <li>日本語を活かして海外で働いてみたい</li>
+        <li>英語を使う環境にチャレンジしたい</li>
+        <li>多国籍な職場で価値観を広げたい</li>
+        <li>海外生活を楽しみながらキャリアを築きたい</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
   <!-- Testimonials Section -->
   <section class="testimonials">
