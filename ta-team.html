@@ -127,67 +127,66 @@
       border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
     }
     .floating-apply:hover{background:#fff;color:var(--accent-purple)}
+
     /* ====== TA TEAM (redo) ====== */
-.ta-team { padding: 56px 20px; background: var(--tp-white); }
-.ta-team .container { max-width: 1200px; margin: 0 auto; }
+    .ta-team { padding: 56px 20px; background: var(--tp-white); }
+    .ta-team .container { max-width: 1200px; margin: 0 auto; }
+    .ta-intro { text-align: center; max-width: 860px; margin: 0 auto 18px; color: var(--tp-gray-dark); }
+    .ta-intro strong { color: var(--tp-black); }
 
-.ta-intro { text-align: center; max-width: 860px; margin: 0 auto 18px; color: var(--tp-gray-dark); }
-.ta-intro strong { color: var(--tp-black); }
+    /* Group picture (collage) */
+    .ta-group-photo { margin: 18px auto 28px; text-align: center; }
+    .ta-group-row { display: flex; justify-content: center; align-items: center; }
+    .group-avatar {
+      width: 84px; height: 84px; border-radius: 999px; object-fit: cover;
+      border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    .group-avatar + .group-avatar { margin-left: -18px; }
+    .ta-group-caption { margin-top: .6rem; font-size: .9rem; color: var(--tp-gray); }
 
-/* Group picture (collage) */
-.ta-group-photo { margin: 18px auto 28px; text-align: center; }
-.ta-group-row { display: flex; justify-content: center; align-items: center; }
-.group-avatar {
-  width: 84px; height: 84px; border-radius: 999px; object-fit: cover; 
-  border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.12);
-}
-.group-avatar + .group-avatar { margin-left: -18px; }
-.ta-group-caption { margin-top: .6rem; font-size: .9rem; color: var(--tp-gray); }
+    /* Leader card */
+    .ta-leader-card {
+      background: #fff; border: 1px solid var(--tp-light); border-radius: 12px;
+      padding: 18px; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start;
+    }
+    .ta-leader-card .avatar-lg {
+      width: 120px; height: 120px; border-radius: 12px; object-fit: cover;
+      border: 3px solid #fff; box-shadow: var(--shadow-sm);
+    }
+    .ta-leader-meta { font-size: .95rem; color: var(--tp-gray-dark); margin: 4px 0 8px; }
+    .ta-leader-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .btn-sm { padding: .55rem .8rem; border-radius: 999px; border: 2px solid var(--tp-black); font-weight: 800; font-size: .85rem; }
+    .btn-ghost { background: #fff; }
+    .btn-sm:hover { background: var(--tp-black); color: #fff; }
 
-/* Leader card */
-.ta-leader-card {
-  background: var(--tp-off); border: 1px solid var(--tp-light); border-radius: 12px;
-  padding: 18px; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start;
-}
-.ta-leader-card .avatar-lg {
-  width: 120px; height: 120px; border-radius: 12px; object-fit: cover; 
-  border: 3px solid #fff; box-shadow: var(--shadow-sm);
-}
-.ta-leader-meta { font-size: .95rem; color: var(--tp-gray-dark); margin: 4px 0 8px; }
-.ta-leader-cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.btn-sm { padding: .55rem .8rem; border-radius: 999px; border: 2px solid var(--tp-black); font-weight: 800; font-size: .85rem; }
-.btn-ghost { background: #fff; }
-.btn-sm:hover { background: var(--tp-black); color: #fff; }
+    /* Members grid */
+    .ta-members { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
+    @media (max-width: 980px){ .ta-members { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px){ .ta-members { grid-template-columns: 1fr; } }
 
-/* Members grid */
-.ta-members { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
-@media (max-width: 980px){ .ta-members { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px){ .ta-members { grid-template-columns: 1fr; } }
+    .ta-member-card {
+      background:#fff; border:1px solid var(--tp-light); border-radius:12px; padding:14px;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .ta-member-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--tp-black); }
+    .ta-member-head { display:flex; gap:12px; align-items:flex-start; }
+    .ta-member-img { width:92px; height:92px; border-radius:12px; object-fit:cover; box-shadow: var(--shadow-sm); }
+    .ta-member-role { color: var(--tp-gray); font-size: .9rem; margin: 2px 0 6px; }
+    .ta-tags { display:flex; flex-wrap:wrap; gap:6px; margin: 4px 0 8px; }
+    .ta-tag { font-size:.78rem; border:1px solid var(--tp-light); background:var(--tp-off); padding:.15rem .5rem; border-radius:999px; }
+    .ta-member-links { margin-top: 8px; display:flex; flex-wrap:wrap; gap:8px; }
 
-.ta-member-card {
-  background:#fff; border:1px solid var(--tp-light); border-radius:12px; padding:14px;
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.ta-member-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--tp-black); }
-.ta-member-head { display:flex; gap:12px; align-items:flex-start; }
-.ta-member-img { width:92px; height:92px; border-radius:12px; object-fit:cover; box-shadow: var(--shadow-sm); }
-.ta-member-role { color: var(--tp-gray); font-size: .9rem; margin: 2px 0 6px; }
-.ta-tags { display:flex; flex-wrap:wrap; gap:6px; margin: 4px 0 8px; }
-.ta-tag { font-size:.78rem; border:1px solid var(--tp-light); background:var(--tp-off); padding:.15rem .5rem; border-radius:999px; }
-.ta-member-links { margin-top: 8px; display:flex; flex-wrap:wrap; gap:8px; }
+    /* Mini gallery */
+    .ta-gallery { margin-top: 22px; }
+    .ta-gallery-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .ta-gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--tp-light); }
+    @media (max-width: 720px){ .ta-gallery-grid { grid-template-columns: 1fr 1fr; } }
 
-/* Mini gallery */
-.ta-gallery { margin-top: 22px; }
-.ta-gallery-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.ta-gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; border: 1px solid var(--tp-light); }
-@media (max-width: 720px){ .ta-gallery-grid { grid-template-columns: 1fr 1fr; } }
-
-/* ICIMS tips box */
-.ta-tips { margin-top: 22px; background: #fff; border: 1px solid var(--tp-light); border-radius: 12px; padding: 16px; }
-.ta-tips h3 { font-size: 1rem; margin-bottom: 8px; }
-.ta-tips ul { padding-left: 1rem; }
-.ta-tips li { margin: .35rem 0; color: var(--tp-gray-dark); }
-
+    /* ICIMS tips box */
+    .ta-tips { margin-top: 22px; background: #fff; border: 1px solid var(--tp-light); border-radius: 12px; padding: 16px; }
+    .ta-tips h3 { font-size: 1rem; margin-bottom: 8px; }
+    .ta-tips ul { padding-left: 1rem; }
+    .ta-tips li { margin: .35rem 0; color: var(--tp-gray-dark); }
   </style>
 </head>
 <body>
@@ -283,8 +282,15 @@
       海外で働くことに不安を感じる方も、言葉や文化の違いに戸惑う必要はありません。TPでは、日本語を話すタレントアクイジションチームが、応募から入社までサポートします。</p>
     </div>
 
+    <!-- Group Photo Placeholder (as requested) -->
+    <figure class="ta-group-photo" aria-label="TA Team Group Photo">
+      <!-- single group image placeholder -->
+      <img src="photos/JPteam.jpg" alt="TA Team Group Photo" style="max-width:980px;width:100%;height:auto;border-radius:12px;border:1px solid var(--tp-light);box-shadow:var(--shadow-sm)">
+      <figcaption class="ta-group-caption">TA Team Group Photo（JPteam.jpg）</figcaption>
+    </figure>
+
     <!-- Group Picture (collage made from individual photos) -->
-    <figure class="ta-group-photo" aria-label="TA Team Group Picture">
+    <figure class="ta-group-photo" aria-label="TA Team Collage">
       <div class="ta-group-row">
         <img class="group-avatar" src="photos/Joseph%20Hiroyuki%20Ueda.jpg" alt="Joseph">
         <img class="group-avatar" src="photos/Maya.png" alt="Maya">
@@ -302,10 +308,17 @@
         <h3>Joseph（ジョセフ）</h3>
         <div class="ta-leader-meta">シニアマネージャー｜タレントアクイジション</div>
         <p>
-          こんにちは。TP Malaysiaで日本語スピーカーをはじめとした多国籍人材の採用を担当している、シニアマネージャーのジョセフです。これまで約14年にわたり、APAC地域を中心に人材採用の業務に携わってきました。IT、ロジスティクス、半導体、ITインフラなどの業界において、エンジニアやサポート職からマネジメント、Cレベルまで幅広く担当。日本、マレーシア、シンガポール、タイ、韓国、オーストラリア、ニュージーランドなど複数国をまたぐ採用プロジェクトの経験を活かし、常に「一人ひとりに寄り添う採用」を大切にしています。<br>
-          🌴 プライベートでは、スキューバダイビングとゴルフが趣味です。マレーシアではこれらをリーズナブルに楽しめ、生活のクオリティも高いと感じています！<br>
-          <strong>✉️ 候補者の皆さまへ：</strong> 海外転職は大きなチャレンジであると同時に、新しい可能性を広げる素晴らしい機会です。選考プロセスや現地の生活についても、できる限り分かりやすくご案内し、安心してご応募いただけるよう心がけています。
+          こんにちは。TP Malaysiaで日本語スピーカーをはじめとした多国籍人材の採用を担当している、シニアマネージャーのジョセフです。
+          これまで約14年にわたり、APAC地域を中心に人材採用の業務に携わってきました。
+          IT、ロジスティクス、半導体、ITインフラなどの業界において、エンジニアやサポート職からマネジメント、Cレベルポジションまで、さまざまなポジションの採用を担当してきました。
+          日本、マレーシア、シンガポール、タイ、韓国、オーストラリア、ニュージーランドなど、複数国をまたぐ採用プロジェクトに関わる中で、各国の文化や候補者の多様な背景に触れてきた経験を活かし、常に「一人ひとりに寄り添う採用」を大切にしています。<br>
+          🌴 プライベートでは、スキューバダイビングとゴルフが趣味です。マレーシアではこれらのアクティビティを非常にリーズナブルに楽しむことができ、生活のクオリティも高いと感じています！<br>
+          <strong>✉️ 候補者の皆さまへ：</strong>
+          海外での転職は、大きなチャレンジであると同時に、新しい可能性を広げる素晴らしい機会でもあります。初めての環境に不安を感じる方もいらっしゃると思いますが、選考プロセスや現地の生活についても、できる限り分かりやすくご案内し、安心してご応募いただけるよう心がけています。これまでにも多くの日本語話者の方々が、マレーシアやタイで新たなキャリアをスタートされています。皆さまの挑戦が、より良い未来につながる第一歩となるよう、誠実にサポートさせていただきます。ご応募・ご相談を心よりお待ちしております。
         </p>
+        <!-- Explicit line you requested about 5000 interviews -->
+        <p style="margin:.5rem 0 0;font-weight:700;color:#000;">これまで約5000人の日本語話者の方々の面接を担当してきました！次はあなたのBPO業界でのキャリアを一緒にデザインしましょう！</p>
+
         <div class="ta-leader-cta">
           <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
           <a class="btn-sm btn-ghost" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINEで質問</a>
@@ -324,15 +337,17 @@
             <h3>Maya（マヤ）</h3>
             <div class="ta-member-role">マネージャー｜タレントアクイジション</div>
             <div class="ta-tags">
-              <span class="ta-tag">面接5,000名+</span>
               <span class="ta-tag">APAC採用10年</span>
               <span class="ta-tag">日本語/韓国語/英語</span>
             </div>
           </div>
         </div>
         <p>
-          안녕하세요〜！TP Malaysiaで日本語スピーカーの採用を担当しているマヤです。日本と韓国のハーフで、APACを中心にグローバル人材採用に10年従事。IT、財務、SNS、旅行、Eコマース、予約、ラグジュアリー、ゲーム、検索、インターン〜ディレクター・TL・QA・トレーナー・HRなど幅広く担当。<br>
-          👩‍🍳 プライベートはグルメ旅行と料理。マレーシアは食材が安く手に入り、新しいレシピに挑戦しやすいのが最高です。
+          안녕하세요〜！ TP Malaysiaで日本語スピーカーの採用を担当している、マネージャーのマヤです🌸
+          私は日本と韓国のハーフで、両国の文化や言語に親しんで育ちました🇯🇵🇰🇷
+          これまで約10年間にわたり、APAC地域を中心にグローバル人材の採用業務に携わってきました🌏
+          これまでに、日本語バイリンガル・モノリンガル、IT関連、財務・給与、SNSプラットフォーム、旅行・航空・ホテル、Eコマース、予約対応、ラグジュアリーブランド、ゲーム、検索エンジン、インターンからディレクター・マネージャー・チームリーダー・QA・トレーナー・翻訳・人事関連など、さまざまな職種の採用経験があります💼✨<br>
+          👩‍🍳 プライベートでは、グルメ旅行🍽️と料理🍳が趣味です。マレーシアでは、日本と比べてさまざまな食材がとても安く手に入るので、新しいレシピに挑戦したり、いつでも美味しい料理を楽しむことができます🍛🧄🌶️
         </p>
         <div class="ta-member-links">
           <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
@@ -355,8 +370,9 @@
           </div>
         </div>
         <p>
-          これまで接客・運営・管理で培った「相手の期待を超える対応」がモットー。「アキトがいたからTPに決めた」と言ってもらえる採用を目指しています。<br>
-          🌏 休日はローカル/日本人とフットサル。運動＋人脈＋英語力が伸びるのを実感。日本食や日本製品も手に入れやすく、生活水準を高くキープできるのがマレーシアの魅力です。
+          初めまして！TP Malaysiaで採用担当しております、アキトです！<br>
+          私はこれまで、ホスピタリティ業界での接客や運営・管理業務に携わっており、現場での「おもてなし」だけでなく、データ分析や原価分析を通じて売上・コストの最適化提案を行ってきました。また、在庫管理やレポート作成などの管理部門業務も経験し、今に至ります。そんな私のモットーは、「相手の期待を超える対応」。 「アキトがいたからTPで働くことを決めた」と言ってもらえるような採用担当を目指し、日々努力しています。<br>
+          🌏 マレーシア生活はまだ初心者ですが、休みの日はローカルや日本人とのフットサルやサッカーを通じて、運動だけでなく人脈・英語力も広がるのを実感できることが日々のモチベーションです！また、日本食や日本製品も手に入りやすく、生活水準も高くキープできるところが、マレーシア移住の大きな魅力です！
         </p>
         <div class="ta-member-links">
           <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
@@ -379,7 +395,11 @@
           </div>
         </div>
         <p>
-          東南アジア未経験・知り合いゼロ・新卒でいきなりマレーシア移住！留学からの帰国を機に、日本だけに絞らず海外でのキャリアに挑戦。多国籍の仲間とおいしいご飯に囲まれて日々成長中。筋トレの沼へ片足つっこみました。マレーシアは新しいことを始めるのに最適！
+          東南アジア未経験。知り合いゼロ。新卒で、いきなりマレーシア移住！<br>
+          こんにちは！Talent Attraction/Sourcing担当のMahoです。主に、当社の魅力を広める活動全般や、求職者様へのスカウト、ご応募者様などをリクルーターにお渡しする担当をしています。私自身が、新卒からマレーシア就職をしたこともあり、幅広い経歴の人に、海外勤務のチャンスを知って、掴んでほしいという思いを、強くもって活動しています。<br>
+          趣味は、Pilates、ランニング、柔軟、インドアサイクル。筋肉のすばらしさにマレーシアに来てから目覚め、筋トレに手を出しているところです。日本では、長距離クロスバイク乗りですが、ロードバイクで100キロも目指してます。マレーシアは、新しいことを始めたり、旅行をするのに最適な場ですよ！<br>
+          マレーシアに来たきっかけは、大学時代フランスに留学をしていたのですが、コロナ渦をきっかけに帰国。日本で就職するのはもったいないと思い、マレーシア就職をしました。当時は、周りが名のある日本企業に就職する中で不安がありました。加えて、東南アジアに行ったこともない、知り合いもいない、右も左もわからない新卒でしたが、今ではおいしいご飯と多国籍の仲間に恵まれ、少しずつ成長できていると思います。<br>
+          私のように、新卒や未経験でも、タイやマレーシア就職が可能ですよ！何かを変えたいと思った今、ぜひ一緒に海外生活の扉を開きましょう！
         </p>
         <div class="ta-member-links">
           <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
@@ -402,7 +422,12 @@
           </div>
         </div>
         <p>
-          マレーシアの大学→日本で社会人修行→大好きなMYへUターン。日本語対応ポジション中心に担当。ビザ・生活・部屋探しまで、等身大で寄り添います。最近はシベリアまで足を運び、ハスキーとオーロラを見てきました！「美味しいお店リスト」即出せます。
+          はじめまして！TP Malaysiaで採用を担当しているKoyoriです。<br>
+          マレーシアの大学を卒業後、少しだけ日本で“社会人修行”をしたのち、大好きなマレーシアに戻ってきました。現在はペナンを拠点に、日本語対応ポジションを中心に担当しています。<br>
+          学生時代、マレーシアでインターン先を探していたときに採用のお仕事に出会い、そこからご縁が続いて今に至ります。人が大好きな人間なので、候補者の皆さんとお話しする時間がとても楽しく、日々のやりがいになっています。<br>
+          私の得意分野は、マレーシアのリアルな魅力を自分の言葉でお伝えしつつ、「初めての海外就職」に寄り添ってサポートができることです。<br>
+          好きなことはペナンのディープなグルメ巡りと、ちょっとマニアックな国への冒険。最近はシベリアの奥地まで足を運び、本物のハスキーと一緒にオーロラを見に行ってきました！<br>
+          💬 候補者の皆さまへ — 「海外で働いてみたいけど、本当にできるのかな…？」そんな気持ち、よく分かります。私もそうでした！お仕事はもちろん、ビザ・生活・お部屋探しまで一緒にお話ししながら進めていきます。（「美味しいお店教えて」と言われたら、即リスト出せます！）マレーシア上陸までしっかり伴走しますので、なんでもご相談ください🌏
         </p>
         <div class="ta-member-links">
           <a class="btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
