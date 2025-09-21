@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>マレーシア・タイの魅力 | Why Malaysia & Thailand</title>
+  <title>マレーシア・タイの魅力 | Why Malaysia & Thailand | TP Japan</title>
   <meta name="description" content="なぜ今、マレーシアやタイで働く人が増えているのか。英語環境、治安、生活コスト、住宅設備、アクセスの良さ、各都市（KL/ペナン/バンコク）の特色をまとめて紹介。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,6 +80,7 @@
     .card{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow-sm)}
     .card h3{font-size:1.05rem;margin-bottom:.35rem;color:#000}
     .card p{color:var(--tp-gray-dark);font-size:.95rem}
+    .card ul{margin-left:1rem;color:var(--tp-gray-dark)}
     @media (max-width:980px){ .cards{grid-template-columns:repeat(2,1fr)} }
     @media (max-width:640px){ .cards{grid-template-columns:1fr} }
 
@@ -106,7 +107,7 @@
     .helper h2{font-size:1.6rem;font-weight:900;color:#000;margin-bottom:.4rem}
     .helper p{color:var(--tp-gray-dark)}
 
-    /* team photos */
+    /* team photos strip */
     .team-strip{max-width:1200px;margin:2rem auto 3rem;padding:0 20px}
     .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
     .team-grid div{aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#eee center/cover no-repeat}
@@ -199,9 +200,11 @@
   <div class="subnav" role="navigation" aria-label="ページ内ナビ">
     <div class="inner">
       <a class="chip active" href="#why">概要</a>
+      <a class="chip" href="#why-malaysia">Why Malaysia?</a>
       <a class="chip" href="#kl">クアラルンプール</a>
       <a class="chip" href="#penang">ペナン</a>
       <a class="chip" href="#bangkok">バンコク</a>
+      <a class="chip" href="#culture">多国籍文化</a>
       <a class="chip" href="#lifestyle">週末・アクティビティ</a>
       <a class="chip" href="#travel">アクセスの良さ</a>
       <a class="chip" href="#cost">生活コスト</a>
@@ -234,10 +237,65 @@
         <h3>移住初心者にやさしい</h3>
         <p>就労ビザ申請サポート、空港送迎、到着後の一時滞在先（MY）など、初めてでも安心の体制。</p>
       </div>
+      <!-- Added explicit reassurance per request -->
+      <div class="card">
+        <h3>日本語サポートの安心感</h3>
+        <p>チーム内に日本人スタッフが在籍。初めての海外でも相談しやすい環境。</p>
+      </div>
       <div class="card">
         <h3>アジアのハブ</h3>
         <p>KL・BKKから日本/アジア/欧州などへ直行便多数。LCCで週末海外旅行も身近。</p>
       </div>
+    </div>
+  </section>
+
+  <!-- PATCH 1: Why Malaysia? mini-section (requested content) -->
+  <!-- NOTE: Replace image/video file paths with your real assets -->
+  <section class="section" id="why-malaysia">
+    <h2>🌏 Why Malaysia? ― なぜ今マレーシアで働く人が増えているのか</h2>
+    <p class="lead">“観光地”ではなく、“暮らす場所”として選ばれる国。</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>英語が通じる安心感</h3>
+        <p>日常〜職場まで英語ベース。日本語ポジションから始めて、段階的に英語へ。</p>
+      </div>
+      <div class="card">
+        <h3>治安が安定・親日的</h3>
+        <p>医療・インフラが整い、日本語対応の病院・クリニックも多数。</p>
+      </div>
+      <div class="card">
+        <h3>日本より“ゆとり”のある生活</h3>
+        <p>住居/外食/交通がリーズナブル。時間にも心にも余裕が生まれます。</p>
+      </div>
+      <div class="card">
+        <h3>仕事も暮らしも、無理なく</h3>
+        <ul>
+          <li>日本語中心のお仕事が多数</li>
+          <li><strong>チームに日本人スタッフも在籍</strong></li>
+          <li>ビザ・住居サポートあり</li>
+          <li><strong>現地採用でも正社員・昇進あり</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Employee voice -->
+    <figure style="margin-top:1rem;">
+      <blockquote style="border-left:4px solid #eee;padding:.6rem 1rem;margin:0;">
+        「英語が苦手でも、日本語メインの仕事からスタートできたので安心でした。」
+      </blockquote>
+      <figcaption style="color:#666;margin-top:.3rem;">— 元営業職・30代スタッフ</figcaption>
+    </figure>
+
+    <!-- Media placeholders -->
+    <div class="gallery" style="margin-top:1rem;">
+      <div class="photo" style="background-image:url('photos/office_lunch.jpg')" aria-label="オフィスのランチ風景の写真"></div>
+      <div class="photo" style="background-image:url('photos/office_floor.jpg')" aria-label="オフィスフロアの写真"></div>
+    </div>
+
+    <div style="margin-top:1rem;">
+      <video src="videos/workplace_tour.mp4" controls style="width:100%;max-width:720px;border-radius:12px;"></video>
+      <p class="lead" style="margin-top:.4rem;">🎥 職場ツアー・社員インタビュー（ダイジェスト）</p>
     </div>
   </section>
 
@@ -252,13 +310,14 @@
           <li><strong>ドン・キホーテ / AEON / 伊勢丹 / 日本食レストラン</strong>が多数。</li>
           <li>日本語対応の病院、日本人学校、日本人会も充実。</li>
           <li>人気エリア（<strong>Mont Kiara / KLCC</strong>）はコンドミニアム設備が豪華、家賃は日本より安価。</li>
-          <li>KLIAから日本・アジア各都市へ直行便多数。</li>
+          <li>KLIAから<strong>日本（東京・大阪・福岡・北海道）</strong>やアジア各都市へ直行便多数。</li>
         </ul>
         <p class="lead"><strong>おすすめ：</strong>都市の便利さも妥協したくない/海外生活に不安があり日本に近い暮らしが良い方。</p>
       </div>
       <div class="gallery" aria-label="KLフォト">
-        <div class="photo" style="background-image:url('photos/kl_city_1.jpg')"></div>
-        <div class="photo" style="background-image:url('photos/kl_city_2.jpg')"></div>
+        <!-- Replace images -->
+        <div class="photo" style="background-image:url('photos/kl_city_1.jpg')" aria-label="KLの街並みの写真"></div>
+        <div class="photo" style="background-image:url('photos/kl_city_2.jpg')" aria-label="KLのショッピングモールの写真"></div>
       </div>
     </div>
   </section>
@@ -274,12 +333,15 @@
           <li>海に近く眺望の良い物件が多く、KLよりやや生活費が安い傾向。</li>
           <li>日本語医療や通訳サービスもあり、長期滞在に人気。</li>
           <li>家族帯同にも向き、治安は比較的安定。</li>
+          <!-- Added explicit rent guidance per request -->
+          <li><strong>海の見える高層コンド</strong>が月<span style="white-space:nowrap;">5万円前後〜</span>の目安（設備：プール/ジム/セキュリティ）。※相場は時期や立地で変動</li>
         </ul>
         <p class="lead"><strong>おすすめ：</strong>静かで落ち着いた環境で働きたい/自然と都会のバランスを大切にしたい方。</p>
       </div>
       <div class="gallery" aria-label="ペナンフォト">
-        <div class="photo" style="background-image:url('photos/penang_1.jpg')"></div>
-        <div class="photo" style="background-image:url('photos/penang_2.jpg')"></div>
+        <!-- Replace images -->
+        <div class="photo" style="background-image:url('photos/penang_1.jpg')" aria-label="ペナンの海の写真"></div>
+        <div class="photo" style="background-image:url('photos/penang_2.jpg')" aria-label="ジョージタウンの街並みの写真"></div>
       </div>
     </div>
   </section>
@@ -291,7 +353,7 @@
       <div>
         <h3>“東南アジアの東京”と言われる超便利都市</h3>
         <ul>
-          <li>日本人が多数居住。<strong>フジスーパー / 日本食 / 日本語対応病院</strong>など施設が超充実。</li>
+          <li>日本人が多数居住（<strong>約8万人以上</strong>）。<strong>フジスーパー / 日本食 / 日本語対応病院</strong>など施設が超充実。</li>
           <li><strong>BTS/MRT</strong>が発達。家具付きコンド（プール/ジム）で家賃は東京の約半額感。</li>
           <li>人々は親日的で温かい雰囲気。働きやすい環境。</li>
           <li>2空港（BKK/DMK）から国内外へ直行便が豊富。</li>
@@ -299,9 +361,49 @@
         <p class="lead"><strong>おすすめ：</strong>とにかく便利な場所で海外経験を積みたい/日本に近い生活感を保ちたい方。</p>
       </div>
       <div class="gallery" aria-label="バンコクフォト">
-        <div class="photo" style="background-image:url('photos/bangkok_1.jpg')"></div>
-        <div class="photo" style="background-image:url('photos/bangkok_2.jpg')"></div>
+        <!-- Replace images -->
+        <div class="photo" style="background-image:url('photos/bangkok_1.jpg')" aria-label="バンコクの夜景の写真"></div>
+        <div class="photo" style="background-image:url('photos/bangkok_2.jpg')" aria-label="BTS駅周辺の写真"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- PATCH 2: Culture & festivals -->
+  <!-- NOTE: Replace images/videos with your assets -->
+  <section class="section" id="culture">
+    <h2>🌈 多国籍文化と“ちょうどいい距離感”</h2>
+    <p class="lead">マレー系・中華系・インド系が共存する社会。外国人でも“違って当たり前”。</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>多彩な食文化</h3>
+        <p>ハラル/ヴィーガン/日本食/屋台/韓国/インド…毎日がグルメ旅。</p>
+      </div>
+      <div class="card">
+        <h3>祝祭が共存</h3>
+        <p>イスラムの祝日も中華の旧正月も街全体でお祝い。季節イベントが豊富。</p>
+      </div>
+      <div class="card">
+        <h3>“違い”が尊重される</h3>
+        <p>同調圧力が少なく、自分らしく働ける風土。</p>
+      </div>
+    </div>
+
+    <figure style="margin-top:1rem;">
+      <blockquote style="border-left:4px solid #eee;padding:.6rem 1rem;margin:0;">
+        「“違っていい”という価値観が、心を自由にしてくれました。日本にいるときより周りの目を気にしなくなりました。」
+      </blockquote>
+      <figcaption style="color:#666;margin-top:.3rem;">— 採用チーム Maho</figcaption>
+    </figure>
+
+    <div class="gallery" style="margin-top:1rem;">
+      <div class="photo" style="background-image:url('photos/market_street.jpg')" aria-label="マーケットの様子の写真"></div>
+      <div class="photo" style="background-image:url('photos/festival_cny.jpg')" aria-label="春節イベントの写真"></div>
+    </div>
+
+    <div style="margin-top:.6rem;">
+      <video src="videos/market_and_food.mp4" controls style="width:100%;max-width:720px;border-radius:12px;"></video>
+      <p class="lead" style="margin-top:.4rem;">🎥 マーケットの様子や多国籍料理のランチ風景</p>
     </div>
   </section>
 
@@ -378,6 +480,7 @@
     <div class="inner">
       <h2>バーチャルオフィスツアー</h2>
       <p>現地の職場環境をオンラインで体感：<br>
+        <!-- Replace with your tour link if different -->
         <a href="https://vtour.cloud/mh2n0j/ae5772z1/Bella's" target="_blank" rel="noopener">Bella's Malaysian Adventure: Exploring the Beauty of Malaysia</a>
       </p>
       <div style="margin-top:.8rem">
@@ -409,13 +512,13 @@
     </div>
   </section>
 
-  <!-- Team images (use your assets) -->
+  <!-- Team images (optional strip; replace assets as needed) -->
   <section class="team-strip" aria-label="チームフォト">
     <div class="team-grid">
-      <div style="background-image:url('photos/team_city_1.jpg')"></div>
-      <div style="background-image:url('photos/team_city_2.jpg')"></div>
-      <div style="background-image:url('photos/team_city_3.jpg')"></div>
-      <div style="background-image:url('photos/team_city_4.jpg')"></div>
+      <div style="background-image:url('photos/team_city_1.jpg')" aria-label="チーム写真1"></div>
+      <div style="background-image:url('photos/team_city_2.jpg')" aria-label="チーム写真2"></div>
+      <div style="background-image:url('photos/team_city_3.jpg')" aria-label="チーム写真3"></div>
+      <div style="background-image:url('photos/team_city_4.jpg')" aria-label="チーム写真4"></div>
     </div>
   </section>
 
@@ -485,7 +588,7 @@
   </a>
 
   <script>
-    // mobile menu
+    // Mobile menu toggle (keeps header simple on small screens)
     const toggle = document.getElementById('mobileToggle');
     const menu = document.getElementById('mobileMenu');
     toggle.addEventListener('click', () => {
@@ -493,7 +596,7 @@
       toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     });
 
-    // subnav active state on click
+    // Subnav active state on click (visual feedback only)
     const chips = document.querySelectorAll('.chip');
     chips.forEach(chip=>{
       chip.addEventListener('click',()=>{
@@ -502,15 +605,17 @@
       });
     });
 
-    // smooth scroll
+    // Smooth scroll for in-page anchors (offset for sticky nav)
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click',e=>{
         const href = a.getAttribute('href');
-        if(href.length>1){
-          e.preventDefault();
-          const el = document.querySelector(href);
-          if(el){ window.scrollTo({top: el.offsetTop-110, behavior:'smooth'}); }
-        }
+        if(!href || href === '#') return;
+        const el = document.querySelector(href);
+        if(!el) return;
+        e.preventDefault();
+        const offset = 110; // header + subnav height
+        const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior:'smooth' });
       });
     });
   </script>
