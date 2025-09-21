@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>マレーシア生活コスト | Cost of Living</title>
-  <meta name="description" content="東京とクアラルンプールの生活費比較、家賃相場、食費・交通費の目安、1ヶ月のモデル予算、節約TIPSを掲載。">
+  <title>生活コスト | Cost of Living</title>
+  <meta name="description" content="東京とクアラルンプールの生活費比較、家賃相場、食費・交通費の目安、1ヶ月のモデル予算、住宅設備、暮らしやすさを分かりやすく紹介。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== Design tokens (unified) ===== */
+    /* ===== Design tokens (kept consistent with other pages) ===== */
     :root{
       --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d; --tp-gray-dark:#4a4a4a; --tp-gray:#666; --tp-gray-light:#999;
       --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off-white:#f5f5f5; --tp-white:#fff;
       --accent-purple:#780096; --accent-pink:#ff0082;
       --font-primary:'Noto Sans JP',sans-serif;
       --shadow-sm:0 2px 4px rgba(0,0,0,.08); --shadow-md:0 4px 8px rgba(0,0,0,.12); --shadow-lg:0 8px 16px rgba(0,0,0,.16);
-      --radius:12px;
+      --radius:12px; --maxw:1200px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:var(--font-primary);color:var(--tp-dark);background:#fff;line-height:1.8}
 
-    /* ===== Header ===== */
+    /* ===== Header (same structure as other pages) ===== */
     header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--tp-light)}
     .header-inner{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
     .brand{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
@@ -32,7 +32,7 @@
     .brand-tagline{font-size:.72rem;color:var(--tp-gray)}
     header nav ul{list-style:none;display:flex;gap:1.1rem;align-items:center}
     header nav a{color:var(--tp-dark);text-decoration:none;font-weight:700;font-size:.95rem;position:relative;transition:.2s}
-    header nav a:hover{opacity:.75}
+    header nav a:hover{opacity:.8}
     header nav a[aria-current="page"]::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:2px;background:var(--accent-purple)}
     .apply-btn{padding:.55rem 1rem;border:2px solid var(--tp-black);border-radius:999px}
     .apply-btn:hover{background:var(--tp-black);color:#fff}
@@ -41,7 +41,7 @@
     .mobile-menu{display:none;border-top:1px solid var(--tp-light);background:#fff}
     .mobile-menu ul{list-style:none;padding:1rem 2rem;display:flex;flex-direction:column;gap:.75rem}
     .mobile-menu a{color:var(--tp-dark);text-decoration:none;font-weight:700}
-    @media (max-width:1020px){
+    @media (max-width:960px){
       header nav{display:none}
       .mobile-toggle{display:flex}
       .mobile-menu.open{display:block}
@@ -63,33 +63,35 @@
     .btn-solid{background:var(--accent-purple);color:#fff;border-color:var(--accent-purple)}
     .btn-solid:hover{filter:brightness(.95)}
 
-    /* ===== Sections ===== */
-    .section{max-width:1200px;margin:1.6rem auto;padding:0 20px}
+    /* ===== In-page subnav (kept consistent with Why page) ===== */
+    .subnav{position:sticky;top:64px;z-index:900;background:#000;color:#fff;border-bottom:1px solid #222}
+    .subnav .inner{max-width:var(--maxw);margin:0 auto;padding:.65rem 20px;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+    .chip{padding:.45rem .8rem;border:1px solid #555;border-radius:999px;background:transparent;color:#fff;font-weight:800;font-size:.9rem;text-decoration:none}
+    .chip:hover{background:rgba(255,255,255,.08)}
+    .chip.active{background:#fff;color:#000;border-color:#fff}
+
+    /* ===== Sections & common blocks ===== */
+    .section{max-width:var(--maxw);margin:2rem auto;padding:0 20px}
     .section h2{font-size:1.6rem;color:#000;font-weight:900;margin-bottom:.6rem}
     .lead{color:var(--tp-gray-dark)}
     .muted{color:var(--tp-gray-dark)}
-
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-    @media (max-width:1020px){ .grid-3{grid-template-columns:1fr 1fr} }
-    @media (max-width:720px){ .grid-3,.grid-2{grid-template-columns:1fr} }
-
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
     .card{background:#fff;border:1px solid var(--tp-light);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm)}
     .card h3{font-size:1.05rem;color:#000;margin-bottom:.35rem}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+    .photo{aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#eee center/cover no-repeat}
+    @media (max-width:980px){ .cards{grid-template-columns:repeat(2,1fr)} .gallery{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .cards,.grid-2,.grid-3{grid-template-columns:1fr} .gallery{grid-template-columns:1fr} }
 
     /* ===== Tables ===== */
-    .mini{width:100%;border-collapse:collapse;margin-top:.5rem}
-    .mini th,.mini td{border:1px solid var(--tp-light);padding:.65rem .75rem;font-size:.96rem;vertical-align:top}
+    table{width:100%;border-collapse:collapse}
+    .mini th,.mini td{border:1px solid var(--tp-light);padding:.65rem .75rem;vertical-align:top}
     .mini th{background:var(--tp-off-white);text-align:left}
+    .compare{border:1px solid var(--tp-light);border-radius:12px;overflow:hidden}
 
-    /* ===== Price grid ===== */
-    .pricegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-    .price{border:1px solid var(--tp-light);border-radius:10px;padding:.9rem;background:#fff}
-    .price strong{color:#000}
-    @media (max-width:1000px){ .pricegrid{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:560px){ .pricegrid{grid-template-columns:1fr} }
-
-    /* ===== Footer ===== */
+    /* ===== Footer (same as other pages) ===== */
     footer{border-top:1px solid var(--tp-light);background:#fff}
     .footer-content{max-width:1400px;margin:0 auto;padding:2rem 20px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:1.5rem}
     .footer-brand .footer-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit}
@@ -107,7 +109,7 @@
     @media (max-width:960px){ .footer-content{grid-template-columns:1fr 1fr} }
     @media (max-width:560px){ .footer-content{grid-template-columns:1fr} }
 
-    /* Floating Apply */
+    /* ===== Floating Apply ===== */
     .floating-apply{
       position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--accent-purple);color:#fff;
       border-radius:999px;padding:.9rem 1.3rem;font-weight:900;box-shadow:var(--shadow-lg);text-decoration:none;border:2px solid var(--accent-purple)
@@ -130,17 +132,12 @@
 
       <nav aria-label="メインナビゲーション">
         <ul>
-          <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html">Testimonials</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
-          <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html" aria-current="page">生活コスト</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">TPについて</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html">求人機会</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
           <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
         </ul>
       </nav>
@@ -152,17 +149,12 @@
 
     <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
       <ul>
-        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">About TP</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">Open Jobs</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">Salary &amp; Benefits</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">Relocation &amp; Visa</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">Interview Process</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務地</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/testimonials.html">Testimonials</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">働く環境</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/career-growth.html">キャリアパス</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/cost-of-living.html" aria-current="page">生活コスト</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">TPについて</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html">求人機会</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
         <li><a class="apply-btn" target="_blank" rel="noopener" href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">応募する</a></li>
       </ul>
     </nav>
@@ -171,83 +163,95 @@
   <!-- Hero -->
   <section class="hero">
     <h1>マレーシア生活コスト / Cost of Living</h1>
-    <p>“日本よりもゆとりのある暮らし”を実現しやすい国、マレーシア。<br>（データファイル：スライド15「日本 vs KL」比較に準拠）</p>
+    <p>“日本よりもゆとりのある暮らし”を実現しやすい国、マレーシア。<br>同じ収入でも、生活の豊かさと自由度が変わります。</p>
     <div class="hero-cta" role="group" aria-label="関連ページ">
       <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
-      <a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a>
-      <a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a>
+      <a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住サポートを見る</a>
     </div>
   </section>
 
-  <!-- Key points -->
-  <section class="section">
-    <h2>ポイント（概要）</h2>
-    <div class="grid-3" style="margin-top:.7rem">
-      <div class="card">
-        <h3>🏠 家賃が大きく抑えられる</h3>
-        <p class="muted">KLの1LDKは<strong>RM1,500〜2,500</strong>（約5〜8万円）で、プール・ジム・24hセキュリティ付きが一般的。（スライド15/16）</p>
-      </div>
-      <div class="card">
-        <h3>🍜 外食が日常の価格</h3>
-        <p class="muted">屋台やフードコートなら1食<strong>RM10〜</strong>（約300円〜）。毎日の外食＆カフェ巡りも気軽。（スライド15）</p>
-      </div>
-      <div class="card">
-        <h3>🚕 交通・移動もリーズナブル</h3>
-        <p class="muted">電車・バス・Grabを組み合わせて月数千円レベルに収まるケースが多め。（スライド15）</p>
-      </div>
+  <!-- In-page subnav -->
+  <div class="subnav" role="navigation" aria-label="ページ内ナビ">
+    <div class="inner">
+      <a class="chip active" href="#overview">概要</a>
+      <a class="chip" href="#quick">かんたん比較</a>
+      <a class="chip" href="#table">東京 vs KL</a>
+      <a class="chip" href="#budgets">モデル予算</a>
+      <a class="chip" href="#housing">住宅設備</a>
+      <a class="chip" href="#cities">KL / ペナン</a>
+      <a class="chip" href="#photos">写真ギャラリー</a>
+      <a class="chip" href="#voices">社員の声</a>
+      <a class="chip" href="#tips">節約TIPS</a>
     </div>
-    <p class="muted" style="margin-top:.6rem">※ 円換算は便宜上 <strong>1RM=約30円</strong> の目安で表示。実際のレートで変動します。</p>
+  </div>
+
+  <!-- Overview (explicit copy from your requirement) -->
+  <section class="section" id="overview">
+    <h2>💰 日本よりも“余裕”のある暮らし</h2>
+    <p class="lead">物価が安いマレーシアでは、同じ収入でも、生活の豊かさが違います。時間にも、お金にも、そして心にも“ゆとり”が生まれる国です。</p>
   </section>
 
-  <!-- JP vs KL table (from Slide 15) -->
-  <section class="section">
-    <h2>東京 vs クアラルンプール（目安）</h2>
-    <table class="mini" aria-label="生活コスト比較">
+  <!-- Quick compare (exact items you listed) -->
+  <section class="section" id="quick">
+    <h2>かんたん比較（項目 / 日本・東京 / マレーシア・KL）</h2>
+    <div class="compare" role="group" aria-label="簡易比較表">
+      <table class="mini">
+        <tr><th>項目</th><th>日本（東京）</th><th>マレーシア（KL）</th></tr>
+        <tr><td>家賃（1LDK）</td><td>約12万円〜</td><td>約5〜6万円（24時間セキュリティ、プール、ジム付）</td></tr>
+        <tr><td>外食</td><td>1,000円〜</td><td>約300円〜</td></tr>
+        <tr><td>交通費</td><td>月1万円以上</td><td>数千円以内（Grab移動）</td></tr>
+      </table>
+    </div>
+    <p class="muted" style="margin-top:.6rem">※ 為替や生活スタイルにより増減します。ここでは目安額を掲載しています。</p>
+  </section>
+
+  <!-- Detailed compare (expanded, still consistent) -->
+  <section class="section" id="table">
+    <h2>東京 vs クアラルンプール（もう少し詳しく）</h2>
+    <table class="mini" aria-label="生活コスト比較（詳細）">
       <tr><th>項目</th><th>日本（東京）</th><th>マレーシア（KL）</th></tr>
       <tr>
         <td>家賃（1LDK）</td>
         <td>約12万円〜</td>
-        <td>約<strong>RM1,500〜2,500</strong>（約5〜8万円）<br><small>24hセキュリティ・プール・ジム付が一般的（スライド16）</small></td>
+        <td>約RM1,500〜2,500（約5〜8万円）<br><small>24hセキュリティ・プール・ジム付が一般的</small></td>
       </tr>
       <tr>
-        <td>外食</td>
+        <td>外食（1食）</td>
         <td>1,000円〜</td>
-        <td>約<strong>RM10〜</strong>（約300円〜）</td>
+        <td>RM10〜（約300円〜）</td>
       </tr>
       <tr>
-        <td>交通費</td>
-        <td>月1万円以上</td>
-        <td>月<strong>RM150〜300</strong>（約4,500〜9,000円）目安<br><small>Grab＋電車/バスの併用</small></td>
+        <td>交通費（月）</td>
+        <td>1万円以上</td>
+        <td>RM150〜300（約4,500〜9,000円）目安（Grab＋電車/バス）</td>
       </tr>
     </table>
-    <p class="muted" style="margin-top:.5rem">出所：データファイル（スライド15・16）。エリア・物件・生活スタイルで増減します。</p>
+    <p class="muted" style="margin-top:.5rem">※ 円換算は便宜上 <strong>1RM=約30円</strong> で表示。</p>
   </section>
 
-  <!-- Model Budgets -->
-  <section class="section">
+  <!-- Model budgets -->
+  <section class="section" id="budgets">
     <h2>1ヶ月のモデル予算（例）</h2>
-    <div class="grid-3" style="margin-top:.7rem">
+    <div class="cards" style="margin-top:.7rem">
       <div class="card">
         <h3>🧑 単身＠KL（1LDK）</h3>
         <table class="mini">
           <tr><th>項目</th><th>RM</th><th>円目安</th></tr>
-          <tr><td>家賃（1LDK）</td><td>2,000</td><td>約60,000</td></tr>
-          <tr><td>光熱（水道・電気）</td><td>250</td><td>約7,500</td></tr>
+          <tr><td>家賃</td><td>2,000</td><td>約60,000</td></tr>
+          <tr><td>光熱</td><td>250</td><td>約7,500</td></tr>
           <tr><td>インターネット</td><td>120</td><td>約3,600</td></tr>
           <tr><td>携帯</td><td>40</td><td>約1,200</td></tr>
-          <tr><td>交通（Grab＋電車）</td><td>250</td><td>約7,500</td></tr>
-          <tr><td>食費（外食＋自炊）</td><td>1,200</td><td>約36,000</td></tr>
+          <tr><td>交通</td><td>250</td><td>約7,500</td></tr>
+          <tr><td>食費</td><td>1,200</td><td>約36,000</td></tr>
           <tr><td>レジャー・その他</td><td>350</td><td>約10,500</td></tr>
           <tr><th>合計</th><th>4,210</th><th>約126,300</th></tr>
         </table>
-        <p class="muted"><small>※ 目安。生活スタイルにより変動。</small></p>
       </div>
-
       <div class="card">
         <h3>🧑 単身＠ペナン（1LDK）</h3>
         <table class="mini">
           <tr><th>項目</th><th>RM</th><th>円目安</th></tr>
-          <tr><td>家賃（1LDK）</td><td>1,700</td><td>約51,000</td></tr>
+          <tr><td>家賃</td><td>1,700</td><td>約51,000</td></tr>
           <tr><td>光熱</td><td>220</td><td>約6,600</td></tr>
           <tr><td>インターネット</td><td>120</td><td>約3,600</td></tr>
           <tr><td>携帯</td><td>40</td><td>約1,200</td></tr>
@@ -256,76 +260,100 @@
           <tr><td>レジャー・その他</td><td>300</td><td>約9,000</td></tr>
           <tr><th>合計</th><th>3,630</th><th>約108,900</th></tr>
         </table>
-        <p class="muted"><small>※ ペナンはKLよりやや低コスト傾向（スライド12/16）。</small></p>
       </div>
-
       <div class="card">
-        <h3>👫 カップル＠KL（1LDK〜2LDK）</h3>
+        <h3>👫 カップル＠KL（1〜2LDK）</h3>
         <table class="mini">
           <tr><th>項目</th><th>RM</th><th>円目安</th></tr>
-          <tr><td>家賃（2LDK想定）</td><td>2,800</td><td>約84,000</td></tr>
+          <tr><td>家賃（2LDK）</td><td>2,800</td><td>約84,000</td></tr>
           <tr><td>光熱</td><td>300</td><td>約9,000</td></tr>
           <tr><td>インターネット</td><td>130</td><td>約3,900</td></tr>
           <tr><td>携帯（2名）</td><td>80</td><td>約2,400</td></tr>
           <tr><td>交通（2名）</td><td>450</td><td>約13,500</td></tr>
-          <tr><td>食費（外食多め）</td><td>1,900</td><td>約57,000</td></tr>
+          <tr><td>食費</td><td>1,900</td><td>約57,000</td></tr>
           <tr><td>レジャー・その他</td><td>500</td><td>約15,000</td></tr>
           <tr><th>合計</th><th>6,160</th><th>約184,800</th></tr>
         </table>
-        <p class="muted"><small>※ 設備充実物件・外食頻度高めのケース。</small></p>
       </div>
     </div>
+    <p class="muted" style="margin-top:.5rem">※ いずれも目安。生活スタイル・為替で変動します。</p>
   </section>
 
-  <!-- Typical Prices -->
-  <section class="section">
-    <h2>代表的な価格帯（KL 目安）</h2>
-    <div class="pricegrid" style="margin-top:.7rem">
-      <div class="price"><strong>屋台/ローカル食堂</strong><br>RM10〜18（約300〜540円）/1食</div>
-      <div class="price"><strong>日系/カフェ系ランチ</strong><br>RM25〜45（約750〜1,350円）</div>
-      <div class="price"><strong>カフェのコーヒー</strong><br>RM8〜15（約240〜450円）</div>
-      <div class="price"><strong>スーパーの卵(10個)</strong><br>RM7〜12（約210〜360円）</div>
-      <div class="price"><strong>映画館（大人）</strong><br>RM18〜25（約540〜750円）</div>
-      <div class="price"><strong>ジム(月額)</strong><br>RM120〜180（約3,600〜5,400円）</div>
-      <div class="price"><strong>Grab 5〜8km</strong><br>RM10〜20（約300〜600円）</div>
-      <div class="price"><strong>LRT/モノレール</strong><br>RM2〜6/片道（約60〜180円）</div>
-    </div>
-    <p class="muted" style="margin-top:.6rem"><small>※ いずれも目安。場所・時間帯・為替により変動。</small></p>
-  </section>
-
-  <!-- Housing callout -->
-  <section class="section">
-    <h2>住宅設備の“標準”が高い（スライド16）</h2>
+  <!-- Housing & amenities (your requested bullets) -->
+  <section class="section" id="housing">
+    <h2>マレーシアでの暮らし（クアラルンプール＆ペナン）</h2>
     <div class="grid-2" style="margin-top:.6rem">
       <div class="card">
-        <h3>家具家電つき × すぐ生活開始</h3>
-        <p class="muted">多くのコンドが家具・家電付き。引っ越し直後から快適に暮らせます。</p>
-        <ul class="muted" style="margin-top:.4rem">
-          <li>24時間セキュリティ＆ゲート</li>
-          <li>プール・ジム・サウナ・BBQ</li>
-          <li>コワーキング/キッズ/ヨガ・ラウンジ</li>
-          <li>駐車場1台込み物件も多数</li>
+        <h3>🏠 主な特徴</h3>
+        <ul class="muted">
+          <li>🔐 24時間セキュリティ＆ゲート付き（有人＋カードアクセス）</li>
+          <li>🏊‍♀️ プール・ジム・サウナ・BBQスペースなど共用設備が標準</li>
+          <li>🛋 家具・家電付き（フルファーニッシュ）で到着すぐ生活スタート</li>
+          <li>🚗 駐車場1台分込みの物件も多く、Grabでの移動も便利</li>
+          <li>🧘‍♀️ 共有ラウンジ、ヨガルーム、キッズルーム、コワーキング付き物件も</li>
         </ul>
+        <p class="lead" style="margin-top:.6rem"><strong>💰 家賃相場：</strong>RM1,500〜2,500（約5〜8万円前後）で<strong>プール・ジム付き</strong>が当たり前！</p>
       </div>
       <div class="card">
-        <h3>家賃相場（KL / ペナン）</h3>
-        <table class="mini">
-          <tr><th>都市</th><th>相場（1LDK）</th><th>特徴</th></tr>
-          <tr><td>KL</td><td>RM1,500〜2,500</td><td>都市機能充実・通勤至便</td></tr>
-          <tr><td>ペナン</td><td>RM1,300〜2,100</td><td>海近・落ち着き・やや低コスト</td></tr>
-        </table>
-        <p class="muted"><small>※ エリア/築年/設備で変動。詳細は面談・面接時にご案内。</small></p>
+        <h3>📍 都市別の傾向</h3>
+        <p><strong>クアラルンプール（KL）</strong></p>
+        <ul class="muted" style="margin-bottom:.6rem">
+          <li>モール・飲食・日本語対応病院など都市機能が充実</li>
+          <li>オフィス街への通勤アクセス良好</li>
+          <li>高層・最新型物件が多く、スタイリッシュな都会型生活</li>
+        </ul>
+        <p><strong>ペナン（George Town／Bayan Lepasなど）</strong></p>
+        <ul class="muted">
+          <li>海に近い物件、眺望の良い高層コンドが多数</li>
+          <li>緑が多く、ゆったりしたリゾートのような雰囲気</li>
+          <li>生活費はKLよりやや安く、静かで落ち着いた暮らしが可能</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photos gallery (placeholders; swap with your assets) -->
+  <section class="section" id="photos">
+    <h2>📸 休日の風景</h2>
+    <p class="lead">カフェ、ビーチ、ナイトマーケット、運動、Meetup など。</p>
+    <div class="gallery" aria-label="休日の写真ギャラリー" style="margin-top:.6rem">
+      <div class="photo" style="background-image:url('photos/cafe.jpg')" aria-label="カフェの写真"></div>
+      <div class="photo" style="background-image:url('photos/beach.jpg')" aria-label="ビーチの写真"></div>
+      <div class="photo" style="background-image:url('photos/night_market.jpg')" aria-label="ナイトマーケットの写真"></div>
+      <div class="photo" style="background-image:url('photos/workout_meetup.jpg')" aria-label="運動やMeetupの写真"></div>
+    </div>
+  </section>
+
+  <!-- Employee voices (exact quotes you provided) -->
+  <section class="section" id="voices">
+    <h2>🗣️ 社員の声</h2>
+    <div class="cards" style="margin-top:.6rem">
+      <div class="card">
+        <p>「物価が安いから、カフェ巡りや外食が気軽に楽しめるようになりました。」</p>
+        <p class="muted">— 30代・男性</p>
+      </div>
+      <div class="card">
+        <p>「通勤ストレスがなくなり、平日の夜もヨガや友達との時間をゆったり過ごせます。」</p>
+        <p class="muted">— 20代・女性</p>
+      </div>
+      <div class="card">
+        <p>「毎週末にプール、サウナ、ジム。こんな暮らし、日本では考えられませんでした！」</p>
+        <p class="muted">— 30代・女性</p>
+      </div>
+      <div class="card">
+        <p>「休日は友達とビーチやナイトマーケットへ。仕事も遊びもバランスよく楽しめています！」</p>
+        <p class="muted">— 20代・男性</p>
       </div>
     </div>
   </section>
 
   <!-- Tips -->
-  <section class="section">
+  <section class="section" id="tips">
     <h2>生活コストを抑えるTIPS</h2>
-    <div class="grid-3" style="margin-top:.7rem">
+    <div class="cards" style="margin-top:.7rem">
       <div class="card">
         <h3>🚉 通勤アクセス重視でエリア選び</h3>
-        <p class="muted">LRT/MRT沿線や職場近くのコンドを選ぶと、Grab利用が減り交通費節約につながります。</p>
+        <p class="muted">LRT/MRT沿線や職場近くのコンドを選ぶと、Grab利用が減り交通費節約に。</p>
       </div>
       <div class="card">
         <h3>🍽️ ローカル/フードコート活用</h3>
@@ -338,23 +366,23 @@
     </div>
   </section>
 
-  <!-- Next Steps CTA -->
-  <section class="section">
-    <h2>次のステップ</h2>
-    <div class="grid-3" style="margin-top:.6rem">
+  <!-- Next steps -->
+  <section class="section" aria-labelledby="cta-title">
+    <h2 id="cta-title">次は何をしますか？</h2>
+    <div class="cards">
       <div class="card">
-        <h3 style="color:#000">求人を見る</h3>
-        <p class="muted">日本語ポジション多数。未経験OKの案件もあります。</p>
+        <h3>求人を見る</h3>
+        <p class="muted">日本語スピーカー向けポジションが多数。未経験OKの案件も。</p>
         <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧へ</a></p>
       </div>
       <div class="card">
-        <h3 style="color:#000">移住・ビザサポート</h3>
-        <p class="muted">就労ビザ、到着後ホテル、空港送迎などを日本語でサポート。</p>
+        <h3>移住・ビザサポート</h3>
+        <p class="muted">就労ビザ申請、空港送迎、到着後の一時滞在先（MY）まで日本語でサポート。</p>
         <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">サポート内容を見る</a></p>
       </div>
       <div class="card">
-        <h3 style="color:#000">カジュアル面談（日本語）</h3>
-        <p class="muted">選考ではありません。生活・仕事の疑問を30分で気軽に相談。</p>
+        <h3>カジュアル面談</h3>
+        <p class="muted">選考ではありません。仕事/生活/移住の疑問を日本語で30分相談。</p>
         <p style="margin-top:.4rem"><a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">予約する</a></p>
       </div>
     </div>
@@ -426,12 +454,37 @@
   </a>
 
   <script>
-    // mobile menu
+    // Mobile menu toggle
     const toggle = document.getElementById('mobileToggle');
     const menu = document.getElementById('mobileMenu');
-    toggle.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    if(toggle && menu){
+      toggle.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+      });
+    }
+
+    // Subnav active state on click (visual only)
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        chips.forEach(c=>c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+
+    // Smooth scroll with offset for sticky header + subnav
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+        const el = document.querySelector(href);
+        if(!el) return;
+        e.preventDefault();
+        const offset = 110;
+        const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior:'smooth' });
+      });
     });
   </script>
 </body>
