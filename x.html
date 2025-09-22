@@ -1,357 +1,490 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- ======= Page Basics ======= -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- =========================
-     BASIC SEO
-========================= -->
-<title><!-- TODO: Page Title -->テレパフォーマンス採用 | マレーシア・タイ</title>
-<meta name="description" content="<!-- TODO: Page Description -->テレパフォーマンス（TP）マレーシア・タイの日本語スピーカー採用情報。" />
-<link rel="canonical" href="<!-- TODO: Canonical URL, e.g. https://tpmyandtpth.github.io/JLP/page.html -->" />
+  <title>{{PAGE_TITLE}} | テレパフォーマンス マレーシア＆タイ</title>
+  <meta name="description" content="{{PAGE_DESCRIPTION}}" />
+  <link rel="canonical" href="{{PAGE_CANONICAL_URL}}" />
 
-<!-- Favicons -->
-<link rel="icon" href="/JLP/photos/TPLogo11.png" />
-<link rel="apple-touch-icon" href="/JLP/photos/TPLogo11.png" />
+  <!-- ======= Icons / Theme ======= -->
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="/JLP/photos/TPLogo11.png" />
+  <link rel="apple-touch-icon" href="/JLP/photos/TPLogo11.png" />
 
-<!-- Theme color -->
-<meta name="theme-color" content="#000000" />
+  <!-- ======= Open Graph / Twitter ======= -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="TP Malaysia & Thailand" />
+  <meta property="og:title" content="{{OG_TITLE}}" />
+  <meta property="og:description" content="{{OG_DESCRIPTION}}" />
+  <meta property="og:image" content="{{OG_IMAGE_URL}}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:url" content="{{PAGE_CANONICAL_URL}}" />
 
-<!-- Open Graph / Twitter -->
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="ja_JP" />
-<meta property="og:title" content="<!-- TODO: OG title -->TP Malaysia & TP Thailand | 採用サイト" />
-<meta property="og:description" content="<!-- TODO: OG description -->日本語を活かして海外で働く。移住・ビザサポート完備。" />
-<meta property="og:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="<!-- TODO: Canonical URL again -->" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="<!-- TODO: -->TP Malaysia & TP Thailand | 採用サイト" />
-<meta name="twitter:description" content="<!-- TODO: -->日本語を活かして海外で働く。移住・ビザサポート完備。" />
-<meta name="twitter:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png" />
-<meta name="robots" content="index,follow" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{OG_TITLE}}" />
+  <meta name="twitter:description" content="{{OG_DESCRIPTION}}" />
+  <meta name="twitter:image" content="{{OG_IMAGE_URL}}" />
 
-<!-- Fonts (fast + cacheable) -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@700&display=swap">
+  <!-- ======= Indexing ======= -->
+  <meta name="robots" content="index,follow" />
 
-<style>
-/* =============== DESIGN TOKENS (keep these consistent) =============== */
-:root{
-  --tp-black:#000; --tp-dark:#1a1a1a; --tp-charcoal:#2d2d2d;
-  --tp-gray-dark:#4a4a4a; --tp-gray:#555; --tp-gray-light:#7a7a7a;
-  --tp-silver:#ccc; --tp-light:#e5e5e5; --tp-off:#f5f5f5; --tp-white:#fff;
-  --accent-purple:#780096; --accent-pink:#ff0082;
-  --max:1050px;
-  --shadow-xs:0 1px 2px rgba(0,0,0,.05);
-  --shadow-sm:0 2px 4px rgba(0,0,0,.08);
-  --shadow-md:0 4px 8px rgba(0,0,0,.12);
-  --shadow-lg:0 8px 16px rgba(0,0,0,.16);
-}
+  <!-- ======= Fonts (fast) ======= -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@700&display=swap">
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@700&display=swap">
 
-/* =============== BASE =============== */
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;
-  color:var(--tp-dark); background:var(--tp-white); line-height:1.75;
-  -webkit-font-smoothing:antialiased; font-feature-settings:"palt" 1;
-}
-a{color:inherit;text-decoration:none}
-.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+  <!-- ======= Global Styles ======= -->
+  <style>
+    /* ========== Design Tokens (brand) ========== */
+    :root{
+      --tp-black:#000;
+      --tp-dark:#1a1a1a;
+      --tp-charcoal:#2d2d2d;
+      --tp-gray-dark:#4a4a4a;
+      --tp-gray:#555555;         /* a11y-strong */
+      --tp-gray-light:#7a7a7a;   /* a11y-strong */
+      --tp-silver:#cccccc;
+      --tp-light:#e5e5e5;
+      --tp-off:#f5f5f5;
+      --tp-white:#fff;
+      --accent-purple:#780096;
+      --accent-pink:#ff0082;
+      --max:1050px;
 
-/* =============== LAYOUT HELPERS =============== */
-.container{max-width:var(--max);margin:0 auto;padding:0 20px}
-.section-title{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:var(--tp-black);text-align:center;margin:0 0 .5rem}
-.section-subtitle{text-align:center;color:var(--tp-gray);margin:0 0 2rem}
+      --shadow-xs:0 1px 2px rgba(0,0,0,.05);
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08);
+      --shadow-md:0 4px 8px rgba(0,0,0,.12);
+      --shadow-lg:0 8px 16px rgba(0,0,0,.16);
+    }
 
-/* =============== HEADER / NAV =============== */
-header{
-  position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);
-  border-bottom:1px solid var(--tp-light);backdrop-filter:blur(10px);box-shadow:var(--shadow-xs)
-}
-.header-inner{max-width:var(--max);margin:0 auto;padding:.75rem 20px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.brand{display:flex;align-items:center;gap:.625rem}
-.brand img{width:40px;height:40px;object-fit:contain}
-.brand-text{line-height:1.2;display:flex;flex-direction:column}
-.brand-name{font-size:1rem;font-weight:700;color:var(--tp-black)}
-.brand-tagline{font-size:.7rem;color:var(--tp-gray)}
+    /* ========== Base Reset ========== */
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0; color:var(--tp-dark); background:var(--tp-white);
+      font-family:'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height:1.75; -webkit-font-smoothing:antialiased; font-feature-settings:"palt" 1;
+    }
+    img{ max-width:100%; height:auto; display:block; }
+    a{ color:inherit; text-decoration:none; }
+    .sr-only{
+      position:absolute!important; width:1px;height:1px; padding:0;margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+    .container{ max-width:var(--max); margin:0 auto; padding:0 20px; }
+    .section{ padding:56px 20px; }
+    .section-title{
+      text-align:center; font-size:clamp(1.5rem,3vw,2rem); margin:0 0 .625rem; font-weight:900; color:var(--tp-black); letter-spacing:-.02em;
+    }
+    .section-subtitle{ text-align:center; color:var(--tp-gray); margin:0 0 2rem; font-size:.95rem; }
 
-nav ul{display:flex;gap:1rem;list-style:none;align-items:center}
-nav a{font-size:.9rem;position:relative;padding:.2rem 0;white-space:nowrap}
-nav a::after{content:'';position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--tp-black);transition:width .3s}
-nav a:hover::after,nav a[aria-current="page"]::after{width:100%}
-.apply-btn{background:var(--accent-purple);color:var(--tp-white);padding:.5rem 1rem;border-radius:4px;border:2px solid var(--accent-purple);font-weight:700}
-.apply-btn:hover{background:var(--tp-white);color:var(--accent-purple)}
+    /* ========== Header / Nav ========== */
+    header{
+      position:sticky; top:0; z-index:1000; background:rgba(255,255,255,.97);
+      border-bottom:1px solid var(--tp-light); backdrop-filter:blur(10px); box-shadow:var(--shadow-xs);
+    }
+    .header-inner{
+      max-width:var(--max); margin:0 auto; padding:.75rem 20px;
+      display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    }
+    .brand{ display:flex; align-items:center; gap:.625rem; }
+    .brand img{ width:40px; height:40px; object-fit:contain; }
+    .brand-text{ display:flex; flex-direction:column; line-height:1.2; }
+    .brand-name{ font-size:1rem; font-weight:700; color:var(--tp-black); }
+    .brand-tagline{ font-size:.7rem; color:var(--tp-gray); }
 
-.mobile-toggle{display:none;width:36px;height:36px;border:2px solid var(--tp-black);border-radius:4px;background:transparent;position:relative}
-.mobile-toggle span{position:absolute;left:50%;transform:translateX(-50%);width:18px;height:2px;background:var(--tp-black);transition:.3s}
-.mobile-toggle span:nth-child(1){top:10px}.mobile-toggle span:nth-child(2){top:17px}.mobile-toggle span:nth-child(3){bottom:10px}
-.mobile-toggle.active span:nth-child(1){top:17px;transform:translateX(-50%) rotate(45deg)}
-.mobile-toggle.active span:nth-child(2){opacity:0}
-.mobile-toggle.active span:nth-child(3){bottom:17px;transform:translateX(-50%) rotate(-45deg)}
+    nav[aria-label="メインナビ"] ul{ display:flex; gap:1rem; list-style:none; align-items:center; padding:0; margin:0; }
+    nav[aria-label="メインナビ"] a{
+      font-size:.9rem; position:relative; padding:.2rem 0; transition:all .2s;
+    }
+    nav[aria-label="メインナビ"] a::after{
+      content:""; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--tp-black); transition:width .2s;
+    }
+    nav[aria-label="メインナビ"] a:hover::after, nav[aria-label="メインナビ"] a:focus::after{ width:100%; }
+    nav[aria-label="メインナビ"] a[aria-current="page"]{ font-weight:700; }
+    nav[aria-label="メインナビ"] a[aria-current="page"]::after{ width:100%; }
 
-.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--tp-white);border-top:1px solid var(--tp-light);box-shadow:var(--shadow-lg);z-index:999}
-.mobile-menu.active{display:block}
-.mobile-menu a{display:block;padding:.75rem 1rem;border-bottom:1px solid var(--tp-light)}
+    .apply-btn{
+      background:var(--accent-purple); color:#fff; padding:.5rem 1.1rem; border-radius:4px; font-weight:700;
+      border:2px solid var(--accent-purple); transition:all .2s;
+    }
+    .apply-btn:hover,.apply-btn:focus{ background:#fff; color:var(--accent-purple); }
 
-/* =============== FLOATING BUTTONS =============== */
-.floating-apply{
-  position:fixed;right:20px;bottom:20px;z-index:999;border-radius:999px;border:2px solid var(--accent-purple);
-  background:rgba(120,0,150,.9);color:#fff;padding:.75rem 1.25rem;font-weight:700;box-shadow:0 4px 12px rgba(120,0,150,.3)
-}
-.floating-apply:hover{transform:scale(1.05)}
-.floating-casual{
-  position:fixed;right:140px;bottom:20px;z-index:998;border-radius:999px;border:2px solid var(--tp-black);
-  background:rgba(255,255,255,.9);color:var(--tp-black);padding:.75rem 1.25rem;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,.15)
-}
-.back-to-top{
-  position:fixed;right:20px;bottom:80px;width:40px;height:40px;border-radius:50%;
-  border:2px solid var(--tp-black);background:rgba(255,255,255,.85);display:grid;place-items:center;opacity:0;visibility:hidden;transition:.3s;z-index:997
-}
-.back-to-top.show{opacity:1;visibility:visible}
+    /* Mobile nav */
+    .mobile-toggle{
+      display:none; width:36px; height:36px; background:transparent; border:2px solid var(--tp-black); border-radius:4px; position:relative; cursor:pointer;
+    }
+    .mobile-toggle span{
+      display:block; width:18px; height:2px; background:var(--tp-black); position:absolute; left:50%; transform:translateX(-50%); transition:all .2s;
+    }
+    .mobile-toggle span:nth-child(1){ top:10px; }
+    .mobile-toggle span:nth-child(2){ top:17px; }
+    .mobile-toggle span:nth-child(3){ bottom:10px; }
+    .mobile-toggle.active span:nth-child(1){ transform:translateX(-50%) rotate(45deg); top:17px; }
+    .mobile-toggle.active span:nth-child(2){ opacity:0; }
+    .mobile-toggle.active span:nth-child(3){ transform:translateX(-50%) rotate(-45deg); bottom:17px; }
 
-/* =============== FOOTER =============== */
-footer{background:var(--tp-black);color:#fff;padding:40px 20px 16px;position:relative}
-footer::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-purple),transparent)}
-.footer-content{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:2rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.12)}
-.footer-logo{display:flex;align-items:center;gap:.625rem}
-.footer-logo img{width:42px;height:42px;filter:brightness(0) invert(1)}
-.footer-logo-text{font-size:1.15rem;font-weight:700}
-.footer-desc{opacity:.8;line-height:1.75;font-size:.9rem}
-.footer-section h3{margin-bottom:.75rem;font-size:.9rem;letter-spacing:.08em;opacity:.9;text-transform:uppercase}
-.footer-section ul{list-style:none}
-.footer-section a{opacity:.75;font-size:.85rem}
-.footer-section a:hover{opacity:1}
-.footer-bottom{text-align:center;padding-top:12px;font-size:.8rem;opacity:.7}
+    .mobile-menu{
+      display:none; position:fixed; top:60px; left:0; right:0; background:#fff; border-top:1px solid var(--tp-light);
+      box-shadow:var(--shadow-lg); max-height:calc(100vh - 60px); overflow:auto; z-index:999;
+    }
+    .mobile-menu.active{ display:block; }
+    .mobile-menu ul{ list-style:none; padding:.875rem 0; margin:0; }
+    .mobile-menu a{ display:block; padding:.625rem 1.25rem; border-bottom:1px solid var(--tp-light); }
+    .mobile-menu a:hover,.mobile-menu a:focus{ background:var(--tp-off); }
 
-/* =============== RESPONSIVE =============== */
-@media (max-width:900px){ nav{display:none}.mobile-toggle{display:block}.floating-casual{right:20px;bottom:80px}.back-to-top{bottom:140px} }
-@media (max-width:768px){ .footer-content{grid-template-columns:1fr;text-align:center} }
-</style>
+    /* ========== Buttons / Utilities ========== */
+    .btn{ padding:.75rem 1.5rem; border-radius:4px; font-weight:700; border:2px solid var(--tp-black); cursor:pointer; display:inline-block; transition:all .2s; font-size:.95rem; text-align:center; }
+    .btn-primary{ background:var(--tp-black); color:#fff; }
+    .btn-primary:hover{ background:#fff; color:var(--tp-black); box-shadow:var(--shadow-md); transform:translateY(-2px); }
+    .btn-accent{ background:var(--accent-purple); color:#fff; border-color:var(--accent-purple); }
+    .btn-accent:hover{ background:#fff; color:var(--accent-purple); box-shadow:var(--shadow-md); transform:translateY(-2px); }
+    .btn-ghost{ background:transparent; color:var(--tp-black); }
+    .btn-ghost:hover{ background:var(--tp-black); color:#fff; }
 
-<!-- =========================
-     STRUCTURED DATA
-========================= -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"TP Malaysia & TP Thailand",
-  "alternateName":"Teleperformance Malaysia & Thailand",
-  "url":"https://tpmyandtpth.github.io/JLP/",
-  "logo":"https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png",
-  "description":"テレパフォーマンス（TP）マレーシア・タイの日本語スピーカー採用。世界100カ国以上で展開するグローバルBPO企業。就労ビザ・移住サポート完備。",
-  "address":{"@type":"PostalAddress","addressCountry":"MY"},
-  "sameAs":["https://line.me/R/ti/p/@286nmdsd"]
-}
-</script>
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"WebSite",
- "name":"TP Malaysia & TP Thailand",
- "url":"https://tpmyandtpth.github.io/JLP/",
- "potentialAction":{
-   "@type":"SearchAction",
-   "target":"https://tpmyandtpth.github.io/JLP/open-jobs.html?q={search_term_string}",
-   "query-input":"required name=search_term_string"
- }
-}
-</script>
+    /* ========== Footer ========== */
+    footer{ background:var(--tp-black); color:#fff; padding:40px 20px 16px; position:relative; }
+    footer::before{ content:""; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent-purple),transparent); }
+    .footer-content{
+      max-width:var(--max); margin:0 auto; display:grid; grid-template-columns:2fr repeat(3,1fr); gap:2rem;
+      padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,.15);
+    }
+    .footer-logo{ display:flex; align-items:center; gap:.625rem; }
+    .footer-logo img{ width:42px; height:42px; filter:brightness(0) invert(1); }
+    .footer-logo-text{ font-size:1.15rem; font-weight:700; }
+    .footer-desc{ opacity:.85; line-height:1.75; font-size:.9rem; }
+    .footer-section h3{ margin:.25rem 0 .75rem; font-size:.9rem; letter-spacing:.08em; opacity:.9; text-transform:uppercase; }
+    .footer-section ul{ list-style:none; padding:0; margin:0; }
+    .footer-section li{ margin-bottom:.35rem; }
+    .footer-section a{ font-size:.85rem; opacity:.75; }
+    .footer-section a:hover{ opacity:1; }
+    .footer-bottom{ text-align:center; padding-top:12px; font-size:.8rem; opacity:.7; }
+
+    /* ========== Floating Actions ========== */
+    .floating-apply{
+      position:fixed; bottom:20px; right:20px; z-index:999;
+      background:rgba(120,0,150,.9); color:#fff; padding:.7rem 1.1rem; border-radius:999px; font-weight:700;
+      border:2px solid var(--accent-purple); backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(120,0,150,.3);
+      transition:transform .2s, box-shadow .2s, background .2s; font-size:.9rem;
+    }
+    .floating-apply:hover{ transform:scale(1.05); box-shadow:0 6px 20px rgba(120,0,150,.4); background:var(--accent-purple); }
+
+    .floating-casual{
+      position:fixed; bottom:20px; right:150px; z-index:998;
+      background:rgba(255,255,255,.85); color:var(--tp-black); padding:.7rem 1.1rem; border-radius:999px; font-weight:700;
+      border:2px solid var(--tp-black); backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,.15);
+      transition:transform .2s, box-shadow .2s; font-size:.9rem;
+    }
+    .floating-casual:hover{ transform:scale(1.05); box-shadow:0 6px 20px rgba(0,0,0,.2); }
+
+    .back-to-top{
+      position:fixed; bottom:84px; right:20px; width:40px; height:40px; border-radius:50%;
+      display:grid; place-items:center; background:rgba(255,255,255,.85); border:2px solid var(--tp-black);
+      cursor:pointer; opacity:0; visibility:hidden; transition:all .2s; z-index:997; font-weight:800;
+    }
+    .back-to-top.show{ opacity:1; visibility:visible; }
+    .back-to-top:hover{ background:var(--tp-black); color:#fff; transform:translateY(-2px); }
+
+    /* ========== Responsive ========== */
+    @media (max-width:900px){
+      nav[aria-label="メインナビ"]{ display:none; }
+      .mobile-toggle{ display:block; }
+      .floating-casual{ bottom:80px; right:20px; }
+      .back-to-top{ bottom:140px; right:20px; }
+    }
+    @media (max-width:768px){
+      .footer-content{ grid-template-columns:1fr; text-align:center; }
+      .floating-apply{ bottom:14px; right:14px; padding:.6rem 1rem; font-size:.85rem; }
+    }
+  </style>
+
+  <!-- ======= Structured Data (Org + Site) ======= -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"TP Malaysia & TP Thailand",
+    "alternateName":"Teleperformance Malaysia & Thailand",
+    "url":"https://tpmyandtpth.github.io/JLP/",
+    "logo":"https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png",
+    "description":"テレパフォーマンス（TP）マレーシア・タイの日本語スピーカー採用サイト。",
+    "address":{"@type":"PostalAddress","addressCountry":["MY","TH"]},
+    "sameAs":["https://line.me/R/ti/p/@286nmdsd"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"TP Malaysia & Thailand",
+    "url":"https://tpmyandtpth.github.io/JLP/",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://tpmyandtpth.github.io/JLP/open-jobs.html?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
 </head>
+<body>
+  <!-- ======= Skip link ======= -->
+  <a class="sr-only" href="#main">メインコンテンツへスキップ</a>
 
-<body data-page="<!-- TODO: set to one of: home|about|benefits|interview|cities|relocation|jobs|office|faq|contact -->">
-<a href="#main" class="sr-only">メインコンテンツへスキップ</a>
+  <!-- ======= Header ======= -->
+  <header role="banner">
+    <div class="header-inner">
+      <a class="brand" href="/JLP/index.html">
+        <img src="/JLP/photos/TPLogo11.png" alt="TP Malaysia & Thailand">
+        <span class="brand-text">
+          <span class="brand-name">TP</span>
+          <span class="brand-tagline">マレーシア＆タイ 採用</span>
+        </span>
+      </a>
 
-<!-- =========================
-     HEADER
-========================= -->
-<header role="banner">
-  <div class="header-inner">
-    <a class="brand" href="/JLP/index.html">
-      <img src="/JLP/photos/TPLogo11.png" alt="TP Malaysia & TP Thailand" width="40" height="40" />
-      <div class="brand-text">
-        <span class="brand-name">TP</span>
-        <span class="brand-tagline">マレーシア・タイ採用</span>
-      </div>
-    </a>
+      <nav aria-label="メインナビ">
+        <ul>
+          <li><a href="/JLP/index.html" data-nav="home">ホーム</a></li>
+          <li><a href="/JLP/about-tp.html" data-nav="about">TPについて</a></li>
+          <li><a href="/JLP/open-jobs.html" data-nav="jobs">求人一覧</a></li>
+          <li><a href="/JLP/salary-and-benefits.html" data-nav="benefits">給与・福利厚生</a></li>
+          <li><a href="/JLP/interview-process.html" data-nav="process">面接プロセス</a></li>
+          <li><a href="/JLP/relocation-visa.html" data-nav="relocation">移住・ビザ</a></li>
+          <li>
+            <a class="apply-btn"
+               href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+               target="_blank" rel="noopener noreferrer">応募する</a>
+          </li>
+        </ul>
+      </nav>
 
-    <nav aria-label="メインナビゲーション">
+      <button class="mobile-toggle" id="mobileToggle" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビ" hidden>
       <ul>
-        <li><a data-nav="home" href="/JLP/index.html">ホーム</a></li>
-        <li><a data-nav="about" href="/JLP/about-tp.html">TPについて</a></li>
-        <li><a data-nav="jobs" href="/JLP/open-jobs.html">求人一覧</a></li>
-        <li><a data-nav="benefits" href="/JLP/salary-and-benefits.html">給与・福利厚生</a></li>
-        <li><a data-nav="interview" href="/JLP/interview-process.html">面接プロセス</a></li>
-        <li><a data-nav="cities" href="/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
-        <li><a data-nav="relocation" href="/JLP/relocation-visa.html">移住サポート</a></li>
-        <li><a data-nav="office" href="/JLP/office-environment.html">働く環境</a></li>
-        <li><a data-nav="faq" href="/JLP/faq.html">FAQ</a></li>
-        <li><a class="apply-btn" href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer">応募する</a></li>
+        <li><a href="/JLP/index.html" data-nav="home">ホーム</a></li>
+        <li><a href="/JLP/about-tp.html" data-nav="about">TPについて</a></li>
+        <li><a href="/JLP/open-jobs.html" data-nav="jobs">求人一覧</a></li>
+        <li><a href="/JLP/salary-and-benefits.html" data-nav="benefits">給与・福利厚生</a></li>
+        <li><a href="/JLP/interview-process.html" data-nav="process">面接プロセス</a></li>
+        <li><a href="/JLP/relocation-visa.html" data-nav="relocation">移住・ビザ</a></li>
+        <li>
+          <a class="apply-btn"
+             href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+             target="_blank" rel="noopener noreferrer">応募する</a>
+        </li>
       </ul>
     </nav>
+  </header>
 
-    <button class="mobile-toggle" id="mobileToggle" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション" hidden>
-    <ul>
-      <li><a data-nav="home" href="/JLP/index.html">ホーム</a></li>
-      <li><a data-nav="about" href="/JLP/about-tp.html">TPについて</a></li>
-      <li><a data-nav="jobs" href="/JLP/open-jobs.html">求人一覧</a></li>
-      <li><a data-nav="benefits" href="/JLP/salary-and-benefits.html">給与・福利厚生</a></li>
-      <li><a data-nav="interview" href="/JLP/interview-process.html">面接プロセス</a></li>
-      <li><a data-nav="cities" href="/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
-      <li><a data-nav="relocation" href="/JLP/relocation-visa.html">移住サポート</a></li>
-      <li><a data-nav="office" href="/JLP/office-environment.html">働く環境</a></li>
-      <li><a data-nav="faq" href="/JLP/faq.html">FAQ</a></li>
-      <li><a class="apply-btn" href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer">応募する</a></li>
-    </ul>
-  </nav>
-</header>
-
-<!-- =========================
-     MAIN (PUT UNIQUE PAGE CONTENT HERE)
-========================= -->
-<main id="main">
-  <!-- PAGE HERO (optional) -->
-  <section class="container" style="padding:40px 20px">
-    <h1 class="section-title"><!-- TODO: Page H1 -->ページ見出し</h1>
-    <p class="section-subtitle"><!-- TODO: Subtitle -->このページの短い説明テキスト</p>
-  </section>
-
-  <!-- PAGE CONTENT START -->
-  <section class="container" style="padding:0 20px 56px">
-    <!-- TODO: Your page-specific content goes here -->
-    <p>ここに固有コンテンツを追加してください。</p>
-  </section>
-  <!-- PAGE CONTENT END -->
-</main>
-
-<!-- =========================
-     FOOTER
-========================= -->
-<footer>
-  <div class="footer-content">
-    <div class="footer-brand">
-      <div class="footer-logo">
-        <img src="/JLP/photos/TPLogo11.png" alt="TP ロゴ" width="42" height="42" />
-        <span class="footer-logo-text">TP</span>
-      </div>
-      <p class="footer-desc">
-        世界100カ国以上で展開するグローバルBPO企業。<br>
-        TP Malaysia & TP Thailand は日本語スピーカーの皆様の新たなキャリアをサポートします。
+  <!-- ======= Page Hero (optional) ======= -->
+  <!-- Delete this block on pages that don't need a hero -->
+  <section class="section" style="background:linear-gradient(135deg,#fff,var(--tp-off));">
+    <div class="container">
+      <h1 style="margin:0 0 .5rem; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; letter-spacing:-.02em;">
+        {{HERO_TITLE}}
+      </h1>
+      <p style="color:var(--tp-gray); max-width:680px;">
+        {{HERO_SUBTITLE}}
       </p>
-      <div class="footer-cta" style="margin-top:8px">
-        <a class="apply-btn" href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener">ご応募はこちら</a>
+      <!-- Optional CTAs -->
+      <!-- <div style="margin-top:1rem; display:flex; gap:.75rem; flex-wrap:wrap;">
+        <a class="btn btn-accent" href="/JLP/open-jobs.html">求人を見る</a>
+        <a class="btn btn-ghost" href="/JLP/relocation-visa.html">移住サポート</a>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- ======= Main Content Slot ======= -->
+  <main id="main" tabindex="-1">
+    <!-- ========== START: PAGE-SPECIFIC CONTENT ========== -->
+    <section class="section">
+      <div class="container">
+        <!-- Example content block; replace with each page's content -->
+        <h2 class="section-title">{{SECTION_TITLE}}</h2>
+        <p class="section-subtitle">{{SECTION_SUBTITLE}}</p>
+
+        <div>
+          {{YOUR_PAGE_CONTENT_HTML}}
+        </div>
+      </div>
+    </section>
+    <!-- ========== END: PAGE-SPECIFIC CONTENT ========== -->
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="/JLP/photos/TPLogo11.png" alt="TP">
+          <span class="footer-logo-text">TP</span>
+        </div>
+        <p class="footer-desc">
+          テレパフォーマンスはマレーシア・タイを含む世界各国でBPOサービスを提供。<br>
+          日本語スピーカーの海外キャリアを支援します。
+        </p>
+        <div class="footer-cta" style="margin-top:.75rem;">
+          <a class="btn btn-accent"
+            href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+            target="_blank" rel="noopener noreferrer">ご応募はこちら</a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>会社情報</h3>
+        <ul>
+          <li><a href="/JLP/about-tp.html">会社紹介</a></li>
+          <li><a href="/JLP/office-environment.html">オフィス環境</a></li>
+          <li><a href="/JLP/ta-team.html">採用チーム</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>求人・応募</h3>
+        <ul>
+          <li><a href="/JLP/open-jobs.html">求人一覧</a></li>
+          <li><a href="/JLP/interview-process.html">面接プロセス</a></li>
+          <li><a href="/JLP/faq.html">よくある質問</a></li>
+          <li><a href="/JLP/casual-interview.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>生活情報</h3>
+        <ul>
+          <li><a href="/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
+          <li><a href="/JLP/relocation-visa.html">移住サポート</a></li>
+          <li><a href="/JLP/daily-life-malaysia.html">ライフスタイル</a></li>
+          <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">LINE公式</a></li>
+        </ul>
       </div>
     </div>
 
-    <div class="footer-section">
-      <h3>会社情報</h3>
-      <ul>
-        <li><a href="/JLP/about-tp.html">会社紹介</a></li>
-        <li><a href="/JLP/office-environment.html">オフィス環境</a></li>
-        <li><a href="/JLP/ta-team.html">採用チーム</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <p>&copy; 2025 TP Malaysia & TP Thailand. All rights reserved.
+        <span style="margin:0 .4rem;">|</span>
+        <a href="/JLP/privacy.html">プライバシーポリシー</a>
+        <span style="margin:0 .4rem;">|</span>
+        <a href="/JLP/terms.html">利用規約</a>
+      </p>
     </div>
+  </footer>
 
-    <div class="footer-section">
-      <h3>求人・応募</h3>
-      <ul>
-        <li><a href="/JLP/open-jobs.html">求人一覧</a></li>
-        <li><a href="/JLP/interview-process.html">面接プロセス</a></li>
-        <li><a href="/JLP/faq.html">よくある質問</a></li>
-      </ul>
-    </div>
+  <!-- ======= Floating Actions ======= -->
+  <a class="floating-apply"
+     href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="応募ページを新しいタブで開く">応募する</a>
 
-    <div class="footer-section">
-      <h3>生活情報</h3>
-      <ul>
-        <li><a href="/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
-        <li><a href="/JLP/relocation-visa.html">移住サポート</a></li>
-        <li><a href="/JLP/daily-life-malaysia.html">ライフスタイル</a></li>
-        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE公式</a></li>
-      </ul>
-    </div>
-  </div>
+  <a class="floating-casual"
+     href="https://forms.office.com/e/2UvpbweQww"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="カジュアル面談予約フォームを新しいタブで開く">カジュアル面談</a>
 
-  <div class="footer-bottom">
-    <p>&copy; 2025 TP Malaysia & TP Thailand. All rights reserved.
-      <span style="margin:0 .3rem">|</span>
-      <a href="#">プライバシーポリシー</a>
-      <span style="margin:0 .3rem">|</span>
-      <a href="#">利用規約</a>
-    </p>
-  </div>
-</footer>
+  <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
-<!-- =========================
-     FLOATING ACTIONS
-========================= -->
-<a class="floating-apply" href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" aria-label="応募ページを新しいタブで開く">応募する</a>
-<a class="floating-casual" href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener" aria-label="カジュアル面談の予約フォームを開く">カジュアル面談</a>
-<button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
+  <!-- ======= Global Scripts (small & safe) ======= -->
+  <script>
+    // ---- Active nav helper ----
+    // Add data-page="home|about|jobs|benefits|process|relocation" to <body> on each page
+    (function(){
+      var key = (document.body.getAttribute('data-page') || '').trim();
+      if(!key) return;
+      var links = document.querySelectorAll('[data-nav="'+key+'"]');
+      links.forEach(function(a){ a.setAttribute('aria-current','page'); });
+    })();
 
-<!-- =========================
-     CORE JS (nav, mobile menu, back-to-top)
-========================= -->
-<script>
-(function(){
-  // Mark active nav based on body[data-page]
-  const key = document.body.getAttribute('data-page');
-  if(key){
-    document.querySelectorAll('[data-nav]').forEach(a=>{
-      if(a.getAttribute('data-nav')===key){ a.setAttribute('aria-current','page'); }
-    });
-  }
+    // ---- Mobile menu ----
+    (function(){
+      var toggle = document.getElementById('mobileToggle');
+      var menu   = document.getElementById('mobileMenu');
+      if(!toggle || !menu) return;
 
-  // Mobile menu toggle
-  const toggle = document.getElementById('mobileToggle');
-  const menu = document.getElementById('mobileMenu');
-  function setMenu(open){
-    toggle.classList.toggle('active', open);
-    menu.classList.toggle('active', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    menu.hidden = !open;
-    document.documentElement.style.overflow = open ? 'hidden' : '';
-  }
-  if(toggle && menu){
-    toggle.addEventListener('click', ()=> setMenu(!menu.classList.contains('active')));
-    menu.querySelectorAll('a').forEach(link=> link.addEventListener('click', ()=> setMenu(false)));
-    document.addEventListener('click', (e)=>{
-      if(!menu.contains(e.target) && !toggle.contains(e.target)) setMenu(false);
-    });
-  }
-
-  // Back to top
-  const back = document.getElementById('backToTop');
-  window.addEventListener('scroll', ()=>{
-    if(window.pageYOffset > 300){ back.classList.add('show'); } else { back.classList.remove('show'); }
-  });
-  back.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-  // Smooth scroll for same-page anchors
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      const id = a.getAttribute('href');
-      if(id === '#') return;
-      const el = document.querySelector(id);
-      if(el){
-        e.preventDefault();
-        const y = el.getBoundingClientRect().top + window.pageYOffset - 70;
-        window.scrollTo({top:y, behavior:'smooth'});
+      function setMenu(open){
+        toggle.classList.toggle('active', open);
+        menu.classList.toggle('active', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        menu.hidden = !open;
+        // lock scroll when open
+        document.documentElement.style.overflow = open ? 'hidden' : '';
       }
+      toggle.addEventListener('click', function(){
+        setMenu(!menu.classList.contains('active'));
+      });
+      // close on link click
+      menu.querySelectorAll('a').forEach(function(l){
+        l.addEventListener('click', function(){ setMenu(false); });
+      });
+      // close on outside click
+      document.addEventListener('click', function(e){
+        if(!menu.contains(e.target) && !toggle.contains(e.target)){ setMenu(false); }
+      });
+      // close on ESC
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){ setMenu(false); }
+      });
+    })();
+
+    // ---- Back to top ----
+    (function(){
+      var btt = document.getElementById('backToTop');
+      if(!btt) return;
+      window.addEventListener('scroll', function(){
+        if(window.pageYOffset > 300){ btt.classList.add('show'); }
+        else { btt.classList.remove('show'); }
+      });
+      btt.addEventListener('click', function(){
+        window.scrollTo({ top:0, behavior:'smooth' });
+      });
+    })();
+
+    // ---- Smooth scroll for in-page anchors ----
+    (function(){
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(e){
+          var href = a.getAttribute('href');
+          if(href === '#') return;
+          var target = document.querySelector(href);
+          if(target){
+            e.preventDefault();
+            var offset = 70; // header height
+            var y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top:y, behavior:'smooth' });
+          }
+        });
+      });
+    })();
+
+    // ---- Minor perf: add width/height to images if missing (prevents CLS) ----
+    // Optional helper: if you can, bake real dimensions into markup instead.
+    (function(){
+      document.querySelectorAll('img:not([width]):not([height])').forEach(function(img){
+        if(img.naturalWidth && img.naturalHeight){
+          img.setAttribute('width', img.naturalWidth);
+          img.setAttribute('height', img.naturalHeight);
+        }
+      });
+    })();
+
+    // Page ready log (optional)
+    document.addEventListener('DOMContentLoaded', function(){
+      console.log('TP Malaysia & Thailand template ready');
     });
-  });
-})();
-</script>
+  </script>
 </body>
 </html>
