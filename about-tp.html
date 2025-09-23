@@ -3,29 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>会社紹介｜TP採用</title>
+<title>会社紹介｜TP採用 マレーシア・タイ</title>
 <meta name="description" content="テレパフォーマンスは世界100カ国以上で展開するグローバルBPO企業。日本語スピーカーの皆様の新たなキャリアをマレーシア・タイでサポートします。">
 <meta name="theme-color" content="#000000">
-
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="会社紹介｜TP採用">
-<meta property="og:description" content="テレパフォーマンスは世界100カ国以上で展開するグローバルBPO企業。日本語スピーカーの皆様の新たなキャリアをマレーシア・タイでサポートします。">
-<meta property="og:image" content="photos/TPLogo11.png">
-<meta property="og:url" content="https://tp-japan.com/about.html">
+<meta property="og:description" content="テレパフォーマンスは世界100カ国以上で展開するグローバルBPO企業。">
+<meta property="og:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png">
+<meta property="og:url" content="https://tpmyandtpth.github.io/JLP/about-tp.html">
 <meta name="twitter:card" content="summary_large_image">
-
+<meta name="twitter:title" content="会社紹介｜TP採用">
+<meta name="twitter:description" content="テレパフォーマンスは世界100カ国以上で展開するグローバルBPO企業。">
+<meta name="twitter:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://tp-japan.com/about.html">
-
+<link rel="canonical" href="https://tpmyandtpth.github.io/JLP/about-tp.html">
 <link rel="icon" href="photos/TPLogo11.png">
 <link rel="apple-touch-icon" href="photos/TPLogo11.png">
 
+<!-- Preconnect for Performance -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+
+<!-- GLOBAL STYLES - From Template -->
 <style>
+/* CSS Variables */
 :root {
   --tp-black: #000000;
   --tp-dark: #1a1a1a;
@@ -47,6 +53,7 @@
   --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
 }
 
+/* Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -71,7 +78,47 @@ a {
   text-decoration: none;
 }
 
-/* Header */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utility Classes */
+.sr-only {
+  position: absolute!important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.625rem;
+  font-weight: 900;
+  color: var(--tp-black);
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--tp-gray);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Header Styles */
 header {
   position: sticky;
   top: 0;
@@ -123,7 +170,7 @@ header {
 
 nav ul {
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
   list-style: none;
   align-items: center;
 }
@@ -133,6 +180,7 @@ nav a {
   position: relative;
   transition: all 0.3s;
   padding: 0.2rem 0;
+  white-space: nowrap;
 }
 
 nav a::after {
@@ -159,6 +207,12 @@ nav a[aria-current="page"]::after {
   width: 100%;
 }
 
+nav a:focus {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .apply-btn {
   background: var(--accent-purple);
   color: var(--tp-white);
@@ -169,7 +223,8 @@ nav a[aria-current="page"]::after {
   transition: all 0.3s;
 }
 
-.apply-btn:hover {
+.apply-btn:hover,
+.apply-btn:focus {
   background: var(--tp-white);
   color: var(--accent-purple);
 }
@@ -249,43 +304,310 @@ nav a[aria-current="page"]::after {
   transition: background 0.3s;
 }
 
-.mobile-menu a:hover {
+.mobile-menu a:hover,
+.mobile-menu a:focus {
   background: var(--tp-off);
 }
 
-/* Container */
-.container {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Section Header */
-.section-title {
+/* Button Styles */
+.btn {
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s;
   text-align: center;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  margin-bottom: 0.625rem;
-  font-weight: 900;
-  color: var(--tp-black);
-  letter-spacing: -0.02em;
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--tp-gray);
-  margin-bottom: 2rem;
+  border: 2px solid var(--tp-black);
+  cursor: pointer;
   font-size: 0.9rem;
 }
 
-/* About Section - Hero Style */
-.about-section {
+.btn:focus {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 4px;
+}
+
+.btn-accent {
+  background: var(--accent-purple);
+  color: var(--tp-white);
+  border-color: var(--accent-purple);
+}
+
+.btn-accent:hover {
+  background: var(--tp-white);
+  color: var(--accent-purple);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(120,0,150,0.15);
+}
+
+/* Footer Styles */
+footer {
+  background: var(--tp-black);
+  color: var(--tp-white);
+  padding: 40px 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+}
+
+.footer-content {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.footer-logo img {
+  width: 42px;
+  height: 42px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-logo-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.footer-desc {
+  opacity: 0.8;
+  line-height: 1.75;
+  font-size: 0.85rem;
+}
+
+.footer-section h3 {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section li {
+  margin-bottom: 0.3rem;
+}
+
+.footer-section a {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+
+.footer-section a:hover,
+.footer-section a:focus {
+  opacity: 1;
+  outline: none;
+}
+
+.badges {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badges .badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.footer-cta {
+  margin-top: 1rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 12px;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.footer-bottom a {
+  color: var(--tp-white);
+  text-decoration: underline;
+  margin: 0 0.3rem;
+}
+
+.footer-bottom a:hover,
+.footer-bottom a:focus {
+  opacity: 1;
+  outline: none;
+}
+
+/* Floating Buttons */
+.floating-apply {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(120, 0, 150, 0.9);
+  color: var(--tp-white);
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(120,0,150,0.3);
+  z-index: 999;
+  transition: all 0.3s;
+  border: 2px solid var(--accent-purple);
+  font-size: 0.85rem;
+  backdrop-filter: blur(10px);
+}
+
+.floating-apply:hover,
+.floating-apply:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(120,0,150,0.4);
+  background: var(--accent-purple);
+  outline: none;
+}
+
+.floating-casual {
+  position: fixed;
+  bottom: 20px;
+  right: 140px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--tp-black);
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 998;
+  transition: all 0.3s;
+  border: 2px solid var(--tp-black);
+  font-size: 0.85rem;
+  backdrop-filter: blur(10px);
+}
+
+.floating-casual:hover,
+.floating-casual:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 1);
+  outline: none;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid var(--tp-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 997;
+  backdrop-filter: blur(10px);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--tp-black);
+  color: var(--tp-white);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  nav {
+    display: none;
+  }
+  
+  .mobile-toggle {
+    display: block;
+  }
+  
+  .floating-casual {
+    bottom: 80px;
+    right: 20px;
+  }
+  
+  .back-to-top {
+    bottom: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.4rem;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .floating-apply {
+    bottom: 14px;
+    right: 14px;
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* PAGE SPECIFIC STYLES - About Page */
+.about-hero {
   padding: 120px 20px 56px;
   background: linear-gradient(135deg, var(--tp-white) 0%, var(--tp-off) 100%);
   position: relative;
   overflow: hidden;
 }
 
-.about-section::before {
+.about-hero::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -302,7 +624,6 @@ nav a[aria-current="page"]::after {
   pointer-events: none;
 }
 
-/* About Content Blocks */
 .about-content {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -344,7 +665,6 @@ nav a[aria-current="page"]::after {
   box-shadow: var(--shadow-lg);
 }
 
-/* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -388,7 +708,6 @@ nav a[aria-current="page"]::after {
   color: var(--tp-gray);
 }
 
-/* Award List */
 .award-list {
   display: flex;
   flex-direction: column;
@@ -429,6 +748,112 @@ nav a[aria-current="page"]::after {
   margin: 0;
   color: var(--tp-gray);
   font-size: 0.85rem;
+}
+
+/* Why TP Section */
+.why-tp { 
+  padding: 56px 20px; 
+  background: var(--tp-white); 
+}
+
+.reasons-grid {
+  display: grid; 
+  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.reason-card {
+  background: #fff;
+  border: 1px solid var(--tp-light);
+  border-radius: 12px;
+  padding: 16px; 
+  box-shadow: var(--shadow-sm); 
+  transition: .2s;
+}
+
+.reason-card:hover { 
+  box-shadow: var(--shadow-md); 
+  transform: translateY(-2px); 
+}
+
+.reason-head { 
+  display: flex; 
+  gap: .6rem; 
+  align-items: flex-start; 
+}
+
+.reason-emoji { 
+  font-size: 1.4rem; 
+  line-height: 1; 
+}
+
+.reason-title { 
+  font-weight: 900; 
+  color: var(--tp-black); 
+  margin-top: -2px; 
+}
+
+.reason-desc { 
+  color: var(--tp-gray-dark); 
+  font-size: .95rem; 
+  margin-top: .35rem; 
+}
+
+.locations { 
+  margin-top: 16px; 
+  border: 1px solid var(--tp-light); 
+  border-radius: 12px; 
+  padding: 16px; 
+  background: var(--tp-off); 
+}
+
+.locations h3 { 
+  font-size: 1.05rem; 
+  margin-bottom: .4rem; 
+  color: var(--tp-black); 
+}
+
+.loc-tags { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: .4rem; 
+}
+
+.loc-tag { 
+  font-size: .84rem; 
+  padding: .2rem .6rem; 
+  border: 1px solid var(--tp-light); 
+  border-radius: 999px; 
+  background: #fff; 
+}
+
+.checklist { 
+  margin-top: 18px; 
+  border: 1px solid var(--tp-light); 
+  border-radius: 12px; 
+  padding: 16px; 
+}
+
+.checklist h3 { 
+  font-size: 1.05rem; 
+  margin-bottom: .4rem; 
+}
+
+.checklist ul { 
+  list-style: none; 
+  padding-left: 0; 
+  display: grid; 
+  gap: .35rem; 
+}
+
+.checklist li::before { 
+  content: "✅ "; 
+}
+
+.note-muted { 
+  color: var(--tp-gray); 
+  font-size: .9rem; 
+  margin-top: .25rem; 
 }
 
 /* Testimonials Section */
@@ -500,7 +925,7 @@ nav a[aria-current="page"]::after {
   font-size: 0.75rem;
 }
 
-/* Contact CTA Section */
+/* Contact Cards */
 .contact {
   padding: 80px 20px;
   background: linear-gradient(135deg, var(--tp-white) 0%, var(--tp-off) 100%);
@@ -634,228 +1059,11 @@ nav a[aria-current="page"]::after {
   transform: translateX(5px);
 }
 
-/* Footer */
-footer {
-  background: var(--tp-black);
-  color: var(--tp-white);
-  padding: 40px 20px 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
-}
-
-.footer-content {
-  max-width: var(--max);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-}
-
-.footer-logo img {
-  width: 42px;
-  height: 42px;
-  filter: brightness(0) invert(1);
-}
-
-.footer-logo-text {
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-.footer-desc {
-  opacity: 0.8;
-  line-height: 1.75;
-  font-size: 0.85rem;
-}
-
-.footer-section h3 {
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  opacity: 0.9;
-}
-
-.footer-section ul {
-  list-style: none;
-}
-
-.footer-section li {
-  margin-bottom: 0.3rem;
-}
-
-.footer-section a {
-  opacity: 0.7;
-  transition: opacity 0.3s;
-  font-size: 0.8rem;
-}
-
-.footer-section a:hover {
-  opacity: 1;
-}
-
-.badges {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  margin-top: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.badges .badge-item {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-.footer-cta {
-  margin-top: 1rem;
-}
-
-.btn-accent {
-  background: var(--accent-purple);
-  color: var(--tp-white);
-  padding: 0.75rem 1.75rem;
-  border-radius: 4px;
-  font-weight: 600;
-  display: inline-block;
-  transition: all 0.3s;
-  text-align: center;
-  border: 2px solid var(--accent-purple);
-  font-size: 0.9rem;
-}
-
-.btn-accent:hover {
-  background: var(--tp-white);
-  color: var(--accent-purple);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(120,0,150,0.15);
-}
-
-.footer-bottom {
-  text-align: center;
-  padding-top: 12px;
-  font-size: 0.75rem;
-  opacity: 0.6;
-}
-
-.footer-bottom a {
-  color: var(--tp-white);
-  text-decoration: underline;
-  margin: 0 0.3rem;
-}
-
-.footer-bottom a:hover {
-  opacity: 1;
-}
-
-/* Floating Apply */
-.floating-apply {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--accent-purple);
-  color: var(--tp-white);
-  padding: 0.75rem 1.25rem;
-  border-radius: 50px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(120,0,150,0.3);
-  z-index: 999;
-  transition: all 0.3s;
-  border: 2px solid var(--accent-purple);
-  font-size: 0.85rem;
-}
-
-.floating-apply:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(120,0,150,0.4);
-  background: var(--tp-white);
-  color: var(--accent-purple);
-}
-
-/* Back to Top */
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 90px;
-  width: 36px;
-  height: 36px;
-  background: var(--tp-white);
-  border: 2px solid var(--tp-black);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-  z-index: 998;
-}
-
-.back-to-top.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.back-to-top:hover {
-  background: var(--tp-black);
-  color: var(--tp-white);
-  transform: translateY(-2px);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in {
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  nav {
-    display: none;
-  }
-  
-  .mobile-toggle {
-    display: block;
-  }
+/* Responsive for page specific styles */
+@media (max-width: 880px) { 
+  .reasons-grid { 
+    grid-template-columns: 1fr; 
+  } 
 }
 
 @media (max-width: 768px) {
@@ -870,117 +1078,65 @@ footer::before {
   .contact-cards {
     grid-template-columns: 1fr;
   }
-  
-  .footer-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  
-  .floating-apply {
-    bottom: 14px;
-    right: 14px;
-    padding: 0.625rem 1rem;
-    font-size: 0.8rem;
-  }
-  
-  .back-to-top {
-    right: 75px;
-  }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-  
-  html {
-    scroll-behavior: auto;
-  }
-}
-  /* ===== Why TP (7 reasons) ===== */
-.why-tp { padding: 56px 20px; background: var(--tp-white); }
-.why-tp .container { max-width: var(--max); margin: 0 auto; }
-
-.reasons-grid {
-  display: grid; gap: 14px;
-  grid-template-columns: repeat(2, 1fr);
-}
-@media (max-width: 880px){ .reasons-grid { grid-template-columns: 1fr; } }
-
-.reason-card{
-  background:#fff;border:1px solid var(--tp-light);border-radius:12px;
-  padding:16px; box-shadow: var(--shadow-sm); transition:.2s;
-}
-.reason-card:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.reason-head{ display:flex; gap:.6rem; align-items:flex-start; }
-.reason-emoji{ font-size:1.4rem; line-height:1; }
-.reason-title{ font-weight:900; color:var(--tp-black); margin-top:-2px; }
-.reason-desc{ color:var(--tp-gray-dark); font-size:.95rem; margin-top:.35rem; }
-
-.locations { margin-top: 16px; border:1px solid var(--tp-light); border-radius:12px; padding:16px; background: var(--tp-off); }
-.locations h3{ font-size:1.05rem; margin-bottom:.4rem; color:var(--tp-black); }
-.loc-tags{ display:flex; flex-wrap:wrap; gap:.4rem; }
-.loc-tag{ font-size:.84rem; padding:.2rem .6rem; border:1px solid var(--tp-light); border-radius:999px; background:#fff; }
-
-.checklist { margin-top: 18px; border:1px solid var(--tp-light); border-radius:12px; padding:16px; }
-.checklist h3{ font-size:1.05rem; margin-bottom:.4rem; }
-.checklist ul{ list-style:none; padding-left:0; display:grid; gap:.35rem; }
-.checklist li::before{ content:"✅ "; }
-
-.note-muted{ color:var(--tp-gray); font-size:.9rem; margin-top:.25rem; }
-
 </style>
 </head>
-
 <body>
+<!-- Skip Navigation -->
+<a href="#main" class="sr-only">メインコンテンツへスキップ</a>
+
+<!-- HEADER -->
 <header role="banner">
   <div class="header-inner">
-    <div class="brand">
+    <a class="brand" href="https://tpmyandtpth.github.io/JLP/index.html">
       <img src="photos/TPLogo11.png" alt="TP Japan" width="40" height="40">
       <div class="brand-text">
         <span class="brand-name">TP</span>
         <span class="brand-tagline">日本採用 — マレーシア・タイ</span>
       </div>
-    </div>
+    </a>
+
     <nav aria-label="メインナビゲーション">
       <ul>
-      <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
-      <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">TPについて</a></li>
-      <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html">求人機会</a></li>
-      <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
-      <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
-      <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
-        <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html" aria-current="page">TPについて</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">給与・福利厚生</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
+        <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="apply-btn">応募する</a></li>
       </ul>
     </nav>
-    <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く">
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="メニューを開く" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
+
   <nav class="mobile-menu" id="mobileMenu" aria-label="モバイルナビゲーション">
     <ul>
       <li><a href="https://tpmyandtpth.github.io/JLP/index.html">ホーム</a></li>
       <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">TPについて</a></li>
-      <li><a href="https://tpmyandtpth.github.io/JLP/jobs-and-benefits.html">求人機会</a></li>
+      <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">給与・福利厚生 </a></li>
       <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
       <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">なぜマレーシア・タイ</a></li>
       <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
-      <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="apply-btn">応募する</a></li>
+      <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="apply-btn">応募する</a></li>
     </ul>
   </nav>
 </header>
 
-<section class="about-section">
-  <div class="container">
-    <h1 class="section-title">会社紹介</h1>
-    <p class="section-subtitle">世界をリードするBPO企業で、あなたのキャリアを築きませんか</p>
-  </div>
-</section>
+<main id="main">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <h1 class="section-title">会社紹介</h1>
+      <p class="section-subtitle">世界をリードするBPO企業で、あなたのキャリアを築きませんか</p>
+    </div>
+  </section>
 
-<main>
   <!-- Company Overview & Mission -->
-  <section>
+  <section style="padding: 0 20px;">
     <div class="about-content">
       <div class="about-text">
         <h2>テレパフォーマンスについて</h2>
@@ -1044,8 +1200,8 @@ footer::before {
           <p class="stat-desc">多様な人材が活躍する職場</p>
         </div>
         <div class="stat-item">
-          <div class="stat-number">7,300+</div>
-          <div class="stat-label">日本人スタッフ</div>
+          <div class="stat-number">7,000+</div>
+          <div class="stat-label">従業員（マレーシア/タイ）</div>
           <p class="stat-desc">マレーシア・タイ拠点合計（2025年6月）</p>
         </div>
       </div>
@@ -1078,131 +1234,125 @@ footer::before {
       </div>
     </div>
   </section>
-<section class="why-tp" id="why-tp">
-  <div class="container">
-    <h2 class="section-title">TPを選ぶ7つの理由</h2>
-    <p class="section-subtitle">日本語スピーカーの皆さまが海外で安心して活躍できるように設計された環境です</p>
 
-    <div class="reasons-grid">
-      <!-- 1 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">🌍</div>
-          <div>
-            <div class="reason-title">1. グローバルな環境で、自分をレベルアップ！</div>
-            <p class="reason-desc">
-              TP Malaysia・Thailandは、世界中から集まったスタッフが活躍する国際的なBPO企業。まるで“毎日がプチ留学”のような環境で、自然と英語力や異文化理解力がアップします。<br>
-              「海外で働く」という体験を通じて、あなたの視野とキャリアは確実に広がります！
-            </p>
+  <!-- Why TP Section -->
+  <section class="why-tp" id="why-tp">
+    <div class="container">
+      <h2 class="section-title">TPを選ぶ7つの理由</h2>
+      <p class="section-subtitle">日本語スピーカーの皆さまが海外で安心して活躍できるように設計された環境です</p>
+
+      <div class="reasons-grid">
+        <!-- Reason cards here (same as original) -->
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">🌍</div>
+            <div>
+              <div class="reason-title">1. グローバルな環境で、自分をレベルアップ！</div>
+              <p class="reason-desc">
+                TP Malaysia・Thailandは、世界中から集まったスタッフが活躍する国際的なBPO企業。まるで"毎日がプチ留学"のような環境で、自然と英語力や異文化理解力がアップします。<br>
+                「海外で働く」という体験を通じて、あなたの視野とキャリアは確実に広がります！
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- 2 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">🗣️</div>
-          <div>
-            <div class="reason-title">2. 日本語スピーカー向けのポジションが豊富！安心してスタート可能</div>
-            <p class="reason-desc">
-              日本語を活かせるカスタマーサポートや営業職などのポジションを多数ご用意。<br>
-              「英語に少し自信がない…」という方も、日本語中心の業務から安心して始められます。段階的に英語に触れながら、無理なくスキルを伸ばせます。<br>
-              また、TPは英語バイリンガルのポジションも豊富。英語力を存分に活かし、国際的なキャリアに挑戦できます。
-            </p>
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">🗣️</div>
+            <div>
+              <div class="reason-title">2. 日本語スピーカー向けのポジションが豊富！安心してスタート可能</div>
+              <p class="reason-desc">
+                日本語を活かせるカスタマーサポートや営業職などのポジションを多数ご用意。<br>
+                「英語に少し自信がない…」という方も、日本語中心の業務から安心して始められます。段階的に英語に触れながら、無理なくスキルを伸ばせます。<br>
+                また、TPは英語バイリンガルのポジションも豊富。英語力を存分に活かし、国際的なキャリアに挑戦できます。
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- 3 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">👥</div>
-          <div>
-            <div class="reason-title">3. 日本人サポートも充実！初めての海外でも安心</div>
-            <p class="reason-desc">
-              多数の日本人スタッフが在籍しているため、「困ったときにすぐ相談できる環境」が整っています。生活・お仕事の両面で、安心のサポート体制があります。
-            </p>
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">👥</div>
+            <div>
+              <div class="reason-title">3. 日本人サポートも充実！初めての海外でも安心</div>
+              <p class="reason-desc">
+                多数の日本人スタッフが在籍しているため、「困ったときにすぐ相談できる環境」が整っています。生活・お仕事の両面で、安心のサポート体制があります。
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- 4 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">💼</div>
-          <div>
-            <div class="reason-title">4. 実力次第でキャリアアップのチャンスも！</div>
-            <p class="reason-desc">
-              年齢や経歴に関係なく「頑張り」を評価する社風。トレーナー、QA、チームリーダー、マネージャーへの昇進や、別プロジェクトへの異動など、多彩なキャリアパスが描けます。
-            </p>
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">💼</div>
+            <div>
+              <div class="reason-title">4. 実力次第でキャリアアップのチャンスも！</div>
+              <p class="reason-desc">
+                年齢や経歴に関係なく「頑張り」を評価する社風。トレーナー、QA、チームリーダー、マネージャーへの昇進や、別プロジェクトへの異動など、多彩なキャリアパスが描けます。
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- 5 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">🏡</div>
-          <div>
-            <div class="reason-title">5. 就労ビザ＆一時滞在先サポートあり！スムーズに移住可能</div>
-            <p class="reason-desc">
-              就労ビザ申請サポート、空港送迎、一時滞在先（マレーシアのみ）の手配まで、入社前後の手続きをフルサポート。初めての海外生活でも安心してスタートできます。
-            </p>
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">🏡</div>
+            <div>
+              <div class="reason-title">5. 就労ビザ＆一時滞在先サポートあり！スムーズに移住可能</div>
+              <p class="reason-desc">
+                就労ビザ申請サポート、空港送迎、一時滞在先（マレーシアのみ）の手配まで、入社前後の手続きをフルサポート。初めての海外生活でも安心してスタートできます。
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- 6 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">🌈</div>
-          <div>
-            <div class="reason-title">6. 多様性あふれる、自由でフラットな社風</div>
-            <p class="reason-desc">
-              国籍・年齢・性別を問わず、お互いを尊重し合える文化が根付いています。世界中の仲間と協力し合いながら働けるのも、TPならではの魅力です。<br>
-              <span class="note-muted">🌐 世界中の仲間と出会い、協力しながら働ける環境です！</span>
-            </p>
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">🌈</div>
+            <div>
+              <div class="reason-title">6. 多様性あふれる、自由でフラットな社風</div>
+              <p class="reason-desc">
+                国籍・年齢・性別を問わず、お互いを尊重し合える文化が根付いています。世界中の仲間と協力し合いながら働けるのも、TPならではの魅力です。<br>
+                <span class="note-muted">🌐 世界中の仲間と出会い、協力しながら働ける環境です！</span>
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <!-- 7 -->
-      <article class="reason-card">
-        <div class="reason-head">
-          <div class="reason-emoji">🎉</div>
-          <div>
-            <div class="reason-title">7. 仕事だけじゃない！イベント＆福利厚生も充実</div>
-            <p class="reason-desc">
-              社内イベントや表彰制度、チームビルディング活動など、人とのつながりを大切にするカルチャー。医療保険、有給休暇、各種手当なども完備し、安心して長く働ける環境です。
-            </p>
+        <article class="reason-card">
+          <div class="reason-head">
+            <div class="reason-emoji">🎉</div>
+            <div>
+              <div class="reason-title">7. 仕事だけじゃない！イベント＆福利厚生も充実</div>
+              <p class="reason-desc">
+                社内イベントや表彰制度、チームビルディング活動など、人とのつながりを大切にするカルチャー。医療保険、有給休暇、各種手当なども完備し、安心して長く働ける環境です。
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
-    </div>
+        </article>
+      </div>
 
-    <!-- Locations / 勤務地 -->
-    <div class="locations" aria-label="勤務地">
-      <h3>🏢 勤務地：マレーシア（ペナン・クアラルンプール）、タイ（バンコク）</h3>
-      <p class="note-muted">アジアの人気エリアから選択可能。住みやすく、観光・グルメも充実しています！</p>
-      <div class="loc-tags" style="margin-top:.5rem;">
-        <span class="loc-tag">🇲🇾 ペナン（Penang）</span>
-        <span class="loc-tag">🇲🇾 クアラルンプール（KL）</span>
-        <span class="loc-tag">🇹🇭 バンコク（Bangkok）</span>
+      <div class="locations" aria-label="勤務地">
+        <h3>🏢 勤務地：マレーシア（ペナン・クアラルンプール）、タイ（バンコク）</h3>
+        <p class="note-muted">アジアの人気エリアから選択可能。住みやすく、観光・グルメも充実しています！</p>
+        <div class="loc-tags" style="margin-top:.5rem;">
+          <span class="loc-tag">🇲🇾 ペナン（Penang）</span>
+          <span class="loc-tag">🇲🇾 クアラルンプール（KL）</span>
+          <span class="loc-tag">🇹🇭 バンコク（Bangkok）</span>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <h3>✅ こんな方におすすめ！</h3>
+        <ul>
+          <li>日本語を活かして海外で働いてみたい</li>
+          <li>英語を使う環境にチャレンジしたい</li>
+          <li>多国籍な職場で価値観を広げたい</li>
+          <li>海外生活を楽しみながらキャリアを築きたい</li>
+        </ul>
       </div>
     </div>
-
-    <!-- Recommended checklist -->
-    <div class="checklist">
-      <h3>✅ こんな方におすすめ！</h3>
-      <ul>
-        <li>日本語を活かして海外で働いてみたい</li>
-        <li>英語を使う環境にチャレンジしたい</li>
-        <li>多国籍な職場で価値観を広げたい</li>
-        <li>海外生活を楽しみながらキャリアを築きたい</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- Testimonials Section -->
   <section class="testimonials">
@@ -1262,19 +1412,19 @@ footer::before {
       <h2 class="section-title">お問い合わせ・各種リンク</h2>
       <p class="section-subtitle">目的にあわせて、すぐアクセス</p>
       <div class="contact-cards">
-        <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener" class="contact-card casual">
+        <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="contact-card casual">
           <span class="contact-card-icon">🗓️</span>
           <h3>カジュアル面談予約</h3>
           <p>30分オンラインで気軽に相談</p>
           <span class="contact-card-action">予約する →</span>
         </a>
-        <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener" class="contact-card line">
+        <a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer" class="contact-card line">
           <span class="contact-card-icon">💬</span>
           <h3>LINE公式アカウント</h3>
           <p>最新募集・イベント情報を配信</p>
           <span class="contact-card-action">友達追加 →</span>
         </a>
-        <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="contact-card apply">
+        <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="contact-card apply">
           <span class="contact-card-icon">✍️</span>
           <h3>応募ページ</h3>
           <p>履歴書アップロードで簡単エントリー</p>
@@ -1285,6 +1435,7 @@ footer::before {
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-content">
     <div class="footer-brand">
@@ -1300,134 +1451,179 @@ footer::before {
         <span class="badge-item">🏆 Great Place to Work® 6年連続</span>
       </div>
       <div class="footer-cta">
-        <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="btn-accent">ご応募はこちら</a>
+        <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="btn btn-accent">ご応募はこちら</a>
       </div>
     </div>
+    
     <div class="footer-section">
       <h3>会社情報</h3>
       <ul>
-        <li><a href="/about.html">会社紹介</a></li>
-        <li><a href="/benefits.html">福利厚生</a></li>
-        <li><a href="/office.html">オフィス環境</a></li>
-        <li><a href="/ta-team.html">採用チーム</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">会社紹介</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html#benefits">福利厚生</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/office-environment.html">オフィス環境</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/ta-team.html">採用チーム</a></li>
       </ul>
     </div>
+
     <div class="footer-section">
       <h3>求人・応募</h3>
       <ul>
-        <li><a href="/jobs.html">求人一覧</a></li>
-        <li><a href="/interview.html">面接プロセス</a></li>
-        <li><a href="/faq.html">よくある質問</a></li>
-        <li><a href="/contact.html">お問い合わせ</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセス</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/faq.html">よくある質問</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">お問い合わせ</a></li>
       </ul>
     </div>
+
     <div class="footer-section">
       <h3>生活情報</h3>
       <ul>
-        <li><a href="/cities.html">勤務先都市</a></li>
-        <li><a href="/relocation.html">移住サポート</a></li>
-        <li><a href="/lifestyle.html">ライフスタイル</a></li>
-        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener">LINE公式</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">勤務先都市</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住サポート</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html">ライフスタイル</a></li>
+        <li><a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">LINE公式</a></li>
       </ul>
     </div>
   </div>
+  
   <div class="footer-bottom">
     <p>&copy; 2025 TP. All rights reserved. | 
-      <a href="/privacy.html">プライバシーポリシー</a> | 
-      <a href="/terms.html">利用規約</a>
+      <a href="#">プライバシーポリシー</a> | 
+      <a href="#">利用規約</a>
     </p>
   </div>
 </footer>
 
-<a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener" class="floating-apply" aria-label="今すぐ応募">応募する</a>
+<!-- FLOATING BUTTONS -->
+<a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE" target="_blank" rel="noopener noreferrer" class="floating-apply" aria-label="今すぐ応募">応募する</a>
+
+<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談">カジュアル面談</a>
+
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
+<!-- JAVASCRIPT -->
 <script>
-// Mobile Menu Toggle
-(function(){
-  const toggle = document.getElementById('mobileToggle');
-  const menu = document.getElementById('mobileMenu');
-  
-  if(toggle && menu){
-    toggle.addEventListener('click', function(){
-      toggle.classList.toggle('active');
-      menu.classList.toggle('active');
-    });
+// Mobile Menu Toggle with Error Handling
+try {
+  (function(){
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
     
-    menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        toggle.classList.remove('active');
-        menu.classList.remove('active');
+    if(toggle && menu){
+      toggle.addEventListener('click', function(){
+        toggle.classList.toggle('active');
+        menu.classList.toggle('active');
+        toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
       });
-    });
-  }
-})();
+      
+      // Close menu when clicking links
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggle.classList.remove('active');
+          menu.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if(!menu.contains(e.target) && !toggle.contains(e.target)) {
+          menu.classList.remove('active');
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+} catch(error) {
+  console.warn('Mobile menu setup failed:', error);
+}
 
 // Back to Top Button
-(function(){
-  const backToTop = document.getElementById('backToTop');
-  
-  window.addEventListener('scroll', function(){
-    if(window.scrollY > 300){
-      backToTop.classList.add('show');
-    } else {
-      backToTop.classList.remove('show');
-    }
-  });
-  
-  backToTop.addEventListener('click', function(){
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-})();
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e){
-    const href = this.getAttribute('href');
-    if(href === '#') return;
+try {
+  (function(){
+    const backToTop = document.getElementById('backToTop');
+    if(!backToTop) return;
     
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if(target){
-      const offset = 70;
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
-  });
-});
-
-// Add animation on scroll
-(function(){
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+    window.addEventListener('scroll', () => {
+      if(window.pageYOffset > 300){
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
       }
     });
-  }, observerOptions);
-  
-  // Observe elements
-  const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card');
-  elements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s, transform 0.6s';
-    observer.observe(el);
-  });
-})();
-</script>
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    });
+  })();
+} catch(error) {
+  console.warn('Back to top button failed:', error);
+}
 
+// Smooth Scroll for Anchor Links
+try {
+  (function(){
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if(href === '#') return;
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target){
+          const offset = 70;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  })();
+} catch(error) {
+  console.warn('Smooth scroll failed:', error);
+}
+
+// Animation on scroll
+try {
+  (function(){
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Observe elements
+    const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card');
+    elements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s, transform 0.6s';
+      observer.observe(el);
+    });
+  })();
+} catch(error) {
+  console.warn('Animation observer failed:', error);
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('TP Japan about page initialized');
+});
+</script>
 </body>
 </html>
