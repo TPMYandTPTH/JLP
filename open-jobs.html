@@ -676,93 +676,40 @@ footer::before {
   font-size: 0.95rem;
 }
 
-/* Enhanced Tabs */
+/* Tabs */
 .tabs {
-  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+  background: #000;
   border-bottom: 2px solid #222;
-  padding: 1.5rem 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.tabs::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(120,0,150,0.1), transparent);
-  pointer-events: none;
+  padding: 1rem 20px;
 }
 
 .tabs .inner {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  z-index: 1;
 }
 
 .tab {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--tp-gray);
+  background: transparent;
   color: #fff;
-  border-radius: 50px;
-  font-weight: 700;
+  border-radius: 8px;
+  font-weight: 800;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-}
-
-.tab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.tab:hover::before {
-  left: 100%;
+  transition: 0.2s;
 }
 
 .tab:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.08);
 }
 
 .tab.active {
   background: var(--accent-purple);
   border-color: var(--accent-purple);
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(120,0,150,0.4);
-}
-
-.tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid var(--accent-purple);
 }
 
 /* Jobs grid */
@@ -776,34 +723,31 @@ footer::before {
   font-weight: 800;
   margin-bottom: 0.75rem;
   color: #000;
-  font-size: 1.1rem;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .card {
   background: #fff;
   border: 1px solid var(--tp-light);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: 0.2s;
   display: flex;
   flex-direction: column;
-  height: 680px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  height: 600px;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 .card-body {
-  padding: 1.5rem;
+  padding: 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -812,34 +756,29 @@ footer::before {
 .role {
   display: flex;
   gap: 0.5rem;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
 }
 
 .role h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 900;
   color: #000;
-  line-height: 1.3;
-  flex: 1;
 }
 
 .tag {
   font-size: 0.75rem;
-  background: linear-gradient(135deg, var(--accent-purple), #9c27b0);
-  color: #fff;
-  border: none;
-  padding: 0.3rem 0.75rem;
-  border-radius: 20px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(120,0,150,0.3);
+  background: var(--tp-off);
+  border: 1px solid var(--tp-light);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
 }
 
 .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 0.75rem 0;
+  margin: 0.4rem 0;
 }
 
 .meta span {
@@ -847,263 +786,153 @@ footer::before {
   color: var(--tp-gray-dark);
   background: var(--tp-off);
   border: 1px solid var(--tp-light);
-  padding: 0.3rem 0.75rem;
-  border-radius: 8px;
-  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
 }
 
-.content-section {
-  margin-top: 1rem;
+.content-scroll {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  overflow-y: auto;
+  margin: 1rem 0;
+  padding-right: 0.5rem;
+}
+
+.content-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-scroll::-webkit-scrollbar-track {
   background: var(--tp-off);
-  border-radius: 12px;
-  padding: 1rem;
-  border: 1px solid var(--tp-light);
+  border-radius: 3px;
 }
 
-.content-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid var(--tp-light);
+.content-scroll::-webkit-scrollbar-thumb {
+  background: var(--tp-gray-light);
+  border-radius: 3px;
 }
 
-.content-header h4 {
+.content-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--tp-gray);
+}
+
+.job-section {
+  margin-bottom: 1.5rem;
+}
+
+.job-section h4 {
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--tp-dark);
+  margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.jd-icon {
-  width: 24px;
-  height: 24px;
+.job-section h4::before {
+  content: '';
+  width: 4px;
+  height: 16px;
   background: var(--accent-purple);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 0.8rem;
+  border-radius: 2px;
 }
 
-.req-icon {
-  width: 24px;
-  height: 24px;
-  background: var(--tp-gray-dark);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 0.8rem;
-}
-
-.scrollable-content {
-  flex: 1;
-  overflow-y: auto;
-  max-height: 280px;
-  padding-right: 8px;
-}
-
-.scrollable-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scrollable-content::-webkit-scrollbar-track {
-  background: var(--tp-off);
-  border-radius: 4px;
-}
-
-.scrollable-content::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--tp-gray-light), var(--tp-gray));
-  border-radius: 4px;
-}
-
-.scrollable-content::-webkit-scrollbar-thumb:hover {
-  background: var(--tp-gray-dark);
-}
-
-.desc-content {
-  font-size: 0.92rem;
+.job-section p, .job-section li {
+  font-size: 0.9rem;
   color: var(--tp-gray-dark);
-  line-height: 1.7;
-}
-
-.desc-content p {
-  margin-bottom: 0.75rem;
-}
-
-.desc-content ul {
-  padding-left: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-.desc-content li {
-  margin-bottom: 0.5rem;
   line-height: 1.6;
+  margin-bottom: 0.5rem;
 }
 
-.requirements ul {
+.job-section ul {
   list-style: none;
   padding-left: 0;
 }
 
-.requirements li {
-  font-size: 0.9rem;
-  color: var(--tp-gray-dark);
-  margin-bottom: 0.5rem;
+.job-section li {
   position: relative;
-  padding-left: 2rem;
-  line-height: 1.5;
+  padding-left: 1.5rem;
+  margin-bottom: 0.4rem;
 }
 
-.requirements li::before {
-  content: '✓';
+.job-section li::before {
+  content: '•';
   position: absolute;
-  left: 0;
+  left: 0.5rem;
   color: var(--accent-purple);
   font-weight: bold;
-  font-size: 1.1rem;
-  top: -2px;
 }
 
 .card-footer {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
-  padding: 1.25rem 1.5rem;
-  border-top: 1px solid var(--tp-light);
-  background: linear-gradient(135deg, var(--tp-off), #fff);
+  padding: 0 1rem 1rem;
+  align-items: center;
+  margin-top: auto;
 }
 
 .apply {
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1rem;
   border: 2px solid var(--accent-purple);
-  border-radius: 50px;
+  border-radius: 999px;
   font-weight: 900;
   text-decoration: none;
   color: var(--accent-purple);
   transition: all 0.3s;
-  font-size: 0.9rem;
-  background: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.apply::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--accent-purple);
-  transition: left 0.3s ease;
-  z-index: -1;
-}
-
-.apply:hover::before {
-  left: 0;
+  font-size: 0.85rem;
 }
 
 .apply:hover {
+  background: var(--accent-purple);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(120,0,150,0.3);
+  box-shadow: 0 4px 8px rgba(120,0,150,0.2);
 }
 
 .book {
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1rem;
   border: 2px solid var(--tp-gray-dark);
-  border-radius: 50px;
+  border-radius: 999px;
   font-weight: 900;
   text-decoration: none;
   color: var(--tp-gray-dark);
   transition: all 0.3s;
-  font-size: 0.9rem;
-  background: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.book::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--tp-gray-dark);
-  transition: left 0.3s ease;
-  z-index: -1;
-}
-
-.book:hover::before {
-  left: 0;
+  font-size: 0.85rem;
 }
 
 .book:hover {
+  background: var(--tp-gray-dark);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .process {
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1rem;
   border: 2px solid var(--tp-black);
-  border-radius: 50px;
+  border-radius: 999px;
   font-weight: 900;
   text-decoration: none;
   color: var(--tp-black);
-  background: #fff;
+  background: var(--tp-white);
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.process::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--tp-black);
-  transition: left 0.3s ease;
-  z-index: -1;
-}
-
-.process:hover::before {
-  left: 0;
+  font-size: 0.85rem;
 }
 
 .process:hover {
-  color: #fff;
+  background: var(--tp-black);
+  color: var(--tp-white);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .process::after {
   content: '→';
   font-size: 1.1rem;
-  transition: transform 0.3s ease;
-}
-
-.process:hover::after {
-  transform: translateX(3px);
 }
 
 /* Helper sections */
@@ -1156,10 +985,6 @@ footer::before {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  .card {
-    height: 640px;
-  }
 }
 
 @media (max-width: 980px) {
@@ -1181,16 +1006,7 @@ footer::before {
   }
   
   .card {
-    height: 600px;
-  }
-  
-  .tabs .inner {
-    gap: 0.5rem;
-  }
-  
-  .tab {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
+    height: 550px;
   }
 }
 
@@ -1286,7 +1102,7 @@ footer::before {
     </div>
   </section>
 
-  <!-- Enhanced Category Tabs -->
+  <!-- Category Tabs -->
   <section class="tabs" aria-label="カテゴリタブ">
     <div class="inner">
       <button class="tab active" data-tab="all">すべて</button>
@@ -1319,44 +1135,42 @@ footer::before {
             <span>シフト：シフト制</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決をサポートします。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>電話・メール・チャットでの問合せ対応</li>
-                  <li>製品・サービスに関する情報提供</li>
-                  <li>トラブルシューティングと問題解決</li>
-                  <li>お客様満足度向上のための改善提案</li>
-                  <li>社内システムでの記録・管理業務</li>
-                  <li>チームでの情報共有・協業</li>
-                </ul>
-                <p>グローバル企業の日本語カスタマーサービスとして、高品質なサービス提供を目指します。未経験者でも丁寧な研修体制があるため安心して挑戦できます。</p>
-              </div>
+              <ul>
+                <li>日本のお客様からの電話、メール、チャットによる問い合わせ対応</li>
+                <li>製品・サービスに関する情報提供と問題解決</li>
+                <li>顧客満足度向上のためのサービス品質維持</li>
+                <li>CRMシステムを使用した顧客情報管理と記録</li>
+                <li>複雑な問い合わせについては上位部署へのエスカレーション対応</li>
+                <li>チーム内での情報共有とベストプラクティスの提案</li>
+                <li>24時間365日体制でのシフト勤務（早番・遅番・夜番あり）</li>
+                <li>定期的なトレーニング参加とスキルアップ</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>日本語ネイティブレベル（JLPT N1相当）</li>
+                <li>英語基礎レベル（日常会話、簡単なビジネスメール）</li>
+                <li>PCスキル（Word、Excel、Outlookの基本操作）</li>
+                <li>優れたコミュニケーション能力と傾聴スキル</li>
+                <li>問題解決能力と冷静な判断力</li>
+                <li>チームワークと協調性</li>
+                <li>シフト勤務への柔軟な対応可能</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>日本語ネイティブレベル（JLPT N1相当）</li>
-                  <li>英語基礎レベル（日常会話レベル）</li>
-                  <li>PCスキル（Word、Excel、PowerPoint）</li>
-                  <li>コミュニケーション能力が高い方</li>
-                  <li>問題解決意欲のある方</li>
-                  <li>チームワークを重視できる方</li>
-                  <li>学習意欲が高い方</li>
-                  <li>顧客サービスへの情熱がある方</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>カスタマーサービス経験（1年以上）</li>
+                <li>コールセンター経験</li>
+                <li>多言語能力（中国語、韓国語等）</li>
+                <li>ITリテラシー（システム操作が得意な方）</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1385,46 +1199,42 @@ footer::before {
             <span>シフト：日勤</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>日本企業向けB2B営業を担当します。新規顧客開拓と既存顧客の関係維持を通じて、事業成長に貢献します。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>日本企業向け新規顧客開拓</li>
-                  <li>既存顧客との関係構築・維持</li>
-                  <li>製品・サービスの提案・プレゼンテーション</li>
-                  <li>商談進行と契約締結</li>
-                  <li>市場調査と競合分析</li>
-                  <li>営業目標の達成</li>
-                  <li>営業報告書の作成・提出</li>
-                </ul>
-                <p>マレーシアのペナンという魅力的な場所で、グローバルな営業経験を積むことができます。日本語と英語の両方を活かせる環境です。</p>
-              </div>
+              <ul>
+                <li>日本企業向けB2Bソリューションの販売とコンサルティング</li>
+                <li>新規顧客開拓と既存顧客の関係維持・拡大</li>
+                <li>顧客ニーズのヒアリングと最適なソリューション提案</li>
+                <li>商談から契約までの一連の営業プロセス担当</li>
+                <li>営業目標の達成と売上向上への貢献</li>
+                <li>市場調査と競合分析に基づく戦略立案</li>
+                <li>月次・四半期の営業報告と進捗管理</li>
+                <li>社内各部署（技術、マーケティング等）との連携</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>英語・日本語ビジネスレベル（商談、契約書作成可能）</li>
+                <li>営業経験（B2B 1年以上）</li>
+                <li>PCスキル（PowerPointでのプレゼン作成必須）</li>
+                <li>目標達成意欲と自己管理能力</li>
+                <li>交渉力とプレゼンテーション能力</li>
+                <li>関係構築と維持が得意な方</li>
+                <li>結果志向で行動力のある方</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>英語・日本語ビジネスレベル</li>
-                  <li>営業経験（1年以上）</li>
-                  <li>PCスキル（PowerPoint必須）</li>
-                  <li>目標達成意欲が高い方</li>
-                  <li>コミュニケーション能力が高い方</li>
-                  <li>プレゼンテーション能力</li>
-                  <li>交渉力がある方</li>
-                  <li>自己管理能力が高い方</li>
-                  <li>IT業界知識（あれば尚可）</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>IT業界またはテクノロジーソリューション営業経験</li>
+                <li>マレーシア市場知識</li>
+                <li>CRMシステム（Salesforce等）使用経験</li>
+                <li>中国語またはマレー語能力</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1453,46 +1263,42 @@ footer::before {
             <span>シフト：シフト制</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>グローバルIT企業の一次サポートとして、ハードウェア・ソフトウェアの問題解決を担当します。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>電話・メール・チャットでの技術サポート</li>
-                  <li>ハードウェア・ソフトウェアのトラブルシューティング</li>
-                  <li>ネットワーク接続問題の解決</li>
-                  <li>システム設定・インストール支援</li>
-                  <li>技術文書の作成・更新</li>
-                  <li>L2サポートへのエスカレーション</li>
-                  <li>お客様への技術指導</li>
-                </ul>
-                <p>最新のIT技術に触れながら、専門スキルを向上させることができます。グローバル環境で英語と日本語の両方を活かせる職場です。</p>
-              </div>
+              <ul>
+                <li>グローバルIT企業の一次サポート（L1）担当</li>
+                <li>ハードウェア・ソフトウェアの問題診断と解決</li>
+                <li>電話、メール、リモートデスクトップによるサポート提供</li>
+                <li>ネットワーク、OS、アプリケーションのトラブルシューティング</li>
+                <li>サポートチケットシステムでの記録と進捗管理</li>
+                <li>L2・L3サポートチームへの適切なエスカレーション</li>
+                <li>ナレッジベースの作成と更新</li>
+                <li>24時間365日体制でのシフト勤務対応</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>英語・日本語流暢（技術サポート対応可能）</li>
+                <li>IT基礎知識（Windows、Mac、ネットワーク basics）</li>
+                <li>論理的思考とトラブルシューティング能力</li>
+                <li>顧客対応経験とサービス意識</li>
+                <li>ストレス耐性と冷静な問題解決能力</li>
+                <li>自己学習能力と技術への好奇心</li>
+                <li>シフト勤務への柔軟な対応可能</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>英語・日本語流暢（ビジネスレベル）</li>
-                  <li>IT基礎知識（OS、ネットワーク、ハードウェア）</li>
-                  <li>トラブルシューティング能力</li>
-                  <li>IT資格（CompTIA A+、Network+などあれば尚可）</li>
-                  <li>論理的思考力</li>
-                  <li>学習意欲が高い方</li>
-                  <li>ストレス耐性がある方</li>
-                  <li>チームワークを重視できる方</li>
-                  <li>カスタマーサービス意識が高い方</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>IT資格（CompTIA A+、Network+等）</li>
+                <li>テクニカルサポート経験</li>
+                <li>プログラミング基礎知識</li>
+                <li>多言語能力（中国語、韓国語等）</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1521,46 +1327,42 @@ footer::before {
             <span>シフト：シフト制</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>SNSプラットフォームのコンテンツ審査を担当します。不適切なコンテンツの特定と対応を通じて、安全なオンライン環境を維持します。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>日本語コンテンツの審査・評価</li>
-                  <li>ポリシー違反コンテンツの特定</li>
-                  <li>不適切コンテンツの削除・対応</li>
-                  <li>ユーザーレポートの確認・処理</li>
-                  <li>審査基準の適用と判断</li>
-                  <li>審査記録の管理・報告</li>
-                  <li>品質管理基準の遵守</li>
-                </ul>
-                <p>グローバルなSNSプラットフォームで、日本語コンテンツの安全性を守る重要な役割を担います。バンコクでの国際的な働き方を体験できます。</p>
-              </div>
+              <ul>
+                <li>SNSプラットフォームの日本語コンテンツ審査</li>
+                <li>不適切コンテンツ（暴力的、ヘイトスピーチ等）の特定と対応</li>
+                <li>ポリシー違反コンテンツの報告と処理</li>
+                <li>ユーザーからの通報内容の確認と対応</li>
+                <li>品質基準に基づく一貫した判断と決定</li>
+                <li>審査結果の記録とレポート作成</li>
+                <li>チーム内での難しいケースの相談と判断基準の共有</li>
+                <li>24時間体制でのシフト勤務対応</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>日本語ネイティブレベル（文脈理解、ニュアンス把握）</li>
+                <li>英語基礎レベル（報告書作成、チームコミュニケーション）</li>
+                <li>SNS利用経験とインターネットリテラシー</li>
+                <li>細部への注意力と正確性</li>
+                <li>精神的な強さとストレス耐性</li>
+                <li>客観的な判断力と一貫性</li>
+                <li>機密情報保持の意識と責任感</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>日本語ネイティブレベル</li>
-                  <li>英語基礎レベル（読み書き）</li>
-                  <li>SNS利用経験（複数プラットフォーム）</li>
-                  <li>細部への注意力が高い方</li>
-                  <li>判断力・決断力がある方</li>
-                  <li>ストレス耐性がある方</li>
-                  <li>機密保持意識が高い方</li>
-                  <li>チームワークを重視できる方</li>
-                  <li>変化に柔軟に対応できる方</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>コンテンツモデレーション経験</li>
+                <li>法律・倫理に関する知識</li>
+                <li>多言語能力（英語、中国語等）</li>
+                <li>心理学または社会学関連知識</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1589,46 +1391,42 @@ footer::before {
             <span>シフト：日勤</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。日勤帯でのサポート業務を通じて、お客様満足度向上に貢献します。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>電話・メール・チャットでの問合せ対応</li>
-                  <li>製品・サービスに関する詳細な説明</li>
-                  <li>注文・配送状況の確認・対応</li>
-                  <li>返品・交換手続きのサポート</li>
-                  <li>お客様からのフィードバック収集</li>
-                  <li>CRMシステムでの情報管理</li>
-                  <li>品質管理基準の遵守</li>
-                </ul>
-                <p>マレーシアのペナンという美しい島で、安定した日勤体制で働くことができます。海の近くでの生活と充実したキャリアを両立できます。</p>
-              </div>
+              <ul>
+                <li>日本のお客様からの電話、メールによる問い合わせ対応</li>
+                <li>製品・サービスに関する詳細な情報提供</li>
+                <li>注文処理と配送状況の確認対応</li>
+                <li>返品・交換手続きの案内と実行</li>
+                <li>顧客満足度調査とフィードバック収集</li>
+                <li>CRMシステムでの顧客情報管理と履歴記録</li>
+                <li>日勤帯（9:00-18:00）での安定したサービス提供</li>
+                <li>チームミーティングへの参加と改善提案</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>日本語ネイティブレベル（丁寧語、敬語の適切な使用）</li>
+                <li>英語基礎レベル（社内コミュニケーション）</li>
+                <li>PCスキル（Word、Excel、メールソフト）</li>
+                <li>顧客対応経験（接客、サービス業等）</li>
+                <li>丁寧な言葉遣いとホスピタリティ</li>
+                <li>忍耐強さと共感力</li>
+                <li>チームワークと協調性</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>日本語ネイティブレベル</li>
-                  <li>英語基礎レベル（日常会話）</li>
-                  <li>PCスキル（Word、Excel、メールソフト）</li>
-                  <li>顧客対応経験（あれば尚可）</li>
-                  <li>丁寧な言葉遣いができる方</li>
-                  <li>忍耐力がある方</li>
-                  <li>ポジティブな思考ができる方</li>
-                  <li>チームワークを重視できる方</li>
-                  <li>学習意欲が高い方</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>カスタマーサービス経験（コールセンター、小売等）</li>
+                <li>ECサイト運営経験</li>
+                <li>多言語能力（英語、中国語、マレー語）</li>
+                <li>データ入力や事務作業経験</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1657,46 +1455,42 @@ footer::before {
             <span>シフト：日勤</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>日本企業向けB2B営業を担当します。テクノロジーソリューションの販売とコンサルティングを通じて、顧客のビジネス成長を支援します。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>日本企業向け新規顧客開拓</li>
-                  <li>ITソリューションの提案・販売</li>
-                  <li>技術的なコンサルティング提供</li>
-                  <li>顧客ニーズのヒアリング・分析</li>
-                  <li>提案書・契約書の作成</li>
-                  <li>営業目標の達成と管理</li>
-                  <li>市場動向の調査・分析</li>
-                </ul>
-                <p>マレーシアの中心都市クアラルンプールで、最新テクノロジーを扱うグローバル営業としてキャリアを築けます。日本語と英語の両方を活かせる環境です。</p>
-              </div>
+              <ul>
+                <li>日本企業向けテクノロジーソリューションの営業担当</li>
+                <li>クラウドサービス、AIソリューションの提案と販売</li>
+                <li>マレーシア市場における日本企業の新規開拓</li>
+                <li>技術仕様の説明と導入支援</li>
+                <li>長期的な顧客関係構築とパートナーシップ推進</li>
+                <li>市場動向分析と販売戦略の立案・実行</li>
+                <li>四半期目標の設定と達成管理</li>
+                <li>技術チームとの連携によるソリューション最適化</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>英語・日本語ビジネスレベル（交渉、契約書作成）</li>
+                <li>営業経験（B2B テクノロジー分野 2年以上）</li>
+                <li>IT業界知識（クラウド、SaaS等）</li>
+                <li>プレゼンテーションとデモンストレーション能力</li>
+                <li>戦略的思考と計画実行能力</li>
+                <li>結果志向で自己駆動型</li>
+                <li>ネットワーク構築能力</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>英語・日本語ビジネスレベル</li>
-                  <li>営業経験（2年以上）</li>
-                  <li>IT業界知識（あれば尚可）</li>
-                  <li>プレゼンテーション能力</li>
-                  <li>交渉力が高い方</li>
-                  <li>目標達成意欲が強い方</li>
-                  <li>戦略的思考ができる方</li>
-                  <li>リーダーシップ経験（あれば尚可）</li>
-                  <li>自己管理能力が高い方</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>テクノロジー企業での営業経験</li>
+                <li>マレーシアビジネス環境の理解</li>
+                <li>プロジェクトマネジメント経験</li>
+                <li>中国語またはマレー語能力</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1725,46 +1519,42 @@ footer::before {
             <span>シフト：シフト制</span>
           </div>
           
-          <div class="content-section">
-            <div class="content-header">
-              <div class="jd-icon">JD</div>
+          <div class="content-scroll">
+            <div class="job-section">
               <h4>職務内容</h4>
-            </div>
-            <div class="scrollable-content">
-              <div class="desc-content">
-                <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決をサポートします。</p>
-                <p>主な業務内容：</p>
-                <ul>
-                  <li>多チャネル（電話・メール・チャット）での対応</li>
-                  <li>製品・サービスに関する詳細説明</li>
-                  <li>技術的な問題の一次対応</li>
-                  <li>お客様満足度調査の実施</li>
-                  <li>改善提案の収集・報告</li>
-                  <li>品質管理基準の遵守</li>
-                  <li>チームでの情報共有・協業</li>
-                </ul>
-                <p>タイのバンコクという活気ある都市で、国際的なカスタマーサービス経験を積むことができます。多様な文化に触れながらグローバルに活躍できます。</p>
-              </div>
+              <ul>
+                <li>日本のお客様向け多チャネルサポート（電話、メール、チャット）</li>
+                <li>旅行・観光関連サービスの予約・変更・キャンセル対応</li>
+                <li>決済問題の解決と返金手続き</li>
+                <li>緊急事態への24時間対応体制</li>
+                <li>複雑なケースのエスカレーションとフォローアップ</li>
+                <li>顧客フィードバックの収集とサービス改善提案</li>
+                <li>品質管理基準の遵守と継続的改善</li>
+                <li>シフト勤務によるグローバルタイムゾーン対応</li>
+              </ul>
             </div>
             
-            <div class="content-header" style="margin-top: 1.5rem;">
-              <div class="req-icon">✓</div>
+            <div class="job-section">
               <h4>必須要件</h4>
+              <ul>
+                <li>日本語ネイティブレベル（各種敬語の適切使用）</li>
+                <li>英語基礎レベル（社内報告、緊急連絡）</li>
+                <li>PCスキルと複数システムの同時操作能力</li>
+                <li>高いストレス耐性と感情コントロール</li>
+                <li>クレーム対応経験と問題解決能力</li>
+                <li>チームでの協調性と支援意識</li>
+                <li>柔軟な勤務時間への対応</li>
+              </ul>
             </div>
-            <div class="scrollable-content">
-              <div class="requirements">
-                <ul>
-                  <li>日本語ネイティブレベル</li>
-                  <li>英語基礎レベル（日常会話）</li>
-                  <li>PCスキル（Word、Excel、チャットツール）</li>
-                  <li>コミュニケーション能力が高い方</li>
-                  <li>問題解決能力がある方</li>
-                  <li>ストレス耐性がある方</li>
-                  <li>柔軟な対応力がある方</li>
-                  <li>チームワークを重視できる方</li>
-                  <li>異文化理解がある方</li>
-                </ul>
-              </div>
+            
+            <div class="job-section">
+              <h4>歓迎スキル</h4>
+              <ul>
+                <li>旅行業またはホスピタリティ業界経験</li>
+                <li>多言語能力（英語、中国語、タイ語）</li>
+                <li>クレーム処理専門トレーニング受講歴</li>
+                <li>異文化理解と適応能力</li>
+              </ul>
             </div>
           </div>
         </div>
