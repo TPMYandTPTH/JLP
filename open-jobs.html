@@ -676,40 +676,93 @@ footer::before {
   font-size: 0.95rem;
 }
 
-/* Tabs */
+/* Enhanced Tabs */
 .tabs {
-  background: #000;
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
   border-bottom: 2px solid #222;
-  padding: 1rem 20px;
+  padding: 1.5rem 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tabs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(120,0,150,0.1), transparent);
+  pointer-events: none;
 }
 
 .tabs .inner {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .tab {
-  padding: 0.6rem 1rem;
-  border: 1px solid var(--tp-gray);
-  background: transparent;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
   color: #fff;
-  border-radius: 8px;
-  font-weight: 800;
+  border-radius: 50px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+}
+
+.tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.tab:hover::before {
+  left: 100%;
 }
 
 .tab:hover {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .tab.active {
   background: var(--accent-purple);
   border-color: var(--accent-purple);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(120,0,150,0.4);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--accent-purple);
 }
 
 /* Jobs grid */
@@ -723,31 +776,34 @@ footer::before {
   font-weight: 800;
   margin-bottom: 0.75rem;
   color: #000;
+  font-size: 1.1rem;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .card {
   background: #fff;
   border: 1px solid var(--tp-light);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  transition: 0.2s;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 650px;
+  height: 680px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 1.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -756,30 +812,34 @@ footer::before {
 .role {
   display: flex;
   gap: 0.5rem;
-  align-items: center;
-  margin-bottom: 0.4rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
 }
 
 .role h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 900;
   color: #000;
   line-height: 1.3;
+  flex: 1;
 }
 
 .tag {
   font-size: 0.75rem;
-  background: var(--tp-off);
-  border: 1px solid var(--tp-light);
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-purple), #9c27b0);
+  color: #fff;
+  border: none;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(120,0,150,0.3);
 }
 
 .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 0.4rem 0 0;
+  margin: 0.75rem 0;
 }
 
 .meta span {
@@ -787,8 +847,9 @@ footer::before {
   color: var(--tp-gray-dark);
   background: var(--tp-off);
   border: 1px solid var(--tp-light);
-  padding: 0.2rem 0.5rem;
-  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
 .content-section {
@@ -796,55 +857,98 @@ footer::before {
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: var(--tp-off);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--tp-light);
 }
 
-.content-section h4 {
-  font-size: 0.9rem;
-  font-weight: 700;
+.content-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--tp-light);
+}
+
+.content-header h4 {
+  font-size: 1rem;
+  font-weight: 800;
   color: var(--tp-dark);
-  margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.content-section h4::before {
-  content: '';
-  width: 4px;
-  height: 16px;
+.jd-icon {
+  width: 24px;
+  height: 24px;
   background: var(--accent-purple);
-  border-radius: 2px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.req-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--tp-gray-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
 }
 
 .scrollable-content {
   flex: 1;
   overflow-y: auto;
-  max-height: 180px;
+  max-height: 280px;
   padding-right: 8px;
-  margin-bottom: 0.5rem;
 }
 
 .scrollable-content::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .scrollable-content::-webkit-scrollbar-track {
   background: var(--tp-off);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .scrollable-content::-webkit-scrollbar-thumb {
-  background: var(--tp-gray-light);
-  border-radius: 3px;
+  background: linear-gradient(180deg, var(--tp-gray-light), var(--tp-gray));
+  border-radius: 4px;
 }
 
 .scrollable-content::-webkit-scrollbar-thumb:hover {
-  background: var(--tp-gray);
+  background: var(--tp-gray-dark);
 }
 
 .desc-content {
   font-size: 0.92rem;
   color: var(--tp-gray-dark);
+  line-height: 1.7;
+}
+
+.desc-content p {
+  margin-bottom: 0.75rem;
+}
+
+.desc-content ul {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.desc-content li {
+  margin-bottom: 0.5rem;
   line-height: 1.6;
 }
 
@@ -854,11 +958,11 @@ footer::before {
 }
 
 .requirements li {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--tp-gray-dark);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 2rem;
   line-height: 1.5;
 }
 
@@ -868,78 +972,138 @@ footer::before {
   left: 0;
   color: var(--accent-purple);
   font-weight: bold;
+  font-size: 1.1rem;
+  top: -2px;
 }
 
 .card-footer {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
-  padding: 1rem;
+  padding: 1.25rem 1.5rem;
   border-top: 1px solid var(--tp-light);
-  background: var(--tp-off);
+  background: linear-gradient(135deg, var(--tp-off), #fff);
 }
 
 .apply {
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.25rem;
   border: 2px solid var(--accent-purple);
-  border-radius: 999px;
+  border-radius: 50px;
   font-weight: 900;
   text-decoration: none;
   color: var(--accent-purple);
   transition: all 0.3s;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.apply::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-purple);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.apply:hover::before {
+  left: 0;
 }
 
 .apply:hover {
-  background: var(--accent-purple);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(120,0,150,0.2);
+  box-shadow: 0 6px 16px rgba(120,0,150,0.3);
 }
 
 .book {
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.25rem;
   border: 2px solid var(--tp-gray-dark);
-  border-radius: 999px;
+  border-radius: 50px;
   font-weight: 900;
   text-decoration: none;
   color: var(--tp-gray-dark);
   transition: all 0.3s;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.book::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--tp-gray-dark);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.book:hover::before {
+  left: 0;
 }
 
 .book:hover {
-  background: var(--tp-gray-dark);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 .process {
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1.25rem;
   border: 2px solid var(--tp-black);
-  border-radius: 999px;
+  border-radius: 50px;
   font-weight: 900;
   text-decoration: none;
   color: var(--tp-black);
-  background: var(--tp-white);
+  background: #fff;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.process::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--tp-black);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.process:hover::before {
+  left: 0;
 }
 
 .process:hover {
-  background: var(--tp-black);
-  color: var(--tp-white);
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 .process::after {
   content: '→';
   font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.process:hover::after {
+  transform: translateX(3px);
 }
 
 /* Helper sections */
@@ -994,7 +1158,7 @@ footer::before {
   }
   
   .card {
-    height: 600px;
+    height: 640px;
   }
 }
 
@@ -1017,7 +1181,16 @@ footer::before {
   }
   
   .card {
-    height: 550px;
+    height: 600px;
+  }
+  
+  .tabs .inner {
+    gap: 0.5rem;
+  }
+  
+  .tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -1113,7 +1286,7 @@ footer::before {
     </div>
   </section>
 
-  <!-- Category Tabs -->
+  <!-- Enhanced Category Tabs -->
   <section class="tabs" aria-label="カテゴリタブ">
     <div class="inner">
       <button class="tab active" data-tab="all">すべて</button>
@@ -1147,12 +1320,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決をサポートします。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>電話・メール・チャットでの問合せ対応</li>
                   <li>製品・サービスに関する情報提供</li>
                   <li>トラブルシューティングと問題解決</li>
@@ -1163,10 +1339,11 @@ footer::before {
                 <p>グローバル企業の日本語カスタマーサービスとして、高品質なサービス提供を目指します。未経験者でも丁寧な研修体制があるため安心して挑戦できます。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
@@ -1209,12 +1386,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>日本企業向けB2B営業を担当します。新規顧客開拓と既存顧客の関係維持を通じて、事業成長に貢献します。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>日本企業向け新規顧客開拓</li>
                   <li>既存顧客との関係構築・維持</li>
                   <li>製品・サービスの提案・プレゼンテーション</li>
@@ -1226,10 +1406,11 @@ footer::before {
                 <p>マレーシアのペナンという魅力的な場所で、グローバルな営業経験を積むことができます。日本語と英語の両方を活かせる環境です。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
@@ -1273,12 +1454,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>グローバルIT企業の一次サポートとして、ハードウェア・ソフトウェアの問題解決を担当します。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>電話・メール・チャットでの技術サポート</li>
                   <li>ハードウェア・ソフトウェアのトラブルシューティング</li>
                   <li>ネットワーク接続問題の解決</li>
@@ -1290,10 +1474,11 @@ footer::before {
                 <p>最新のIT技術に触れながら、専門スキルを向上させることができます。グローバル環境で英語と日本語の両方を活かせる職場です。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
@@ -1337,12 +1522,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>SNSプラットフォームのコンテンツ審査を担当します。不適切なコンテンツの特定と対応を通じて、安全なオンライン環境を維持します。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>日本語コンテンツの審査・評価</li>
                   <li>ポリシー違反コンテンツの特定</li>
                   <li>不適切コンテンツの削除・対応</li>
@@ -1354,10 +1542,11 @@ footer::before {
                 <p>グローバルなSNSプラットフォームで、日本語コンテンツの安全性を守る重要な役割を担います。バンコクでの国際的な働き方を体験できます。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
@@ -1401,12 +1590,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。日勤帯でのサポート業務を通じて、お客様満足度向上に貢献します。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>電話・メール・チャットでの問合せ対応</li>
                   <li>製品・サービスに関する詳細な説明</li>
                   <li>注文・配送状況の確認・対応</li>
@@ -1418,10 +1610,11 @@ footer::before {
                 <p>マレーシアのペナンという美しい島で、安定した日勤体制で働くことができます。海の近くでの生活と充実したキャリアを両立できます。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
@@ -1465,12 +1658,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>日本企業向けB2B営業を担当します。テクノロジーソリューションの販売とコンサルティングを通じて、顧客のビジネス成長を支援します。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>日本企業向け新規顧客開拓</li>
                   <li>ITソリューションの提案・販売</li>
                   <li>技術的なコンサルティング提供</li>
@@ -1482,10 +1678,11 @@ footer::before {
                 <p>マレーシアの中心都市クアラルンプールで、最新テクノロジーを扱うグローバル営業としてキャリアを築けます。日本語と英語の両方を活かせる環境です。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
@@ -1529,12 +1726,15 @@ footer::before {
           </div>
           
           <div class="content-section">
-            <h4>職務内容</h4>
+            <div class="content-header">
+              <div class="jd-icon">JD</div>
+              <h4>職務内容</h4>
+            </div>
             <div class="scrollable-content">
               <div class="desc-content">
                 <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決をサポートします。</p>
                 <p>主な業務内容：</p>
-                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                <ul>
                   <li>多チャネル（電話・メール・チャット）での対応</li>
                   <li>製品・サービスに関する詳細説明</li>
                   <li>技術的な問題の一次対応</li>
@@ -1546,10 +1746,11 @@ footer::before {
                 <p>タイのバンコクという活気ある都市で、国際的なカスタマーサービス経験を積むことができます。多様な文化に触れながらグローバルに活躍できます。</p>
               </div>
             </div>
-          </div>
-          
-          <div class="content-section">
-            <h4>必須要件</h4>
+            
+            <div class="content-header" style="margin-top: 1.5rem;">
+              <div class="req-icon">✓</div>
+              <h4>必須要件</h4>
+            </div>
             <div class="scrollable-content">
               <div class="requirements">
                 <ul>
