@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>求人を見る | TP採用 マレーシア・タイ</title>
-<meta name="description" content="テレパフォーマンス（TP）日本語スピーカー向けの最新求人一覧。勤務地（シンガポール/クアラルンプール/ペナン/バンコク）、日本語ポジション、バイリンガル職、シフトなどで検索。">
+<meta name="description" content="テレパフォーマンス（TP）日本語スピーカー向けの最新求人一覧。勤務地（クアラルンプール/ペナン/バンコク）、日本語ポジション、バイリンガル職、シフトなどで検索。">
 <meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
@@ -739,6 +739,7 @@ footer::before {
   transition: 0.2s;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .card:hover {
@@ -752,6 +753,9 @@ footer::before {
 
 .card-body {
   padding: 1rem 1rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .role {
@@ -794,7 +798,42 @@ footer::before {
 .desc {
   font-size: 0.92rem;
   color: var(--tp-gray-dark);
-  margin: 0.75rem 0 1rem;
+  margin: 0.75rem 0;
+  flex: 1;
+}
+
+.requirements {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--tp-light);
+}
+
+.requirements h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--tp-dark);
+  margin-bottom: 0.5rem;
+}
+
+.requirements ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.requirements li {
+  font-size: 0.85rem;
+  color: var(--tp-gray-dark);
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.requirements li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent-purple);
+  font-weight: bold;
 }
 
 .card-footer {
@@ -813,11 +852,14 @@ footer::before {
   font-weight: 900;
   text-decoration: none;
   color: var(--accent-purple);
+  transition: all 0.3s;
 }
 
 .apply:hover {
   background: var(--accent-purple);
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(120,0,150,0.2);
 }
 
 .book {
@@ -827,25 +869,40 @@ footer::before {
   font-weight: 900;
   text-decoration: none;
   color: var(--tp-gray-dark);
+  transition: all 0.3s;
 }
 
 .book:hover {
   background: var(--tp-gray-dark);
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.ghost {
+.process {
   padding: 0.6rem 1rem;
-  border: 2px solid #000;
+  border: 2px solid var(--tp-black);
   border-radius: 999px;
   font-weight: 900;
   text-decoration: none;
-  color: #000;
+  color: var(--tp-black);
+  background: var(--tp-white);
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.ghost:hover {
-  background: #000;
-  color: #fff;
+.process:hover {
+  background: var(--tp-black);
+  color: var(--tp-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.process::after {
+  content: '→';
+  font-size: 1.1rem;
 }
 
 /* Helper sections */
@@ -975,7 +1032,7 @@ footer::before {
   <!-- Hero -->
   <section class="hero">
     <h1>求人を見る <span aria-hidden="true">/</span> Open Jobs</h1>
-    <p>日本語スピーカー歓迎。勤務地は <strong>シンガポール</strong>・<strong>クアラルンプール</strong>・<strong>ペナン</strong>・<strong>バンコク</strong>から。<br>就労ビザ＆移住サポートあり（<a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">詳しく見る</a>）。</p>
+    <p>日本語スピーカー歓迎。勤務地は <strong>クアラルンプール</strong>・<strong>ペナン</strong>・<strong>バンコク</strong>から。<br>就労ビザ＆移住サポートあり（<a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">詳しく見る</a>）。</p>
     <div class="hero-cta" role="group" aria-label="関連ページ">
       <a class="btn" href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">給与・福利厚生を見る</a>
       <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
@@ -989,7 +1046,6 @@ footer::before {
       <input id="q" class="search-input" type="text" placeholder="キーワード検索（例：Eコマース、テック、日勤）…" aria-label="求人を検索">
       <select id="loc" class="select" aria-label="勤務地で絞り込み">
         <option value="">勤務地（すべて）</option>
-        <option value="singapore">シンガポール</option>
         <option value="kl">クアラルンプール</option>
         <option value="penang">ペナン</option>
         <option value="bangkok">バンコク</option>
@@ -1016,7 +1072,6 @@ footer::before {
   <section class="tabs" aria-label="カテゴリタブ">
     <div class="inner">
       <button class="tab active" data-tab="all">すべて</button>
-      <button class="tab" data-tab="singapore">シンガポール</button>
       <button class="tab" data-tab="kl">クアラルンプール</button>
       <button class="tab" data-tab="penang">ペナン</button>
       <button class="tab" data-tab="bangkok">バンコク</button>
@@ -1030,38 +1085,48 @@ footer::before {
     <div class="count" id="count" aria-live="polite"></div>
 
     <div class="grid" id="jobGrid" role="list">
-      <!-- Card 1: Customer Support (Singapore) -->
+      <!-- Card 1: Customer Service Representative (KL) -->
       <article class="card" role="listitem"
-        data-loc="singapore" data-lang="jp" data-shift="day" data-type="fulltime"
-        data-keywords="customer service cs シンガポール 日本語 日勤">
-        <div class="card-media" style="background-image:url('photos/team_cs_singapore.jpg');"></div>
+        data-loc="kl" data-lang="jp" data-shift="shift" data-type="fulltime"
+        data-keywords="customer service cs クアラルンプール 日本語 シフト制">
+        <div class="card-media" style="background-image:url('photos/team_cs_kl.jpg');"></div>
         <div class="card-body">
           <div class="role">
-            <h3>カスタマーサポート（日本語）— シンガポール</h3>
+            <h3>カスタマーサービス担当（日本語）— クアラルンプール</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：シンガポール</span>
+            <span>勤務地：クアラルンプール</span>
             <span>言語：日本語メイン</span>
             <span>雇用形態：正社員</span>
-            <span>シフト：日勤（9:00-18:00）</span>
+            <span>シフト：シフト制</span>
           </div>
           <p class="desc">
-            日本のお客様向けに、製品・サービスに関する問合せ対応。<strong>就労ビザ支援・片道航空券・到着後ホテル</strong>など移住サポート有。
+            日本のお客様向けに、製品・サービスに関する問合せ対応。24時間体制でサポートを提供。
           </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>日本語ネイティブレベル</li>
+              <li>英語基礎レベル</li>
+              <li>PCスキル（Word、Excel）</li>
+              <li>コミュニケーション能力</li>
+            </ul>
+          </div>
         </div>
         <div class="card-footer">
           <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28singapore%29/job?mode=job&iis=LANDINGPAGE">Apply here</a>
+             href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
           <a class="book" target="_blank" rel="noopener"
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
         </div>
       </article>
 
       <!-- Card 2: Sales Representative (Penang) -->
       <article class="card" role="listitem"
         data-loc="penang" data-lang="bilingual" data-shift="day" data-type="fulltime"
-        data-keywords="sales 営業 ペナン 英語 日本語 バイリンガル">
+        data-keywords="sales 営業 ペナン 英語 日本語 バイリンガル 日勤">
         <div class="card-media" style="background-image:url('photos/team_sales_penang.jpg');"></div>
         <div class="card-body">
           <div class="role">
@@ -1069,25 +1134,37 @@ footer::before {
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：ペナン（マレーシア）</span>
+            <span>勤務地：ペナン</span>
             <span>言語：英語＋日本語</span>
             <span>雇用形態：正社員</span>
-            <span>シフト：日勤（9:00-18:00）</span>
+            <span>シフト：日勤</span>
           </div>
-          <p class="desc">日本企業向けB2B営業。英語の読み書き・会話に自信がある方歓迎。未経験者向け研修制度あり。</p>
+          <p class="desc">
+            日本企業向けB2B営業。新規顧客開拓と既存顧客の関係維持を担当。
+          </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>英語・日本語ビジネスレベル</li>
+              <li>営業経験（1年以上）</li>
+              <li>PCスキル（PowerPoint必須）</li>
+              <li>目標達成意欲</li>
+            </ul>
+          </div>
         </div>
         <div class="card-footer">
           <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-TP.icims.com/jobs/49026/sales-representative---japanese-speaking-%28penang%29/job?mode=job&iis=LANDINGPAGE">Apply here</a>
+             href="https://careerseng-TP.icims.com/jobs/49026/sales-representative---japanese-speaking-%28penang%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
           <a class="book" target="_blank" rel="noopener"
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
         </div>
       </article>
 
       <!-- Card 3: Technical Support (KL) -->
       <article class="card" role="listitem"
         data-loc="kl" data-lang="bilingual" data-shift="shift" data-type="fulltime"
-        data-keywords="tech support l1 it クアラルンプール 英語 日本語 テクニカル">
+        data-keywords="tech support l1 it クアラルンプール 英語 日本語 テクニカル シフト制">
         <div class="card-media" style="background-image:url('photos/team_it_kl.jpg');"></div>
         <div class="card-body">
           <div class="role">
@@ -1095,25 +1172,37 @@ footer::before {
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：クアラルンプール（マレーシア）</span>
+            <span>勤務地：クアラルンプール</span>
             <span>言語：英語＋日本語</span>
             <span>雇用形態：正社員</span>
-            <span>シフト：シフト制（24時間対応）</span>
+            <span>シフト：シフト制</span>
           </div>
-          <p class="desc">グローバルITの一次サポート。英語の読み書き・会話に自信がある方歓迎。トレーニングとキャリアパスあり。</p>
+          <p class="desc">
+            グローバルIT企業の一次サポート。ハードウェア・ソフトウェアの問題解決を担当。
+          </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>英語・日本語流暢</li>
+              <li>IT基礎知識</li>
+              <li>トラブルシューティング能力</li>
+              <li>IT資格（あれば尚可）</li>
+            </ul>
+          </div>
         </div>
         <div class="card-footer">
           <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-TP.icims.com/jobs/49026/technical-support---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">Apply here</a>
+             href="https://careerseng-TP.icims.com/jobs/49026/technical-support---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
           <a class="book" target="_blank" rel="noopener"
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
         </div>
       </article>
 
       <!-- Card 4: Content Moderator (Bangkok) -->
       <article class="card" role="listitem"
         data-loc="bangkok" data-lang="jp" data-shift="shift" data-type="fulltime"
-        data-keywords="content moderator sns バンコク 日本語 コンテンツ">
+        data-keywords="content moderator sns バンコク 日本語 コンテンツ シフト制">
         <div class="card-media" style="background-image:url('photos/team_sns_bangkok.jpg');"></div>
         <div class="card-body">
           <div class="role">
@@ -1121,51 +1210,75 @@ footer::before {
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：バンコク（タイ）</span>
+            <span>勤務地：バンコク</span>
             <span>言語：日本語メイン</span>
             <span>雇用形態：正社員</span>
-            <span>シフト：シフト制（24時間対応）</span>
+            <span>シフト：シフト制</span>
           </div>
-          <p class="desc">SNSコンテンツの審査・ユーザーサポート。安全で快適なユーザー体験を支えるポジション。</p>
+          <p class="desc">
+            SNSプラットフォームのコンテンツ審査。不適切なコンテンツの特定と対応を担当。
+          </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>日本語ネイティブレベル</li>
+              <li>英語基礎レベル</li>
+              <li>SNS利用経験</li>
+              <li>細部への注意力</li>
+            </ul>
+          </div>
         </div>
         <div class="card-footer">
           <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-TP.icims.com/jobs/49026/content-moderator---japanese-speaking-%28bangkok%29/job?mode=job&iis=LANDINGPAGE">Apply here</a>
+             href="https://careerseng-TP.icims.com/jobs/49026/content-moderator---japanese-speaking-%28bangkok%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
           <a class="book" target="_blank" rel="noopener"
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
         </div>
       </article>
 
-      <!-- Card 5: Customer Support (Penang) -->
+      <!-- Card 5: Customer Service Representative (Penang) -->
       <article class="card" role="listitem"
         data-loc="penang" data-lang="jp" data-shift="day" data-type="fulltime"
         data-keywords="customer service cs ペナン 日本語 日勤">
         <div class="card-media" style="background-image:url('photos/team_cs_penang.jpg');"></div>
         <div class="card-body">
           <div class="role">
-            <h3>カスタマーサポート（日本語）— ペナン</h3>
+            <h3>カスタマーサービス担当（日本語）— ペナン</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：ペナン（マレーシア）</span>
+            <span>勤務地：ペナン</span>
             <span>言語：日本語メイン</span>
             <span>雇用形態：正社員</span>
-            <span>シフト：日勤（9:00-18:00）</span>
+            <span>シフト：日勤</span>
           </div>
-          <p class="desc">日本のお客様向けに、製品・サービスに関する問合せ対応。海の近い島暮らしで人気のロケーション。</p>
+          <p class="desc">
+            日本のお客様向けに、製品・サービスに関する問合せ対応。日勤帯でのサポート業務。
+          </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>日本語ネイティブレベル</li>
+              <li>英語基礎レベル</li>
+              <li>PCスキル（Word、Excel）</li>
+              <li>顧客対応経験</li>
+            </ul>
+          </div>
         </div>
         <div class="card-footer">
           <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=LANDINGPAGE">Apply here</a>
+             href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
           <a class="book" target="_blank" rel="noopener"
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
         </div>
       </article>
 
       <!-- Card 6: Sales Representative (KL) -->
       <article class="card" role="listitem"
         data-loc="kl" data-lang="bilingual" data-shift="day" data-type="fulltime"
-        data-keywords="sales 営業 クアラルンプール 英語 日本語 バイリンガル">
+        data-keywords="sales 営業 クアラルンプール 英語 日本語 バイリンガル 日勤">
         <div class="card-media" style="background-image:url('photos/team_sales_kl.jpg');"></div>
         <div class="card-body">
           <div class="role">
@@ -1173,18 +1286,68 @@ footer::before {
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：クアラルンプール（マレーシア）</span>
+            <span>勤務地：クアラルンプール</span>
             <span>言語：英語＋日本語</span>
             <span>雇用形態：正社員</span>
-            <span>シフト：日勤（9:00-18:00）</span>
+            <span>シフト：日勤</span>
           </div>
-          <p class="desc">日本企業向けB2B営業。英語の読み書き・会話に自信がある方歓迎。未経験者向け研修制度あり。</p>
+          <p class="desc">
+            日本企業向けB2B営業。テクノロジーソリューションの販売とコンサルティングを担当。
+          </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>英語・日本語ビジネスレベル</li>
+              <li>営業経験（2年以上）</li>
+              <li>IT業界知識（あれば尚可）</li>
+              <li>プレゼンテーション能力</li>
+            </ul>
+          </div>
         </div>
         <div class="card-footer">
           <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-TP.icims.com/jobs/49026/sales-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">Apply here</a>
+             href="https://careerseng-TP.icims.com/jobs/49026/sales-representative---japanese-speaking-%28kl%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
           <a class="book" target="_blank" rel="noopener"
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+      </article>
+
+      <!-- Card 7: Customer Service Representative (Bangkok) -->
+      <article class="card" role="listitem"
+        data-loc="bangkok" data-lang="jp" data-shift="shift" data-type="fulltime"
+        data-keywords="customer service cs バンコク 日本語 シフト制">
+        <div class="card-media" style="background-image:url('photos/team_cs_bangkok.jpg');"></div>
+        <div class="card-body">
+          <div class="role">
+            <h3>カスタマーサービス担当（日本語）— バンコク</h3>
+            <span class="tag">採用中</span>
+          </div>
+          <div class="meta">
+            <span>勤務地：バンコク</span>
+            <span>言語：日本語メイン</span>
+            <span>雇用形態：正社員</span>
+            <span>シフト：シフト制</span>
+          </div>
+          <p class="desc">
+            日本のお客様向けに、製品・サービスに関する問合せ対応。24時間体制でサポートを提供。
+          </p>
+          <div class="requirements">
+            <h4>必須要件：</h4>
+            <ul>
+              <li>日本語ネイティブレベル</li>
+              <li>英語基礎レベル</li>
+              <li>PCスキル（Word、Excel）</li>
+              <li>コミュニケーション能力</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-TP.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28bangkok%29/job?mode=job&iis=LANDINGPAGE">今すぐ応募</a>
+          <a class="book" target="_blank" rel="noopener"
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2?ismsaljsauthenabled">面接を予約</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
         </div>
       </article>
       
@@ -1350,7 +1513,7 @@ try {
     // Set quick filter by tab
     const locSel = document.getElementById('loc');
     const langSel = document.getElementById('lang');
-    if(['singapore','kl','penang','bangkok'].includes(key)){
+    if(['kl','penang','bangkok'].includes(key)){
       locSel.value = key;
       langSel.value = '';
     } else if(key === 'jp' || key === 'bilingual'){
