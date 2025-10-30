@@ -739,20 +739,15 @@ footer::before {
   transition: 0.2s;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 650px;
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
 }
 
-.card-media {
-  height: 160px;
-  background: #f1f1f1 url('photos/team1.jpg') center/cover no-repeat;
-}
-
 .card-body {
-  padding: 1rem 1rem 0;
+  padding: 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -769,6 +764,7 @@ footer::before {
   font-size: 1.1rem;
   font-weight: 900;
   color: #000;
+  line-height: 1.3;
 }
 
 .tag {
@@ -795,24 +791,61 @@ footer::before {
   border-radius: 6px;
 }
 
-.desc {
-  font-size: 0.92rem;
-  color: var(--tp-gray-dark);
-  margin: 0.75rem 0;
+.content-section {
+  margin-top: 1rem;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.requirements {
-  margin-top: auto;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--tp-light);
-}
-
-.requirements h4 {
+.content-section h4 {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--tp-dark);
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content-section h4::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: var(--accent-purple);
+  border-radius: 2px;
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 180px;
+  padding-right: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: var(--tp-off);
+  border-radius: 3px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: var(--tp-gray-light);
+  border-radius: 3px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: var(--tp-gray);
+}
+
+.desc-content {
+  font-size: 0.92rem;
+  color: var(--tp-gray-dark);
+  line-height: 1.6;
 }
 
 .requirements ul {
@@ -823,9 +856,10 @@ footer::before {
 .requirements li {
   font-size: 0.85rem;
   color: var(--tp-gray-dark);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
   position: relative;
-  padding-left: 1.2rem;
+  padding-left: 1.5rem;
+  line-height: 1.5;
 }
 
 .requirements li::before {
@@ -840,9 +874,9 @@ footer::before {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  padding: 0 1rem 1rem;
-  align-items: center;
-  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid var(--tp-light);
+  background: var(--tp-off);
 }
 
 .apply {
@@ -853,6 +887,7 @@ footer::before {
   text-decoration: none;
   color: var(--accent-purple);
   transition: all 0.3s;
+  font-size: 0.85rem;
 }
 
 .apply:hover {
@@ -870,6 +905,7 @@ footer::before {
   text-decoration: none;
   color: var(--tp-gray-dark);
   transition: all 0.3s;
+  font-size: 0.85rem;
 }
 
 .book:hover {
@@ -891,6 +927,7 @@ footer::before {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.85rem;
 }
 
 .process:hover {
@@ -955,6 +992,10 @@ footer::before {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .card {
+    height: 600px;
+  }
 }
 
 @media (max-width: 980px) {
@@ -973,6 +1014,10 @@ footer::before {
 @media (max-width: 680px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+  
+  .card {
+    height: 550px;
   }
 }
 
@@ -1089,7 +1134,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="kl" data-lang="jp" data-shift="shift" data-type="fulltime"
         data-keywords="customer service cs クアラルンプール 日本語 シフト制">
-        <div class="card-media" style="background-image:url('photos/team_cs_kl.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>カスタマーサービス担当（日本語）— クアラルンプール</h3>
@@ -1101,17 +1145,42 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：シフト制</span>
           </div>
-          <p class="desc">
-            日本のお客様向けに、製品・サービスに関する問合せ対応。24時間体制でサポートを提供。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>日本語ネイティブレベル</li>
-              <li>英語基礎レベル</li>
-              <li>PCスキル（Word、Excel）</li>
-              <li>コミュニケーション能力</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決をサポートします。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>電話・メール・チャットでの問合せ対応</li>
+                  <li>製品・サービスに関する情報提供</li>
+                  <li>トラブルシューティングと問題解決</li>
+                  <li>お客様満足度向上のための改善提案</li>
+                  <li>社内システムでの記録・管理業務</li>
+                  <li>チームでの情報共有・協業</li>
+                </ul>
+                <p>グローバル企業の日本語カスタマーサービスとして、高品質なサービス提供を目指します。未経験者でも丁寧な研修体制があるため安心して挑戦できます。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>日本語ネイティブレベル（JLPT N1相当）</li>
+                  <li>英語基礎レベル（日常会話レベル）</li>
+                  <li>PCスキル（Word、Excel、PowerPoint）</li>
+                  <li>コミュニケーション能力が高い方</li>
+                  <li>問題解決意欲のある方</li>
+                  <li>チームワークを重視できる方</li>
+                  <li>学習意欲が高い方</li>
+                  <li>顧客サービスへの情熱がある方</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -1127,7 +1196,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="penang" data-lang="bilingual" data-shift="day" data-type="fulltime"
         data-keywords="sales 営業 ペナン 英語 日本語 バイリンガル 日勤">
-        <div class="card-media" style="background-image:url('photos/team_sales_penang.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>営業担当（英日バイリンガル）— ペナン</h3>
@@ -1139,17 +1207,44 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：日勤</span>
           </div>
-          <p class="desc">
-            日本企業向けB2B営業。新規顧客開拓と既存顧客の関係維持を担当。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>英語・日本語ビジネスレベル</li>
-              <li>営業経験（1年以上）</li>
-              <li>PCスキル（PowerPoint必須）</li>
-              <li>目標達成意欲</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>日本企業向けB2B営業を担当します。新規顧客開拓と既存顧客の関係維持を通じて、事業成長に貢献します。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>日本企業向け新規顧客開拓</li>
+                  <li>既存顧客との関係構築・維持</li>
+                  <li>製品・サービスの提案・プレゼンテーション</li>
+                  <li>商談進行と契約締結</li>
+                  <li>市場調査と競合分析</li>
+                  <li>営業目標の達成</li>
+                  <li>営業報告書の作成・提出</li>
+                </ul>
+                <p>マレーシアのペナンという魅力的な場所で、グローバルな営業経験を積むことができます。日本語と英語の両方を活かせる環境です。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>英語・日本語ビジネスレベル</li>
+                  <li>営業経験（1年以上）</li>
+                  <li>PCスキル（PowerPoint必須）</li>
+                  <li>目標達成意欲が高い方</li>
+                  <li>コミュニケーション能力が高い方</li>
+                  <li>プレゼンテーション能力</li>
+                  <li>交渉力がある方</li>
+                  <li>自己管理能力が高い方</li>
+                  <li>IT業界知識（あれば尚可）</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -1165,7 +1260,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="kl" data-lang="bilingual" data-shift="shift" data-type="fulltime"
         data-keywords="tech support l1 it クアラルンプール 英語 日本語 テクニカル シフト制">
-        <div class="card-media" style="background-image:url('photos/team_it_kl.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>テクニカルサポート L1（英日バイリンガル）— クアラルンプール</h3>
@@ -1177,17 +1271,44 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：シフト制</span>
           </div>
-          <p class="desc">
-            グローバルIT企業の一次サポート。ハードウェア・ソフトウェアの問題解決を担当。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>英語・日本語流暢</li>
-              <li>IT基礎知識</li>
-              <li>トラブルシューティング能力</li>
-              <li>IT資格（あれば尚可）</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>グローバルIT企業の一次サポートとして、ハードウェア・ソフトウェアの問題解決を担当します。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>電話・メール・チャットでの技術サポート</li>
+                  <li>ハードウェア・ソフトウェアのトラブルシューティング</li>
+                  <li>ネットワーク接続問題の解決</li>
+                  <li>システム設定・インストール支援</li>
+                  <li>技術文書の作成・更新</li>
+                  <li>L2サポートへのエスカレーション</li>
+                  <li>お客様への技術指導</li>
+                </ul>
+                <p>最新のIT技術に触れながら、専門スキルを向上させることができます。グローバル環境で英語と日本語の両方を活かせる職場です。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>英語・日本語流暢（ビジネスレベル）</li>
+                  <li>IT基礎知識（OS、ネットワーク、ハードウェア）</li>
+                  <li>トラブルシューティング能力</li>
+                  <li>IT資格（CompTIA A+、Network+などあれば尚可）</li>
+                  <li>論理的思考力</li>
+                  <li>学習意欲が高い方</li>
+                  <li>ストレス耐性がある方</li>
+                  <li>チームワークを重視できる方</li>
+                  <li>カスタマーサービス意識が高い方</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -1203,7 +1324,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="bangkok" data-lang="jp" data-shift="shift" data-type="fulltime"
         data-keywords="content moderator sns バンコク 日本語 コンテンツ シフト制">
-        <div class="card-media" style="background-image:url('photos/team_sns_bangkok.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>コンテンツモデレーター（日本語）— バンコク</h3>
@@ -1215,17 +1335,44 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：シフト制</span>
           </div>
-          <p class="desc">
-            SNSプラットフォームのコンテンツ審査。不適切なコンテンツの特定と対応を担当。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>日本語ネイティブレベル</li>
-              <li>英語基礎レベル</li>
-              <li>SNS利用経験</li>
-              <li>細部への注意力</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>SNSプラットフォームのコンテンツ審査を担当します。不適切なコンテンツの特定と対応を通じて、安全なオンライン環境を維持します。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>日本語コンテンツの審査・評価</li>
+                  <li>ポリシー違反コンテンツの特定</li>
+                  <li>不適切コンテンツの削除・対応</li>
+                  <li>ユーザーレポートの確認・処理</li>
+                  <li>審査基準の適用と判断</li>
+                  <li>審査記録の管理・報告</li>
+                  <li>品質管理基準の遵守</li>
+                </ul>
+                <p>グローバルなSNSプラットフォームで、日本語コンテンツの安全性を守る重要な役割を担います。バンコクでの国際的な働き方を体験できます。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>日本語ネイティブレベル</li>
+                  <li>英語基礎レベル（読み書き）</li>
+                  <li>SNS利用経験（複数プラットフォーム）</li>
+                  <li>細部への注意力が高い方</li>
+                  <li>判断力・決断力がある方</li>
+                  <li>ストレス耐性がある方</li>
+                  <li>機密保持意識が高い方</li>
+                  <li>チームワークを重視できる方</li>
+                  <li>変化に柔軟に対応できる方</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -1241,7 +1388,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="penang" data-lang="jp" data-shift="day" data-type="fulltime"
         data-keywords="customer service cs ペナン 日本語 日勤">
-        <div class="card-media" style="background-image:url('photos/team_cs_penang.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>カスタマーサービス担当（日本語）— ペナン</h3>
@@ -1253,17 +1399,44 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：日勤</span>
           </div>
-          <p class="desc">
-            日本のお客様向けに、製品・サービスに関する問合せ対応。日勤帯でのサポート業務。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>日本語ネイティブレベル</li>
-              <li>英語基礎レベル</li>
-              <li>PCスキル（Word、Excel）</li>
-              <li>顧客対応経験</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。日勤帯でのサポート業務を通じて、お客様満足度向上に貢献します。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>電話・メール・チャットでの問合せ対応</li>
+                  <li>製品・サービスに関する詳細な説明</li>
+                  <li>注文・配送状況の確認・対応</li>
+                  <li>返品・交換手続きのサポート</li>
+                  <li>お客様からのフィードバック収集</li>
+                  <li>CRMシステムでの情報管理</li>
+                  <li>品質管理基準の遵守</li>
+                </ul>
+                <p>マレーシアのペナンという美しい島で、安定した日勤体制で働くことができます。海の近くでの生活と充実したキャリアを両立できます。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>日本語ネイティブレベル</li>
+                  <li>英語基礎レベル（日常会話）</li>
+                  <li>PCスキル（Word、Excel、メールソフト）</li>
+                  <li>顧客対応経験（あれば尚可）</li>
+                  <li>丁寧な言葉遣いができる方</li>
+                  <li>忍耐力がある方</li>
+                  <li>ポジティブな思考ができる方</li>
+                  <li>チームワークを重視できる方</li>
+                  <li>学習意欲が高い方</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -1279,7 +1452,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="kl" data-lang="bilingual" data-shift="day" data-type="fulltime"
         data-keywords="sales 営業 クアラルンプール 英語 日本語 バイリンガル 日勤">
-        <div class="card-media" style="background-image:url('photos/team_sales_kl.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>営業担当（英日バイリンガル）— クアラルンプール</h3>
@@ -1291,17 +1463,44 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：日勤</span>
           </div>
-          <p class="desc">
-            日本企業向けB2B営業。テクノロジーソリューションの販売とコンサルティングを担当。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>英語・日本語ビジネスレベル</li>
-              <li>営業経験（2年以上）</li>
-              <li>IT業界知識（あれば尚可）</li>
-              <li>プレゼンテーション能力</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>日本企業向けB2B営業を担当します。テクノロジーソリューションの販売とコンサルティングを通じて、顧客のビジネス成長を支援します。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>日本企業向け新規顧客開拓</li>
+                  <li>ITソリューションの提案・販売</li>
+                  <li>技術的なコンサルティング提供</li>
+                  <li>顧客ニーズのヒアリング・分析</li>
+                  <li>提案書・契約書の作成</li>
+                  <li>営業目標の達成と管理</li>
+                  <li>市場動向の調査・分析</li>
+                </ul>
+                <p>マレーシアの中心都市クアラルンプールで、最新テクノロジーを扱うグローバル営業としてキャリアを築けます。日本語と英語の両方を活かせる環境です。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>英語・日本語ビジネスレベル</li>
+                  <li>営業経験（2年以上）</li>
+                  <li>IT業界知識（あれば尚可）</li>
+                  <li>プレゼンテーション能力</li>
+                  <li>交渉力が高い方</li>
+                  <li>目標達成意欲が強い方</li>
+                  <li>戦略的思考ができる方</li>
+                  <li>リーダーシップ経験（あれば尚可）</li>
+                  <li>自己管理能力が高い方</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
@@ -1317,7 +1516,6 @@ footer::before {
       <article class="card" role="listitem"
         data-loc="bangkok" data-lang="jp" data-shift="shift" data-type="fulltime"
         data-keywords="customer service cs バンコク 日本語 シフト制">
-        <div class="card-media" style="background-image:url('photos/team_cs_bangkok.jpg');"></div>
         <div class="card-body">
           <div class="role">
             <h3>カスタマーサービス担当（日本語）— バンコク</h3>
@@ -1329,17 +1527,44 @@ footer::before {
             <span>雇用形態：正社員</span>
             <span>シフト：シフト制</span>
           </div>
-          <p class="desc">
-            日本のお客様向けに、製品・サービスに関する問合せ対応。24時間体制でサポートを提供。
-          </p>
-          <div class="requirements">
-            <h4>必須要件：</h4>
-            <ul>
-              <li>日本語ネイティブレベル</li>
-              <li>英語基礎レベル</li>
-              <li>PCスキル（Word、Excel）</li>
-              <li>コミュニケーション能力</li>
-            </ul>
+          
+          <div class="content-section">
+            <h4>職務内容</h4>
+            <div class="scrollable-content">
+              <div class="desc-content">
+                <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決をサポートします。</p>
+                <p>主な業務内容：</p>
+                <ul style="padding-left: 1.2rem; margin: 0.5rem 0;">
+                  <li>多チャネル（電話・メール・チャット）での対応</li>
+                  <li>製品・サービスに関する詳細説明</li>
+                  <li>技術的な問題の一次対応</li>
+                  <li>お客様満足度調査の実施</li>
+                  <li>改善提案の収集・報告</li>
+                  <li>品質管理基準の遵守</li>
+                  <li>チームでの情報共有・協業</li>
+                </ul>
+                <p>タイのバンコクという活気ある都市で、国際的なカスタマーサービス経験を積むことができます。多様な文化に触れながらグローバルに活躍できます。</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="content-section">
+            <h4>必須要件</h4>
+            <div class="scrollable-content">
+              <div class="requirements">
+                <ul>
+                  <li>日本語ネイティブレベル</li>
+                  <li>英語基礎レベル（日常会話）</li>
+                  <li>PCスキル（Word、Excel、チャットツール）</li>
+                  <li>コミュニケーション能力が高い方</li>
+                  <li>問題解決能力がある方</li>
+                  <li>ストレス耐性がある方</li>
+                  <li>柔軟な対応力がある方</li>
+                  <li>チームワークを重視できる方</li>
+                  <li>異文化理解がある方</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="card-footer">
