@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>求人を見る | TP採用 マレーシア・タイ</title>
-<meta name="description" content="テレパフォーマンス（TP）日本語スピーカー向けの最新求人一覧。勤務地（クアラルンプール/ペナン/バンコク）、日本語ポジション、バイリンガル職、シフトなどで検索。">
+<meta name="description" content="テレパフォーマンス(TP)日本語スピーカー向けの最新求人一覧。勤務地(クアラルンプール/ペナン/バンコク)、日本語ポジション、バイリンガル職、シフトなどで検索。">
 <meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
@@ -43,8 +43,8 @@
   --tp-light: #e5e5e5;
   --tp-off: #f5f5f5;
   --tp-white: #ffffff;
-  --accent-black: #000000;
-  --accent-gray: #333333;
+  --accent-purple: #780096;
+  --accent-pink: #ff0082;
   --accent-blue: #0066cc;
   --accent-green: #00a86b;
   --max: 1200px;
@@ -196,25 +196,25 @@ nav a[aria-current="page"]::after {
 }
 
 nav a:focus {
-  outline: 2px solid var(--accent-black);
+  outline: 2px solid var(--accent-purple);
   outline-offset: 4px;
   border-radius: 2px;
 }
 
 .apply-btn {
-  background: var(--accent-black);
+  background: var(--accent-purple);
   color: var(--tp-white);
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
   font-weight: 600;
-  border: 2px solid var(--accent-black);
+  border: 2px solid var(--accent-purple);
   transition: var(--transition);
 }
 
 .apply-btn:hover,
 .apply-btn:focus {
   background: var(--tp-white);
-  color: var(--accent-black);
+  color: var(--accent-purple);
 }
 
 .apply-btn::after {
@@ -304,22 +304,22 @@ nav a:focus {
   border-radius: 999px;
   text-decoration: none;
   display: inline-block;
-  border: 2px solid var(--accent-black);
-  color: var(--accent-black);
+  border: 2px solid var(--accent-purple);
+  color: var(--accent-purple);
   transition: var(--transition);
 }
 
 .btn:hover {
-  background: var(--accent-black);
+  background: var(--accent-purple);
   color: #fff;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .btn-solid {
-  background: var(--accent-black);
+  background: var(--accent-purple);
   color: #fff;
-  border-color: var(--accent-black);
+  border-color: var(--accent-purple);
 }
 
 .btn-solid:hover {
@@ -329,9 +329,9 @@ nav a:focus {
 }
 
 .btn-accent {
-  background: var(--accent-black);
+  background: var(--accent-purple);
   color: var(--tp-white);
-  border-color: var(--accent-black);
+  border-color: var(--accent-purple);
   padding: 0.75rem 1.75rem;
   border-radius: 4px;
   font-weight: 600;
@@ -340,9 +340,9 @@ nav a:focus {
 
 .btn-accent:hover {
   background: var(--tp-white);
-  color: var(--accent-black);
+  color: var(--accent-purple);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(120,0,150,0.15);
 }
 
 /* Footer Styles */
@@ -362,7 +362,7 @@ footer::before {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-gray), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
 }
 
 .footer-content {
@@ -477,15 +477,15 @@ footer::before {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(120, 0, 150, 0.9);
   color: var(--tp-white);
   padding: 0.75rem 1.25rem;
   border-radius: 50px;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(120,0,150,0.3);
   z-index: 999;
   transition: var(--transition);
-  border: 2px solid var(--accent-black);
+  border: 2px solid var(--accent-purple);
   font-size: 0.85rem;
   backdrop-filter: blur(10px);
 }
@@ -493,8 +493,8 @@ footer::before {
 .floating-apply:hover,
 .floating-apply:focus {
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  background: var(--accent-black);
+  box-shadow: 0 6px 20px rgba(120,0,150,0.4);
+  background: var(--accent-purple);
   outline: none;
 }
 
@@ -673,8 +673,8 @@ footer::before {
 
 .search-input:focus {
   outline: none;
-  border-color: var(--accent-black);
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px rgba(120,0,150,0.1);
 }
 
 .select {
@@ -690,8 +690,8 @@ footer::before {
 
 .select:focus {
   outline: none;
-  border-color: var(--accent-black);
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px rgba(120,0,150,0.1);
 }
 
 /* Tabs */
@@ -727,8 +727,8 @@ footer::before {
 }
 
 .tab.active {
-  background: var(--accent-gray);
-  border-color: var(--accent-gray);
+  background: var(--accent-purple);
+  border-color: var(--accent-purple);
   box-shadow: var(--shadow-sm);
 }
 
@@ -753,7 +753,7 @@ footer::before {
 }
 
 .card {
-  background: #fff;
+  background: var(--tp-white);
   border: 1px solid var(--tp-light);
   border-radius: 16px;
   overflow: hidden;
@@ -770,8 +770,8 @@ footer::before {
 }
 
 .card-header {
-  background: linear-gradient(135deg, var(--accent-black) 0%, var(--accent-gray) 100%);
-  color: white;
+  background: var(--tp-off);
+  color: var(--tp-dark);
   padding: 1.25rem;
   position: relative;
 }
@@ -783,7 +783,7 @@ footer::before {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent-black), var(--accent-gray));
+  background: var(--accent-purple);
 }
 
 .card-body {
@@ -804,16 +804,16 @@ footer::before {
 .role h3 {
   font-size: 1.15rem;
   font-weight: 900;
-  color: #000;
+  color: var(--tp-dark);
   line-height: 1.3;
   flex: 1;
 }
 
 .tag {
   font-size: 0.75rem;
-  background: rgba(0, 0, 0, 0.1);
-  color: var(--accent-black);
-  border: 1px solid var(--accent-black);
+  background: var(--accent-purple);
+  color: var(--tp-white);
+  border: 1px solid var(--accent-purple);
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   font-weight: 700;
@@ -929,11 +929,11 @@ footer::before {
 
 .apply {
   padding: 0.75rem 1.25rem;
-  border: 2px solid var(--accent-black);
+  border: 2px solid var(--accent-purple);
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
-  color: var(--accent-black);
+  color: var(--accent-purple);
   background: var(--tp-white);
   transition: var(--transition);
   font-size: 0.9rem;
@@ -943,10 +943,10 @@ footer::before {
 }
 
 .apply:hover {
-  background: var(--accent-black);
+  background: var(--accent-purple);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(120,0,150,0.3);
 }
 
 .book {
@@ -973,11 +973,11 @@ footer::before {
 
 .process {
   padding: 0.75rem 1.25rem;
-  border: 2px solid var(--tp-black);
+  border: 2px solid var(--tp-charcoal);
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
-  color: var(--tp-black);
+  color: var(--tp-charcoal);
   background: var(--tp-white);
   transition: var(--transition);
   font-size: 0.9rem;
@@ -991,7 +991,7 @@ footer::before {
 }
 
 .process:hover {
-  background: var(--tp-black);
+  background: var(--tp-charcoal);
   color: var(--tp-white);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -1150,7 +1150,7 @@ footer::before {
   <!-- Hero -->
   <section class="hero">
     <h1>求人を見る <span aria-hidden="true">/</span> Open Jobs</h1>
-    <p>日本語スピーカー歓迎。勤務地は <strong>クアラルンプール</strong>・<strong>ペナン</strong>・<strong>バンコク</strong>から。<br>就労ビザ＆移住サポートあり（<a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">詳しく見る</a>）。</p>
+    <p>日本語スピーカー歓迎。勤務地は <strong>クアラルンプール</strong>・<strong>ペナン</strong>・<strong>バンコク</strong>から。<br>就労ビザ＆移住サポートあり(<a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">詳しく見る</a>)。</p>
     <div class="hero-cta" role="group" aria-label="関連ページ">
       <a class="btn" href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">給与・福利厚生を見る</a>
       <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
@@ -1161,25 +1161,25 @@ footer::before {
   <!-- Filters -->
   <section class="filters" aria-label="検索とフィルター">
     <div class="wrap">
-      <input id="q" class="search-input" type="text" placeholder="キーワード検索（例：Eコマース、テック、日勤）…" aria-label="求人を検索">
+      <input id="q" class="search-input" type="text" placeholder="キーワード検索(例:Eコマース、テック、日勤)…" aria-label="求人を検索">
       <select id="loc" class="select" aria-label="勤務地で絞り込み">
-        <option value="">勤務地（すべて）</option>
+        <option value="">勤務地(すべて)</option>
         <option value="kl">クアラルンプール</option>
         <option value="penang">ペナン</option>
         <option value="bangkok">バンコク</option>
       </select>
       <select id="lang" class="select" aria-label="言語で絞り込み">
-        <option value="">言語（すべて）</option>
+        <option value="">言語(すべて)</option>
         <option value="jp">日本語メイン</option>
         <option value="bilingual">英日バイリンガル</option>
       </select>
       <select id="shift" class="select" aria-label="シフトで絞り込み">
-        <option value="">シフト（すべて）</option>
+        <option value="">シフト(すべて)</option>
         <option value="day">日勤</option>
         <option value="shift">シフト制</option>
       </select>
       <select id="type" class="select" aria-label="雇用形態で絞り込み">
-        <option value="">雇用形態（すべて）</option>
+        <option value="">雇用形態(すべて)</option>
         <option value="fulltime">正社員</option>
         <option value="talent">タレントプール</option>
       </select>
@@ -1209,14 +1209,14 @@ footer::before {
         data-keywords="customer service cs クアラルンプール 日本語 シフト制">
         <div class="card-header">
           <div class="role">
-            <h3>カスタマーサービス担当（日本語）— クアラルンプール</h3>
+            <h3>カスタマーサービス担当(日本語)— クアラルンプール</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：クアラルンプール</span>
-            <span>言語：日本語メイン</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：シフト制</span>
+            <span>勤務地:クアラルンプール</span>
+            <span>言語:日本語メイン</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:シフト制</span>
           </div>
         </div>
         <div class="card-body">
@@ -1224,8 +1224,8 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。電話、メール、チャットを通じてお客様の問題解決をサポートし、最高のカスタマーエクスペリエンスを提供します。24時間体制で運営されており、シフト制で勤務します。</p>
-              <p>主な業務内容：</p>
-              <p>・お客様からの問合せ対応（製品、サービス、アカウント関連）</p>
+              <p>主な業務内容:</p>
+              <p>・お客様からの問合せ対応(製品、サービス、アカウント関連)</p>
               <p>・問題解決と情報提供</p>
               <p>・顧客満足度向上のためのサービス改善提案</p>
               <p>・社内システムへの記録と報告</p>
@@ -1234,9 +1234,9 @@ footer::before {
             <div class="requirements-section">
               <h4>必須要件</h4>
               <ul class="requirements-list">
-                <li>日本語ネイティブレベル（読み書き含む）</li>
-                <li>英語基礎レベル（日常会話レベル）</li>
-                <li>PCスキル（Word、Excel、Outlook）</li>
+                <li>日本語ネイティブレベル(読み書き含む)</li>
+                <li>英語基礎レベル(日常会話レベル)</li>
+                <li>PCスキル(Word、Excel、Outlook)</li>
                 <li>コミュニケーション能力が高い方</li>
                 <li>問題解決意欲のある方</li>
                 <li>チームワークを重視できる方</li>
@@ -1260,14 +1260,14 @@ footer::before {
         data-keywords="sales 営業 ペナン 英語 日本語 バイリンガル 日勤">
         <div class="card-header">
           <div class="role">
-            <h3>営業担当（英日バイリンガル）— ペナン</h3>
+            <h3>営業担当(英日バイリンガル)— ペナン</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：ペナン</span>
-            <span>言語：英語＋日本語</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：日勤</span>
+            <span>勤務地:ペナン</span>
+            <span>言語:英語＋日本語</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:日勤</span>
           </div>
         </div>
         <div class="card-body">
@@ -1275,7 +1275,7 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>日本企業向けB2B営業を担当します。新規顧客開拓と既存顧客の関係維持を通じて、会社の成長に貢献します。テクノロジーソリューションの販売とコンサルティングを担当し、お客様のビジネス課題解決をサポートします。</p>
-              <p>主な業務内容：</p>
+              <p>主な業務内容:</p>
               <p>・日本企業への新規アプローチと商談創出</p>
               <p>・既存顧客との関係強化とアップセル</p>
               <p>・製品・サービスの提案とプレゼンテーション</p>
@@ -1287,8 +1287,8 @@ footer::before {
               <h4>必須要件</h4>
               <ul class="requirements-list">
                 <li>英語・日本語ビジネスレベル</li>
-                <li>営業経験（1年以上）</li>
-                <li>PCスキル（PowerPoint、Excel必須）</li>
+                <li>営業経験(1年以上)</li>
+                <li>PCスキル(PowerPoint、Excel必須)</li>
                 <li>目標達成意欲が強い方</li>
                 <li>コミュニケーション能力が高い方</li>
                 <li>B2B営業経験者歓迎</li>
@@ -1312,14 +1312,14 @@ footer::before {
         data-keywords="tech support l1 it クアラルンプール 英語 日本語 テクニカル シフト制">
         <div class="card-header">
           <div class="role">
-            <h3>テクニカルサポート L1（英日バイリンガル）— クアラルンプール</h3>
+            <h3>テクニカルサポート L1(英日バイリンガル)— クアラルンプール</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：クアラルンプール</span>
-            <span>言語：英語＋日本語</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：シフト制</span>
+            <span>勤務地:クアラルンプール</span>
+            <span>言語:英語＋日本語</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:シフト制</span>
           </div>
         </div>
         <div class="card-body">
@@ -1327,7 +1327,7 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>グローバルIT企業の一次サポートを担当します。ハードウェア・ソフトウェアの問題解決を通じて、お客様のビジネス継続をサポートします。専門知識を活かし、迅速かつ正確な問題解決を提供します。</p>
-              <p>主な業務内容：</p>
+              <p>主な業務内容:</p>
               <p>・お客様からの技術問合せ対応</p>
               <p>・ハードウェア・ソフトウェアのトラブルシューティング</p>
               <p>・リモートサポートによる問題解決</p>
@@ -1338,10 +1338,10 @@ footer::before {
             <div class="requirements-section">
               <h4>必須要件</h4>
               <ul class="requirements-list">
-                <li>英語・日本語流暢（ビジネスレベル）</li>
-                <li>IT基礎知識（OS、ネットワーク、ハードウェア）</li>
+                <li>英語・日本語流暢(ビジネスレベル)</li>
+                <li>IT基礎知識(OS、ネットワーク、ハードウェア)</li>
                 <li>トラブルシューティング能力</li>
-                <li>IT資格（CompTIA、Microsoftなど）あれば尚可</li>
+                <li>IT資格(CompTIA、Microsoftなど)あれば尚可</li>
                 <li>技術的な学習意欲が高い方</li>
                 <li>ストレス耐性がある方</li>
                 <li>テクニカルサポート経験者歓迎</li>
@@ -1364,14 +1364,14 @@ footer::before {
         data-keywords="content moderator sns バンコク 日本語 コンテンツ シフト制">
         <div class="card-header">
           <div class="role">
-            <h3>コンテンツモデレーター（日本語）— バンコク</h3>
+            <h3>コンテンツモデレーター(日本語)— バンコク</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：バンコク</span>
-            <span>言語：日本語メイン</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：シフト制</span>
+            <span>勤務地:バンコク</span>
+            <span>言語:日本語メイン</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:シフト制</span>
           </div>
         </div>
         <div class="card-body">
@@ -1379,7 +1379,7 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>SNSプラットフォームのコンテンツ審査を担当します。不適切なコンテンツの特定と対応を通じて、安全で快適なオンライン環境を維持します。グローバルチームと連携し、一貫したモデレーション基準を適用します。</p>
-              <p>主な業務内容：</p>
+              <p>主な業務内容:</p>
               <p>・投稿されたコンテンツの審査</p>
               <p>・ポリシー違反コンテンツの特定と対応</p>
               <p>・ユーザーからの通報対応</p>
@@ -1391,8 +1391,8 @@ footer::before {
               <h4>必須要件</h4>
               <ul class="requirements-list">
                 <li>日本語ネイティブレベル</li>
-                <li>英語基礎レベル（チーム内コミュニケーション）</li>
-                <li>SNS利用経験（複数プラットフォーム）</li>
+                <li>英語基礎レベル(チーム内コミュニケーション)</li>
+                <li>SNS利用経験(複数プラットフォーム)</li>
                 <li>細部への注意力が高い方</li>
                 <li>判断力と客観性がある方</li>
                 <li>メンタルヘルスに配慮できる方</li>
@@ -1416,14 +1416,14 @@ footer::before {
         data-keywords="customer service cs ペナン 日本語 日勤">
         <div class="card-header">
           <div class="role">
-            <h3>カスタマーサービス担当（日本語）— ペナン</h3>
+            <h3>カスタマーサービス担当(日本語)— ペナン</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：ペナン</span>
-            <span>言語：日本語メイン</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：日勤</span>
+            <span>勤務地:ペナン</span>
+            <span>言語:日本語メイン</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:日勤</span>
           </div>
         </div>
         <div class="card-body">
@@ -1431,8 +1431,8 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。日勤帯でのサポート業務を通じて、お客様満足度の向上に貢献します。ペナンの美しい環境で、ワークライフバランスを重視した働き方が可能です。</p>
-              <p>主な業務内容：</p>
-              <p>・お客様からの問合せ対応（製品、サービス、アカウント関連）</p>
+              <p>主な業務内容:</p>
+              <p>・お客様からの問合せ対応(製品、サービス、アカウント関連)</p>
               <p>・電話、メール、チャットによるサポート</p>
               <p>・問題解決と情報提供</p>
               <p>・お客様満足度調査の実施</p>
@@ -1442,9 +1442,9 @@ footer::before {
             <div class="requirements-section">
               <h4>必須要件</h4>
               <ul class="requirements-list">
-                <li>日本語ネイティブレベル（読み書き含む）</li>
-                <li>英語基礎レベル（日常会話レベル）</li>
-                <li>PCスキル（Word、Excel、Outlook）</li>
+                <li>日本語ネイティブレベル(読み書き含む)</li>
+                <li>英語基礎レベル(日常会話レベル)</li>
+                <li>PCスキル(Word、Excel、Outlook)</li>
                 <li>顧客対応経験がある方</li>
                 <li>丁寧な言葉遣いができる方</li>
                 <li>チームワークを重視できる方</li>
@@ -1468,14 +1468,14 @@ footer::before {
         data-keywords="sales 営業 クアラルンプール 英語 日本語 バイリンガル 日勤">
         <div class="card-header">
           <div class="role">
-            <h3>営業担当（英日バイリンガル）— クアラルンプール</h3>
+            <h3>営業担当(英日バイリンガル)— クアラルンプール</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：クアラルンプール</span>
-            <span>言語：英語＋日本語</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：日勤</span>
+            <span>勤務地:クアラルンプール</span>
+            <span>言語:英語＋日本語</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:日勤</span>
           </div>
         </div>
         <div class="card-body">
@@ -1483,7 +1483,7 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>日本企業向けB2B営業を担当します。テクノロジーソリューションの販売とコンサルティングを通じて、お客様のデジタル変革をサポートします。クアラルンプールのビジネスハブで、グローバルキャリアを築くチャンスです。</p>
-              <p>主な業務内容：</p>
+              <p>主な業務内容:</p>
               <p>・日本企業への新規アプローチと商談創出</p>
               <p>・ソリューション提案とプレゼンテーション</p>
               <p>・契約交渉と締結</p>
@@ -1495,8 +1495,8 @@ footer::before {
               <h4>必須要件</h4>
               <ul class="requirements-list">
                 <li>英語・日本語ビジネスレベル</li>
-                <li>営業経験（2年以上）</li>
-                <li>IT業界知識（あれば尚可）</li>
+                <li>営業経験(2年以上)</li>
+                <li>IT業界知識(あれば尚可)</li>
                 <li>プレゼンテーション能力が高い方</li>
                 <li>交渉力がある方</li>
                 <li>結果志向の方</li>
@@ -1520,14 +1520,14 @@ footer::before {
         data-keywords="customer service cs バンコク 日本語 シフト制">
         <div class="card-header">
           <div class="role">
-            <h3>カスタマーサービス担当（日本語）— バンコク</h3>
+            <h3>カスタマーサービス担当(日本語)— バンコク</h3>
             <span class="tag">採用中</span>
           </div>
           <div class="meta">
-            <span>勤務地：バンコク</span>
-            <span>言語：日本語メイン</span>
-            <span>雇用形態：正社員</span>
-            <span>シフト：シフト制</span>
+            <span>勤務地:バンコク</span>
+            <span>言語:日本語メイン</span>
+            <span>雇用形態:正社員</span>
+            <span>シフト:シフト制</span>
           </div>
         </div>
         <div class="card-body">
@@ -1535,9 +1535,9 @@ footer::before {
             <div class="jd-section">
               <h4>職務内容</h4>
               <p>日本のお客様向けに、製品・サービスに関する問合せ対応を担当します。24時間体制でサポートを提供し、お客様の問題解決を迅速に行います。バンコクの活気ある環境で、国際的なキャリアを築くことができます。</p>
-              <p>主な業務内容：</p>
-              <p>・お客様からの問合せ対応（製品、サービス、アカウント関連）</p>
-              <p>・多チャネルサポート（電話、メール、チャット）</p>
+              <p>主な業務内容:</p>
+              <p>・お客様からの問合せ対応(製品、サービス、アカウント関連)</p>
+              <p>・多チャネルサポート(電話、メール、チャット)</p>
               <p>・複雑な問題のエスカレーション</p>
               <p>・お客様満足度向上活動</p>
               <p>・サービス品質の維持と改善</p>
@@ -1546,9 +1546,9 @@ footer::before {
             <div class="requirements-section">
               <h4>必須要件</h4>
               <ul class="requirements-list">
-                <li>日本語ネイティブレベル（読み書き含む）</li>
-                <li>英語基礎レベル（日常会話レベル）</li>
-                <li>PCスキル（Word、Excel、Outlook）</li>
+                <li>日本語ネイティブレベル(読み書き含む)</li>
+                <li>英語基礎レベル(日常会話レベル)</li>
+                <li>PCスキル(Word、Excel、Outlook)</li>
                 <li>コミュニケーション能力が高い方</li>
                 <li>柔軟な対応力がある方</li>
                 <li>シフト勤務に対応できる方</li>
@@ -1572,7 +1572,7 @@ footer::before {
   <!-- Helper: still not sure? -->
   <section class="helper">
     <div class="inner">
-      <h2>どれが自分に合うか迷ったら？</h2>
+      <h2>どれが自分に合うか迷ったら?</h2>
       <p>日本語で30分の <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談</a> をどうぞ。<br>給与・福利厚生は <a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">こちら</a>、移住・ビザは <a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">こちら</a>。</p>
     </div>
   </section>
@@ -1779,7 +1779,7 @@ try {
     });
 
     if(count) {
-      count.textContent = `該当求人：${visible} 件`;
+      count.textContent = `該当求人:${visible} 件`;
     }
   }
 
