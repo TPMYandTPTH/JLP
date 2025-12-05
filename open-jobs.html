@@ -1165,6 +1165,137 @@ footer::before {
     padding: 0.625rem 0.875rem;
   }
 }
+/* Tooltip Styles - Fixed for card overflow */
+.card {
+  background: var(--tp-white);
+  border: 1px solid var(--tp-light);
+  border-radius: 16px;
+  overflow: visible; /* Changed from hidden to visible */
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  box-shadow: var(--shadow-sm);
+  position: relative; /* Added for tooltip positioning context */
+}
+
+.card-footer {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 1.25rem;
+  align-items: center;
+  margin-top: auto;
+  background: var(--tp-off);
+  border-top: 1px solid var(--tp-light);
+  border-radius: 0 0 16px 16px; /* Match card border radius */
+  overflow: visible; /* Ensure tooltip isn't cropped */
+}
+
+.process {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid var(--tp-charcoal);
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--tp-charcoal);
+  background: var(--tp-white);
+  transition: var(--transition);
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  justify-content: center;
+  min-width: 120px;
+  position: relative;
+  flex: 1 1 100%; /* Force new line */
+}
+
+.process:hover {
+  background: var(--tp-charcoal);
+  color: var(--tp-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.process::after {
+  content: '→';
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.process:hover::after {
+  transform: translateX(2px);
+}
+
+/* Tooltip */
+.process[data-tooltip] {
+  cursor: help;
+}
+
+.process[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 12px); /* Changed from bottom to top */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--tp-charcoal);
+  color: var(--tp-white);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: normal;
+  width: 280px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Arrow pointing up */
+.process[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + 4px); /* Changed from bottom to top */
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--tp-charcoal); /* Changed from border-top to border-bottom */
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.process[data-tooltip]:hover::before,
+.process[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile responsive tooltip */
+@media (max-width: 680px) {
+  .process[data-tooltip]::before {
+    width: 240px;
+    font-size: 0.75rem;
+    padding: 0.625rem 0.875rem;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    transform: none;
+  }
+  
+  .process[data-tooltip]::after {
+    left: 50%;
+  }
+}
 </style>
 </head>
 <body>
@@ -1317,7 +1448,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
 
@@ -1364,7 +1497,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
 
@@ -1411,7 +1546,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
 
@@ -1466,7 +1603,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
 
@@ -1515,7 +1654,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
 
@@ -1571,7 +1712,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
 
@@ -1618,7 +1761,9 @@ footer::before {
         <a class="book" target="_blank" rel="noopener"
            href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
         <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process"     href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"    data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <a class="process" 
+           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
       </div>
     </article>
     
