@@ -760,12 +760,13 @@ footer::before {
   background: var(--tp-white);
   border: 1px solid var(--tp-light);
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  height: 600px;
+  min-height: 550px;
   box-shadow: var(--shadow-sm);
+  position: relative;
 }
 
 .card:hover {
@@ -846,6 +847,7 @@ footer::before {
   overflow-y: auto;
   padding-right: 0.5rem;
   margin-bottom: 1rem;
+  max-height: none;
 }
 
 .content-scroll::-webkit-scrollbar {
@@ -897,6 +899,13 @@ footer::before {
   margin-bottom: 0.5rem;
 }
 
+.requirements-section h5 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tp-dark);
+  margin: 1rem 0 0.5rem 0;
+}
+
 .requirements-list {
   list-style: none;
   padding-left: 0;
@@ -920,78 +929,83 @@ footer::before {
   font-size: 0.95rem;
 }
 
+/* Card Footer - NEW LAYOUT */
 .card-footer {
   display: flex;
+  flex-direction: column;
   gap: 0.75rem;
-  flex-wrap: wrap;
-  padding: 0 1.25rem 1.25rem;
-  align-items: center;
+  padding: 1.25rem;
   margin-top: auto;
   background: var(--tp-off);
   border-top: 1px solid var(--tp-light);
+  border-radius: 0 0 16px 16px;
+  overflow: visible;
 }
 
-.apply {
+.footer-row {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.footer-row.two-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* Button Base Styles */
+.apply, .book, .process {
   padding: 0.75rem 1.25rem;
-  border: 2px solid var(--accent-purple);
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
-  color: var(--accent-purple);
-  background: var(--tp-white);
   transition: var(--transition);
   font-size: 0.9rem;
-  flex: 1;
   text-align: center;
-  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 2px solid;
+}
+
+/* Apply Button - Primary (Purple) */
+.apply {
+  background: var(--accent-purple);
+  color: var(--tp-white);
+  border-color: var(--accent-purple);
 }
 
 .apply:hover {
-  background: var(--accent-purple);
-  color: #fff;
+  background: #5c0072;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(120,0,150,0.3);
 }
 
+/* Book Interview Button - Secondary (Blue) */
 .book {
-  padding: 0.75rem 1.25rem;
-  border: 2px solid var(--accent-blue);
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
+  border-color: var(--accent-blue);
   color: var(--accent-blue);
   background: var(--tp-white);
-  transition: var(--transition);
-  font-size: 0.9rem;
-  flex: 1;
-  text-align: center;
-  min-width: 120px;
+  position: relative;
 }
 
 .book:hover {
   background: var(--accent-blue);
-  color: #fff;
+  color: var(--tp-white);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,102,204,0.3);
 }
 
+/* Process Buttons - Tertiary (Gray) */
 .process {
-  padding: 0.75rem 1.25rem;
-  border: 2px solid var(--tp-charcoal);
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
+  border-color: var(--tp-charcoal);
   color: var(--tp-charcoal);
   background: var(--tp-white);
-  transition: var(--transition);
-  font-size: 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 1;
-  text-align: center;
-  justify-content: center;
-  min-width: 120px;
+  position: relative;
 }
 
 .process:hover {
@@ -1009,6 +1023,56 @@ footer::before {
 
 .process:hover::after {
   transform: translateX(2px);
+}
+
+/* Tooltip for "Book Interview Now" button */
+.book[data-tooltip] {
+  cursor: help;
+}
+
+.book[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--tp-charcoal);
+  color: var(--tp-white);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: normal;
+  width: 280px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+}
+
+.book[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--tp-charcoal);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.book[data-tooltip]:hover::before,
+.book[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Helper sections */
@@ -1063,7 +1127,7 @@ footer::before {
   }
   
   .card {
-    height: 650px;
+    min-height: 600px;
   }
 }
 
@@ -1080,209 +1144,24 @@ footer::before {
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
   }
   
   .card {
-    height: 600px;
+    min-height: auto;
   }
   
-  .card-footer {
-    flex-direction: column;
+  .content-scroll {
+    max-height: 400px;
   }
   
-  .apply, .book, .process {
-    width: 100%;
-  }
-}
-
-@media (max-width: 560px) {
-  .filters .wrap {
+  .footer-row.two-buttons {
     grid-template-columns: 1fr;
   }
-}
-  /* Tooltip Styles */
-.process {
-  position: relative;
-}
-
-.process[data-tooltip] {
-  cursor: help;
-}
-
-.process[data-tooltip]::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--tp-charcoal);
-  color: var(--tp-white);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  white-space: normal;
-  width: 280px;
-  text-align: center;
-  line-height: 1.5;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  pointer-events: none;
-  z-index: 1000;
-  box-shadow: var(--shadow-lg);
-}
-
-.process[data-tooltip]::after {
-  content: '';
-  position: absolute;
-  bottom: calc(100% + 4px);
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: var(--tp-charcoal);
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  pointer-events: none;
-  z-index: 1001;
-}
-
-.process[data-tooltip]:hover::before,
-.process[data-tooltip]:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Mobile responsive tooltip */
-@media (max-width: 680px) {
-  .process[data-tooltip]::before {
-    width: 240px;
-    font-size: 0.75rem;
-    padding: 0.625rem 0.875rem;
-  }
-}
-/* Tooltip Styles - Fixed for card overflow */
-.card {
-  background: var(--tp-white);
-  border: 1px solid var(--tp-light);
-  border-radius: 16px;
-  overflow: visible; /* Changed from hidden to visible */
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  height: 600px;
-  box-shadow: var(--shadow-sm);
-  position: relative; /* Added for tooltip positioning context */
-}
-
-.card-footer {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  padding: 1.25rem;
-  align-items: center;
-  margin-top: auto;
-  background: var(--tp-off);
-  border-top: 1px solid var(--tp-light);
-  border-radius: 0 0 16px 16px; /* Match card border radius */
-  overflow: visible; /* Ensure tooltip isn't cropped */
-}
-
-.process {
-  padding: 0.75rem 1.25rem;
-  border: 2px solid var(--tp-charcoal);
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--tp-charcoal);
-  background: var(--tp-white);
-  transition: var(--transition);
-  font-size: 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-align: center;
-  justify-content: center;
-  min-width: 120px;
-  position: relative;
-  flex: 1 1 100%; /* Force new line */
-}
-
-.process:hover {
-  background: var(--tp-charcoal);
-  color: var(--tp-white);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.process::after {
-  content: '→';
-  font-size: 1.1rem;
-  transition: var(--transition);
-}
-
-.process:hover::after {
-  transform: translateX(2px);
-}
-
-/* Tooltip */
-.process[data-tooltip] {
-  cursor: help;
-}
-
-.process[data-tooltip]::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: calc(100% + 12px); /* Changed from bottom to top */
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--tp-charcoal);
-  color: var(--tp-white);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  white-space: normal;
-  width: 280px;
-  text-align: center;
-  line-height: 1.5;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  pointer-events: none;
-  z-index: 1000;
-  box-shadow: var(--shadow-lg);
-}
-
-/* Arrow pointing up */
-.process[data-tooltip]::after {
-  content: '';
-  position: absolute;
-  top: calc(100% + 4px); /* Changed from bottom to top */
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: var(--tp-charcoal); /* Changed from border-top to border-bottom */
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  pointer-events: none;
-  z-index: 1001;
-}
-
-.process[data-tooltip]:hover::before,
-.process[data-tooltip]:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Mobile responsive tooltip */
-@media (max-width: 680px) {
-  .process[data-tooltip]::before {
+  
+  .book[data-tooltip]::before {
     width: 240px;
     font-size: 0.75rem;
     padding: 0.625rem 0.875rem;
@@ -1292,8 +1171,25 @@ footer::before {
     transform: none;
   }
   
-  .process[data-tooltip]::after {
+  .book[data-tooltip]::after {
     left: 50%;
+  }
+}
+
+@media (max-width: 560px) {
+  .filters .wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .apply, .book, .process {
+    font-size: 0.85rem;
+    padding: 0.65rem 1rem;
+  }
+  
+  .content-scroll {
+    max-height: 350px;
   }
 }
 </style>
@@ -1355,7 +1251,7 @@ footer::before {
     </div>
   </section>
 
-  <!-- Filters
+  <!-- Filters -->
   <section class="filters" aria-label="検索とフィルター">
     <div class="wrap">
       <input id="q" class="search-input" type="text" placeholder="キーワード検索(例:Eコマース、テック、日勤)…" aria-label="求人を検索">
@@ -1381,9 +1277,9 @@ footer::before {
         <option value="talent">タレントプール</option>
       </select>
     </div>
-  </section> -->
+  </section>
 
-  <!-- Category Tabs
+  <!-- Category Tabs -->
   <section class="tabs" aria-label="カテゴリタブ">
     <div class="inner">
       <button class="tab active" data-tab="all">すべて</button>
@@ -1393,9 +1289,9 @@ footer::before {
       <button class="tab" data-tab="jp">日本語ポジション</button>
       <button class="tab" data-tab="bilingual">バイリンガル</button>
     </div>
-  </section> -->
+  </section>
 
-<!-- Jobs grid - Updated to match provided information -->
+<!-- Jobs grid -->
 <section class="jobs">
   <div class="count" id="count" aria-live="polite"></div>
 
@@ -1411,7 +1307,7 @@ footer::before {
           <span>勤務地:タイ・バンコク（Singha Complex）</span>
           <span>言語:日本語メイン</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:月〜金 10:00〜19:00（週5日勤務）※将来的に業務・オペレーションの都合により、勤務時間・シフト変更の可能性あり</span>
+          <span>シフト:月〜金 10:00〜19:00（週5日勤務）</span>
         </div>
       </div>
       <div class="card-body">
@@ -1443,14 +1339,25 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/71802/%e3%80%90%e3%82%a8%e3%83%90%e3%83%bc%e3%82%b0%e3%83%aa%e3%83%bc%e3%83%b3%e6%b1%82%e4%ba%ba%e3%80%91%e6%97%a5%e6%9c%ac%e8%aa%9e%e5%af%be%e5%bf%9c%e3%83%bb%e3%82%b3%e3%83%b3%e3%83%86%e3%83%b3%e3%83%84%e3%83%a2%e3%83%87%e3%83%ac%e3%83%bc%e3%82%bf%e3%83%bc%ef%bc%88japanese-speaking-content-moderator%ef%bc%89/job?mode==job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <!-- Row 1: Casual Interview + View Process -->
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        
+        <!-- Row 2: Apply Now (Full Width) -->
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/71802/%e3%80%90%e3%82%a8%e3%83%90%e3%83%bc%e3%82%b0%e3%83%aa%e3%83%bc%e3%83%b3%e6%b1%82%e4%ba%ba%e3%80%91%e6%97%a5%e6%9c%ac%e8%aa%9e%e5%af%be%e5%bf%9c%e3%83%bb%e3%82%b3%e3%83%b3%e3%83%86%e3%83%b3%e3%83%84%e3%83%a2%e3%83%87%e3%83%ac%e3%83%bc%e3%82%bf%e3%83%bc%ef%bc%88japanese-speaking-content-moderator%ef%bc%89/job?mode==job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        
+        <!-- Row 3: Book Interview (Full Width with Tooltip) -->
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
 
@@ -1465,7 +1372,7 @@ footer::before {
           <span>勤務地:Gtower, クアラルンプール、マレーシア</span>
           <span>言語:日本語メイン</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:週5日・1日8時間のシフト制（7:00～22:30）※土日祝勤務を含むシフトスケジュール。業務状況により変更の可能性あり</span>
+          <span>シフト:週5日・1日8時間のシフト制（7:00～22:30）</span>
         </div>
       </div>
       <div class="card-body">
@@ -1492,14 +1399,20 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
 
@@ -1541,14 +1454,20 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
 
@@ -1563,7 +1482,7 @@ footer::before {
           <span>勤務地:Gtower, クアラルンプール、マレーシア</span>
           <span>言語:日本語＋英語</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:9:00～18:00（週5日勤務／週2日休み）※将来的に夜勤・週末・祝日を含むシフト勤務の可能性あり</span>
+          <span>シフト:9:00～18:00（週5日勤務／週2日休み）</span>
         </div>
       </div>
       <div class="card-body">
@@ -1598,14 +1517,20 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
 
@@ -1649,14 +1574,20 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/71849/%e6%97%a5%e6%9c%ac%e8%aa%9e%e5%af%be%e5%bf%9c%e3%83%bb%e3%82%bb%e3%83%bc%e3%83%ab%e3%82%b9%e3%82%b9%e3%83%9a%e3%82%b7%e3%83%a3%e3%83%aa%e3%82%b9%e3%83%88%ef%bc%88japanese-speaking-sales-specialist%ef%bc%89%e3%80%90%e3%82%a8%e3%83%90%e3%83%bc%e3%82%b0%e3%83%aa%e3%83%bc%e3%83%b3%e6%b1%82%e4%ba%ba%e3%80%91/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/71849/%e6%97%a5%e6%9c%ac%e8%aa%9e%e5%af%be%e5%bf%9c%e3%83%bb%e3%82%bb%e3%83%bc%e3%83%ab%e3%82%b9%e3%82%b9%e3%83%9a%e3%82%b7%e3%83%a3%e3%83%aa%e3%82%b9%e3%83%88%ef%bc%88japanese-speaking-sales-specialist%ef%bc%89%e3%80%90%e3%82%a8%e3%83%90%e3%83%bc%e3%82%b0%e3%83%aa%e3%83%bc%e3%83%b3%e6%b1%82%e4%ba%ba%e3%80%91/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
 
@@ -1671,7 +1602,7 @@ footer::before {
           <span>勤務地:マレーシア・ペナン（One Precinct オフィス）</span>
           <span>言語:日本語メイン</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:7:00～20:00の間でシフト制（週5日勤務／週2日休み、土日祝含む）試用期間後、パフォーマンスに応じて在宅勤務可</span>
+          <span>シフト:7:00～20:00の間でシフト制（週5日勤務／週2日休み、土日祝含む）</span>
         </div>
       </div>
       <div class="card-body">
@@ -1707,14 +1638,20 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
 
@@ -1756,14 +1693,20 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <a class="apply" target="_blank" rel="noopener"
-           href="https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        <a class="book" target="_blank" rel="noopener"
-           href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-        <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
-        <a class="process" 
-           href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
-           data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        <div class="footer-row two-buttons">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/interview-process.html">面接プロセスを見る</a>
+        </div>
+        <div class="footer-row">
+          <a class="apply" target="_blank" rel="noopener"
+             href="https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
+        </div>
+        <div class="footer-row">
+          <a class="book" 
+             href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
+             data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>
+        </div>
       </div>
     </article>
     
