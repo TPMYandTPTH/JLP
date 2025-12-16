@@ -756,7 +756,7 @@ footer::before {
   font-size: 0.85rem;
 }
 
-/* GPTW World Best Workplaces Section */
+/* GPTW World Best Workplaces Section - Enhanced */
 .gptw-section {
   padding: 56px 20px;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -902,6 +902,37 @@ footer::before {
   font-size: 0.9rem;
 }
 
+.gptw-announcement {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gptw-announcement h3 {
+  color: var(--tp-white);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gptw-announcement p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.gptw-quote {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(255, 215, 0, 0.5);
+}
+
 @media (max-width: 768px) {
   .gptw-header {
     flex-direction: column;
@@ -936,7 +967,7 @@ footer::before {
   }
 }
 
-/* PDF Viewer Section */
+/* PDF Viewer Section - Enhanced for Horizontal View */
 .pdf-section {
   padding: 56px 20px;
   background: var(--tp-white);
@@ -1523,9 +1554,19 @@ footer::before {
     </div>
   </section>
 
-  <!-- GPTW World Best Workplaces Section -->
+  <!-- GPTW World Best Workplaces Section - Enhanced -->
   <section class="gptw-section" id="world-best-workplaces">
     <div class="container">
+      <div class="gptw-announcement">
+        <h3>🎉 重要なお知らせ</h3>
+        <p>
+          公式発表：TPはGreat Place to Work®により「World's Best Workplaces™」として<strong>5年連続</strong>で認定されました！
+        </p>
+        <p class="gptw-quote">
+          "この認定は、私たちの従業員からのフィードバックと信頼に基づいており、私たちの企業文化の強さを示しています。"
+        </p>
+      </div>
+      
       <div class="gptw-header">
         <img src="photos/2025_World'sBestWorkplaces.png" alt="World's Best Workplaces 2025" class="gptw-badge">
         <div class="gptw-title-block">
@@ -1632,7 +1673,7 @@ footer::before {
     </div>
   </section>
 
-  <!-- Company Deck PDF Section -->
+  <!-- Company Deck PDF Section - Enhanced for Horizontal View -->
   <section class="pdf-section" id="company-deck">
     <div class="container">
       <h2 class="section-title">会社概要資料</h2>
@@ -1658,7 +1699,7 @@ footer::before {
           <div class="pdf-embed-container">
             <!-- Primary: Google Docs Viewer (works on most browsers including mobile) -->
             <iframe 
-              src="https://docs.google.com/viewer?url=https://tpmyandtpth.github.io/JLP/CompanyDeck.pdf&embedded=true"
+              src="https://docs.google.com/viewer?url=https://tpmyandtpth.github.io/JLP/CompanyDeck.pdf&embedded=true&rm=minimal"
               title="Company Deck PDF"
               loading="lazy"
               allowfullscreen>
@@ -2040,7 +2081,7 @@ try {
     }, observerOptions);
     
     // Observe elements
-    const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card, .pdf-container, .gptw-gallery-item, .gptw-banner');
+    const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card, .pdf-container, .gptw-gallery-item, .gptw-banner, .gptw-announcement');
     elements.forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
@@ -2050,6 +2091,22 @@ try {
   })();
 } catch(error) {
   console.warn('Animation observer failed:', error);
+}
+
+// PDF Horizontal Viewer Enhancement
+try {
+  (function(){
+    const pdfIframe = document.querySelector('.pdf-embed-container iframe');
+    if(pdfIframe) {
+      // Add horizontal orientation parameter to ensure horizontal viewing
+      const currentSrc = pdfIframe.getAttribute('src');
+      if(currentSrc && !currentSrc.includes('rm=minimal')) {
+        pdfIframe.setAttribute('src', currentSrc + '&rm=minimal');
+      }
+    }
+  })();
+} catch(error) {
+  console.warn('PDF viewer enhancement failed:', error);
 }
 
 // Initialize when DOM is ready
