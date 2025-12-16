@@ -466,6 +466,12 @@ footer::before {
   outline: none;
 }
 
+.ssm-info {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
 /* Floating Buttons */
 .floating-apply {
   position: fixed;
@@ -750,6 +756,186 @@ footer::before {
   font-size: 0.85rem;
 }
 
+/* GPTW World Best Workplaces Section */
+.gptw-section {
+  padding: 56px 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.gptw-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('photos/2025_World\'sBestWorkplaces.png') no-repeat center center;
+  background-size: 400px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.gptw-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.gptw-badge {
+  width: 160px;
+  height: auto;
+  filter: drop-shadow(0 4px 20px rgba(255,255,255,0.2));
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 4px 20px rgba(255,255,255,0.2)); }
+  50% { filter: drop-shadow(0 4px 30px rgba(255,255,255,0.4)); }
+}
+
+.gptw-title-block {
+  text-align: left;
+}
+
+.gptw-section .section-title {
+  color: var(--tp-white);
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.gptw-section .section-subtitle {
+  color: rgba(255,255,255,0.8);
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.gptw-highlight {
+  display: inline-block;
+  background: linear-gradient(90deg, #ffd700, #ffaa00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+}
+
+.gptw-description {
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+  color: rgba(255,255,255,0.9);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.gptw-banner {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.gptw-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gptw-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.gptw-gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.gptw-gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.gptw-gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gptw-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.gptw-stat {
+  text-align: center;
+}
+
+.gptw-stat-number {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #ffd700, #ffaa00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.gptw-stat-label {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .gptw-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .gptw-title-block {
+    text-align: center;
+  }
+  
+  .gptw-section .section-title,
+  .gptw-section .section-subtitle {
+    text-align: center;
+  }
+  
+  .gptw-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .gptw-gallery-item:nth-child(5) {
+    grid-column: span 2;
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  
+  .gptw-stats {
+    gap: 1.5rem;
+  }
+  
+  .gptw-stat-number {
+    font-size: 2rem;
+  }
+}
+
 /* PDF Viewer Section */
 .pdf-section {
   padding: 56px 20px;
@@ -833,7 +1019,7 @@ footer::before {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 75%; /* 4:3 aspect ratio */
+  padding-bottom: 56.25%; /* 16:9 aspect ratio for horizontal view */
   background: var(--tp-off);
 }
 
@@ -895,7 +1081,7 @@ footer::before {
   }
   
   .pdf-embed-container {
-    padding-bottom: 120%; /* Taller on mobile */
+    padding-bottom: 75%; /* Slightly taller on mobile but still horizontal */
   }
   
   .pdf-btn {
@@ -1337,6 +1523,62 @@ footer::before {
     </div>
   </section>
 
+  <!-- GPTW World Best Workplaces Section -->
+  <section class="gptw-section" id="world-best-workplaces">
+    <div class="container">
+      <div class="gptw-header">
+        <img src="photos/2025_World'sBestWorkplaces.png" alt="World's Best Workplaces 2025" class="gptw-badge">
+        <div class="gptw-title-block">
+          <h2 class="section-title">World's Best Workplaces™ <span class="gptw-highlight">5年連続受賞</span></h2>
+          <p class="section-subtitle">Great Place to Work® 認定</p>
+        </div>
+      </div>
+      
+      <p class="gptw-description">
+        TPは、Great Place to Work®により「World's Best Workplaces™」として<strong>5年連続</strong>で認定されました。<br>
+        この認定は、社員の皆様からのフィードバックと信頼に基づいており、私たちの企業文化の強さを示しています。<br>
+        共に、人々を力づけ、多様性を尊重し、毎日ポジティブな影響を与える職場を築いています。
+      </p>
+      
+      <div class="gptw-banner">
+        <img src="photos/GMT_SoMe_GPTWWorldBestWorkplacesKit_November_2025_Banner.png" alt="GPTW World Best Workplaces Banner" loading="lazy">
+      </div>
+      
+      <div class="gptw-gallery">
+        <div class="gptw-gallery-item">
+          <img src="photos/GMT_SoMe_GPTWWorldBestWorkplacesKit_November_2025_1.png" alt="GPTW Image 1" loading="lazy">
+        </div>
+        <div class="gptw-gallery-item">
+          <img src="photos/GMT_SoMe_GPTWWorldBestWorkplacesKit_November_2025_2.png" alt="GPTW Image 2" loading="lazy">
+        </div>
+        <div class="gptw-gallery-item">
+          <img src="photos/GMT_SoMe_GPTWWorldBestWorkplacesKit_November_2025_3.png" alt="GPTW Image 3" loading="lazy">
+        </div>
+        <div class="gptw-gallery-item">
+          <img src="photos/GMT_SoMe_GPTWWorldBestWorkplacesKit_November_2025_4.png" alt="GPTW Image 4" loading="lazy">
+        </div>
+        <div class="gptw-gallery-item">
+          <img src="photos/GMT_SoMe_GPTWWorldBestWorkplacesKit_November_2025_5.png" alt="GPTW Image 5" loading="lazy">
+        </div>
+      </div>
+      
+      <div class="gptw-stats">
+        <div class="gptw-stat">
+          <div class="gptw-stat-number">5</div>
+          <div class="gptw-stat-label">年連続受賞</div>
+        </div>
+        <div class="gptw-stat">
+          <div class="gptw-stat-number">100+</div>
+          <div class="gptw-stat-label">展開国数</div>
+        </div>
+        <div class="gptw-stat">
+          <div class="gptw-stat-number">500K+</div>
+          <div class="gptw-stat-label">グローバル従業員</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TP Scale Information -->
   <section style="padding: 56px 20px; background: var(--tp-off);">
     <div class="container">
@@ -1374,8 +1616,8 @@ footer::before {
           <div class="award-item">
             <span class="award-icon">🌍</span>
             <div>
-              <h3>業界リーダー</h3>
-              <p>BPO業界で世界最大規模の企業</p>
+              <h3>World's Best Workplaces™</h3>
+              <p>グローバルで5年連続認定</p>
             </div>
           </div>
           <div class="award-item">
@@ -1676,6 +1918,7 @@ footer::before {
   </div>
   
   <div class="footer-bottom">
+    <p class="ssm-info">Teleperformance Malaysia Sdn Bhd の SSM（マレーシア会社委員会）登録番号は 201601023769 (1194708-K) です。</p>
     <p>&copy; 2025 TP. All rights reserved. | 
       <a href="#">プライバシーポリシー</a> | 
       <a href="#">利用規約</a>
@@ -1797,7 +2040,7 @@ try {
     }, observerOptions);
     
     // Observe elements
-    const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card, .pdf-container');
+    const elements = document.querySelectorAll('.about-content, .stat-item, .award-item, .testimonial, .contact-card, .pdf-container, .gptw-gallery-item, .gptw-banner');
     elements.forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
