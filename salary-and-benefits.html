@@ -552,35 +552,7 @@ footer::before {
   color: var(--tp-white);
   transform: translateY(-2px);
 }
-.helper {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #0066cc;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
 
-.helper:hover {
-  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-  border-left-color: #004499;
-  transform: translateX(4px);
-}
-
-.helper .inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.helper .inner::after {
-  content: '→';
-  font-size: 1.5rem;
-  color: #0066cc;
-  transition: transform 0.3s ease;
-}
-
-.helper:hover .inner::after {
-  transform: translateX(8px);
-}
 /* Responsive Design */
 @media (max-width: 900px) {
   nav {
@@ -813,22 +785,28 @@ footer::before {
   padding: 2rem 20px;
   margin: 2rem 0;
 }
-
 .helper .inner {
   max-width: 1000px;
   margin: 0 auto;
   text-align: center;
 }
-
 .helper h2 {
   font-size: 1.6rem;
   font-weight: 900;
   color: #000;
   margin-bottom: 0.4rem;
 }
-
 .helper p {
   color: var(--tp-gray-dark);
+}
+.helper a {
+  color: var(--tp-blue);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+.helper a:hover {
+  color: var(--tp-purple);
 }
 
 /* Team photos */
