@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP Policy & SOP Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            color: #1a1a1a;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        header p {
+            font-size: 18px;
+            opacity: 0.7;
+            color: #666;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Main Filter Section */
+        .main-filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-filter-section h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .main-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .main-filter-btn {
+            padding: 18px 20px;
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .main-filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            border-color: #4a5568;
+        }
+
+        .main-filter-btn.active {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            border-color: #4a5568;
+            box-shadow: 0 4px 15px rgba(74, 85, 104, 0.4);
+        }
+
+        .main-filter-btn .icon {
+            font-size: 22px;
+        }
+
+        /* Search and Filter Section */
+        .search-filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-bar input {
+            flex: 1;
+            min-width: 250px;
+            padding: 14px 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+
+        .search-bar button {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(74, 85, 104, 0.3);
+        }
+
+        .search-bar button:hover {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 85, 104, 0.4);
+        }
+
+        /* Secondary Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .filter-btn:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            border-color: #4a5568;
+            box-shadow: 0 4px 12px rgba(74, 85, 104, 0.3);
+        }
+
+        /* Sort Options */
+        .sort-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .sort-section select {
+            padding: 8px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            margin: 60px 0 30px 0;
+            padding: 20px 0;
+            border-top: 3px solid #4a5568;
+            border-bottom: 3px solid #4a5568;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-divider h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        .section-divider.important {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            border: none;
+            box-shadow: 0 4px 20px rgba(74, 85, 104, 0.3);
+        }
+
+        .section-divider.important h2 {
+            color: white;
+            font-size: 32px;
+        }
+
+        /* Full Width Cards - Handbook & TPConnect */
+        .full-width-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: 3px solid #4a5568;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .full-width-card::after {
+            content: '⭐ IMPORTANT';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(74, 85, 104, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .full-width-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            border-color: #2d3748;
+        }
+
+        .full-width-card:hover::after {
+            animation: none;
+            transform: scale(1.1);
+        }
+
+        .full-width-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
+        }
+
+        .full-width-card {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .full-width-card .category-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 10px rgba(74, 85, 104, 0.4);
+        }
+
+        .full-width-card h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .full-width-card p {
+            color: #4a5568;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        /* Policies Grid */
+        .policies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* Policy Card */
+        .policy-item {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .policy-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+            border-color: #4a5568;
+        }
+
+        .policy-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
+        }
+
+        .policy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .policy-item h2 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #2d3748;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .policy-item p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* View Count Badge */
+        .view-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .view-count::before {
+            content: '👁';
+            font-size: 14px;
+        }
+
+        /* Category Badge */
+        .category-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(74, 85, 104, 0.3);
+        }
+
+        /* Popular Badge */
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(74, 85, 104, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            .main-filters {
+                grid-template-columns: 1fr;
+            }
+
+            .policies {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-bar input {
+                width: 100%;
+            }
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            display: none;
+        }
+
+        .no-results h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TP Policy & SOP Portal</h1>
+        <p>Your comprehensive guide to Teleperformance policies and procedures</p>
+    </header>
+
+    <div class="container">
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" id="totalPolicies">0</span>
+                <span class="stat-label">Total Items</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="totalViews">0</span>
+                <span class="stat-label">Total Views</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="visibleItems">0</span>
+                <span class="stat-label">Showing</span>
+            </div>
+        </div>
+
+        <!-- Main Filter Section -->
+        <div class="main-filter-section">
+            <h3>Select Section</h3>
+            <div class="main-filters">
+                <button class="main-filter-btn active" data-section="all">
+                    <span class="icon">📂</span>
+                    <span>Show All</span>
+                </button>
+                <button class="main-filter-btn" data-section="global">
+                    <span class="icon">🌍</span>
+                    <span>Global Policies</span>
+                </button>
+                <button class="main-filter-btn" data-section="malaysia">
+                    <span class="icon">🏢</span>
+                    <span>Malaysia Policies</span>
+                </button>
+                <button class="main-filter-btn" data-section="thailand">
+                    <span class="icon">🏢</span>
+                    <span>Thailand Policies</span>
+                </button>
+                <button class="main-filter-btn" data-section="sops">
+                    <span class="icon">📋</span>
+                    <span>SOPs</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search across all policies and SOPs...">
+                <button onclick="applyFilters()">Search</button>
+            </div>
+
+            <div class="filter-buttons" id="categoryFilters">
+                <button class="filter-btn active" data-category="all">All Categories</button>
+                <button class="filter-btn" data-category="ethics">Ethics</button>
+                <button class="filter-btn" data-category="compliance">Compliance</button>
+                <button class="filter-btn" data-category="privacy">Privacy</button>
+                <button class="filter-btn" data-category="security">Security</button>
+                <button class="filter-btn" data-category="hr">HR</button>
+                <button class="filter-btn" data-category="benefits">Benefits</button>
+                <button class="filter-btn" data-category="timekeeping">Timekeeping</button>
+                <button class="filter-btn" data-category="payroll">Payroll</button>
+                <button class="filter-btn" data-category="systems">Systems</button>
+            </div>
+
+            <div class="sort-section">
+                <label>Sort by:</label>
+                <select id="sortSelect" onchange="sortPolicies()">
+                    <option value="default">Default</option>
+                    <option value="views">Most Viewed</option>
+                    <option value="title">Title (A-Z)</option>
+                    <option value="title-desc">Title (Z-A)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Content Container -->
+        <div id="contentContainer"></div>
+
+        <div class="no-results" id="noResults">
+            <h3>No items found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Teleperformance. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // View tracking with localStorage
+        const VIEW_STORAGE_KEY = 'tp_policy_views';
+
+        function getViews() {
+            return JSON.parse(localStorage.getItem(VIEW_STORAGE_KEY) || '{}');
+        }
+
+        function trackView(url) {
+            let views = getViews();
+            views[url] = (views[url] || 0) + 1;
+            localStorage.setItem(VIEW_STORAGE_KEY, JSON.stringify(views));
+            updateStats();
+            updateAllViewCounts();
+        }
+
+        function updateAllViewCounts() {
+            const views = getViews();
+            document.querySelectorAll('[data-url]').forEach(item => {
+                const url = item.dataset.url;
+                const viewCount = views[url] || 0;
+                const viewElement = item.querySelector('.view-count');
+                if (viewElement) {
+                    viewElement.textContent = viewCount;
+                }
+
+                // Add popular badge
+                if (viewCount > 20 && !item.querySelector('.popular-badge')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'popular-badge';
+                    badge.textContent = '🔥 Popular';
+                    item.appendChild(badge);
+                }
+            });
+        }
+
+        // Content data
+        const allContent = `
+            <!-- Essential Resources - Always shown -->
+            <div class="section-divider important essential-resources"><h2>📚 Essential Employee Resources</h2></div>
+            
+            <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Employee_Handbook.pdf" class="full-width-card essential-resources" data-section="malaysia handbook" data-category="handbook" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Employee_Handbook.pdf" onclick="trackView(this.dataset.url)">
+                <span class="category-badge">Handbook</span>
+                <h2>TPMY Employee Handbook</h2>
+                <p>Guidelines for Teleperformance's policies, procedures, and employee guidelines.</p>
+                <span class="view-count">0</span>
+            </a>
+            
+            <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/test/TPMY_TPConnect__HR_Admin_Facility_Requestor_Guide.pdf" class="full-width-card essential-resources" data-section="malaysia systems" data-category="systems" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/test/TPMY_TPConnect__HR_Admin_Facility_Requestor_Guide.pdf" onclick="trackView(this.dataset.url)">
+                <span class="category-badge">Systems</span>
+                <h2>TPMY TPConnect - Admin & Facility</h2>
+                <p>TPConnect Ticketing System: A Requestor's Guide.</p>
+                <span class="view-count">0</span>
+            </a>
+
+            <!-- GLOBAL POLICIES -->
+            <div class="section-divider global-section"><h2>Global Policies</h2></div>
+            <div class="policies global-section">
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Global%20Ethics%20Hotline%20policy.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Global%20Ethics%20Hotline%20policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Global Ethics Hotline Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Global Ethics Hotline.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Gifts%20%20Hospitality%20Procedure%20Template%20v.2%2019%2012%202024%20internal%20use%20only%20FINAL.pdf" class="policy-item" data-section="global" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Gifts%20%20Hospitality%20Procedure%20Template%20v.2%2019%2012%202024%20internal%20use%20only%20FINAL.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>Gifts & Hospitality Procedure</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Gifts & Hospitality procedure template</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Gifts%20and%20Hospitality%20Policy%20v.2.1.pdf" class="policy-item" data-section="global" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Gifts%20and%20Hospitality%20Policy%20v.2.1.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>Gift & Hospitality Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>TP Global Anti-Corruption Program</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/ISS.008.002%20Clean%20Desk%20Standard.pdf" class="policy-item" data-section="global" data-category="security" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/ISS.008.002%20Clean%20Desk%20Standard.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Clean Desk Information Security Standard</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Information Security Standard.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Social%20Media%20Standard.pdf" class="policy-item" data-section="global" data-category="security" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Social%20Media%20Standard.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Social Media Standard</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Information Security Standard.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY%20Ethics%20Hotline.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY%20Ethics%20Hotline.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Global Ethics Hotline</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Global Ethics Hotline.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Anti-Corruption%20Acknowledgement%20Package%202025%20-%20signed.pdf" class="policy-item" data-section="global" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Anti-Corruption%20Acknowledgement%20Package%202025%20-%20signed.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>Global Anti Corruption Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Global Anti corruption policy.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Ten%20Principles.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Ten%20Principles.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>The Ten Principles of the United Nations Global Compact</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Teleperformance Ten Principles of the United Nations.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/teleperformance-group-diversity-equity-and-inclusion-policy%201.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/teleperformance-group-diversity-equity-and-inclusion-policy%201.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Diversity, Equity and Inclusion Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Teleperformance group diversity equity and inclusion policy.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/tp-human-rights-policy%201.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/tp-human-rights-policy%201.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Human Rights Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Human Rights Policy.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/code_of_conduct_and_ethics_2025.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/code_of_conduct_and_ethics_2025.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Code of Conduct and Ethics</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Code of Conduct and Ethics.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/AI_Governance_Framework_Internal_Final.pdf" class="policy-item" data-section="global" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/AI_Governance_Framework_Internal_Final.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>AI Governance Framework</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for ethical and effective use of artificial intelligence.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/Security_GDPR_2pager.pdf" class="policy-item" data-section="global" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/Security_GDPR_2pager.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>General Data Protection Regulation (GDPR)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Ensures compliance with GDPR regulations for data protection.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Gifts_and_Hospitality_Policy.pdf" class="policy-item" data-section="global" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Gifts_and_Hospitality_Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Gifts and Hospitality Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Provides guidelines for handling gifts and hospitality ethically.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/GECSP_Training.pdf" class="policy-item" data-section="global" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/GECSP_Training.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>Global Essential Compliance and Security Policies (GECSP)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive compliance and security measures for global operations.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Control%2016%20-%20Government%20Demands%20for%20Personal%20Data-%20Cross%20Border%20and%20In-Country_TPMY.pdf" class="policy-item" data-section="global" data-category="privacy" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Control%2016%20-%20Government%20Demands%20for%20Personal%20Data-%20Cross%20Border%20and%20In-Country_TPMY.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Privacy</span>
+                    <div class="policy-header">
+                        <h2>Government Demands for Personal Data</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Policies for handling government demands for personal data.</p>
+                </a>
+            </div>
+
+            <!-- MALAYSIA POLICIES -->
+            <div class="section-divider malaysia-section"><h2>Malaysia Regional & Local Policies</h2></div>
+            <div class="policies malaysia-section">
+                  <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/FAQ%20for%20Non-Malaysians%20Employee%20Provident%20Fund%20EPF%20Contribution.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/FAQ%20for%20Non-Malaysians%20Employee%20Provident%20Fund%20EPF%20Contribution.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Announcement</span>
+                    <div class="policy-header">
+                        <h2>FAQ for Non-Malaysians Employee Provident Fund (EPF) Contribution</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>FAQ for Non-Malaysians Employee Provident Fund (EPF) Contribution.</p>
+                  </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Employee%20Global%20Privacy%20Notice%20V2.3_Malaysia.pdf" class="policy-item" data-section="malaysia" data-category="privacy" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Employee%20Global%20Privacy%20Notice%20V2.3_Malaysia.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Privacy</span>
+                    <div class="policy-header">
+                        <h2>TP – Employee Privacy Notice</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>TP – Employee Privacy Notice.</p>
+                </a>
+
+                  <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/RAF%20Plus%20TC.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/RAF%20Plus%20TC.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>RAF+ T&C</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>RAF+ (Refer-A-friend PLUS) is an internal referral campaign designed to reward employees for helping attract
+top multilingual talent.</p>
+                </a>
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_Sexual%20Harassment%20Victim%20Protection%20Guideline.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_Sexual%20Harassment%20Victim%20Protection%20Guideline.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Sexual Harassment Victim Protection</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>TP shall commit to providing a safe environment for its community, free from discrimination.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Time%20Keeping%20Compliance%20Policy.pdf" class="policy-item" data-section="malaysia" data-category="compliance" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Time%20Keeping%20Compliance%20Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>Time Keeping Compliance Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive guide for APAC timekeeping policy.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Compensation__Benefits_Policy.pdf" class="policy-item" data-section="malaysia" data-category="benefits" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Compensation__Benefits_Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Benefits</span>
+                    <div class="policy-header">
+                        <h2>Compensation & Benefits Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Details on employee compensation structures and benefits.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY%20Disciplinary%20Manual_v6.0%201.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY%20Disciplinary%20Manual_v6.0%201.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>TPMY Disciplinary Manual</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Outlines processes for handling disciplinary actions.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/APAC_Travel_Policy_MY_TH_Version.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/APAC_Travel_Policy_MY_TH_Version.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Travel</span>
+                    <div class="policy-header">
+                        <h2>Regional APAC Travel Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Rules and procedures for travel within the APAC region.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Clean_Desk_Policy.pdf" class="policy-item" data-section="malaysia" data-category="security" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Clean_Desk_Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Clean Desk Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Ensures a secure and organized workspace by maintaining clean desks.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/Latest_TPMY_Employee_Referral_Program_Policy_Compiled.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/Latest_TPMY_Employee_Referral_Program_Policy_Compiled.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Employee Referral Program Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for referring new talent to the organization.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Employee_Feet_on_the_Ground_Initiative_Policy_Compiled.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Employee_Feet_on_the_Ground_Initiative_Policy_Compiled.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Leadership</span>
+                    <div class="policy-header">
+                        <h2>Feet on the Ground Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Encourages visible leadership and proactive engagement.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/Flex_Work_Arrangement_Policy.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/Flex_Work_Arrangement_Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Flex Work Arrangement Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Supports flexible work arrangements for employees.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Policy_Statement_Signed.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Policy_Statement_Signed.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Health & Safety</span>
+                    <div class="policy-header">
+                        <h2>Health and Safety Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Ensures a safe and healthy working environment.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Performance_Improvement_Plan_PIP_Policy.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Performance_Improvement_Plan_PIP_Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Performance Improvement Plan (PIP) Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Framework for improving employee performance effectively.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_GECSP_Social%20Media%20Confidentiality.pdf" class="policy-item" data-section="malaysia" data-category="security" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_GECSP_Social%20Media%20Confidentiality.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Social Media Confidentiality Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for using social media responsibly and maintaining confidentiality.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Ride-Hailing__Claim_Guideline.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TPMY_Ride-Hailing__Claim_Guideline.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Travel</span>
+                    <div class="policy-header">
+                        <h2>TPMY Ride-Hailing Claim Guideline</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for submitting ride-hailing claims effectively.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TP_MYTH_HR_Helpdesk_Policy_for_Recruitment.pdf" class="policy-item" data-section="malaysia" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/TP_MYTH_HR_Helpdesk_Policy_for_Recruitment.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Recruitment</span>
+                    <div class="policy-header">
+                        <h2>TPMY & TH HR Helpdesk Policy for Recruitment</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for Recruitment.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/WAH-HS-Agent_Workspace-AD.pdf" class="policy-item" data-section="malaysia" data-category="security" data-url="https://tip-apacmlh.tpapac.com/Intranet/images/Policies/WAH-HS-Agent_Workspace-AD.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Workspace and Clean Desk Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Ensures a secure and organized workspace by maintaining clean desks.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/Teleperformance_AIA_deck_GTL.pdf" class="policy-item" data-section="malaysia" data-category="benefits" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/Teleperformance_AIA_deck_GTL.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Benefits</span>
+                    <div class="policy-header">
+                        <h2>AIA Group Term Life (GTL)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for AIA medical insurance GROUP TERM LIFE.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/Teleperformance_AIA_deck_GHS.pdf" class="policy-item" data-section="malaysia" data-category="benefits" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/Teleperformance_AIA_deck_GHS.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Benefits</span>
+                    <div class="policy-header">
+                        <h2>AIA Group Hospital & Surgical (GHS)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for AIA medical insurance Group Hospital & Surgical.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/AIAApp-User-Guide-EB_Red_Card.pdf" class="policy-item" data-section="malaysia" data-category="benefits" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/AIAApp-User-Guide-EB_Red_Card.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Benefits</span>
+                    <div class="policy-header">
+                        <h2>AIA Mobile App Userguide</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for AIA Mobile App Userguide.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/Telepeformance_GPA.pdf" class="policy-item" data-section="malaysia" data-category="benefits" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Medical%20Benefits/Telepeformance_GPA.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Benefits</span>
+                    <div class="policy-header">
+                        <h2>Chubb Group Personal Accident</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for Personal Accident.</p>
+                </a>
+            </div>
+
+            <!-- THAILAND POLICIES -->
+            <div class="section-divider thailand-section"><h2>Thailand Policies</h2></div>
+            <div class="policies thailand-section">
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Employee%20Global%20Privacy%20Notice%20V2.3_Thailand.pdf" class="policy-item" data-section="thailand" data-category="privacy" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Employee%20Global%20Privacy%20Notice%20V2.3_Thailand.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Privacy</span>
+                    <div class="policy-header">
+                        <h2>TP – Employee Privacy Notice</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>TP – Employee Privacy Notice.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPTH%20Policies/TPTH_GECSP_Social%20Media%20Confidentiality.pdf" class="policy-item" data-section="thailand" data-category="security" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPTH%20Policies/TPTH_GECSP_Social%20Media%20Confidentiality.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Social Media Confidentiality Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for using social media responsibly and maintaining confidentiality.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Ten%20Principles.pdf" class="policy-item" data-section="thailand" data-category="ethics" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Ten%20Principles.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Ethics</span>
+                    <div class="policy-header">
+                        <h2>Teleperformance Ten Principles of the United Nations</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Our commitment to the principles outlined by the United Nations.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Social%20Media%20Standard.pdf" class="policy-item" data-section="thailand" data-category="security" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/Social%20Media%20Standard.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Security</span>
+                    <div class="policy-header">
+                        <h2>Social Media Standard</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Information Security Standard.</p>
+                </a>
+            </div>
+
+            <!-- SOPS -->
+            <!-- Standard Operating Procedures -->
+            
+            <div class="section-divider sops-section"><h2>Standard Operating Procedures</h2></div>
+            <div class="policies sops-section">
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMY%20TPConnect%20-%20HR%20Administrative%20Requestor%20Guide.pdf" class="policy-item" data-section="sops" data-category="systems" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMY%20TPConnect%20-%20HR%20Administrative%20Requestor%20Guide.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Systems</span>
+                    <div class="policy-header">
+                        <h2>TPMY TPConnect - Administrative</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>TPConnect Ticketing System: A Requestor's Guide.</p>
+                </a>
+  <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/HS%20SOPs/IJP%20Process%20Documentation%20and%20Policy.pdf" class="policy-item" data-section="sops" data-category="ta" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/HS%20SOPs/IJP%20Process%20Documentation%20and%20Policy.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">TA</span>
+                    <div class="policy-header">
+                        <h2>Internal Job Posting & Transfer Policy</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Internal Job Posting & Transfer Policy</p>
+                </a>
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_Professional%20Etiquette%20Dress%20for%20Success_V2.0.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_Professional%20Etiquette%20Dress%20for%20Success_V2.0.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Professional Etiquette slide</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Professional Etiquette: Dress For Success.</p>
+                </a>
+                
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY%20Grievance%20channel_v1.0.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY%20Grievance%20channel_v1.0.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>TPMY Grievance Channel</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Introduction to TPMY Grievance Channels</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_Dress%20Code%20SOP_V1.0.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/TPMY_Dress%20Code%20SOP_V1.0.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>TP Malaysia Dress Code SOP</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>TP Malaysia Dress Code Standard Operating Procedure (SOP) Internal.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TP%20Job%20Architecture%20PPT%20v2.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TP%20Job%20Architecture%20PPT%20v2.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Career Dev</span>
+                    <div class="policy-header">
+                        <h2>Job Architecture Deck</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Job architecture framework for career growth and role clarity.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/20250625%20BMS%20Timekeeping%20Playbook%20Enhanced%20and%20detailed.pdf" class="policy-item" data-section="sops" data-category="timekeeping" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/20250625%20BMS%20Timekeeping%20Playbook%20Enhanced%20and%20detailed.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Timekeeping</span>
+                    <div class="policy-header">
+                        <h2>Detailed BMS Timekeeping Playbook</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Latest guidelines for Teleperformance's BMS Timekeeping.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/AIN_Reporting_Process_Flow.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/AIN_Reporting_Process_Flow.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Health & Safety</span>
+                    <div class="policy-header">
+                        <h2>Accident/Incident Reporting Process Flow</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for reporting and managing accidents or incidents.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/CCMS_Performance_Appraisal_guideline_V2.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/CCMS_Performance_Appraisal_guideline_V2.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>BMS Performance Appraisal Guideline</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Framework for conducting and evaluating employee performance appraisals.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/08_05_2024_TPMY_BMS_Time_keeping_Summary_in_3_slides_1.pdf" class="policy-item" data-section="sops" data-category="timekeeping" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/08_05_2024_TPMY_BMS_Time_keeping_Summary_in_3_slides_1.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Timekeeping</span>
+                    <div class="policy-header">
+                        <h2>BMS Timekeeping Summary</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>A concise summary of timekeeping rules and best practices.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMY%20BMS%20Time-Keeping%20for%20Employee%201.pdf" class="policy-item" data-section="sops" data-category="timekeeping" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMY%20BMS%20Time-Keeping%20for%20Employee%201.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Timekeeping</span>
+                    <div class="policy-header">
+                        <h2>BMS Timekeeping Playbook for Employees</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive guide for employees on timekeeping practices.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMY%20BMS%20Time%20keeping%20for%20Manager%20%20Supervisor%201.pdf" class="policy-item" data-section="sops" data-category="timekeeping" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMY%20BMS%20Time%20keeping%20for%20Manager%20%20Supervisor%201.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Timekeeping</span>
+                    <div class="policy-header">
+                        <h2>BMS Timekeeping Playbook for Managers</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive guide for supervisors on timekeeping practices.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/APAC%20TK%20Support%20Schedule%20Update%20Process%201.pdf" class="policy-item" data-section="sops" data-category="timekeeping" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/APAC%20TK%20Support%20Schedule%20Update%20Process%201.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Timekeeping</span>
+                    <div class="policy-header">
+                        <h2>APAC TK Support Schedule Update Process</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive guide for APAC timekeeping schedule process.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/P2U_-_Employee_Self_Service.pdf" class="policy-item" data-section="sops" data-category="payroll" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/P2U_-_Employee_Self_Service.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Payroll</span>
+                    <div class="policy-header">
+                        <h2>e-Payslip Portal (Payroll2U) User Guide</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Step-by-step instructions for accessing and using the e-Payslip portal.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/2023_06_07_TPMY_Employee_Action_Form.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/2023_06_07_TPMY_Employee_Action_Form.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Employee Action Form (EAF) Creation Guide</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Instructions for creating and submitting Employee Action Forms.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Escalation_Plan_and_Emergency_ContactLV_Process_Flow.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Escalation_Plan_and_Emergency_ContactLV_Process_Flow.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Escalation Plan (LV) Process Flow</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Details on escalation and emergency contacts for LV processes.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Escalation_Plan_and_Emergency_Contact_OP_Process_Flow.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Escalation_Plan_and_Emergency_Contact_OP_Process_Flow.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Escalation Plan (OP) Process Flow</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Procedures for handling escalation and emergency contacts for OP.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/GECSP_Exception_Process_v202010.pdf" class="policy-item" data-section="sops" data-category="compliance" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/GECSP_Exception_Process_v202010.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Compliance</span>
+                    <div class="policy-header">
+                        <h2>GECSP Exception Process</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for managing exceptions within GECSP processes.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/JUMP_Process_Flow.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/JUMP_Process_Flow.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Career Dev</span>
+                    <div class="policy-header">
+                        <h2>JUMP Process Flow</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Step-by-step guide to the JUMP process for career development.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Lawful_Deductions_from_Wages_updated_at_22012020.pdf" class="policy-item" data-section="sops" data-category="payroll" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Lawful_Deductions_from_Wages_updated_at_22012020.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Payroll</span>
+                    <div class="policy-header">
+                        <h2>Lawful Deductions from Wages</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Details on lawful and compliant deductions from employee wages.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/009%20TPMY%20Resignation%20Process%20Flow.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/009%20TPMY%20Resignation%20Process%20Flow.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>Resignation Process Flow</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Steps to follow when resigning from the organization.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/Employee%20Global%20Privacy%20Notice_Malaysia.pdf" class="policy-item" data-section="sops" data-category="privacy" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/Employee%20Global%20Privacy%20Notice_Malaysia.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Privacy</span>
+                    <div class="policy-header">
+                        <h2>Malaysia Employee Privacy Notice</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Information on how employee data is managed and protected in Malaysia.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMYHSSOP001_002.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMYHSSOP001_002.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Health & Safety</span>
+                    <div class="policy-header">
+                        <h2>Back to Bricks & Mortar After MCO</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Details on returning to physical offices post-Movement Control Order.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/SOP_-_Back_to_Brick__Mortar.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/SOP_-_Back_to_Brick__Mortar.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Health & Safety</span>
+                    <div class="policy-header">
+                        <h2>Back to Bricks & Mortar After MCO (PPT)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Presentation on returning to physical offices post-Movement Control Order.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMYHSSOP001_v2.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/TPMYHSSOP001_v2.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Health & Safety</span>
+                    <div class="policy-header">
+                        <h2>Back to Bricks and Mortar SOP</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Standard operating procedure for returning to physical offices.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/2022_Mar_Form_e-BE_Guideline-compressed.pdf" class="policy-item" data-section="sops" data-category="payroll" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/2022_Mar_Form_e-BE_Guideline-compressed.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Tax</span>
+                    <div class="policy-header">
+                        <h2>Malaysian Tax Return (Form e-BE)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Guidelines for filing personal taxes using Form e-BE.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/2022_Mar_Form_e-M_Guideline-compressed.pdf" class="policy-item" data-section="sops" data-category="payroll" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/2022_Mar_Form_e-M_Guideline-compressed.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Tax</span>
+                    <div class="policy-header">
+                        <h2>Malaysian Tax Return (Form e-M)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Instructions for completing Form e-M for tax submissions.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/10_01_2024_TP_Connect_User_Guide.pdf" class="policy-item" data-section="sops" data-category="systems" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/10_01_2024_TP_Connect_User_Guide.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Systems</span>
+                    <div class="policy-header">
+                        <h2>TP Connect User Guide</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive user guide for navigating the TP Connect platform.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/CCMS_Help_Desk.pdf" class="policy-item" data-section="sops" data-category="systems" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/CCMS_Help_Desk.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Systems</span>
+                    <div class="policy-header">
+                        <h2>TPMY CCMS Help Desk</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Support information and resources for the CCMS Help Desk.</p>
+                </a>
+
+                <a href="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Visa_Expenses_Reimbursement_Guideline.pdf" class="policy-item" data-section="sops" data-category="payroll" data-url="http://tip-apacmlh.tpapac.com/Intranet/images/Policies/SOPs%20Standard%20Operating%20Procedures/Visa_Expenses_Reimbursement_Guideline.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Payroll</span>
+                    <div class="policy-header">
+                        <h2>Visa Expenses Reimbursement</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Procedures for claiming visa expense reimbursements.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/APAC%20TK%20Support%20Schedule%20Update%20Process.pdf" class="policy-item" data-section="sops" data-category="timekeeping" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/APAC%20TK%20Support%20Schedule%20Update%20Process.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Timekeeping</span>
+                    <div class="policy-header">
+                        <h2>BMS TimeKeeping Enrolment (Support Staff)</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>APAC Guidelines for Support Staff BMS timekeeping.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/index.php?option=com_content&view=article&id=105" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/index.php?option=com_content&view=article&id=105" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Health & Safety</span>
+                    <div class="policy-header">
+                        <h2>Health and Safety Policies</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Comprehensive health and safety policies and procedures.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/GTM%20SOP%20Playbook%2010.2025.pdf" class="policy-item" data-section="sops" data-category="systems" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/GTM%20SOP%20Playbook%2010.2025.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">Systems</span>
+                    <div class="policy-header">
+                        <h2>GTM SOP Playbook</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>GTM Standard Operating Procedures Playbook.</p>
+                </a>
+
+                <a href="https://tip-apacmlh.tpapac.com/intranet/images/Policies/GTM%20EP%20Renewal%20Process%20Employee%20Guide%2010.2025.pdf" class="policy-item" data-section="sops" data-category="hr" data-url="https://tip-apacmlh.tpapac.com/intranet/images/Policies/GTM%20EP%20Renewal%20Process%20Employee%20Guide%2010.2025.pdf" onclick="trackView(this.dataset.url)">
+                    <span class="category-badge">HR</span>
+                    <div class="policy-header">
+                        <h2>GTM EP Renewal Process Employee Guide</h2>
+                        <span class="view-count">0</span>
+                    </div>
+                    <p>Employee guide for GTM Employment Pass renewal process.</p>
+                </a>
+            </div>
+        `;
+
+        // Initialize filters
+        function initializeFilters() {
+            // Main section filters - Allow toggle
+            document.querySelectorAll('.main-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // If clicking the active button, deactivate it (show all)
+                    if (this.classList.contains('active')) {
+                        document.querySelectorAll('.main-filter-btn').forEach(b => b.classList.remove('active'));
+                        document.querySelector('.main-filter-btn[data-section="all"]').classList.add('active');
+                    } else {
+                        // Otherwise, activate this button
+                        document.querySelectorAll('.main-filter-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                    updateCategoryFilters();
+                    applyFilters();
+                });
+            });
+
+            // Category filters
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilters();
+                });
+            });
+
+            // Search
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+        }
+
+        // Update category filters based on selected section
+        function updateCategoryFilters() {
+            const activeSection = document.querySelector('.main-filter-btn.active').dataset.section;
+            const categoryFiltersContainer = document.getElementById('categoryFilters');
+            
+            let categories = [];
+            
+            if (activeSection === 'all') {
+                categories = [
+                    { value: 'all', label: 'All Categories' },
+                    { value: 'ethics', label: 'Ethics' },
+                    { value: 'compliance', label: 'Compliance' },
+                    { value: 'privacy', label: 'Privacy' },
+                    { value: 'security', label: 'Security' },
+                    { value: 'hr', label: 'HR' },
+                    { value: 'benefits', label: 'Benefits' },
+                    { value: 'timekeeping', label: 'Timekeeping' },
+                    { value: 'payroll', label: 'Payroll' },
+                    { value: 'systems', label: 'Systems' }
+                ];
+            } else if (activeSection === 'global') {
+                categories = [
+                    { value: 'all', label: 'All Global' },
+                    { value: 'ethics', label: 'Ethics' },
+                    { value: 'compliance', label: 'Compliance' },
+                    { value: 'privacy', label: 'Privacy' },
+                    { value: 'security', label: 'Security' }
+                ];
+            } else if (activeSection === 'malaysia') {
+                categories = [
+                    { value: 'all', label: 'All Malaysia' },
+                    { value: 'hr', label: 'HR' },
+                    { value: 'benefits', label: 'Benefits' },
+                    { value: 'security', label: 'Security' },
+                    { value: 'compliance', label: 'Compliance' },
+                    { value: 'handbook', label: 'Handbook' },
+                    { value: 'systems', label: 'Systems' }
+                ];
+            } else if (activeSection === 'thailand') {
+                categories = [
+                    { value: 'all', label: 'All Thailand' },
+                    { value: 'privacy', label: 'Privacy' },
+                    { value: 'ethics', label: 'Ethics' },
+                    { value: 'security', label: 'Security' }
+                ];
+            } else if (activeSection === 'sops') {
+                categories = [
+                    { value: 'all', label: 'All SOPs' },
+                    { value: 'timekeeping', label: 'Timekeeping' },
+                    { value: 'hr', label: 'HR' },
+                    { value: 'payroll', label: 'Payroll' },
+                    { value: 'systems', label: 'Systems' },
+                    { value: 'compliance', label: 'Compliance' },
+                    { value: 'privacy', label: 'Privacy' }
+                ];
+            }
+            
+            // Rebuild category buttons
+            categoryFiltersContainer.innerHTML = categories.map(cat => 
+                `<button class="filter-btn ${cat.value === 'all' ? 'active' : ''}" data-category="${cat.value}">${cat.label}</button>`
+            ).join('');
+            
+            // Re-attach event listeners
+            categoryFiltersContainer.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryFiltersContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilters();
+                });
+            });
+        }
+
+        // Apply all filters
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const activeSection = document.querySelector('.main-filter-btn.active').dataset.section;
+            const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+
+            let visibleCount = 0;
+            const allItems = document.querySelectorAll('[data-section]');
+
+            allItems.forEach(item => {
+                const itemSections = item.dataset.section.split(' ');
+                const itemCategory = item.dataset.category || '';
+                const title = item.querySelector('h2') ? item.querySelector('h2').textContent.toLowerCase() : '';
+                const description = item.querySelector('p') ? item.querySelector('p').textContent.toLowerCase() : '';
+
+                // Essential resources always visible
+                if (item.classList.contains('essential-resources')) {
+                    item.style.display = '';
+                    visibleCount++;
+                    return;
+                }
+
+                // Check section match
+                const matchesSection = activeSection === 'all' || itemSections.includes(activeSection);
+
+                // Check category match
+                const matchesCategory = activeCategory === 'all' || itemCategory === activeCategory;
+
+                // Check search match
+                const matchesSearch = searchTerm === '' || 
+                                     title.includes(searchTerm) || 
+                                     description.includes(searchTerm) ||
+                                     itemCategory.includes(searchTerm);
+
+                if (matchesSection && matchesCategory && matchesSearch) {
+                    item.style.display = '';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Update stats
+            document.getElementById('visibleItems').textContent = visibleCount;
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Sort policies
+        function sortPolicies() {
+            const sortValue = document.getElementById('sortSelect').value;
+            const container = document.getElementById('contentContainer');
+            const allItems = Array.from(container.querySelectorAll('[data-url]'));
+
+            allItems.sort((a, b) => {
+                if (sortValue === 'views') {
+                    const viewsA = parseInt(a.querySelector('.view-count')?.textContent || '0');
+                    const viewsB = parseInt(b.querySelector('.view-count')?.textContent || '0');
+                    return viewsB - viewsA;
+                } else if (sortValue === 'title') {
+                    const titleA = a.querySelector('h2')?.textContent || '';
+                    const titleB = b.querySelector('h2')?.textContent || '';
+                    return titleA.localeCompare(titleB);
+                } else if (sortValue === 'title-desc') {
+                    const titleA = a.querySelector('h2')?.textContent || '';
+                    const titleB = b.querySelector('h2')?.textContent || '';
+                    return titleB.localeCompare(titleA);
+                }
+                return 0;
+            });
+
+            // Reorder in DOM
+            allItems.forEach(item => {
+                if (item.classList.contains('essential-resources')) {
+                    container.insertBefore(item, container.firstChild);
+                } else {
+                    container.appendChild(item);
+                }
+            });
+        }
+
+        // Update stats
+        function updateStats() {
+            const views = getViews();
+            let totalViews = 0;
+            const allItems = document.querySelectorAll('[data-url]');
+            
+            allItems.forEach(item => {
+                totalViews += views[item.dataset.url] || 0;
+            });
+
+            document.getElementById('totalPolicies').textContent = allItems.length;
+            document.getElementById('totalViews').textContent = totalViews;
+            document.getElementById('visibleItems').textContent = allItems.length;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load content
+            document.getElementById('contentContainer').innerHTML = allContent;
+            
+            // Initialize
+            initializeFilters();
+            updateCategoryFilters(); // Set initial category filters
+            updateAllViewCounts();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
