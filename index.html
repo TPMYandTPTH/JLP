@@ -98,6 +98,11 @@
   --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
   --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
   --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
+  --gold-primary: #FFD700;
+  --gold-light: #FFAA00;
+  --gold-dark: #E6B800;
+  --gold-pale: #FFFBEB;
+  --shadow-gold: 0 4px 12px rgba(255,215,0,.3);
 }
 
 /* Base Styles */
@@ -436,6 +441,23 @@ nav a:focus {
   box-shadow: 0 4px 12px rgba(120,0,150,0.15);
 }
 
+.btn-gold {
+  background: var(--gold-primary);
+  color: var(--tp-black);
+  border-color: var(--gold-primary);
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.btn-gold:hover {
+  background: var(--tp-black);
+  color: var(--gold-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
 .btn-secondary {
   background: var(--tp-white);
   color: var(--tp-black);
@@ -493,6 +515,37 @@ nav a:focus {
   color: var(--tp-gray);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Social Proof Banner */
+.social-proof-banner {
+  background: var(--tp-black);
+  color: var(--tp-white);
+  padding: 1rem 20px;
+  text-align: center;
+}
+
+.social-proof-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.proof-item .number {
+  color: var(--gold-primary);
+  font-weight: 900;
+  font-size: 1.1rem;
 }
 
 /* Container */
@@ -1932,6 +1985,11 @@ footer::before {
 }
 
 @media (max-width: 768px) {
+  .social-proof-inner {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .hero h1 {
     font-size: 1.6rem;
   }
@@ -2116,8 +2174,8 @@ footer::before {
         コストを抑えた快適な暮らし。そんな「ちょうどいい」海外生活、マレーシアで始めませんか？
       </p>
       <div class="hero-cta">
-        <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html" class="btn btn-accent">求人を見る</a>
-        <a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html" class="btn btn-secondary">移住サポートを見る</a>
+        <a href="https://app.hallo.ai/teleperformance/ai-assessment/interview/ja?assessmentTypeId=VEhDOEFMRHdKWmtZdFoxREJjMHQ=" target="_blank" rel="noopener noreferrer" class="btn btn-gold" onclick="trackCustomEvent('ai_assessment_click', {button_name: 'AI Assessment - Japanese'})">🤖 AI面接を受ける</a>
+        <a href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/Z2lxx2F4XUSjpWZQ29nIUg2?ismsaljsauthenabled" target="_blank" rel="noopener noreferrer" class="btn btn-gold" onclick="trackCustomEvent('scheduler_click', {button_name: 'Book Interview - Japanese'})">📅 面談を予約する</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item">
@@ -2133,6 +2191,15 @@ footer::before {
           <span class="stat-label">従業員（マレーシア/タイ）</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Banner -->
+  <section class="social-proof-banner">
+    <div class="social-proof-inner">
+      <div class="proof-item"><span class="number">500+</span><span>日本語の同僚がTPで勤務中</span></div>
+      <div class="proof-item"><span class="number">6</span><span>年連続 Great Place to Work® 認証</span></div>
+      <div class="proof-item"><span class="number">5</span><span>年連続 World's Best Workplaces™</span></div>
     </div>
   </section>
 
@@ -2169,7 +2236,7 @@ footer::before {
       </div>
       
       <div class="gptw-header">
-        <img src="photos/World’sBestWorkplaces.png" alt="World's Best Workplaces 2025" class="gptw-badge">
+        <img src="photos/World'sBestWorkplaces.png" alt="World's Best Workplaces 2025" class="gptw-badge">
         <div class="gptw-title-block">
           <h2 class="section-title">World's Best Workplaces™ <span class="gptw-highlight">5年連続受賞</span></h2>
           <p class="section-subtitle">Great Place to Work® 認定</p>
@@ -2341,46 +2408,6 @@ footer::before {
           </div>
         </a>
 
-        <!--<a href="https://tpmyandtpth.github.io/JLP/career-growth.html" class="icon-card">
-          <span class="icon-card-icon">📈</span>
-          <div class="icon-card-meta">
-            <div class="icon-card-title">キャリアパス・昇進制度</div>
-            <div class="icon-card-desc">言語・トレーニングプログラム</div>
-          </div>
-        </a>-->
-        
-       <!-- <a href="https://tpmyandtpth.github.io/JLP/culture-and-events.html" class="icon-card">
-          <span class="icon-card-icon">🎉</span>
-          <div class="icon-card-meta">
-            <div class="icon-card-title">イベント・社内カルチャー</div>
-            <div class="icon-card-desc">楽しい職場環境</div>
-          </div>
-        </a>-->
-
-       <!-- <a href="https://tpmyandtpth.github.io/JLP/faq.html" class="icon-card"> --
-          <div class="icon-card-meta">
-            <div class="icon-card-title">FAQ・よくある質問</div>
-            <div class="icon-card-desc">疑問を解決</div>
-          </div>
-        </a>>
-          <span class="icon-card-icon">❓</span>
-<!--   <a href="https://tpmyandtpth.github.io/xRAF/" target="_blank" rel="noopener noreferrer" class="icon-card">
-          <span class="icon-card-icon">🌐</span>
-          <div class="icon-card-meta">
-            <div class="icon-card-title">External RAF</div>
-            <div class="icon-card-desc">採用ポータル</div>
-          </div>
-        </a>
-
-       
-        <a href="https://tpmyandtpth.github.io/JLP/" class="icon-card">
-          <span class="icon-card-icon">📝</span>
-          <div class="icon-card-meta">
-            <div class="icon-card-title">ブログ・コラム</div>
-            <div class="icon-card-desc">役立つ記事</div>
-          </div>
-        </a>
- -->       
         <a href="https://line.me/R/ti/p/@286nmdsd?from=page&searchId=286nmdsd" target="_blank" rel="noopener noreferrer" class="icon-card">
           <span class="icon-card-icon">💬</span>
           <div class="icon-card-meta">
@@ -2400,16 +2427,9 @@ footer::before {
       <p class="section-subtitle">現場の声を短い動画でご紹介します</p>
 
       <div class="video-grid">
-        <!-- New Video -->
         <article class="video-card">
           <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/N6l7PUQR0tw"
-              title="TP社員インタビュー：最新動画"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/N6l7PUQR0tw" title="TP社員インタビュー：最新動画" loading="lazy" decoding="async" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：最新動画</h3>
@@ -2418,16 +2438,9 @@ footer::before {
           </header>
         </article>
 
-        <!-- Agent Video -->
         <article class="video-card">
           <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/H4SVUrCjTPM"
-              title="TP社員インタビュー：エージェント編"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/H4SVUrCjTPM" title="TP社員インタビュー：エージェント編" loading="lazy" decoding="async" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：エージェント編</h3>
@@ -2436,16 +2449,9 @@ footer::before {
           </header>
         </article>
 
-        <!-- Team Leader Video -->
         <article class="video-card">
           <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/VB6KSdFYLdE"
-              title="TP社員インタビュー：チームリーダー編"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/VB6KSdFYLdE" title="TP社員インタビュー：チームリーダー編" loading="lazy" decoding="async" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：チームリーダー編</h3>
@@ -2454,16 +2460,9 @@ footer::before {
           </header>
         </article>
 
-        <!-- Operations Manager Video -->
         <article class="video-card">
           <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/pa-qdCGkxA4"
-              title="TP社員インタビュー：オペレーションマネージャー編"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/pa-qdCGkxA4" title="TP社員インタビュー：オペレーションマネージャー編" loading="lazy" decoding="async" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
           <header class="video-meta">
             <h3 class="video-title">TP社員インタビュー：オペレーションマネージャー編</h3>
@@ -2541,7 +2540,6 @@ footer::before {
     </div>
   </section>
 
-  <!-- Continue with all other sections... (truncated for space) -->
     <!-- Benefits Section (Enhanced Design) -->
   <section class="benefits" id="benefits">
     <div class="container">
@@ -2845,19 +2843,16 @@ footer::before {
     </div>
   </section>
 
-  <!-- TA Team Section (Added with bigger photos) -->
+  <!-- TA Team Section -->
   <section class="ta-team" id="ta-team">
     <div class="container">
       <h2 class="section-title">採用チーム</h2>
       <p class="section-subtitle">応募から入社まで、日本語で伴走します</p>
       
       <div class="ta-team-container">
-<!-- Leader -->
 <div class="ta-leader" id="joseph">
   <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book" class="ta-leader-img-link" aria-label="ジョセフに相談（カジュアル面談を予約）">
-    <img src="photos/Joseph Hiroyuki Ueda.jpg"
-         alt="Joseph（ジョセフ）— シニアマネージャー｜タレントアクイジション"
-         class="ta-leader-img" loading="lazy" decoding="async">
+    <img src="photos/Joseph Hiroyuki Ueda.jpg" alt="Joseph（ジョセフ）— シニアマネージャー｜タレントアクイジション" class="ta-leader-img" loading="lazy" decoding="async">
   </a>
   <h3 class="ta-leader-name">Joseph（ジョセフ）</h3>
   <p class="ta-leader-role">シニアマネージャー｜タレントアクイジション</p>
@@ -2871,7 +2866,6 @@ footer::before {
   </div>
 </div>
 
-<!-- Team Members -->
 <div class="ta-team-grid">
   <article class="ta-member" id="Taito ">
     <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book" aria-label="Taito に相談（カジュアル面談を予約）">
@@ -2925,11 +2919,11 @@ footer::before {
     </div>
   </article>
 </div>
-</div>          <!-- end .ta-team-container -->
-</div>          <!-- end .container -->
-</section>      <!-- end .ta-team -->
+</div>
+</div>
+</section>
 
-  <!-- FAQ Section (Added) -->
+  <!-- FAQ Section -->
   <section class="faq-section" id="faq">
     <div class="container">
       <h2 class="section-title">FAQ・よくある質問</h2>
@@ -2987,7 +2981,7 @@ footer::before {
     </div>
   </section>
 
-<!-- Contact (3 Smart Links Only) -->
+<!-- Contact -->
 <section class="contact-min" id="contact">
   <div class="container">
     <h2 class="section-title">お問い合わせ・各種リンク</h2>
@@ -3085,80 +3079,52 @@ footer::before {
     </p>
   </div>
 </footer>
-<!-- Floating Apply Button -->
 
 <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=" target="_blank" rel="noopener noreferrer" class="floating-apply" aria-label="今すぐ応募" onclick="trackCustomEvent('apply_click', {button_name: 'Apply Now - Japanese'})">応募する</a>
-<!--<a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=" target="_blank" rel="noopener noreferrer" class="floating-apply" aria-label="今すぐ応募">応募する</a>-->
 
-<!-- Floating Casual Interview Button -->
 <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談" onclick="trackCustomEvent('casual_interview_click', {button_name: 'Casual Interview - Japanese'})">カジュアル面談</a>
-<!--<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談">カジュアル面談</a>-->
 
-<!-- Back to Top Button -->
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
-<!-- JavaScript (with Error Handling Added) -->
 <script>
-// Hero Typewriter Effect with Error Handling
 try {
   (function(){
     const el = document.getElementById('hero-rotate');
     if(!el) return;
-    
     const lines = [
       '暮らすように、海外で働く。',
       '日本語で始める、グローバルキャリア。',
       '東南アジアの"ちょうどいい"生活。'
     ];
-    
     const speed = 46;
     const hold = 1400;
     const gap = 350;
     let i = 0, j = 0, del = false;
-
     function tick(){
       const text = lines[i];
       el.textContent = del ? text.slice(0, j--) : text.slice(0, j++);
-      
-      if(!del && j > text.length){ 
-        del = true; 
-        setTimeout(tick, hold); 
-        return; 
-      }
-      
-      if(del && j < 0){ 
-        del = false; 
-        i = (i+1) % lines.length; 
-        setTimeout(tick, gap); 
-        return; 
-      }
-      
+      if(!del && j > text.length){ del = true; setTimeout(tick, hold); return; }
+      if(del && j < 0){ del = false; i = (i+1) % lines.length; setTimeout(tick, gap); return; }
       setTimeout(tick, speed);
     }
-    
     tick();
   })();
 } catch(error) {
   console.warn('Typewriter effect failed:', error);
-  // Fallback: show static text
   const el = document.getElementById('hero-rotate');
   if(el) el.textContent = '暮らすように、海外で働く。';
 }
 
-// GPTW Years Animation with Error Handling
 try {
   (function(){
     const el = document.getElementById('gptwYears');
     if(!el) return;
-    
     const logo = '<img src="photos/great place to work.png" alt="Great Place to Work®">';
     let n = 0, target = 6;
     let hasAnimated = false;
-    
     function animate(){
       if(hasAnimated) return;
       hasAnimated = true;
-      
       function step(){ 
         n++; 
         el.innerHTML = `${logo}<span>Great Place to Work® <strong>${n}</strong> 年連続</span>`;
@@ -3166,8 +3132,6 @@ try {
       }
       step();
     }
-    
-    // Trigger on scroll into view
     const observer = new IntersectionObserver((entries) => {
       if(entries[0].isIntersecting) animate();
     });
@@ -3179,20 +3143,16 @@ try {
   if(el) el.innerHTML = '<img src="photos/great place to work.png" alt="Great Place to Work®"><span>Great Place to Work® <strong>6</strong> 年連続</span>';
 }
 
-// Mobile Menu Toggle with Error Handling
 try {
   (function(){
     const toggle = document.getElementById('mobileToggle');
     const menu = document.getElementById('mobileMenu');
-    
     if(toggle && menu){
       toggle.addEventListener('click', function(){
         toggle.classList.toggle('active');
         menu.classList.toggle('active');
         toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
       });
-      
-      // Close menu when clicking links
       menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           toggle.classList.remove('active');
@@ -3200,8 +3160,6 @@ try {
           toggle.setAttribute('aria-expanded', 'false');
         });
       });
-      
-      // Close menu when clicking outside
       document.addEventListener('click', (e) => {
         if(!menu.contains(e.target) && !toggle.contains(e.target)) {
           menu.classList.remove('active');
@@ -3215,51 +3173,31 @@ try {
   console.warn('Mobile menu setup failed:', error);
 }
 
-// Back to Top Button with Error Handling
 try {
   (function(){
     const backToTop = document.getElementById('backToTop');
     if(!backToTop) return;
-    
-    // Show/hide button on scroll
     window.addEventListener('scroll', () => {
-      if(window.pageYOffset > 300){
-        backToTop.classList.add('show');
-      } else {
-        backToTop.classList.remove('show');
-      }
+      if(window.pageYOffset > 300) backToTop.classList.add('show');
+      else backToTop.classList.remove('show');
     });
-    
-    // Scroll to top when clicked
     backToTop.addEventListener('click', () => {
-      window.scrollTo({ 
-        top: 0, 
-        behavior: 'smooth' 
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   })();
 } catch(error) {
   console.warn('Back to top button failed:', error);
 }
 
-// FAQ Accordion with Error Handling
 try {
   (function(){
     const items = document.querySelectorAll('.faq-item');
-    
     items.forEach(item => {
       const question = item.querySelector('.faq-question');
-      
       question.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
-        
-        // Close all items
         items.forEach(i => i.classList.remove('active'));
-        
-        // Open clicked item if it wasn't active
-        if(!isActive) {
-          item.classList.add('active');
-        }
+        if(!isActive) item.classList.add('active');
       });
     });
   })();
@@ -3267,24 +3205,18 @@ try {
   console.warn('FAQ accordion failed:', error);
 }
 
-// Smooth Scroll for Anchor Links with Error Handling
 try {
   (function(){
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if(href === '#') return;
-        
         e.preventDefault();
         const target = document.querySelector(href);
         if(target){
-          const offset = 70; // Header height
+          const offset = 70;
           const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-          
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
         }
       });
     });
@@ -3293,7 +3225,6 @@ try {
   console.warn('Smooth scroll failed:', error);
 }
 
-// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
   console.log('TP Japan site initialized');
 });
