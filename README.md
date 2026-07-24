@@ -106,11 +106,11 @@ TPは**1978年にフランス・パリで設立**されたグローバルBPO（�
 |---|---|---|---|---|---|
 | カスタマーサポート（航空プロジェクト｜新規立ち上げ） | タイ・バンコク（Singha Complex） | 日本語＋英語 | 正社員 | 24時間365日シフト制（週5日／1日8時間＋休憩1時間） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/39527/customer-service-representative---japanese-speaking/job?mode=job&iis=geo&iisn=jlp) |
 | カスタマーサポート（英語力不問、Eコマース） | Gtower, クアラルンプール | 日本語メイン | 正社員 | 週5日・1日8時間（7:00〜22:30のシフト制） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=geo&iisn=jlp) |
-| カスタマーサポート（オンライン宿泊予約サイト） | ペナンまたはクアラルンプール | 日本語＋英語 | 正社員 | 週5日・1日8時間（7:00〜22:30／土日祝含む） | 応募ページ（求人詳細参照） |
-| コンタクトセンター・エグゼクティブ（有名ホテルプロジェクト） | Gtower, クアラルンプール | 日本語＋英語 | 正社員 | 9:00〜18:00（週5日勤務／週2日休み） | 応募ページ（求人詳細参照） |
+| カスタマーサポート（オンライン宿泊予約サイト） | ペナンまたはクアラルンプール | 日本語＋英語 | 正社員 | 週5日・1日8時間（7:00〜22:30／土日祝含む） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=geo&iisn=jlp) |
+| コンタクトセンター・エグゼクティブ（有名ホテルプロジェクト） | Gtower, クアラルンプール | 日本語＋英語 | 正社員 | 9:00〜18:00（週5日勤務／週2日休み） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=geo&iisn=jlp) |
 | カスタマーサービスオペレーションマネージャー | ペナンまたはクアラルンプール | 日本語 | 正社員 | ― | [応募ページ](https://jobs-teleperformance.icims.com/jobs/81096/japanese-speaking-customer-service-operation-manager/job?mode=view) |
 | 大手SNS企業のカスタマーサービスアドバイザー | ペナン（One Precinctオフィス） | 日本語メイン | 正社員 | 7:00〜20:00の間でシフト制（週5日／週2日休み） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=geo&iisn=jlp) |
-| 日本語カスタマーサービスアドバイザー（金融サポート） | ペナン | 日本語メイン | 正社員 | 週5日勤務（シフト制）／8:00〜17:00（マレーシア時間） | 応募ページ（求人詳細参照） |
+| 日本語カスタマーサービスアドバイザー（金融サポート） | ペナン | 日本語メイン | 正社員 | 週5日勤務（シフト制）／8:00〜17:00（マレーシア時間） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=geo&iisn=jlp) |
 | アシスタントオペレーションマネージャー（カスタマーサービス） | タイ・バンコク | 日本語 | 正社員 | ― | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/78542/assistant-operation-manager-%28customer-service%29---japanese-speaking/job?mode=job&iis=geo&iisn=jlp) |
 
 > 職務内容や応募条件の詳細（必須スキル、歓迎条件など）は各求人ページに記載されています。「未経験・新卒歓迎」の案件も複数あります。どれが自分に合うか迷ったら、日本語で30分の[カジュアル面談](#7-カジュアル面談)をご利用ください。
