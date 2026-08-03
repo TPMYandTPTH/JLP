@@ -24,8 +24,9 @@
 13. [採用チーム紹介](#13-採用チーム紹介)
 14. [社員の声（実際の声）](#14-社員の声実際の声)
 15. [よくある質問（FAQ）](#15-よくある質問faq)
-16. [お問い合わせ・各種リンク](#16-お問い合わせ各種リンク)
-17. [監査メモ（内部用）](#17-監査メモ内部用)
+16. [友人紹介制度（xRAF / RAF）](#16-友人紹介制度xraf--raf)
+17. [お問い合わせ・各種リンク](#17-お問い合わせ各種リンク)
+18. [監査メモ（内部用）](#18-監査メモ内部用)
 
 ---
 
@@ -103,14 +104,14 @@ TPは**1978年にフランス・パリで設立**されたグローバルBPO（�
 
 | 職種 | 勤務地 | 言語 | 雇用形態 | シフト | 応募リンク |
 |---|---|---|---|---|---|
-| カスタマーサポート（航空プロジェクト｜新規立ち上げ） | タイ・バンコク（Singha Complex） | 日本語＋英語 | 正社員 | 24時間365日シフト制（週5日／1日8時間＋休憩1時間） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/39527/customer-service-representative---japanese-speaking/job?mode=job&iis=JPLandingPage&iisn=) |
-| カスタマーサポート（英語力不問、Eコマース） | Gtower, クアラルンプール | 日本語メイン | 正社員 | 週5日・1日8時間（7:00〜22:30のシフト制） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=) |
-| カスタマーサポート（オンライン宿泊予約サイト） | ペナンまたはクアラルンプール | 日本語＋英語 | 正社員 | 週5日・1日8時間（7:00〜22:30／土日祝含む） | 応募ページ（求人詳細参照） |
-| コンタクトセンター・エグゼクティブ（有名ホテルプロジェクト） | Gtower, クアラルンプール | 日本語＋英語 | 正社員 | 9:00〜18:00（週5日勤務／週2日休み） | 応募ページ（求人詳細参照） |
+| カスタマーサポート（航空プロジェクト｜新規立ち上げ） | タイ・バンコク（Singha Complex） | 日本語＋英語 | 正社員 | 24時間365日シフト制（週5日／1日8時間＋休憩1時間） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/39527/customer-service-representative---japanese-speaking/job?mode=job&iis=geo&iisn=jlp) |
+| カスタマーサポート（英語力不問、Eコマース） | Gtower, クアラルンプール | 日本語メイン | 正社員 | 週5日・1日8時間（7:00〜22:30のシフト制） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=geo&iisn=jlp) |
+| カスタマーサポート（オンライン宿泊予約サイト） | ペナンまたはクアラルンプール | 日本語＋英語 | 正社員 | 週5日・1日8時間（7:00〜22:30／土日祝含む） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=geo&iisn=jlp) |
+| コンタクトセンター・エグゼクティブ（有名ホテルプロジェクト） | Gtower, クアラルンプール | 日本語＋英語 | 正社員 | 9:00〜18:00（週5日勤務／週2日休み） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=geo&iisn=jlp) |
 | カスタマーサービスオペレーションマネージャー | ペナンまたはクアラルンプール | 日本語 | 正社員 | ― | [応募ページ](https://jobs-teleperformance.icims.com/jobs/81096/japanese-speaking-customer-service-operation-manager/job?mode=view) |
-| 大手SNS企業のカスタマーサービスアドバイザー | ペナン（One Precinctオフィス） | 日本語メイン | 正社員 | 7:00〜20:00の間でシフト制（週5日／週2日休み） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=) |
-| 日本語カスタマーサービスアドバイザー（金融サポート） | ペナン | 日本語メイン | 正社員 | 週5日勤務（シフト制）／8:00〜17:00（マレーシア時間） | 応募ページ（求人詳細参照） |
-| アシスタントオペレーションマネージャー（カスタマーサービス） | タイ・バンコク | 日本語 | 正社員 | ― | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/78542/assistant-operation-manager-%28customer-service%29---japanese-speaking/job?mode=job&iis=JPLandingPage&iisn=) |
+| 大手SNS企業のカスタマーサービスアドバイザー | ペナン（One Precinctオフィス） | 日本語メイン | 正社員 | 7:00〜20:00の間でシフト制（週5日／週2日休み） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=geo&iisn=jlp) |
+| 日本語カスタマーサービスアドバイザー（金融サポート） | ペナン | 日本語メイン | 正社員 | 週5日勤務（シフト制）／8:00〜17:00（マレーシア時間） | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=geo&iisn=jlp) |
+| アシスタントオペレーションマネージャー（カスタマーサービス） | タイ・バンコク | 日本語 | 正社員 | ― | [応募ページ](https://careerseng-teleperformance.icims.com/jobs/78542/assistant-operation-manager-%28customer-service%29---japanese-speaking/job?mode=job&iis=geo&iisn=jlp) |
 
 > 職務内容や応募条件の詳細（必須スキル、歓迎条件など）は各求人ページに記載されています。「未経験・新卒歓迎」の案件も複数あります。どれが自分に合うか迷ったら、日本語で30分の[カジュアル面談](#7-カジュアル面談)をご利用ください。
 
@@ -524,7 +525,22 @@ TPでは、**日本語を話すタレントアクイジション（TA）チー�
 
 ---
 
-## 16. お問い合わせ・各種リンク
+## 16. 友人紹介制度（xRAF / RAF）
+
+TPには2つの独立した友人紹介（リファラル）プログラムがあります。どちらも、紹介された方が採用され、一定の試用期間を通過した後にボーナスが支払われます。
+
+| プログラム | 対象者 | ボーナス目安 | 受け取り条件 |
+|---|---|---|---|
+| **xRAF** | TP社員以外の方（どなたでも紹介可能） | 通訳者（在宅勤務）：RM3,000／対象言語職種：RM800／中国語（ジョホール）：RM500 | **マレーシアの携帯電話番号＋Touch 'n GoのeWalletアカウントが必須**（ボーナスの振込先として利用） |
+| **RAF** | **現TP社員限定** | 成功紹介1件につき最大RM12,000 | 社内BMS IDでの申請が必要。TP社外の方・退職者は対象外 |
+
+> ⚠️ **ご注意：** xRAFに参加するには、マレーシアの電話番号とTouch 'n Go eWalletの開設が必要です（ボーナスはこのウォレットへ送金されます）。マレーシア国外在住の方や口座をお持ちでない方は、事前に準備をお願いします。RAFは現役のTP社員のみが対象で、社外の方はご利用いただけません。
+>
+> ※本プログラムの詳細（最新のボーナス額・対象職種・支払い条件）は随時更新される場合があります。正式な条件は社内案内または採用担当者にご確認ください。
+
+---
+
+## 17. お問い合わせ・各種リンク
 
 | 手段 | 内容 |
 |---|---|
@@ -540,7 +556,7 @@ Teleperformance Malaysia Sdn Bhd の **SSM（マレーシア会社委員会）�
 
 ---
 
-## 17. 監査メモ（内部用）
+## 18. 監査メモ（内部用）
 
 以下は、サイトのHTMLソース上にはコメントアウト（`<!-- -->`）として存在するものの、**現在公開されているページ上では表示されていない**ため、本ガイド本文には反映していない情報です。将来コメントを解除して公開する場合の参考として記載します。
 
@@ -548,8 +564,9 @@ Teleperformance Malaysia Sdn Bhd の **SSM（マレーシア会社委員会）�
   - 評価・昇給：「年**1回**のパフォーマンスレビュー。成果・スキル・貢献に応じて昇給・登用のチャンスがあります。」（本文には一般的な「成果に基づく評価制度」とだけ記載し、年1回という頻度は明記していません）
   - 休暇テーブル：「年次有給：初年度**15日**、勤続に応じて最大**21日**」「病気休暇：**14日**（年間）」という詳細テーブルが丸ごとコメントアウトされています。公開ページの本文には「マレーシア：有給休暇年15日」とのみ記載があり、勤続による最大21日への増加や、病気休暇14日の記載は非表示です。
 - **testimonials.html**：ページ上部の動画セクションは表示されていますが、フィルター機能つきの体験談カード一覧（M.A、T.S.、A.K.、Y.M.、R.N.、K.H（チームリーダー）、S.H、E.S、T.Y の名前・肩書き・引用を含む）および「Interview Stories」2本のストーリーは、セクション全体がHTMLコメントとして無効化されており、実際のサイト訪問者には表示されません。うちM.Aは about-tp.html に実際に表示されている声と同一人物と思われます。
-- **13ヶ月給与（ボーナス）**、**紹介ボーナス制度（xRAF/RAF）**、**ジョホールバルのオフィスや求人**、**14言語対応の求人一覧表**、**ソウルとの生活コスト比較**については、コメントアウト部分を含めサイト内のどこにも記載が見つかりませんでした。旧README内のこれらの記述は事実無根であり、本ガイドには一切含めていません。
+- **13ヶ月給与（ボーナス）**、**ジョホールバルのオフィスや求人**、**14言語対応の求人一覧表**、**ソウルとの生活コスト比較**については、コメントアウト部分を含めサイト内のどこにも記載が見つかりませんでした。旧README内のこれらの記述は事実無根であり、本ガイドには一切含めていません。
+- **友人紹介制度（xRAF/RAF）**：JLPサイトの14ページ（index, about-tp, salary-and-benefits, relocation-visa, hiring-process, casual-interview, office-environment, area-around-office, cost-of-living, daily-life-malaysia, why-malaysia-thailand, ta-team, testimonials, open-jobs）のいずれにも、コメントアウト部分を含め記載は見つかりませんでした。第16章の内容は依頼者（採用担当）からの情報として追記したものであり、JLPサイト自体を情報源とはしていません。サイトに正式に掲載する場合は、最新のボーナス額・対象条件を採用チームにご確認のうえ反映してください。
 
 ---
 
-*本ガイドは https://tpmyandtpth.github.io/JLP/ の公開ページ（index, about-tp, cost-of-living, salary-and-benefits, testimonials, ta-team, casual-interview, office-environment, area-around-office, daily-life-malaysia, relocation-visa, hiring-process, open-jobs, why-malaysia-thailand の各HTML）に実際にレンダリングされているテキストのみを情報源として作成しています。*
+*本ガイドは https://tpmyandtpth.github.io/JLP/ の公開ページ（index, about-tp, cost-of-living, salary-and-benefits, testimonials, ta-team, casual-interview, office-environment, area-around-office, daily-life-malaysia, relocation-visa, hiring-process, open-jobs, why-malaysia-thailand の各HTML）に実際にレンダリングされているテキストを主な情報源として作成しています。第16章（友人紹介制度）のみ、採用担当からの追加情報にもとづき記載しています。*
