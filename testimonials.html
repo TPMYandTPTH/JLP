@@ -725,6 +725,11 @@ footer::before {
   box-shadow: var(--shadow-sm);
 }
 
+/* Full-width feature video (spans both grid columns) */
+.video-card--wide {
+  grid-column: 1 / -1;
+}
+
 .video-embed {
   position: relative;
   padding-bottom: 56.25%;
@@ -1018,6 +1023,60 @@ footer::before {
       <p class="section-subtitle">現場の声を短い動画でご紹介します</p>
 
       <div class="video-grid">
+        <!-- Agent Horizontal (full width) -->
+        <article class="video-card video-card--wide">
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/HhRpIGuWnXE"
+              title="TPで働く：エージェントの声"
+              loading="lazy"
+              decoding="async"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">TPで働く：エージェントの声</h3>
+            <p class="video-desc">日々のサポート業務とチームの雰囲気をご紹介</p>
+            <a class="video-link" href="https://youtu.be/HhRpIGuWnXE" target="_blank" rel="noopener">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <!-- QA Horizontal -->
+        <article class="video-card">
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/BPCNte1kIR0"
+              title="TPで働く：QA（品質管理）の声"
+              loading="lazy"
+              decoding="async"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">TPで働く：QA（品質管理）の声</h3>
+            <p class="video-desc">サービス品質を支えるQAの役割とキャリア</p>
+            <a class="video-link" href="https://youtu.be/BPCNte1kIR0" target="_blank" rel="noopener">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <!-- OM Horizontal -->
+        <article class="video-card">
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/GJMXLvF9Ctw"
+              title="TPで働く：オペレーションマネージャーの声"
+              loading="lazy"
+              decoding="async"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">TPで働く：オペレーションマネージャーの声</h3>
+            <p class="video-desc">チームと成果を動かすマネジメントの仕事</p>
+            <a class="video-link" href="https://youtu.be/GJMXLvF9Ctw" target="_blank" rel="noopener">YouTubeで見る →</a>
+          </header>
+        </article>
+
         <!-- New Video -->
         <article class="video-card">
           <div class="video-embed">
