@@ -486,6 +486,32 @@ nav a:focus {
   font-size: 0.85rem;
 }
 
+/* LinkedIn button */
+.btn-linkedin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: #0a66c2;
+  border-color: #0a66c2;
+  color: var(--tp-white);
+}
+
+.btn-linkedin svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.btn-linkedin:hover,
+.btn-linkedin:focus {
+  background: #004182;
+  border-color: #004182;
+  color: var(--tp-white);
+  transform: translateY(-2px);
+  outline: none;
+}
+
 .hero-stats {
   display: flex;
   gap: 2rem;
@@ -1319,7 +1345,7 @@ nav a:focus {
 
 .ta-team-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
@@ -1368,6 +1394,15 @@ nav a:focus {
 
 .ta-member-links {
   margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.ta-member-social {
+  margin-top: 0.6rem;
+}
+
+.ta-member-social .btn-linkedin {
+  padding: 0.35rem 0.85rem;
   font-size: 0.75rem;
 }
 
@@ -1708,6 +1743,54 @@ footer::before {
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
   background: rgba(255, 255, 255, 1);
   outline: none;
+}
+
+.floating-line {
+  position: fixed;
+  bottom: 20px;
+  right: 292px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #06c755;
+  color: var(--tp-white);
+  border: 2px solid #06c755;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(6,199,85,0.35);
+  z-index: 998;
+  transition: var(--transition);
+}
+
+.floating-line svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.floating-line:hover,
+.floating-line:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(6,199,85,0.45);
+  background: #05b34c;
+  border-color: #05b34c;
+  outline: none;
+}
+
+@media (max-width: 900px) {
+  .floating-line {
+    right: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-line {
+    bottom: 14px;
+    right: 112px;
+    width: 44px;
+    height: 44px;
+  }
 }
 
 /* Back to Top Button with Transparency */
@@ -2908,6 +2991,7 @@ footer::before {
     <a class="btn btn-sm" href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book">面談を予約</a>
     <a class="btn btn-sm btn-ghost" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">LINEで質問</a>
     <a class="btn btn-sm btn-ghost" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
+    <a class="btn btn-sm btn-linkedin" href="https://www.linkedin.com/in/hiroyukiuedajapanesehr" target="_blank" rel="noopener noreferrer" aria-label="上田 ジョセフ 博之 の LinkedIn プロフィール"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
   </div>
 </div>
 
@@ -2923,6 +3007,7 @@ footer::before {
       <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book" class="text-link">面談を予約</a>
       · <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html" class="text-link">求人を見る</a>
     </div>
+    <div class="ta-member-social"><a class="btn btn-sm btn-linkedin" href="https://www.linkedin.com/in/taito-kobayashi" target="_blank" rel="noopener noreferrer" aria-label="小林 泰斗 の LinkedIn プロフィール"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a></div>
   </article>
 
   <article class="ta-member" id="akito">
@@ -2936,6 +3021,7 @@ footer::before {
       <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book" class="text-link">面談を予約</a>
       · <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html" class="text-link">求人を見る</a>
     </div>
+    <div class="ta-member-social"><a class="btn btn-sm btn-linkedin" href="https://www.linkedin.com/in/akito-takeshita" target="_blank" rel="noopener noreferrer" aria-label="竹下 明翔 の LinkedIn プロフィール"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a></div>
   </article>
 
   <article class="ta-member" id="koyori">
@@ -2949,6 +3035,7 @@ footer::before {
       <a href="https://tpmyandtpth.github.io/JLP/casual-interview.html#book" class="text-link">面談を予約</a>
       · <a href="https://tpmyandtpth.github.io/JLP/open-jobs.html" class="text-link">求人を見る</a>
     </div>
+    <div class="ta-member-social"><a class="btn btn-sm btn-linkedin" href="https://www.linkedin.com/in/koyorihanada" target="_blank" rel="noopener noreferrer" aria-label="花田 小瑶里 の LinkedIn プロフィール"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a></div>
   </article>
 </div>
 </div>
@@ -3115,6 +3202,9 @@ footer::before {
 <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=" target="_blank" rel="noopener noreferrer" class="floating-apply" aria-label="今すぐ応募" onclick="trackCustomEvent('apply_click', {button_name: 'Apply Now - Japanese'})">応募する</a>
 
 <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談" onclick="trackCustomEvent('casual_interview_click', {button_name: 'Casual Interview - Japanese'})">カジュアル面談</a>
+
+<!-- Floating LINE Button -->
+<a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer" class="floating-line" aria-label="LINEで相談する" title="LINEで相談する" onclick="trackCustomEvent('line_click', {button_name: 'LINE Chat - Japanese'})"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 10.3c0-5.37-5.38-9.74-12-9.74S0 4.93 0 10.3c0 4.81 4.27 8.85 10.04 9.61.39.09.92.26 1.06.59.12.3.08.77.04 1.08l-.17 1.02c-.05.3-.24 1.19 1.05.65 1.29-.54 6.92-4.08 9.44-6.98C23.18 14.38 24 12.45 24 10.3zM7.67 13.5H5.29a.63.63 0 0 1-.63-.63V8.11a.63.63 0 1 1 1.26 0v4.13h1.75a.63.63 0 1 1 0 1.26zm2.47-.63a.63.63 0 0 1-1.26 0V8.11a.63.63 0 1 1 1.26 0v4.76zm5.74 0a.63.63 0 0 1-.43.6.66.66 0 0 1-.2.03.62.62 0 0 1-.51-.25l-2.44-3.32v2.94a.63.63 0 0 1-1.26 0V8.11a.63.63 0 0 1 .43-.6.68.68 0 0 1 .19-.03c.2 0 .38.1.5.25l2.46 3.33V8.11a.63.63 0 1 1 1.26 0v4.76zm3.86-3.01a.63.63 0 1 1 0 1.26h-1.75v1.12h1.75a.63.63 0 1 1 0 1.26h-2.39a.63.63 0 0 1-.62-.63V8.11c0-.35.28-.63.63-.63h2.38a.63.63 0 1 1 0 1.26h-1.75v1.12h1.75z"/></svg></a>
 
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 

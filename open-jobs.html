@@ -575,6 +575,54 @@ footer::before {
   outline: none;
 }
 
+.floating-line {
+  position: fixed;
+  bottom: 20px;
+  right: 292px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #06c755;
+  color: var(--tp-white);
+  border: 2px solid #06c755;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(6,199,85,0.35);
+  z-index: 998;
+  transition: var(--transition);
+}
+
+.floating-line svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.floating-line:hover,
+.floating-line:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(6,199,85,0.45);
+  background: #05b34c;
+  border-color: #05b34c;
+  outline: none;
+}
+
+@media (max-width: 900px) {
+  .floating-line {
+    right: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-line {
+    bottom: 14px;
+    right: 112px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
 .back-to-top {
   position: fixed;
   bottom: 80px;
@@ -791,17 +839,52 @@ footer::before {
   padding: 0 20px;
 }
 
+.jobs-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
 .count {
   font-weight: 800;
-  margin-bottom: 0.75rem;
   color: #000;
   font-size: 1.1rem;
+}
+
+.expand-all {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tp-charcoal);
+  background: var(--tp-white);
+  border: 2px solid var(--tp-charcoal);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.expand-all:hover {
+  background: var(--tp-charcoal);
+  color: var(--tp-white);
+}
+
+.expand-all:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: 1.25rem;
+  align-items: start;
 }
 
 .card {
@@ -812,7 +895,6 @@ footer::before {
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  min-height: 550px;
   box-shadow: var(--shadow-sm);
   position: relative;
 }
@@ -825,7 +907,7 @@ footer::before {
 .card-header {
   background: var(--tp-off);
   color: var(--tp-dark);
-  padding: 1.25rem;
+  padding: 0.9rem 1.1rem;
   position: relative;
 }
 
@@ -840,7 +922,7 @@ footer::before {
 }
 
 .card-body {
-  padding: 1.25rem;
+  padding: 0.9rem 1.1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -851,14 +933,14 @@ footer::before {
   display: flex;
   gap: 0.5rem;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 .role h3 {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 900;
   color: var(--tp-dark);
-  line-height: 1.3;
+  line-height: 1.35;
   flex: 1;
 }
 
@@ -876,26 +958,96 @@ footer::before {
 .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.35rem;
+  margin-bottom: 0;
 }
 
 .meta span {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--tp-gray-dark);
-  background: var(--tp-off);
+  background: var(--tp-white);
   border: 1px solid var(--tp-light);
-  padding: 0.25rem 0.6rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 6px;
   font-weight: 500;
 }
 
+/* Long meta (shift details) only shows once the JD is expanded */
+.card:not(.is-open) .meta .meta-detail {
+  display: none;
+}
+
+/* One-line teaser so a collapsed card still says what the job is */
+.card-summary {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--tp-gray-dark);
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card.is-open .card-summary {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+/* "View more" toggle */
+.jd-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-purple);
+  background: var(--tp-white);
+  border: 1px dashed var(--accent-purple);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.jd-toggle:hover {
+  background: rgba(120, 0, 150, 0.06);
+}
+
+.jd-toggle:focus-visible {
+  background: rgba(120, 0, 150, 0.06);
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 2px;
+}
+
+.jd-toggle-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.card.is-open .jd-toggle-icon {
+  transform: rotate(180deg);
+}
+
 .content-scroll {
-  flex: 1;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  padding-right: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+}
+
+.card.is-open .content-scroll {
+  max-height: 340px;
   overflow-y: auto;
+  opacity: 1;
+  margin-top: 0.9rem;
   padding-right: 0.5rem;
-  margin-bottom: 1rem;
-  max-height: none;
 }
 
 .content-scroll::-webkit-scrollbar {
@@ -917,7 +1069,11 @@ footer::before {
 }
 
 .jd-section, .requirements-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.requirements-section:last-child {
+  margin-bottom: 0;
 }
 
 .jd-section h4, .requirements-section h4 {
@@ -981,8 +1137,8 @@ footer::before {
 .card-footer {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.25rem;
+  gap: 0.6rem;
+  padding: 0.85rem 1.1rem;
   margin-top: auto;
   background: var(--tp-off);
   border-top: 1px solid var(--tp-light);
@@ -996,15 +1152,19 @@ footer::before {
   width: 100%;
 }
 
+.footer-row > .apply {
+  flex: 1;
+}
+
 .footer-row.two-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 /* Button Base Styles */
 .apply, .book, .process {
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 0.9rem;
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
@@ -1018,6 +1178,35 @@ footer::before {
   white-space: nowrap;
   cursor: pointer;
   border: 2px solid;
+}
+
+/* Secondary row sits quieter than the purple apply button */
+.footer-row.secondary {
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+}
+
+.footer-row.secondary .process {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--tp-gray-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-row.secondary .process::after {
+  content: none;
+}
+
+.footer-row.secondary .process:hover {
+  background: none;
+  color: var(--accent-purple);
+  transform: none;
+  box-shadow: none;
 }
 
 /* Apply Button - Primary (Purple) */
@@ -1173,10 +1362,6 @@ footer::before {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  .card {
-    min-height: 600px;
-  }
 }
 
 @media (max-width: 980px) {
@@ -1197,11 +1382,7 @@ footer::before {
     grid-template-columns: 1fr;
   }
   
-  .card {
-    min-height: auto;
-  }
-  
-  .content-scroll {
+  .card.is-open .content-scroll {
     max-height: 400px;
   }
   
@@ -1236,7 +1417,7 @@ footer::before {
     padding: 0.65rem 1rem;
   }
   
-  .content-scroll {
+  .card.is-open .content-scroll {
     max-height: 350px;
   }
 }
@@ -1341,7 +1522,13 @@ footer::before {
 
 <!-- Jobs grid -->
 <section class="jobs">
-  <div class="count" id="count" aria-live="polite"></div>
+  <div class="jobs-toolbar">
+    <div class="count" id="count" aria-live="polite"></div>
+    <button class="expand-all" id="expandAll" type="button" aria-pressed="false">
+      <span id="expandAllText">すべての詳細を見る</span>
+      <span aria-hidden="true">▾</span>
+    </button>
+  </div>
 
   <div class="grid" id="jobGrid" role="list">
     <!-- Card 1: Content Moderator (Bangkok) -->
@@ -1355,10 +1542,15 @@ footer::before {
           <span>勤務地:タイ・バンコク（Singha Complex）</span>
           <span>言語: 日本語＋英語</span>
           <span>雇用形態: 正社員</span>
-          <span>シフト: 24時間365日シフト制（週5日勤務／1日8時間勤務＋休憩1時間）</span>
+          <span class="meta-detail">シフト: 24時間365日シフト制（週5日勤務／1日8時間勤務＋休憩1時間）</span>
         </div>
       </div>
       <div class="card-body">
+        <p class="card-summary">国際航空会社のカスタマーサポート。予約・変更・搭乗手続きのご案内を担当する、新規立ち上げプロジェクトのメンバーを募集します。</p>
+        <button class="jd-toggle" type="button" aria-expanded="false">
+          <span class="jd-toggle-text">もっと見る</span>
+          <span class="jd-toggle-icon" aria-hidden="true">▾</span>
+        </button>
         <div class="content-scroll">
           <div class="jd-section">
               
@@ -1398,20 +1590,17 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <!-- Row 1: Casual Interview + View Process -->
-        <div class="footer-row two-buttons">
-          <a class="process" target="_blank" rel="noopener"
-             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
-        </div>
-        
-        <!-- Row 2: Apply Now (Full Width) & Book Interview (Full Width with Tooltip) -->
-        <div class="footer-row two-buttons">
+        <div class="footer-row">
           <a class="apply" target="_blank" rel="noopener"
              href="https://careerseng-teleperformance.icims.com/jobs/39527/customer-service-representative---japanese-speaking/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
         <!--  <a class="book" 
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
              data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a> -->
+        </div>
+        <div class="footer-row secondary">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
         </div>
       </div>
     </article>
@@ -1427,10 +1616,15 @@ footer::before {
           <span>勤務地:Gtower, クアラルンプール、マレーシア</span>
           <span>言語:日本語メイン</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:週5日・1日8時間のシフト制（7:00～22:30）</span>
+          <span class="meta-detail">シフト:週5日・1日8時間のシフト制（7:00～22:30）</span>
         </div>
       </div>
       <div class="card-body">
+        <p class="card-summary">大手ECサイトをご利用のお客様に日本語で対応。英語力は不問、未経験・新卒の方も研修から始められます。</p>
+        <button class="jd-toggle" type="button" aria-expanded="false">
+          <span class="jd-toggle-text">もっと見る</span>
+          <span class="jd-toggle-icon" aria-hidden="true">▾</span>
+        </button>
         <div class="content-scroll">
           <div class="jd-section">
             <h4>職務内容（JD）</h4>
@@ -1454,17 +1648,17 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <div class="footer-row two-buttons">
-          <a class="process" target="_blank" rel="noopener"
-             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
-        </div>
-        <div class="footer-row two-buttons">
+        <div class="footer-row">
           <a class="apply" target="_blank" rel="noopener"
              href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
           <!--<a class="book" 
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
              data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a> -->
+        </div>
+        <div class="footer-row secondary">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
         </div>
       </div>
     </article>
@@ -1480,10 +1674,15 @@ footer::before {
           <span>勤務地:ペナンまたは、クアラルンプール（マレーシア</span>
           <span>言語:日本語＋英語</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:週5日・1日8時間（7:00～22:30のシフト制／土日祝勤務を含む）</span>
+          <span class="meta-detail">シフト:週5日・1日8時間（7:00～22:30のシフト制／土日祝勤務を含む）</span>
         </div>
       </div>
       <div class="card-body">
+        <p class="card-summary">世界最大級のオンライン宿泊予約サイトで、予約変更・キャンセル・ホテルとの調整をサポートします。</p>
+        <button class="jd-toggle" type="button" aria-expanded="false">
+          <span class="jd-toggle-text">もっと見る</span>
+          <span class="jd-toggle-icon" aria-hidden="true">▾</span>
+        </button>
         <div class="content-scroll">
           <div class="jd-section">
             <h4>職務内容（JD）</h4>
@@ -1507,17 +1706,17 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <div class="footer-row two-buttons">
-          <a class="process" target="_blank" rel="noopener"
-             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
-        </div>
-        <div class="footer-row two-buttons">
+        <div class="footer-row">
           <a class="apply" target="_blank" rel="noopener"
              href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
           <!--<a class="book" 
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
              data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a> -->
+        </div>
+        <div class="footer-row secondary">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
         </div>
       </div>
     </article>
@@ -1533,10 +1732,15 @@ footer::before {
           <span>勤務地:Gtower, クアラルンプール、マレーシア</span>
           <span>言語:日本語＋英語</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:9:00～18:00（週5日勤務／週2日休み）</span>
+          <span class="meta-detail">シフト:9:00～18:00（週5日勤務／週2日休み）</span>
         </div>
       </div>
       <div class="card-body">
+        <p class="card-summary">世界的ラグジュアリーホテルの新規プロジェクト。宿泊・レストラン・スパなどのゲスト対応を日本語と英語で担当します。</p>
+        <button class="jd-toggle" type="button" aria-expanded="false">
+          <span class="jd-toggle-text">もっと見る</span>
+          <span class="jd-toggle-icon" aria-hidden="true">▾</span>
+        </button>
         <div class="content-scroll">
           <div class="jd-section">
             <h4>職務内容（JD）</h4>
@@ -1568,72 +1772,23 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <div class="footer-row two-buttons">
-          <a class="process" target="_blank" rel="noopener"
-             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
-        </div>
-        <div class="footer-row two-buttons">
+        <div class="footer-row">
           <a class="apply" target="_blank" rel="noopener"
              href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
          <!-- <a class="book" 
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
              data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>-->
         </div>
-      </div>
-    </article>
-
-    <!-- Card 5: Customer Service Operation Manager (KL/Penang) -->
-    <article class="card" role="listitem" data-loc="kl" data-lang="jp" data-shift="day" data-type="fulltime" data-keywords="オペレーションマネージャー カスタマーサービス 管理職 マネジメント KPI SLA クライアント プロジェクト">
-      <div class="card-header">
-        <div class="role">
-          <h3>カスタマーサービスオペレーションマネージャー</h3>
-          <span class="tag">採用中</span>
-        </div>
-        <div class="meta">
-          <span>勤務地:マレーシア・ペナンまたはクアラルンプール</span>
-          <span>言語:日本語</span>
-          <span>雇用形態:正社員</span>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="content-scroll">
-          <div class="jd-section">
-            <h4>ポジション概要</h4>
-            <p>グローバルクライアント向けカスタマーサポートプロジェクトにおいて、オペレーション全体の統括および最適化を担うポジションです。</p>
-            <p>顧客対応品質の向上、業務効率の改善、チームマネジメントを通じて、安定したサービス提供とビジネス成果の最大化をリードしていただきます。</p>
-            <p>クライアントとの連携を密に行いながら、プロジェクト運営の中核としてご活躍いただきます。</p>
-          </div>
-          <div class="requirements-section">
-            <h4>主な業務内容</h4>
-            <ul class="requirements-list">
-              <li>オペレーション全体の管理およびパフォーマンス最適化</li>
-              <li>KPI・SLAの設計／管理／改善推進</li>
-              <li>チームリーダーおよびスーパーバイザーの育成・マネジメント</li>
-              <li>クライアントとの定例会議、レポーティング、関係構築</li>
-              <li>顧客満足度向上に向けた施策立案・実行</li>
-              <li>業務プロセスの改善および効率化推進</li>
-              <li>エスカレーション対応およびリスクマネジメント</li>
-              <li>リソース管理（人員計画・シフト最適化・コスト管理）</li>
-              <li>新規施策・プロジェクトの導入および運用管理</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="footer-row two-buttons">
+        <div class="footer-row secondary">
           <a class="process" target="_blank" rel="noopener"
              href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
           <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
         </div>
-        <div class="footer-row two-buttons">
-          <a class="apply" target="_blank" rel="noopener"
-             href="https://jobs-teleperformance.icims.com/jobs/81096/japanese-speaking-customer-service-operation-manager/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        </div>
       </div>
     </article>
 
-    <!-- Card 6: Customer Service Advisor (Advertising Company) -->
+
+    <!-- Card 5: Customer Service Advisor (Advertising Company) -->
     <article class="card" role="listitem" data-loc="penang" data-lang="jp" data-shift="shift" data-type="fulltime" data-keywords="カスタマーサービス アドバイザー 広告会社 SNS広告 アカウント管理">
       <div class="card-header">
         <div class="role">
@@ -1644,10 +1799,15 @@ footer::before {
           <span>勤務地:マレーシア・ペナン（One Precinct オフィス）</span>
           <span>言語:日本語メイン</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:7:00～20:00の間でシフト制（週5日勤務／週2日休み、土日祝含む）</span>
+          <span class="meta-detail">シフト:7:00～20:00の間でシフト制（週5日勤務／週2日休み、土日祝含む）</span>
         </div>
       </div>
       <div class="card-body">
+        <p class="card-summary">大手SNS企業の広告主向けサポート。チャット対応が中心で、デジタル広告の実践的な知識が身につきます。</p>
+        <button class="jd-toggle" type="button" aria-expanded="false">
+          <span class="jd-toggle-text">もっと見る</span>
+          <span class="jd-toggle-icon" aria-hidden="true">▾</span>
+        </button>
         <div class="content-scroll">
           <div class="jd-section">
             <h4>職務内容（JD）</h4>
@@ -1680,22 +1840,22 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <div class="footer-row two-buttons">
-          <a class="process" target="_blank" rel="noopener"
-             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
-        </div>
-        <div class="footer-row two-buttons">
+        <div class="footer-row">
           <a class="apply" target="_blank" rel="noopener"
              href="https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
          <!-- <a class="book" 
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
              data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>-->
         </div>
+        <div class="footer-row secondary">
+          <a class="process" target="_blank" rel="noopener"
+             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
+          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
+        </div>
       </div>
     </article>
 
-    <!-- Card 7: Japanese Customer Service Advisor (Financial Support) -->
+    <!-- Card 6: Japanese Customer Service Advisor (Financial Support) -->
     <article class="card" role="listitem" data-loc="penang" data-lang="jp" data-shift="shift" data-type="fulltime" data-keywords="カスタマーサービス アドバイザー 金融サポート オンライン決済 アカウント">
       <div class="card-header">
         <div class="role">
@@ -1706,10 +1866,15 @@ footer::before {
           <span>勤務地:マレーシア・ペナン（Penang）</span>
           <span>言語:日本語メイン</span>
           <span>雇用形態:正社員</span>
-          <span>シフト:週5日勤務（シフト制）／8:00〜17:00（マレーシア時間）</span>
+          <span class="meta-detail">シフト:週5日勤務（シフト制）／8:00〜17:00（マレーシア時間）</span>
         </div>
       </div>
       <div class="card-body">
+        <p class="card-summary">世界的なオンライン決済サービスの日本語一次対応。ファイナンス領域で国際的なキャリアを築ける環境です。</p>
+        <button class="jd-toggle" type="button" aria-expanded="false">
+          <span class="jd-toggle-text">もっと見る</span>
+          <span class="jd-toggle-icon" aria-hidden="true">▾</span>
+        </button>
         <div class="content-scroll">
           <div class="jd-section">
             <h4>職務内容（JD）</h4>
@@ -1733,55 +1898,21 @@ footer::before {
         </div>
       </div>
       <div class="card-footer">
-        <div class="footer-row two-buttons">
-          <a class="process" target="_blank" rel="noopener"
-             href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
-          <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
-        </div>
-        <div class="footer-row two-buttons">
+        <div class="footer-row">
           <a class="apply" target="_blank" rel="noopener"
              href="https://careerseng-teleperformance.icims.com/jobs/49421/customer-service-representative---japanese-speaking-%28penang%29/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
           <!--<a class="book" 
              href="https://outlook.office.com/book/TeleperformanceMalaysiaThailandinterviews@teleperformance.onmicrosoft.com/s/G_rYtA5Pg0ebNjlKhHtTGg2"
              data-tooltip="応募後、ご都合の良い日に面接の日程を調整してください。">今すぐ面接を予約する</a>-->
         </div>
-      </div>
-    </article>
-
-    <!-- Card 8: Assistant Operations Manager (Bangkok) -->
-    <article class="card" role="listitem" data-loc="bangkok" data-lang="jp" data-shift="day" data-type="fulltime" data-keywords="アシスタントオペレーションマネージャー カスタマーサービス 管理職 マネジメント">
-      <div class="card-header">
-        <div class="role">
-          <h3>アシスタントオペレーションマネージャー（カスタマーサービス）</h3>
-          <span class="tag">採用中</span>
-        </div>
-        <div class="meta">
-          <span>勤務地:タイ・バンコク</span>
-          <span>言語:日本語</span>
-          <span>雇用形態:正社員</span>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="content-scroll">
-          <div class="jd-section">
-            <h4>職務内容（JD）</h4>
-            <p>詳しい職務内容は応募ページをご確認ください。</p>
-            <p><a href="https://careerseng-teleperformance.icims.com/jobs/78542/assistant-operation-manager-%28customer-service%29---japanese-speaking/job?mode=job&iis=JPLandingPage&iisn=" target="_blank" rel="noopener" style="color:var(--accent-purple);font-weight:700;text-decoration:underline;">こちらをクリックして求人詳細を見る →</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="footer-row two-buttons">
+        <div class="footer-row secondary">
           <a class="process" target="_blank" rel="noopener"
              href="https://forms.office.com/e/2UvpbweQww">カジュアル面談</a>
           <a class="process" href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセスを見る</a>
         </div>
-        <div class="footer-row two-buttons">
-          <a class="apply" target="_blank" rel="noopener"
-             href="https://careerseng-teleperformance.icims.com/jobs/78542/assistant-operation-manager-%28customer-service%29---japanese-speaking/job?mode=job&iis=JPLandingPage&iisn=">今すぐ応募</a>
-        </div>
       </div>
     </article>
+
 
   </div>
 </section>
@@ -1871,6 +2002,9 @@ footer::before {
 <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談" onclick="trackCustomEvent('casual_interview_click', {button_name: 'Casual Interview - Japanese'})">カジュアル面談</a>
 <!--<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談">カジュアル面談</a>-->
 
+<!-- Floating LINE Button -->
+<a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer" class="floating-line" aria-label="LINEで相談する" title="LINEで相談する" onclick="trackCustomEvent('line_click', {button_name: 'LINE Chat - Japanese'})"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 10.3c0-5.37-5.38-9.74-12-9.74S0 4.93 0 10.3c0 4.81 4.27 8.85 10.04 9.61.39.09.92.26 1.06.59.12.3.08.77.04 1.08l-.17 1.02c-.05.3-.24 1.19 1.05.65 1.29-.54 6.92-4.08 9.44-6.98C23.18 14.38 24 12.45 24 10.3zM7.67 13.5H5.29a.63.63 0 0 1-.63-.63V8.11a.63.63 0 1 1 1.26 0v4.13h1.75a.63.63 0 1 1 0 1.26zm2.47-.63a.63.63 0 0 1-1.26 0V8.11a.63.63 0 1 1 1.26 0v4.76zm5.74 0a.63.63 0 0 1-.43.6.66.66 0 0 1-.2.03.62.62 0 0 1-.51-.25l-2.44-3.32v2.94a.63.63 0 0 1-1.26 0V8.11a.63.63 0 0 1 .43-.6.68.68 0 0 1 .19-.03c.2 0 .38.1.5.25l2.46 3.33V8.11a.63.63 0 1 1 1.26 0v4.76zm3.86-3.01a.63.63 0 1 1 0 1.26h-1.75v1.12h1.75a.63.63 0 1 1 0 1.26h-2.39a.63.63 0 0 1-.62-.63V8.11c0-.35.28-.63.63-.63h2.38a.63.63 0 1 1 0 1.26h-1.75v1.12h1.75z"/></svg></a>
+
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
 <!-- JAVASCRIPT -->
@@ -1947,6 +2081,7 @@ try {
     // Set quick filter by tab
     const locSel = document.getElementById('loc');
     const langSel = document.getElementById('lang');
+    if(!locSel || !langSel) return;
     if(['kl','penang','bangkok'].includes(key)){
       locSel.value = key;
       langSel.value = '';
@@ -1960,7 +2095,7 @@ try {
     applyFilters();
   }));
 
-  // Filters
+  // Filters (optional - the filter bar can be turned off on the page)
   const q = document.getElementById('q');
   const loc = document.getElementById('loc');
   const lang = document.getElementById('lang');
@@ -1977,12 +2112,14 @@ try {
   const cards = [...document.querySelectorAll('.card')];
   const count = document.getElementById('count');
 
+  const val = el => el ? el.value : '';
+
   function applyFilters(){
-    const term = q.value.trim().toLowerCase();
-    const fLoc = loc.value;
-    const fLang = lang.value;
-    const fShift = shift.value;
-    const fType = type.value;
+    const term = val(q).trim().toLowerCase();
+    const fLoc = val(loc);
+    const fLang = val(lang);
+    const fShift = val(shift);
+    const fType = val(type);
 
     let visible = 0;
     cards.forEach(card => {
@@ -2006,6 +2143,57 @@ try {
   applyFilters();
 } catch(error) {
   console.warn('Job filters setup failed:', error);
+}
+
+// JD "View more" toggles - cards stay compact so every job fits on one screen
+try {
+  (function(){
+    const toggles = [...document.querySelectorAll('.jd-toggle')];
+    if(!toggles.length) return;
+
+    const expandAll = document.getElementById('expandAll');
+    const expandAllText = document.getElementById('expandAllText');
+
+    function setCard(card, open){
+      const toggle = card.querySelector('.jd-toggle');
+      const label = card.querySelector('.jd-toggle-text');
+      card.classList.toggle('is-open', open);
+      if(toggle) toggle.setAttribute('aria-expanded', String(open));
+      if(label) label.textContent = open ? '閉じる' : 'もっと見る';
+    }
+
+    function syncExpandAll(){
+      if(!expandAll) return;
+      const cards = [...document.querySelectorAll('.card')];
+      const allOpen = cards.length > 0 && cards.every(c => c.classList.contains('is-open'));
+      expandAll.setAttribute('aria-pressed', String(allOpen));
+      if(expandAllText) expandAllText.textContent = allOpen ? 'すべての詳細を閉じる' : 'すべての詳細を見る';
+    }
+
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const card = toggle.closest('.card');
+        if(!card) return;
+        const open = !card.classList.contains('is-open');
+        setCard(card, open);
+        syncExpandAll();
+        trackCustomEvent('job_details_toggle', {
+          job_title: (card.querySelector('h3') || {}).textContent || '',
+          action: open ? 'expand' : 'collapse'
+        });
+      });
+    });
+
+    if(expandAll){
+      expandAll.addEventListener('click', () => {
+        const open = expandAll.getAttribute('aria-pressed') !== 'true';
+        document.querySelectorAll('.card').forEach(card => setCard(card, open));
+        syncExpandAll();
+      });
+    }
+  })();
+} catch(error) {
+  console.warn('JD toggles setup failed:', error);
 }
 
 // Initialize when DOM is ready

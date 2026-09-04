@@ -570,6 +570,54 @@ footer::before {
   outline: none;
 }
 
+.floating-line {
+  position: fixed;
+  bottom: 20px;
+  right: 292px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #06c755;
+  color: var(--tp-white);
+  border: 2px solid #06c755;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(6,199,85,0.35);
+  z-index: 998;
+  transition: var(--transition);
+}
+
+.floating-line svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.floating-line:hover,
+.floating-line:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(6,199,85,0.45);
+  background: #05b34c;
+  border-color: #05b34c;
+  outline: none;
+}
+
+@media (max-width: 900px) {
+  .floating-line {
+    right: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-line {
+    bottom: 14px;
+    right: 112px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
 .back-to-top {
   position: fixed;
   bottom: 80px;
@@ -1144,6 +1192,9 @@ footer::before {
 <!-- Floating Casual Interview Button -->
 <a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談" onclick="trackCustomEvent('casual_interview_click', {button_name: 'Casual Interview - Japanese'})">カジュアル面談</a>
 <!--<a href="https://forms.office.com/e/2UvpbweQww" target="_blank" rel="noopener noreferrer" class="floating-casual" aria-label="カジュアル面談">カジュアル面談</a>-->
+
+<!-- Floating LINE Button -->
+<a href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer" class="floating-line" aria-label="LINEで相談する" title="LINEで相談する" onclick="trackCustomEvent('line_click', {button_name: 'LINE Chat - Japanese'})"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M24 10.3c0-5.37-5.38-9.74-12-9.74S0 4.93 0 10.3c0 4.81 4.27 8.85 10.04 9.61.39.09.92.26 1.06.59.12.3.08.77.04 1.08l-.17 1.02c-.05.3-.24 1.19 1.05.65 1.29-.54 6.92-4.08 9.44-6.98C23.18 14.38 24 12.45 24 10.3zM7.67 13.5H5.29a.63.63 0 0 1-.63-.63V8.11a.63.63 0 1 1 1.26 0v4.13h1.75a.63.63 0 1 1 0 1.26zm2.47-.63a.63.63 0 0 1-1.26 0V8.11a.63.63 0 1 1 1.26 0v4.76zm5.74 0a.63.63 0 0 1-.43.6.66.66 0 0 1-.2.03.62.62 0 0 1-.51-.25l-2.44-3.32v2.94a.63.63 0 0 1-1.26 0V8.11a.63.63 0 0 1 .43-.6.68.68 0 0 1 .19-.03c.2 0 .38.1.5.25l2.46 3.33V8.11a.63.63 0 1 1 1.26 0v4.76zm3.86-3.01a.63.63 0 1 1 0 1.26h-1.75v1.12h1.75a.63.63 0 1 1 0 1.26h-2.39a.63.63 0 0 1-.62-.63V8.11c0-.35.28-.63.63-.63h2.38a.63.63 0 1 1 0 1.26h-1.75v1.12h1.75z"/></svg></a>
 
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
