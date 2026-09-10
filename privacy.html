@@ -51,24 +51,23 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>社員の声 | TP採用 マレーシア・タイ</title>
-<meta name="description" content="TPで働く日本語スピーカーのリアルな声。インタビュー動画・体験談・キャリアストーリーを掲載。マレーシア/タイでの仕事・生活の実感をチェック。">
+<title>プライバシーポリシー | TP採用 マレーシア・タイ</title>
+<meta name="description" content="TPマレーシア・タイの日本語スピーカー向け採用サイトにおける個人情報の取得・利用目的・第三者提供・保管期間・ご本人の権利について説明しています。">
 <meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:title" content="社員の声 | TP採用">
-<meta property="og:description" content="社員インタビュー・体験談">
+<meta property="og:title" content="プライバシーポリシー | TP採用">
+<meta property="og:description" content="個人情報の取得・利用・管理について">
 <meta property="og:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png">
-<meta property="og:url" content="https://tpmyandtpth.github.io/JLP/testimonials.html">
+<meta property="og:url" content="https://tpmyandtpth.github.io/JLP/privacy.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="社員の声 | TP採用">
-<meta name="twitter:description" content="社員インタビュー・体験談">
+<meta name="twitter:title" content="プライバシーポリシー | TP採用">
+<meta name="twitter:description" content="個人情報の取得・利用・管理について">
 <meta name="twitter:image" content="https://tpmyandtpth.github.io/JLP/photos/TPLogo11.png">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://tpmyandtpth.github.io/JLP/testimonials.html">
+<link rel="canonical" href="https://tpmyandtpth.github.io/JLP/privacy.html">
 <link rel="icon" href="photos/TPLogo11.png">
 <link rel="apple-touch-icon" href="photos/TPLogo11.png">
-
 <!-- Preconnect for Performance -->
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +98,6 @@
   --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
   --shadow-lg: 0 8px 16px rgba(0,0,0,0.16);
   --shadow-xl: 0 16px 32px rgba(0,0,0,0.20);
-  --radius: 12px;
 }
 
 /* Base Styles */
@@ -146,7 +144,7 @@ img {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: var(--max);
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -693,23 +691,23 @@ footer::before {
     scroll-behavior: auto;
   }
 }
-
-/* PAGE SPECIFIC STYLES - Testimonials */
-.hero {
+/* PAGE SPECIFIC STYLES - Legal Pages (privacy / cookies / terms) */
+.legal-hero {
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, var(--tp-white) 0%, var(--tp-off) 100%);
-  padding: 3.6rem 20px;
+  padding: 3rem 20px 2.5rem;
   text-align: center;
+  border-bottom: 1px solid var(--tp-light);
 }
 
-.hero::before {
+.legal-hero::before {
   content: '';
   position: absolute;
   top: 50%;
   right: 6%;
-  width: clamp(220px, 32vw, 480px);
-  height: clamp(220px, 32vw, 480px);
+  width: clamp(200px, 28vw, 420px);
+  height: clamp(200px, 28vw, 420px);
   background-image: url('photos/TPLogo11.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -720,295 +718,316 @@ footer::before {
   pointer-events: none;
 }
 
-.hero h1 {
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: #000;
-  margin-bottom: 0.45rem;
-}
-
-.hero p {
-  color: var(--tp-gray-dark);
-}
-
-.hero-cta {
-  margin-top: 1rem;
-  display: flex;
-  gap: 0.6rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Video Section */
-.video-section {
-  padding: 2rem 0;
-  background: var(--tp-white);
-}
-
-.section-title {
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: #000;
-  margin-bottom: 0.6rem;
-  text-align: center;
-}
-
-.section-subtitle {
-  color: var(--tp-gray-dark);
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-.video-card {
-  background: #fff;
-  border: 1px solid var(--tp-light);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-/* Full-width feature video (spans both grid columns) */
-.video-card--wide {
-  grid-column: 1 / -1;
-}
-
-.video-embed {
+.legal-hero h1 {
   position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  background: #000;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  font-weight: 900;
+  color: var(--tp-black);
+  line-height: 1.3;
 }
 
-.video-embed iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.video-meta {
-  padding: 1rem;
-}
-
-.video-title {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #000;
-}
-
-.video-desc {
-  font-size: 0.9rem;
+.legal-hero .legal-sub {
+  position: relative;
+  margin-top: 0.5rem;
   color: var(--tp-gray-dark);
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
 }
 
-.video-link {
-  font-size: 0.9rem;
-  color: var(--accent-purple);
+.legal-updated {
+  position: relative;
+  display: inline-block;
+  margin-top: 0.9rem;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--tp-light);
+  background: var(--tp-white);
+  border-radius: 999px;
+  font-size: 0.8rem;
   font-weight: 700;
+  color: var(--tp-gray-dark);
 }
 
-/* Filters */
-.filters {
-  max-width: 1200px;
-  margin: 1.6rem auto 0;
+.legal-wrap {
+  max-width: 880px;
+  margin: 2.5rem auto 3.5rem;
   padding: 0 20px;
 }
 
-.filter-bar {
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  align-items: center;
+/* Table of contents.
+   `display` is set explicitly: the shared stylesheet hides bare <nav> below
+   900px to collapse the header menu, which would otherwise hide this too. */
+.legal-toc {
+  display: block;
+  background: var(--tp-off);
+  border: 1px solid var(--tp-light);
+  border-radius: 14px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 2.5rem;
 }
 
-.chip {
-  padding: 0.45rem 0.8rem;
-  border: 1px solid #555;
-  border-radius: 999px;
-  background: transparent;
-  color: #000;
+.legal-toc h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--tp-black);
+  margin-bottom: 0.75rem;
+}
+
+.legal-toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: toc;
+  columns: 2;
+  column-gap: 1.5rem;
+}
+
+.legal-toc li {
+  counter-increment: toc;
+  break-inside: avoid;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.legal-toc li::before {
+  content: counter(toc) '.';
+  font-weight: 800;
+  color: var(--accent-purple);
+  margin-right: 0.4rem;
+}
+
+.legal-toc a {
+  color: var(--tp-gray-dark);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.legal-toc a:hover,
+.legal-toc a:focus-visible {
+  color: var(--accent-purple);
+  border-bottom-color: var(--accent-purple);
+  outline: none;
+}
+
+/* Sections */
+.legal-section {
+  margin-bottom: 2.25rem;
+  scroll-margin-top: 90px;
+}
+
+.legal-section h2 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--tp-black);
+  line-height: 1.4;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 2px solid var(--accent-purple);
+}
+
+.legal-section h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--tp-dark);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.legal-section p {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--tp-gray-dark);
+  margin-bottom: 0.85rem;
+}
+
+.legal-section ul,
+.legal-section ol {
+  margin: 0 0 1rem 0;
+  padding-left: 1.3rem;
+}
+
+.legal-section li {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--tp-gray-dark);
+  margin-bottom: 0.4rem;
+}
+
+.legal-section a:not(.btn) {
+  color: var(--accent-purple);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-section a:not(.btn):hover,
+.legal-section a:not(.btn):focus-visible {
+  color: #5c0072;
+  outline: none;
+}
+
+/* Buttons keep the shared template styling inside legal copy */
+.legal-section .btn-accent {
+  color: var(--tp-white);
+}
+
+.legal-section .btn-accent:hover,
+.legal-section .btn-accent:focus-visible {
+  color: var(--accent-purple);
+  outline: none;
+}
+
+/* Data table */
+.legal-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+  border: 1px solid var(--tp-light);
+  border-radius: 12px;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+  font-size: 0.88rem;
+}
+
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid var(--tp-light);
+  vertical-align: top;
+  line-height: 1.7;
+  color: var(--tp-gray-dark);
+}
+
+.legal-table th {
+  background: var(--tp-off);
+  color: var(--tp-black);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.legal-table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Callouts */
+.legal-note {
+  background: var(--tp-off);
+  border-left: 4px solid var(--accent-purple);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  margin: 1.25rem 0;
+}
+
+.legal-note p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-warn {
+  background: #fff5f9;
+  border-left: 4px solid var(--accent-pink);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  margin: 1.25rem 0;
+}
+
+.legal-warn p:last-child {
+  margin-bottom: 0;
+}
+
+/* Contact + cross links */
+.legal-contact {
+  background: var(--tp-white);
+  border: 1px solid var(--tp-light);
+  border-radius: 14px;
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.legal-contact .legal-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.legal-related {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tp-light);
+}
+
+.legal-related h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--tp-black);
+  margin-bottom: 0.9rem;
+}
+
+.legal-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.legal-related-grid a {
+  display: block;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--tp-light);
+  border-radius: 12px;
+  background: var(--tp-white);
+  color: var(--tp-black);
   font-weight: 800;
   font-size: 0.9rem;
   text-decoration: none;
-  cursor: pointer;
-  user-select: none;
+  transition: var(--transition);
 }
 
-.chip.active {
-  background: var(--accent-purple);
-  color: #fff;
+.legal-related-grid a:hover,
+.legal-related-grid a:focus-visible {
   border-color: var(--accent-purple);
-}
-
-.searchbox {
-  margin-left: auto;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.searchbox input {
-  padding: 0.55rem 0.8rem;
-  border: 2px solid var(--tp-light);
-  border-radius: 10px;
-  font-family: inherit;
-}
-
-.searchbox input:focus {
-  outline: none;
-  border-color: var(--accent-purple);
-}
-
-/* Testimonial Cards */
-.wrap {
-  max-width: 1200px;
-  margin: 1rem auto 3rem;
-  padding: 0 20px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid var(--tp-light);
-  border-radius: var(--radius);
-  padding: 1rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.profile {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: #eee center/cover no-repeat;
-  flex: none;
-}
-
-.meta {
-  line-height: 1.2;
-}
-
-.name {
-  font-weight: 900;
-  color: #000;
-}
-
-.role {
-  font-size: 0.85rem;
-  color: var(--tp-gray-dark);
-}
-
-.quote {
-  color: var(--tp-dark);
-  margin: 0.4rem 0 0;
-}
-
-.more {
-  margin-top: 0.4rem;
-}
-
-.more button {
-  background: transparent;
-  border: 0;
   color: var(--accent-purple);
-  font-weight: 900;
-  cursor: pointer;
-}
-
-/* Story blocks */
-.section {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 20px;
-}
-
-.section h2 {
-  font-size: 1.6rem;
-  color: #000;
-  font-weight: 900;
-  margin-bottom: 0.6rem;
-}
-
-.story {
-  background: #fff;
-  border: 1px solid var(--tp-light);
-  border-radius: var(--radius);
-  padding: 1rem;
+  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-  margin-bottom: 1rem;
+  outline: none;
 }
 
-.story h3 {
-  font-size: 1.05rem;
-  margin-bottom: 0.35rem;
-  color: #000;
-}
-
-.story dl {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 0.4rem 0.8rem;
-}
-
-.story dt {
+.legal-related-grid a[aria-current="page"] {
+  background: var(--tp-off);
+  border-color: var(--tp-silver);
   color: var(--tp-gray);
-  font-weight: 700;
+  pointer-events: none;
 }
 
-.story dd {
-  margin: 0;
+.legal-related-grid span {
+  display: block;
+  margin-top: 0.2rem;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--tp-gray);
 }
 
-/* Responsive for page specific styles */
-@media (max-width: 1020px) {
-  .video-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 700px) {
+  .legal-toc ol {
+    columns: 1;
   }
-  
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
-@media (max-width: 640px) {
-  .cards {
+  .legal-related-grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 560px) {
-  .searchbox {
-    margin-left: 0;
-    width: 100%;
-  }
-  
-  .searchbox input {
-    width: 100%;
-  }
-}
 </style>
 </head>
 <body>
+<!--
+  Privacy Policy
+  NOTE FOR MAINTAINERS: this is a good-faith draft written for the JLP recruitment
+  landing page. Have TP legal / the Data Protection Officer review and sign off the
+  wording before treating it as the published policy, and replace the placeholder
+  contact route in the final section with the official privacy contact address.
+-->
 <!-- Skip Navigation -->
 <a href="#main" class="sr-only">メインコンテンツへスキップ</a>
 
@@ -1029,7 +1048,7 @@ footer::before {
         <li><a href="https://tpmyandtpth.github.io/JLP/about-tp.html">TPについて</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/salary-and-benefits.html">給与・福利厚生</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/hiring-process.html">選考プロセス</a></li>
-        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">マレーシアとタイの魅力</a></li>
+        <li><a href="https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html">マレーシア・タイの魅力</a></li>
         <li><a href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">移住・ビザサポート</a></li>
         <li><a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=" target="_blank" rel="noopener noreferrer" class="apply-btn">応募する</a></li>
       </ul>
@@ -1055,340 +1074,222 @@ footer::before {
 
 <main id="main">
   <!-- Hero -->
-  <section class="hero">
-    <h1>社員の声 / Testimonials & Interview Stories</h1>
-    <p>"海外で働く"を実現した先輩たちのリアル。<br>動画・体験談・インタビューで、TPの仕事と暮らしをのぞいてみましょう。</p>
-    <div class="hero-cta" role="group" aria-label="関連ページ">
-      <a class="btn-solid" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人を見る</a>
-      <a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">カジュアル面談を予約</a>
-    </div>
+  <section class="legal-hero">
+    <h1>プライバシーポリシー</h1>
+    <p class="legal-sub">本サイトを通じて取得する個人情報の取り扱いについて</p>
+    <p class="legal-updated">最終更新日：2026年9月10日</p>
   </section>
 
-  <!-- Video Section with 2 columns -->
-  <section class="video-section" id="videos">
-    <div class="container">
-      <h2 class="section-title">社員インタビュー（動画）</h2>
-      <p class="section-subtitle">現場の声を短い動画でご紹介します</p>
+  <div class="legal-wrap">
+      <nav class="legal-toc" aria-label="目次">
+        <h2>目次</h2>
+        <ol>
+          <li><a href="#scope">はじめに</a></li>
+          <li><a href="#operator">事業者情報</a></li>
+          <li><a href="#collect">取得する個人情報</a></li>
+          <li><a href="#purpose">個人情報の利用目的</a></li>
+          <li><a href="#cookie">Cookieおよびアクセス解析について</a></li>
+          <li><a href="#sharing">第三者への提供および業務委託</a></li>
+          <li><a href="#transfer">国外へのデータ移転</a></li>
+          <li><a href="#retention">個人情報の保管期間</a></li>
+          <li><a href="#security">安全管理措置</a></li>
+          <li><a href="#rights">ご本人の権利と行使方法</a></li>
+          <li><a href="#minors">未成年の方の個人情報</a></li>
+          <li><a href="#law">準拠法</a></li>
+          <li><a href="#changes">本方針の改定</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ol>
+      </nav>
 
-      <div class="video-grid">
-        <!-- Agent Horizontal (full width) -->
-        <article class="video-card video-card--wide">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/HhRpIGuWnXE"
-              title="TPで働く：エージェントの声"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TPで働く：エージェントの声</h3>
-            <p class="video-desc">日々のサポート業務とチームの雰囲気をご紹介</p>
-            <a class="video-link" href="https://youtu.be/HhRpIGuWnXE" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
+      <section class="legal-section" id="scope">
+        <h2>1. はじめに</h2>
+        <p>Teleperformance（以下「TP」または「当社」といいます）は、マレーシアおよびタイにおける日本語スピーカー向け採用活動にあたり、ご応募者・お問い合わせいただいた皆さま（以下「ご本人」といいます）の個人情報を適切に取り扱うことが重要な責務であると考えています。</p>
+        <p>本プライバシーポリシー（以下「本方針」といいます）は、本採用サイト（<a href="https://tpmyandtpth.github.io/JLP/">https://tpmyandtpth.github.io/JLP/</a>、以下「本サイト」といいます）を通じて取得する個人情報の取り扱いについて定めるものです。本サイトをご利用いただくことで、本方針の内容にご同意いただいたものとみなします。</p>
+        <div class="legal-note">
+          <p>本方針は本サイトを通じた採用活動に適用されます。TPグループ全体のプライバシーに関する取り組みや、TPのクライアント業務に関わる個人情報の取り扱いについては、別途定めるTPグループのプライバシーポリシーが適用されます。</p>
+        </div>
+      </section>
 
-        <!-- QA Horizontal -->
-        <article class="video-card">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/BPCNte1kIR0"
-              title="TPで働く：QA（品質管理）の声"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TPで働く：QA（品質管理）の声</h3>
-            <p class="video-desc">サービス品質を支えるQAの役割とキャリア</p>
-            <a class="video-link" href="https://youtu.be/BPCNte1kIR0" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
+      <section class="legal-section" id="operator">
+        <h2>2. 事業者情報</h2>
+        <p>本サイトの運営および本サイトを通じて取得する個人情報の管理責任者は、以下のとおりです。</p>
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <tbody>
+              <tr><th>運営者</th><td>Teleperformance Malaysia Sdn Bhd</td></tr>
+              <tr><th>登録番号</th><td>SSM（マレーシア会社委員会）登録番号 201601023769 (1194708-K)</td></tr>
+              <tr><th>拠点</th><td>クアラルンプール（マレーシア）／ペナン（マレーシア）／バンコク（タイ）</td></tr>
+              <tr><th>対象業務</th><td>日本語スピーカー向けポジションの採用活動および関連するお問い合わせ対応</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>タイ拠点のポジションにご応募いただいた場合、当該選考に関する個人情報はタイの現地法人と共同で取り扱われます。</p>
+      </section>
 
-        <!-- OM Horizontal -->
-        <article class="video-card">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/GJMXLvF9Ctw"
-              title="TPで働く：オペレーションマネージャーの声"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TPで働く：オペレーションマネージャーの声</h3>
-            <p class="video-desc">チームと成果を動かすマネジメントの仕事</p>
-            <a class="video-link" href="https://youtu.be/GJMXLvF9Ctw" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
+      <section class="legal-section" id="collect">
+        <h2>3. 取得する個人情報</h2>
+        <p>当社は、以下の個人情報を取得する場合があります。</p>
+        <h3>2-1. ご本人にご提供いただく情報</h3>
+        <ul>
+          <li>氏名、生年月日、性別、国籍</li>
+          <li>メールアドレス、電話番号、居住国・地域などの連絡先情報</li>
+          <li>履歴書・職務経歴書に記載された学歴、職歴、資格、スキル</li>
+          <li>日本語・英語などの語学レベル（JLPT、TOEIC等のスコアを含む）</li>
+          <li>就労ビザ申請に必要な情報（パスポート情報、在留資格、渡航歴など）</li>
+          <li>希望勤務地、希望条件、勤務開始可能日</li>
+          <li>カジュアル面談やLINE等でお問い合わせいただいた内容</li>
+        </ul>
+        <div class="legal-note">
+          <p>就労ビザの申請段階では、渡航先国の法令により、上記に加えて健康診断結果や無犯罪証明等の提出が求められる場合があります。これらの機微な情報は、ビザ申請の目的に限って取得・利用し、申請手続きに必要な範囲を超えて保有しません。</p>
+        </div>
+        <h3>2-2. 本サイトのご利用にともない自動的に取得する情報</h3>
+        <ul>
+          <li>IPアドレス、ブラウザの種類・バージョン、OS、画面サイズなどの端末情報</li>
+          <li>閲覧ページ、滞在時間、スクロール率、参照元URLなどの利用状況</li>
+          <li>Cookieおよび類似技術によって生成される識別子</li>
+        </ul>
+        <p>自動的に取得する情報の詳細および無効化の方法については、<a href="https://tpmyandtpth.github.io/JLP/cookies.html">Cookieポリシー</a>をご確認ください。</p>
+      </section>
 
-        <!-- New Video -->
-        <article class="video-card">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/N6l7PUQR0tw"
-              title="TP社員インタビュー：最新動画"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TP社員インタビュー：最新動画</h3>
-            <p class="video-desc">実際に働く社員のリアルな声をお届け</p>
-            <a class="video-link" href="https://youtu.be/N6l7PUQR0tw" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
+      <section class="legal-section" id="purpose">
+        <h2>4. 個人情報の利用目的</h2>
+        <p>取得した個人情報は、以下の目的の範囲内で利用します。</p>
+        <ul>
+          <li>採用選考の実施（書類選考、面接の日程調整、選考結果のご連絡）</li>
+          <li>ご応募・お問い合わせに対する回答およびご連絡</li>
+          <li>カジュアル面談の実施および関連するご案内</li>
+          <li>採用が決定した場合の雇用手続き、就労ビザ申請、渡航・移住サポートの提供</li>
+          <li>ご本人の同意に基づく、今後の求人情報のご案内（タレントプールへの登録）</li>
+          <li>本サイトの利用状況の分析、コンテンツおよび採用活動の改善</li>
+          <li>法令、監督官庁の要請、または裁判手続きに基づく対応</li>
+        </ul>
+        <p>上記の目的の範囲を超えて個人情報を利用する場合は、あらかじめご本人の同意を得たうえで実施します。当社は、取得した個人情報を第三者に販売することはありません。</p>
+      </section>
 
-        <!-- Agent Video -->
-        <article class="video-card">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/H4SVUrCjTPM"
-              title="TP社員インタビュー：エージェント編"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TP社員インタビュー：エージェント編</h3>
-            <p class="video-desc">採用の最前線で活躍するエージェントの視点</p>
-            <a class="video-link" href="https://youtu.be/H4SVUrCjTPM" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
+      <section class="legal-section" id="cookie">
+        <h2>5. Cookieおよびアクセス解析について</h2>
+        <p>本サイトでは、サイトの利用状況を把握し、コンテンツを改善する目的で、Cookieおよびアクセス解析ツール（Google アナリティクス 4）を使用しています。これらにより取得される情報は統計的に処理され、単体で特定の個人を識別するために利用することはありません。</p>
+        <p>使用しているCookieの種類、保存期間、および無効化の手順については、<a href="https://tpmyandtpth.github.io/JLP/cookies.html">Cookieポリシー</a>に詳細を記載しています。</p>
+      </section>
 
-        <!-- Team Leader Video -->
-        <article class="video-card">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/VB6KSdFYLdE"
-              title="TP社員インタビュー：チームリーダー編"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TP社員インタビュー：チームリーダー編</h3>
-            <p class="video-desc">現場マネジメント・育成のリアル</p>
-            <a class="video-link" href="https://youtu.be/VB6KSdFYLdE" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
+      <section class="legal-section" id="sharing">
+        <h2>6. 第三者への提供および業務委託</h2>
+        <p>当社は、以下の場合を除き、ご本人の同意なく個人情報を第三者に提供することはありません。</p>
+        <ul>
+          <li>法令に基づく場合、または監督官庁・司法機関から適法な要請を受けた場合</li>
+          <li>人の生命、身体または財産の保護のために必要であり、ご本人の同意を得ることが困難な場合</li>
+          <li>採用業務の遂行に必要な範囲で、以下の委託先・グループ会社に提供する場合</li>
+        </ul>
+        <h3>5-1. 主な委託先・利用するサービス</h3>
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <thead>
+              <tr><th>サービス</th><th>提供者</th><th>目的</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>iCIMS（採用管理システム／ATS）</td><td>iCIMS, Inc.（米国）</td><td>応募情報の受付・選考プロセスの管理</td></tr>
+              <tr><td>Microsoft 365（Forms / Teams / Outlook）</td><td>Microsoft Corporation</td><td>面談フォームの受付、オンライン面接、日程調整</td></tr>
+              <tr><td>Google アナリティクス 4</td><td>Google LLC</td><td>本サイトの利用状況の分析</td></tr>
+              <tr><td>LINE公式アカウント</td><td>LINEヤフー株式会社</td><td>ご応募者からのお問い合わせ対応</td></tr>
+              <tr><td>TPグループ各社</td><td>Teleperformance SE および関連会社</td><td>採用選考、雇用手続き、ビザ申請サポート</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>委託先に対しては、個人情報の適切な取り扱いを契約により義務付け、必要かつ適切な監督を行います。各サービスにおける個人情報の取り扱いについては、それぞれの提供者が定めるプライバシーポリシーもあわせてご確認ください。</p>
+      </section>
 
-        <!-- Operations Manager Video -->
-        <article class="video-card">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/pa-qdCGkxA4"
-              title="TP社員インタビュー：オペレーションマネージャー編"
-              loading="lazy"
-              decoding="async"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-          </div>
-          <header class="video-meta">
-            <h3 class="video-title">TP社員インタビュー：オペレーションマネージャー編</h3>
-            <p class="video-desc">品質・生産性を支えるオペレーションの舞台裏</p>
-            <a class="video-link" href="https://youtu.be/pa-qdCGkxA4" target="_blank" rel="noopener">YouTubeで見る →</a>
-          </header>
-        </article>
-      </div>
-    </div>
-  </section>
+      <section class="legal-section" id="transfer">
+        <h2>7. 国外へのデータ移転</h2>
+        <p>当社はマレーシアおよびタイに拠点を置き、TPはフランスに本社を置くグローバル企業です。そのため、日本国内から取得した個人情報が、マレーシア、タイ、欧州連合（EU）およびその他のTPグループ拠点・委託先の所在国に移転される場合があります。</p>
+        <p>移転先の国・地域の個人情報保護水準が日本と同等でない場合であっても、当社は標準契約条項（SCC）その他の適切な保護措置を講じ、本方針に定める水準と同等の保護が確保されるよう努めます。</p>
+      </section>
 
-  <!-- Filters 
-  <section class="filters" aria-labelledby="filter-title">
-    <h2 id="filter-title" style="font-size:1.2rem;font-weight:900;margin-bottom:0.5rem;color:#000">体験談を絞り込む</h2>
-    <div class="filter-bar">
-      <span class="chip active" data-filter="all">すべて</span>
-      <span class="chip" data-filter="KL">クアラルンプール</span>
-      <span class="chip" data-filter="Penang">ペナン</span>
-      <span class="chip" data-filter="Bangkok">バンコク</span>
-      <span class="chip" data-filter="Entry">未経験スタート</span>
-      <span class="chip" data-filter="Bilingual">英日バイリンガル</span>
-      <div class="searchbox" role="search">
-        <input id="searchInput" type="text" placeholder="キーワード検索（例：英語、家賃、昇進）" aria-label="体験談の検索">
-      </div>
-    </div>
-  </section> -->-->
+      <section class="legal-section" id="retention">
+        <h2>8. 個人情報の保管期間</h2>
+        <p>取得した個人情報は、利用目的の達成に必要な期間、および法令で定められた期間に限り保管します。</p>
+        <div class="legal-table-wrap">
+          <table class="legal-table">
+            <thead>
+              <tr><th>区分</th><th>保管期間の目安</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>選考中の応募情報</td><td>選考プロセスの終了まで</td></tr>
+              <tr><td>不採用となった応募情報</td><td>選考終了後、原則として24か月（今後の求人ご案内に同意いただいた場合）</td></tr>
+              <tr><td>入社された方の情報</td><td>雇用記録として、各国の労働法令が定める期間</td></tr>
+              <tr><td>お問い合わせの記録</td><td>対応完了後、原則として12か月</td></tr>
+              <tr><td>アクセス解析データ</td><td>Google アナリティクスの設定に基づく期間（最長14か月）</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>保管期間の経過後は、個人情報を安全な方法で削除または匿名化します。ご本人からの削除のご請求により、上記の期間より前に削除することも可能です。</p>
+      </section>
 
-  <!-- Testimonials
-  <div class="wrap">
-    <div class="cards" id="testimonialList">
-      <article class="card" data-city="KL" data-tags="Entry Japanese">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">M.A（採用）</div>
-            <div class="role">Talent Acquisition｜KL</div>
+      <section class="legal-section" id="security">
+        <h2>9. 安全管理措置</h2>
+        <p>当社は、個人情報の漏えい、滅失、毀損および不正アクセスを防止するため、以下を含む安全管理措置を講じています。</p>
+        <ul>
+          <li>通信の暗号化（HTTPS）およびアクセス制御</li>
+          <li>個人情報を取り扱う担当者・権限の限定</li>
+          <li>採用担当者に対する個人情報保護および情報セキュリティに関する定期的な研修</li>
+          <li>委託先の選定基準の設定および契約による監督</li>
+        </ul>
+      </section>
+
+      <section class="legal-section" id="rights">
+        <h2>10. ご本人の権利と行使方法</h2>
+        <p>ご本人は、自身の個人情報について、以下の権利を有します。</p>
+        <ul>
+          <li><strong>開示請求</strong>：当社が保有するご本人の個人情報の開示を求めること</li>
+          <li><strong>訂正・追加・削除</strong>：内容が事実と異なる場合に訂正等を求めること</li>
+          <li><strong>利用停止・消去</strong>：個人情報の利用停止または消去を求めること</li>
+          <li><strong>同意の撤回</strong>：タレントプールへの登録など、同意に基づく利用について同意を撤回すること</li>
+          <li><strong>苦情の申し立て</strong>：個人情報の取り扱いについて苦情を申し立てること</li>
+        </ul>
+        <p>これらのご請求は、本方針末尾のお問い合わせ窓口にてお受けします。ご本人であることを確認させていただいたうえで、法令に定める期間内に対応いたします。なお、同意を撤回された場合でも、撤回前に行われた取り扱いの適法性には影響しません。</p>
+      </section>
+
+      <section class="legal-section" id="minors">
+        <h2>11. 未成年の方の個人情報</h2>
+        <p>本サイトが対象とするポジションは、いずれも各国の労働法令に基づき就労可能な年齢の方を対象としています。当社は、意図的に18歳未満の方から個人情報を取得することはありません。18歳未満の方の個人情報を取得したことが判明した場合は、速やかに削除します。</p>
+      </section>
+
+      <section class="legal-section" id="law">
+        <h2>12. 準拠法</h2>
+        <p>本方針は、以下を含む適用される個人情報保護関連法令に従って運用されます。</p>
+        <ul>
+          <li>マレーシア個人データ保護法（Personal Data Protection Act 2010, PDPA）</li>
+          <li>タイ個人データ保護法（Personal Data Protection Act B.E. 2562 (2019)）</li>
+          <li>EU一般データ保護規則（GDPR）（適用される場合）</li>
+          <li>日本の個人情報の保護に関する法律（適用される場合）</li>
+        </ul>
+      </section>
+
+      <section class="legal-section" id="changes">
+        <h2>13. 本方針の改定</h2>
+        <p>当社は、法令の改正、サービス内容の変更、または運用の見直しにともない、本方針を改定することがあります。改定後の内容は本ページに掲載した時点から効力を生じ、最終更新日を更新して明示します。重要な変更を行う場合には、本サイト上で分かりやすい方法によりお知らせします。</p>
+      </section>
+
+      <section class="legal-section" id="contact">
+        <h2>14. お問い合わせ</h2>
+        <div class="legal-contact">
+          <p>本プライバシーポリシーに関するご質問、または個人情報の取り扱いに関するお問い合わせ・ご請求は、下記の窓口までご連絡ください。日本語で対応いたします。</p>
+          <p><strong>TP Malaysia / TP Thailand 採用チーム（日本語窓口）</strong></p>
+          <div class="legal-cta">
+            <a class="btn btn-accent" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">お問い合わせフォーム</a>
+            <a class="btn" href="https://line.me/R/ti/p/@286nmdsd" target="_blank" rel="noopener noreferrer">LINEで問い合わせる</a>
           </div>
         </div>
-        <p class="quote">
-          "『違っていい』という価値観が、心を自由にしてくれました。日本にいるときより、周りの目を気にしなくなりました。"
-        </p>
-      </article>
+      </section>
 
-      <article class="card" data-city="KL" data-tags="Entry Japanese">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">T.S.（30代・男性）</div>
-            <div class="role">Customer Support｜KL</div>
-          </div>
+      <section class="legal-related" aria-label="関連ページ">
+        <h2>関連ページ</h2>
+        <div class="legal-related-grid">
+          <a href="https://tpmyandtpth.github.io/JLP/privacy.html" aria-current="page">プライバシーポリシー<span>個人情報の取得・利用・管理について</span></a>
+          <a href="https://tpmyandtpth.github.io/JLP/cookies.html">Cookieポリシー<span>Cookieと解析ツールの利用について</span></a>
+          <a href="https://tpmyandtpth.github.io/JLP/terms.html">利用規約<span>本サイトのご利用条件について</span></a>
         </div>
-        <p class="quote">
-          "物価が安いから、カフェ巡りや外食が気軽に楽しめるようになりました。"
-        </p>
-      </article>
-
-      <article class="card" data-city="KL" data-tags="Entry Japanese">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">A.K.（20代・女性）</div>
-            <div class="role">Customer Support｜KL</div>
-          </div>
-        </div>
-        <p class="quote">
-          "通勤ストレスがなくなり、平日の夜もヨガや友達との時間をゆったり過ごせます。"
-        </p>
-      </article>
-
-      <article class="card" data-city="KL" data-tags="Entry Japanese">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">Y.M.（30代・女性）</div>
-            <div class="role">E-commerce Support｜KL</div>
-          </div>
-        </div>
-        <p class="quote">
-          "毎週末にプール、サウナ、ジム。こんな暮らし、日本では考えられませんでした！"
-        </p>
-      </article>
-
-      <article class="card" data-city="Penang" data-tags="Japanese Entry">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">R.N.（20代・男性）</div>
-            <div class="role">Travel Support｜Penang</div>
-          </div>
-        </div>
-        <p class="quote">
-          "休日は友達とビーチやナイトマーケットへ。仕事も遊びもバランスよく楽しめています！"
-        </p>
-      </article>
-
-      <article class="card" data-city="Bangkok" data-tags="Bilingual Experienced">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">K.H（チームリーダー）</div>
-            <div class="role">Team Lead｜Bangkok</div>
-          </div>
-        </div>
-        <p class="quote">
-          "年齢や在籍年数ではなく実力で評価。入社2年でTLに昇進、次はQA/マネージャーに挑戦中です。"
-        </p>
-      </article>
-
-      <article class="card" data-city="KL" data-tags="Bilingual Entry">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">S.H（バイリンガル）</div>
-            <div class="role">Tech Support｜KL</div>
-          </div>
-        </div>
-        <p class="quote">
-          "日本語中心のプロジェクトから英語比率の高い部署へ社内異動。GoFluentとOJTで無理なく英語力が上がりました。"
-        </p>
-      </article>
-
-      <article class="card" data-city="Penang" data-tags="Japanese Experienced">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">E.S（マネージャー）</div>
-            <div class="role">Operations Manager｜Penang</div>
-          </div>
-        </div>
-        <p class="quote">
-          "トレーナー→QA→TL→マネージャーへ。多国籍×実力主義の環境がキャリアを後押ししてくれます。"
-        </p>
-      </article>
-
-      <article class="card" data-city="Bangkok" data-tags="Japanese Entry">
-        <div class="profile">
-          <div class="avatar" style="background-image:url('photos/TPLogo11.png')" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">T.Y</div>
-            <div class="role">Customer Support｜Bangkok</div>
-          </div>
-        </div>
-        <p class="quote">
-          "日本食レストランやスーパーが充実。生活立ち上げが想像以上にスムーズでした。"
-        </p>
-      </article> -->
-    </div>
+      </section>
   </div>
-
-  <!-- Interview stories
-  <section class="section" aria-labelledby="story-title">
-    <h2 id="story-title">Interview Stories — ストーリーで知るTP</h2>
-
-    <article class="story">
-      <h3>"海外で働く最初の一歩" — 元営業職からCSへ（KL）</h3>
-      <dl>
-        <dt>応募理由</dt><dd>英語に自信がなくても日本語ポジションで挑戦できると知ったから。</dd>
-        <dt>入社の決め手</dt><dd>就労ビザ/航空券/到着後ホテルのサポートが手厚く、初めてでも安心だと感じた。</dd>
-        <dt>現在の仕事</dt><dd>大手Eコマースのカスタマーサポート（チャット/メール中心）。</dd>
-        <dt>成長実感</dt><dd>GoFluentで英語の土台を作り、社内のLanguage Bootcampで実務に活かせる表現が身についた。</dd>
-      </dl>
-    </article>
-
-    <article class="story">
-      <h3>"実力が認められる社風" — TLへの昇進（Bangkok）</h3>
-      <dl>
-        <dt>入社後1年</dt><dd>社内表彰を受け、スキルマトリクスで強みを可視化。</dd>
-        <dt>2年目</dt><dd>チームリーダーに昇進。メンター制度でマネジメントを学ぶ。</dd>
-        <dt>次の目標</dt><dd>QA/マネージャーへ。多国籍メンバーと働くことで視野が広がった。</dd>
-      </dl>
-    </article>
-  </section>  -->
-
-  <!-- CTA -->
-  <section class="section" aria-labelledby="cta-title">
-    <h2 id="cta-title">次は何をしますか？</h2>
-    <div class="video-grid" style="padding:0">
-      <div class="video-card">
-        <div class="video-meta">
-          <h3 class="video-title">求人を見る</h3>
-          <p class="video-desc">日本語スピーカー向けポジションが多数。未経験OKの案件も。</p>
-          <p><a class="btn" href="https://tpmyandtpth.github.io/JLP/open-jobs.html">求人一覧へ</a></p>
-        </div>
-      </div>
-      <div class="video-card">
-        <div class="video-meta">
-          <h3 class="video-title">移住・ビザサポート</h3>
-          <p class="video-desc">就労ビザ申請、航空券、到着後ホテル（MY）まで専門チームが伴走。</p>
-          <p><a class="btn" href="https://tpmyandtpth.github.io/JLP/relocation-visa.html">サポートを見る</a></p>
-        </div>
-      </div>
-      <div class="video-card">
-        <div class="video-meta">
-          <h3 class="video-title">カジュアル面談</h3>
-          <p class="video-desc">選考ではありません。日本語で30分、仕事/生活/移住の疑問を相談。</p>
-          <p><a class="btn" href="https://tpmyandtpth.github.io/JLP/casual-interview.html">予約する</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <!-- FOOTER -->
@@ -1444,12 +1345,13 @@ footer::before {
   
   <div class="footer-bottom">
     <p>&copy; 2025 TP. All rights reserved. |
-      <a href="https://tpmyandtpth.github.io/JLP/privacy.html">プライバシーポリシー</a> |
+      <a href="https://tpmyandtpth.github.io/JLP/privacy.html" aria-current="page">プライバシーポリシー</a> |
       <a href="https://tpmyandtpth.github.io/JLP/cookies.html">Cookieポリシー</a> |
       <a href="https://tpmyandtpth.github.io/JLP/terms.html">利用規約</a>
     </p>
   </div>
 </footer>
+
 
 <!-- Floating Apply Button -->
 <a href="https://careerseng-teleperformance.icims.com/jobs/49026/customer-service-representative---japanese-speaking-%28kl%29/job?mode=job&iis=JPLandingPage&iisn=" target="_blank" rel="noopener noreferrer" class="floating-apply" aria-label="今すぐ応募" onclick="trackCustomEvent('apply_click', {button_name: 'Apply Now - Japanese'})">応募する</a>
@@ -1464,6 +1366,7 @@ footer::before {
 
 <button class="back-to-top" id="backToTop" aria-label="ページトップへ">↑</button>
 
+
 <!-- JAVASCRIPT -->
 <script>
 // Mobile Menu Toggle with Error Handling
@@ -1471,14 +1374,14 @@ try {
   (function(){
     const toggle = document.getElementById('mobileToggle');
     const menu = document.getElementById('mobileMenu');
-    
+
     if(toggle && menu){
       toggle.addEventListener('click', function(){
         toggle.classList.toggle('active');
         menu.classList.toggle('active');
         toggle.setAttribute('aria-expanded', menu.classList.contains('active'));
       });
-      
+
       // Close menu when clicking links
       menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
@@ -1487,7 +1390,7 @@ try {
           toggle.setAttribute('aria-expanded', 'false');
         });
       });
-      
+
       // Close menu when clicking outside
       document.addEventListener('click', (e) => {
         if(!menu.contains(e.target) && !toggle.contains(e.target)) {
@@ -1507,7 +1410,7 @@ try {
   (function(){
     const backToTop = document.getElementById('backToTop');
     if(!backToTop) return;
-    
+
     window.addEventListener('scroll', () => {
       if(window.pageYOffset > 300){
         backToTop.classList.add('show');
@@ -1515,11 +1418,11 @@ try {
         backToTop.classList.remove('show');
       }
     });
-    
+
     backToTop.addEventListener('click', () => {
-      window.scrollTo({ 
-        top: 0, 
-        behavior: 'smooth' 
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
       });
     });
   })();
@@ -1527,84 +1430,25 @@ try {
   console.warn('Back to top button failed:', error);
 }
 
-// Testimonials Filter and Search with Error Handling
-try {
-  (function(){
-    const chips = document.querySelectorAll('.chip');
-    const list = document.getElementById('testimonialList');
-    const cards = list ? Array.from(list.querySelectorAll('.card')) : [];
-    const search = document.getElementById('searchInput');
-
-    function applyFilters(){
-      const active = Array.from(chips).filter(c => c.classList.contains('active') && c.dataset.filter !== 'all').map(c => c.dataset.filter);
-      const term = (search?.value || '').trim().toLowerCase();
-
-      cards.forEach(card => {
-        const city = card.dataset.city;
-        const tags = (card.dataset.tags || '').split(' ');
-        const text = card.textContent.toLowerCase();
-
-        const matchFilter = active.length === 0 || active.some(f => city === f || tags.includes(f));
-        const matchText = term === '' || text.includes(term);
-
-        card.style.display = (matchFilter && matchText) ? 'block' : 'none';
-      });
-    }
-
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        if(chip.dataset.filter === 'all'){
-          chips.forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-        } else {
-          chip.classList.toggle('active');
-          const allChip = document.querySelector('.chip[data-filter="all"]');
-          if(allChip) allChip.classList.remove('active');
-          
-          const anyActive = Array.from(chips).some(c => c !== allChip && c.classList.contains('active'));
-          if(!anyActive && allChip) allChip.classList.add('active');
-        }
-        applyFilters();
-      });
-    });
-
-    if(search) {
-      search.addEventListener('input', applyFilters);
-    }
-
-    // Simple read more toggles if needed
-    document.querySelectorAll('.more button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const p = btn.closest('.card').querySelector('.quote');
-        if(p) {
-          p.classList.toggle('expanded');
-          btn.textContent = p.classList.contains('expanded') ? '閉じる' : 'もっと読む';
-        }
-      });
-    });
-  })();
-} catch(error) {
-  console.warn('Filter setup failed:', error);
-}
-
-// Smooth Scroll for Anchor Links
+// Smooth Scroll for Anchor Links (table of contents)
 try {
   (function(){
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if(href === '#') return;
-        
-        e.preventDefault();
+
         const target = document.querySelector(href);
         if(target){
-          const offset = 70;
+          e.preventDefault();
+          const offset = 80;
           const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-          
+
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
           });
+          history.replaceState(null, '', href);
         }
       });
     });
@@ -1615,7 +1459,7 @@ try {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('TP Japan testimonials page initialized');
+  console.log('TP Japan privacy policy page initialized');
 });
 </script>
 </body>
