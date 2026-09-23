@@ -1,0 +1,54 @@
+# TP マレーシア・タイ 日本語スピーカー採用 (Japanese)
+
+> TP（旧テレパフォーマンス）マレーシア・タイの日本語スピーカー向け公式採用ページ。クアラルンプール、ペナン、バンコクで日本語を活かせるカスタマーエクスペリエンス職。就労ビザ・移住サポートあり。運営：TP Talent Acquisition。
+> Official Japanese-language careers page of TP (formerly Teleperformance) Malaysia and Thailand for Japanese speakers in Kuala Lumpur, Penang and Bangkok, with work visa and relocation support.
+
+TPは1978年にフランス・パリで設立されたBPO企業で、世界100カ国以上・50万人以上の従業員を擁します。Great Place to Work® により「World's Best Workplaces™」に5年連続で認定。マレーシア法人：Teleperformance Malaysia Sdn Bhd（SSM 201601023769 (1194708-K)）。
+
+## 主なポイント
+
+- 勤務都市：クアラルンプール、ペナン（マレーシア）、バンコク（タイ）。
+- オフィス：G Tower（KL、Ampang Park駅直結）、Livingston（ペナン）、One Precinct（ペナン、空港から15分）、GBS@Mahsuri（ペナン）、KCP（ケラナジャヤ）、Singha Complex（バンコク、BTS/MRT至近）。
+- 言語：日本語中心のポジションが多数。社内で基本的な英語が必要な場合もありますが、GoFluentなどの語学支援があります。
+- 福利厚生：医療保険、渡航サポート（片道航空券・初期ホテル）、各種手当（夜勤・住宅・時間外）、語学研修（GoFluent・Bootcamp）、キャリア支援（社内異動・昇進制度）、年次有給休暇。
+- ビザ：会社が申請を代行し、必要書類の準備から承認まで日本語でサポート。
+- 住居：現地エージェントの紹介とオリエンテーションでの案内。マレーシアでは一時滞在先の手配あり。
+- 勤務形態：プロジェクトにより日勤のみ、またはシフト勤務。
+- 期間の目安：応募から内定まで2〜3週間、ビザ申請から承認まで4〜6週間程度（個人差あり）。
+
+## 選考プロセス（すべてオンライン・各ステップ日本語サポート）
+
+1. 書類選考：履歴書／職務経歴書の提出
+2. オンラインテスト：語学・適性のショートテスト（PC/スマホ可）
+3. 一次面接（採用）：仕事内容と希望の確認
+4. 二次面接（配属）：配属チームとの面談
+5. オファー・ビザ手続き：就労ビザ申請から渡航手配まで伴走
+
+## ページ
+
+- [ホーム](https://tpmyandtpth.github.io/JLP/)
+- [求人一覧](https://tpmyandtpth.github.io/JLP/open-jobs.html)
+- [TPについて](https://tpmyandtpth.github.io/JLP/about-tp.html)
+- [給与・福利厚生](https://tpmyandtpth.github.io/JLP/salary-and-benefits.html)
+- [選考プロセス](https://tpmyandtpth.github.io/JLP/hiring-process.html)
+- [移住・ビザサポート](https://tpmyandtpth.github.io/JLP/relocation-visa.html)
+- [マレーシアとタイの魅力](https://tpmyandtpth.github.io/JLP/why-malaysia-thailand.html)
+- [生活費](https://tpmyandtpth.github.io/JLP/cost-of-living.html)
+- [マレーシアの暮らし](https://tpmyandtpth.github.io/JLP/daily-life-malaysia.html)
+- [オフィス周辺](https://tpmyandtpth.github.io/JLP/area-around-office.html)
+- [働く環境](https://tpmyandtpth.github.io/JLP/office-environment.html)
+- [採用チーム](https://tpmyandtpth.github.io/JLP/ta-team.html)
+- [カジュアル面談](https://tpmyandtpth.github.io/JLP/casual-interview.html)：面接ではなく約30分のオンライン相談
+- [社員の声](https://tpmyandtpth.github.io/JLP/testimonials.html)
+- [プライバシーポリシー](https://tpmyandtpth.github.io/JLP/privacy.html) · [Cookieポリシー](https://tpmyandtpth.github.io/JLP/cookies.html) · [利用規約](https://tpmyandtpth.github.io/JLP/terms.html)
+
+## 応募・お問い合わせ
+
+- [求人検索・応募（iCIMS）](https://careerseng-teleperformance.icims.com/jobs/search)
+- [カジュアル面談の申し込み（Microsoft Forms）](https://forms.office.com/e/2UvpbweQww)
+- [LINE公式アカウント](https://line.me/R/ti/p/@286nmdsd)
+
+## 他の言語
+
+- [TP マレーシア・タイ 求人ハブ](https://tpmyandtpth.github.io/LP/)
+- [English](https://tpmyandtpth.github.io/ELP/llms.txt) · [Korean](https://tpmyandtpth.github.io/KLP/llms.txt) · [Mandarin](https://tpmyandtpth.github.io/MLP/llms.txt) · [Thailand](https://tpmyandtpth.github.io/TLP/llms.txt)
