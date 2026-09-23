@@ -1208,6 +1208,102 @@ footer::before {
     grid-template-columns: 1fr;
   }
 }
+
+/* Videos (same styles as index.html) */
+.video-section {
+  padding: 40px 20px;
+}
+
+.video-grid {
+  max-width: var(--max);
+  margin: 1.5rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.video-card {
+  background: var(--tp-white);
+  border: 1px solid var(--tp-light);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.video-card:hover { 
+  transform: translateY(-3px); 
+  box-shadow: var(--shadow-lg); 
+  border-color: var(--tp-black); 
+}
+
+/* Full-width feature video (spans both grid columns) */
+.video-card--wide {
+  grid-column: 1 / -1;
+}
+
+.video-embed { 
+  aspect-ratio: 16 / 9; 
+  background: #000; 
+}
+
+.video-embed iframe { 
+  width: 100%; 
+  height: 100%; 
+  border: 0; 
+  display: block; 
+}
+
+.video-meta { 
+  padding: 12px 14px 16px; 
+}
+
+.video-title { 
+  font-size: .98rem; 
+  font-weight: 800; 
+  color: var(--tp-black); 
+  margin: 2px 0 6px; 
+}
+
+.video-desc { 
+  font-size: .82rem; 
+  color: var(--tp-gray); 
+  margin-bottom: 8px; 
+}
+
+.video-link { 
+  font-size: .85rem; 
+  text-decoration: underline; 
+}
+
+/* TA team videos: YouTube Shorts are vertical (9:16) */
+.ta-video-subhead {
+  max-width: var(--max);
+  margin: 2rem auto 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--tp-black);
+}
+
+.shorts-grid {
+  max-width: var(--max);
+  margin: 1rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.video-embed--short {
+  aspect-ratio: 9 / 16;
+}
+
+@media (max-width: 900px) {
+  .shorts-grid { grid-template-columns: repeat(2, 1fr); gap: .9rem; }
+}
+
+@media (max-width: 768px) {
+  .video-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1270,6 +1366,7 @@ footer::before {
     <div class="pill-nav" aria-label="ページ内目次">
       <a class="pill" href="#mission">私たちのミッション</a>
       <a class="pill" href="#team">メンバー紹介</a>
+      <a class="pill" href="#ta-videos">動画で見る</a>
       <a class="pill" href="#support">サポートの流れ</a>
       <a class="pill" href="#faq">よくある質問</a>
       <a class="pill" href="#contact">お問い合わせ</a>
@@ -1459,6 +1556,136 @@ footer::before {
         </ul>
       </div>
  -->
+    </div>
+  </section>
+
+  <!-- TA Team Videos -->
+  <section class="video-section" id="ta-videos">
+    <div class="container">
+      <h2 class="section-title">採用チーム紹介（動画）</h2>
+      <p class="section-subtitle">日本語で対応する採用担当が、動画でご挨拶します</p>
+
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/2H2FF1wrTXw" title="TPマレーシア・タイ：日本語対応 採用チームのご紹介" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">TPマレーシア・タイ：日本語対応 採用チームのご紹介</h3>
+            <p class="video-desc">応募から入社まで伴走する日本語スピーカーの採用チーム</p>
+            <a class="video-link" href="https://youtu.be/2H2FF1wrTXw" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <article class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/ZvLKs0Z-Q8g" title="TPマレーシア・タイ：採用チーム" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">TPマレーシア・タイ：採用チーム</h3>
+            <p class="video-desc">Joseph・Akito・Koyori・Taitoのチーム動画</p>
+            <a class="video-link" href="https://youtu.be/ZvLKs0Z-Q8g" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+      </div>
+
+      <h3 class="ta-video-subhead">採用担当からのメッセージ</h3>
+      <div class="shorts-grid">
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/SiCyrRccTf8" title="採用マネージャー Josephからのメッセージ" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用マネージャー Josephからのメッセージ</h3>
+            <p class="video-desc">【TPマレーシア・タイ】</p>
+            <a class="video-link" href="https://youtube.com/shorts/SiCyrRccTf8" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/2ZMJX6UH7sk" title="採用担当 Taitoからのメッセージ" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用担当 Taitoからのメッセージ</h3>
+            <p class="video-desc">【TPマレーシア・タイ】</p>
+            <a class="video-link" href="https://youtube.com/shorts/2ZMJX6UH7sk" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/_AEMtwN0040" title="採用担当 Koyoriからのメッセージ" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用担当 Koyoriからのメッセージ</h3>
+            <p class="video-desc">【TPマレーシア・タイ】</p>
+            <a class="video-link" href="https://youtube.com/shorts/_AEMtwN0040" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/R28cw2AFbXs" title="採用担当 Akitoからのメッセージ" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用担当 Akitoからのメッセージ</h3>
+            <p class="video-desc">【TPマレーシア・タイ】</p>
+            <a class="video-link" href="https://youtube.com/shorts/R28cw2AFbXs" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+      </div>
+
+      <h3 class="ta-video-subhead">採用担当のご紹介</h3>
+      <div class="shorts-grid">
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/Pjxwp4zKjFk" title="採用マネージャー Josephをご紹介！" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用マネージャー Josephをご紹介！</h3>
+            <p class="video-desc">TPマレーシア・タイ</p>
+            <a class="video-link" href="https://youtube.com/shorts/Pjxwp4zKjFk" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/toFyKt_aSd4" title="採用担当 Taitoをご紹介！" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用担当 Taitoをご紹介！</h3>
+            <p class="video-desc">TPマレーシア・タイ</p>
+            <a class="video-link" href="https://youtube.com/shorts/toFyKt_aSd4" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/dvi7vhE4kLE" title="採用担当 Koyoriをご紹介！" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用担当 Koyoriをご紹介！</h3>
+            <p class="video-desc">TPマレーシア・タイ</p>
+            <a class="video-link" href="https://youtube.com/shorts/dvi7vhE4kLE" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+
+        <!-- TODO: Akito intro short (採用担当 Akitoをご紹介！｜TPマレーシア・タイ) - replace VIDEO_ID and uncomment
+        <article class="video-card">
+          <div class="video-embed video-embed--short">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="採用担当 Akitoをご紹介！" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <header class="video-meta">
+            <h3 class="video-title">採用担当 Akitoをご紹介！</h3>
+            <p class="video-desc">TPマレーシア・タイ</p>
+            <a class="video-link" href="https://youtube.com/shorts/VIDEO_ID" target="_blank" rel="noopener noreferrer">YouTubeで見る →</a>
+          </header>
+        </article>
+        -->
+      </div>
     </div>
   </section>
 
